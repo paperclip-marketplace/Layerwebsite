@@ -5,9 +5,8 @@ import type { Metadata, Viewport } from "next";
 import "@material-symbols/font-400";
 import "./globals.css";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://www.withlayer.ai");
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),

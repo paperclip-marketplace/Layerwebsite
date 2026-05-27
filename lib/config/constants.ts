@@ -1,13 +1,17 @@
 export const APP_CONFIG = {
-  name: 'PersonaPitch AI',
+  name: 'Layer AI',
   description: 'AI-powered sales conversation training',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.withlayer.ai',
 } as const;
+
+const LAYER_APP_URL =
+  process.env.NEXT_PUBLIC_LAYER_APP_URL ||
+  'https://app.withlayer.ai';
 
 export const ROUTES = {
   home: '/',
-  signIn: '/sign-in',
-  signUp: '/sign-up',
+  signIn: `${LAYER_APP_URL}/sign-in`,
+  signUp: `${LAYER_APP_URL}/sign-up`,
   /** Invited members: workspace + profile (cannot skip; must finish before main onboarding on `/`). */
   preOnboarding: '/pre-onboarding',
   onboarding: '/onboarding',

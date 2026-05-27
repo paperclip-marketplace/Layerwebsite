@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type RefObject } from "react";
 import styles from "./landing-key-metrics-section.module.css";
 import {
   usePinnedHorizontalScroll,
@@ -114,13 +114,13 @@ function MetricCardTrack({
   translateX,
   pinEnabled,
 }: {
-  trackRef: React.RefObject<HTMLDivElement | null>;
+  trackRef: RefObject<HTMLDivElement | null>;
   translateX: number;
   pinEnabled: boolean;
 }) {
   return (
     <div
-      ref={trackRef}
+      ref={trackRef as RefObject<HTMLDivElement>}
       className={`${styles.track} landing-key-metrics-section__track ${pinEnabled ? styles.trackPinned : ""}`}
       role="list"
       style={
