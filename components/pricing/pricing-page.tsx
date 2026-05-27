@@ -5,8 +5,6 @@ import "@/components/landing/landing-fluid.css";
 import "@/components/landing/landing-mobile.module.css";
 import styles from "./pricing-page.module.css";
 import { PricingComparisonSection } from "./pricing-comparison-section";
-import { PricingCtaCardsSection } from "./pricing-cta-cards-section";
-import { PricingFaqSection } from "./pricing-faq-section";
 import { PricingHeroSection } from "./pricing-hero-section";
 
 export function PricingPage() {
@@ -20,8 +18,6 @@ export function PricingPage() {
           <div className={styles.clientsSpacing}>
             <OurClientSection />
           </div>
-          <PricingCtaCardsSection />
-          <PricingFaqSection />
         </main>
       </div>
       <LandingFooter />

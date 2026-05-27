@@ -10,74 +10,6 @@
   padding: 0 var(--l-section-px);
 }
 
-.billingToggle {
-  display: flex;
-  flex-shrink: 0;
-  align-items: flex-start;
-  padding: calc(4 * var(--l-vw));
-  border: 1px solid #eee;
-  border-radius: calc(16 * var(--l-vw));
-  background: #f9f9f9;
-}
-
-.billingOption {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: calc(10 * var(--l-vw));
-  margin: 0;
-  padding: calc(20 * var(--l-vw)) calc(40 * var(--l-vw));
-  border: none;
-  border-radius: calc(16 * var(--l-vw));
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-24);
-  line-height: var(--l-lh-24);
-  letter-spacing: var(--l-tracking);
-  white-space: nowrap;
-  cursor: pointer;
-  background: transparent;
-}
-
-.billingOptionActive {
-  font-weight: 500;
-  color: #ffffff;
-  border: calc(4 * var(--l-vw)) solid #fcccbd;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 100%),
-    linear-gradient(
-      180deg,
-      #f45523 0%,
-      #fb9a45 35.096%,
-      #fb9a45 62.019%,
-      #f45523 100%
-    );
-}
-
-.billingOptionInactive {
-  font-weight: 400;
-  color: #606060;
-}
-
-.billingOptionYearlyActive {
-  font-weight: 500;
-  color: #020100;
-  background: #ffffff;
-}
-
-.saveBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: calc(4 * var(--l-vw)) calc(12 * var(--l-vw));
-  border-radius: 99px;
-  font-size: var(--l-fs-16);
-  font-weight: 400;
-  line-height: var(--l-lh-16);
-  letter-spacing: var(--l-tracking);
-  color: #606060;
-  background: #eee;
-}
-
 .cardsRow {
   display: flex;
   gap: calc(20 * var(--l-vw));
@@ -373,16 +305,6 @@
   .section {
     margin-top: calc(48 * var(--l-vw));
     gap: calc(32 * var(--l-vw));
-  }
-
-  .billingToggle {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .billingOption {
-    width: 100%;
-    white-space: normal;
   }
 
   .planTitle {
