@@ -397,6 +397,14 @@
 }
 
 @media (max-width: 768px) {
+  .landing-main .landing-page-gutter .landing-problem-citation {
+    box-sizing: border-box;
+    padding-top: 5px;
+    padding-bottom: 24px;
+    padding-left: calc(var(--l-inset-x, 20px) + var(--l-text-pl-extra));
+    padding-right: var(--l-inset-x, 20px);
+  }
+
   .landing-main .landing-page-gutter .landing-problem-section,
   .landing-main .landing-page-gutter .landing-what-we-do-section,
   .landing-main .landing-page-gutter .landing-why-now-section,
