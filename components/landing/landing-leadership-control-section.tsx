@@ -28,7 +28,7 @@ export function LandingLeadershipControlSection() {
         >
           <span className={styles.headlineLine}>
             Leadership defines the standard.{" "}
-            <span className={styles.highlight}>Agents reinforces</span>
+            <span className={styles.highlight}>Agents reinforce</span>
           </span>
           <span className={`${styles.headlineLine} ${styles.highlight}`}>
             it at every touchpoint.
