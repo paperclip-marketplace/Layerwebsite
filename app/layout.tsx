@@ -5,14 +5,16 @@ import type { Metadata, Viewport } from "next";
 import "@material-symbols/font-400";
 import "./globals.css";
 
+const siteTitle = "Layer AI | Agentic GTM Performance Platform";
+const siteDescription =
+  "AI agents for revenue teams that source, prepare, practise, support live calls, automate follow-up, and coach every interaction.";
 const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://www.withlayer.ai");
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Layer AI - AI-Powered Sales Training",
-  description:
-    "Master your sales conversations with AI-powered persona training and real-time coaching",
+  title: siteTitle,
+  description: siteDescription,
   icons: {
     icon: [
       {
@@ -23,15 +25,16 @@ export const metadata: Metadata = {
     apple: "/assets/images/layer-logo.svg",
   },
   keywords: [
-    "sales training",
-    "AI coaching",
-    "conversation practice",
-    "sales personas",
+    "GTM performance",
+    "revenue teams",
+    "AI agents",
+    "sales coaching",
+    "sales enablement",
   ],
   authors: [{ name: "Layer AI Team" }],
   openGraph: {
-    title: "Layer AI",
-    description: "AI-powered sales conversation training platform",
+    title: siteTitle,
+    description: siteDescription,
     url: defaultUrl,
     siteName: "Layer AI",
     images: ["/thumbnail_image.png"],
@@ -39,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Layer AI",
-    description: "AI-powered sales conversation training platform",
+    title: siteTitle,
+    description: siteDescription,
     images: ["/thumbnail_image.png"],
   },
   robots: {

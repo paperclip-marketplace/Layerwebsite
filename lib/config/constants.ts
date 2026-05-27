@@ -1,6 +1,7 @@
 export const APP_CONFIG = {
   name: 'Layer AI',
-  description: 'AI-powered sales conversation training',
+  description:
+    'AI agents for revenue teams that source, prepare, practise, support live calls, automate follow-up, and coach every interaction.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.withlayer.ai',
 } as const;
 
