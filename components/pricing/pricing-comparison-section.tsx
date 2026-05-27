@@ -88,7 +88,6 @@ function OrgFeatureRow({ feature }: { feature: OrgFeature }) {
 }
 
 export function PricingComparisonSection() {
-  const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [creditsOpen, setCreditsOpen] = useState(false);
 
   return (
@@ -98,33 +97,6 @@ export function PricingComparisonSection() {
       data-name="Pricing comparison"
       data-node-id="336:1761"
     >
-      <div
-        className={styles.billingToggle}
-        role="tablist"
-        aria-label="Billing frequency"
-        data-node-id="336:1762"
-      >
-        <button
-          type="button"
-          role="tab"
-          aria-selected={billing === "monthly"}
-          className={`${styles.billingOption} ${billing === "monthly" ? styles.billingOptionActive : ""}`}
-          onClick={() => setBilling("monthly")}
-        >
-          Monthly Billing
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={billing === "yearly"}
-          className={`${styles.billingOption} ${styles.billingOptionInactive} ${billing === "yearly" ? styles.billingOptionYearlyActive : ""}`}
-          onClick={() => setBilling("yearly")}
-        >
-          <span>Yearly Billing</span>
-          <span className={styles.saveBadge}>Save 20%</span>
-        </button>
-      </div>
-
       <div className={styles.cardsRow} data-node-id="336:1769">
         <article
           className={`${styles.planCard} ${styles.planCardTeam}`}

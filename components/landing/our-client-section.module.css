@@ -6,7 +6,8 @@
   box-sizing: border-box;
   width: 100%;
   gap: var(--l-section-gap);
-  padding-block: var(--l-section-py);
+  padding-top: var(--l-section-py);
+  padding-bottom: calc(var(--l-section-py) * 2);
 }
 
 .copyRow {
@@ -186,7 +187,8 @@
 @media (max-width: 768px) {
   .section {
     gap: 32px;
-    padding-block: 40px;
+    padding-top: 40px;
+    padding-bottom: 80px;
     padding-inline: 0;
   }
 
