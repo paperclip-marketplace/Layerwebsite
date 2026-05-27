@@ -1,0 +1,90 @@
+/* Figma 713:895 — The Solution */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-py) var(--l-section-px);
+}
+
+.eyebrow {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.headline,
+.description {
+  font-family: var(--layer-font-geist-sans);
+  font-weight: 400;
+  letter-spacing: var(--l-tracking);
+}
+
+.headline {
+  font-size: var(--l-fs-72);
+  line-height: var(--l-lh-72);
+  color: #020100;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.description {
+  font-size: var(--l-fs-20);
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+@media (max-width: 768px) {
+  .section {
+    gap: 32px;
+    padding: calc(40 * var(--l-vw)) var(--l-inset-x, 20px);
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: nowrap;
+  }
+
+  .headline {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .section :global(.landing-copy-row) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .section :global(.landing-copy-headline),
+  .section :global(.landing-copy-aside) {
+    width: 100%;
+    max-width: none;
+  }
+}

@@ -1,0 +1,263 @@
+/* Figma 713:438 — copy + horizontal logo ticker */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  gap: var(--l-section-gap);
+  padding-block: var(--l-section-py);
+}
+
+.copyRow {
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: var(--l-section-px);
+}
+
+@media (width > 1440px) {
+  .section {
+    position: relative;
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+  }
+
+  .section::before,
+  .section::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    pointer-events: none;
+  }
+
+  .section::before {
+    top: 0;
+    border-top: 1px solid #dedede;
+  }
+
+  .section::after {
+    bottom: 0;
+    border-top: 1px solid #dedede;
+  }
+}
+
+.copy {
+  margin: 0;
+  max-width: none;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.tickerWrap {
+  width: 100%;
+}
+
+.marqueeViewport {
+  position: relative;
+  width: 100%;
+  height: var(--l-logo-h);
+  overflow: hidden;
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: var(--l-logo-h);
+  gap: var(--l-logo-gap);
+  animation: clientsMarquee var(--clients-marquee-duration, 72s) linear infinite;
+  will-change: transform;
+}
+
+@keyframes clientsMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoCell {
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .logoCellActive {
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .marqueeTrack {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    padding-inline: var(--l-section-px);
+    animation: none;
+    gap: var(--l-logo-gap);
+  }
+
+  .marqueeViewport {
+    height: auto;
+    min-height: var(--l-logo-h);
+    overflow: visible;
+  }
+
+  .fadeLeft,
+  .fadeRight {
+    display: none;
+  }
+}
+
+.logoCell {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--l-logo-w);
+  height: var(--l-logo-h);
+  filter: grayscale(1);
+  opacity: 0.38;
+  transition:
+    filter 0.28s ease,
+    opacity 0.28s ease;
+}
+
+.logoCellActive {
+  filter: none;
+  opacity: 1;
+}
+
+.logoImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+}
+
+.logoImgContain {
+  object-fit: contain;
+  object-position: center;
+}
+
+.logoImgContainBottom {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.fadeLeft,
+.fadeRight {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  width: var(--l-logo-fade-w);
+  height: var(--l-logo-h);
+  pointer-events: none;
+}
+
+.fadeLeft {
+  left: -1px;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(
+    270deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Figma 513:1194 — Forward Thinking Logos Container (mobile only) */
+@media (max-width: 768px) {
+  .section {
+    gap: 32px;
+    padding-block: 40px;
+    padding-inline: 0;
+  }
+
+  .copyRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding-inline: var(--l-inset-x, 20px);
+  }
+
+  .copy {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+    color: #020100;
+  }
+
+  .tickerWrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .marqueeViewport {
+    height: 64px;
+  }
+
+  .marqueeTrack {
+    gap: 40px;
+    height: 64px;
+  }
+
+  .logoCell {
+    width: 136px;
+    height: 64px;
+  }
+
+  .fadeLeft,
+  .fadeRight {
+    width: 131px;
+    height: 64px;
+  }
+
+  .fadeLeft {
+    left: 0;
+  }
+
+  .fadeRight {
+    right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 768px) {
+  .marqueeTrack {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-inline: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .marqueeTrack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .marqueeViewport {
+    height: 64px;
+    overflow: visible;
+  }
+}

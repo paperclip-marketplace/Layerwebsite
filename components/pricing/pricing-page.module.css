@@ -1,0 +1,29 @@
+.page {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #ffffff;
+}
+
+.main {
+  width: 100%;
+  max-width: none;
+  --landing-header-h: 64px;
+  padding-top: var(--landing-header-h);
+}
+
+.clientsSpacing {
+  margin-top: var(--l-pricing-clients-mt);
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: var(--landing-header-h);
+  }
+
+  /* Global 20px gutter — see .landing-page-gutter in landing-fluid.css */
+  .landing-page-gutter .main.landing-main__inner {
+    padding-inline: 0;
+  }
+}

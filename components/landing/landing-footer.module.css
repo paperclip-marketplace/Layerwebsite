@@ -1,0 +1,227 @@
+/* Figma 336:1655 — Footer Content */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+
+.card {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  min-width: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40px;
+  border-radius: 40px;
+  background: #f9f9f9;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logoColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 830px;
+}
+
+.logoLink {
+  display: flex;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  width: 225px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  width: 73px;
+  height: 54px;
+  flex-shrink: 0;
+}
+
+.logoWordmark {
+  width: 131px;
+  height: 47px;
+  flex-shrink: 0;
+}
+
+.nav {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0;
+  min-width: 0;
+  margin-left: auto;
+}
+
+.navPrimary,
+.navSecondary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: auto;
+}
+
+.navPrimary {
+  flex-shrink: 0;
+}
+
+.linkPrimary,
+.linkSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  border-radius: 8px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 500;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.linkPrimary {
+  color: #020100;
+}
+
+.linkSecondary {
+  color: #8d8d8d;
+}
+
+.linkPrimary:hover,
+.linkSecondary:hover {
+  opacity: 0.8;
+}
+
+.copyright {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 500;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+  white-space: nowrap;
+}
+
+@media (width > 1440px) {
+  .section:global(.landing-shell-x) {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+    padding-inline: max(
+      var(--l-content-inset-x),
+      calc((100vw - var(--l-shell-w)) / 2 + var(--l-content-inset-x))
+    );
+  }
+
+  .section:global(.landing-shell-x)::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    background: #f9f9f9;
+    pointer-events: none;
+  }
+
+  .card {
+    border-radius: 0;
+    background: transparent;
+  }
+}
+
+@media (max-width: 1200px) {
+  .section {
+    padding: calc(10 * var(--l-vw)) calc(10 * var(--l-vw)) 0;
+  }
+
+  .logo {
+    width: calc(180 * var(--l-vw));
+    height: calc(44 * var(--l-vw));
+    gap: calc(12 * var(--l-vw));
+  }
+
+  .logoMark {
+    width: calc(58 * var(--l-vw));
+    height: calc(43 * var(--l-vw));
+  }
+
+  .logoWordmark {
+    width: calc(105 * var(--l-vw));
+    height: calc(38 * var(--l-vw));
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: calc(10 * var(--l-vw)) 0;
+  }
+
+  .card {
+    gap: calc(40 * var(--l-vw));
+    padding: calc(20 * var(--l-vw));
+    border-radius: calc(24 * var(--l-vw));
+  }
+
+  .topRow {
+    flex-direction: column;
+    gap: calc(40 * var(--l-vw));
+  }
+
+  .logoColumn {
+    max-width: none;
+  }
+
+  .logo {
+    width: calc(157 * var(--l-vw));
+    height: calc(39 * var(--l-vw));
+    gap: calc(12 * var(--l-vw));
+  }
+
+  .logoMark {
+    width: calc(50 * var(--l-vw));
+    height: calc(37 * var(--l-vw));
+  }
+
+  .logoWordmark {
+    width: calc(92 * var(--l-vw));
+    height: calc(33 * var(--l-vw));
+  }
+
+  .nav {
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .copyright {
+    font-size: var(--l-fs-16);
+    white-space: normal;
+  }
+}

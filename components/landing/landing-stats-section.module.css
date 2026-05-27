@@ -1,0 +1,129 @@
+/* Figma 336:1547 — Ramp Time Container */
+.section {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+
+.card {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  min-width: 0;
+  box-sizing: border-box;
+  padding: var(--l-section-px);
+  border-radius: calc(40 * var(--l-vw));
+  background: #f9f9f9;
+}
+
+.cardTitle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Figma 451:573 — Ellipse 1 (16×16, text/tartiary) */
+.dot {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #8d8d8d;
+}
+
+.label {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.metric {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-end;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.value {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-end;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-132);
+  font-weight: 400;
+  line-height: var(--l-lh-132);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.valuePrefix {
+  flex-shrink: 0;
+}
+
+.unit {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-40);
+  font-weight: 400;
+  line-height: var(--l-lh-40);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+@media (max-width: 1200px) {
+  .section {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .label {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 10px;
+  }
+
+  .card {
+    gap: calc(24 * var(--l-vw));
+    min-height: var(--l-stats-card-min-h);
+    padding: calc(32 * var(--l-vw));
+    border-radius: calc(24 * var(--l-vw));
+  }
+
+  .label {
+    font-size: var(--l-fs-28);
+    line-height: var(--l-lh-28);
+  }
+
+  .value {
+    font-size: var(--l-fs-92);
+    line-height: var(--l-lh-92);
+  }
+
+  .unit {
+    font-size: var(--l-fs-40);
+    line-height: var(--l-lh-40);
+  }
+}

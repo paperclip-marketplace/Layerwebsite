@@ -1,0 +1,94 @@
+/* Figma 713:1064 — Leadership Control Section Title */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(120 * var(--l-vw)) var(--l-section-px) calc(120 * var(--l-vw));
+  background: #ffffff;
+}
+
+.eyebrow {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.headline,
+.description {
+  font-family: var(--layer-font-geist-sans);
+  font-weight: 400;
+  letter-spacing: var(--l-tracking);
+}
+
+.headline {
+  font-size: var(--l-fs-72);
+  line-height: var(--l-lh-72);
+  color: #020100;
+}
+
+.description {
+  font-size: var(--l-fs-20);
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+  padding-right: 2px;
+}
+
+/* Figma 513:1969 — mobile, aligned with Problem section (513:1771) */
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 20px;
+    gap: 32px;
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: normal;
+  }
+
+  .section :global(.landing-copy-row) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .section :global(.landing-copy-headline),
+  .section :global(.landing-copy-aside) {
+    flex: none;
+    width: 100%;
+    max-width: none;
+  }
+
+  .headline {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+}

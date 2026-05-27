@@ -1,0 +1,27 @@
+.page {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #ffffff;
+}
+
+.main {
+  width: 100%;
+  max-width: none;
+  --landing-header-h: 64px;
+  padding-top: var(--landing-header-h);
+  padding-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+  /* Offset handled by .landing-mobile-title-section (56px + 32px) below fixed header */
+  .main.landing-main__inner {
+    padding-top: 0;
+  }
+
+  /* Global 20px gutter — see .landing-page-gutter in landing-fluid.css */
+  .landing-page-gutter .main.landing-main__inner {
+    padding-inline: 0;
+  }
+}

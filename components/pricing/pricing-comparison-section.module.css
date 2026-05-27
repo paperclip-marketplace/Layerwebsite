@@ -1,0 +1,391 @@
+/* Figma 336:1761 — Pricing comparison */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: calc(64 * var(--l-vw));
+  padding: 0 var(--l-section-px);
+}
+
+.billingToggle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  padding: calc(4 * var(--l-vw));
+  border: 1px solid #eee;
+  border-radius: calc(16 * var(--l-vw));
+  background: #f9f9f9;
+}
+
+.billingOption {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(10 * var(--l-vw));
+  margin: 0;
+  padding: calc(20 * var(--l-vw)) calc(40 * var(--l-vw));
+  border: none;
+  border-radius: calc(16 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+}
+
+.billingOptionActive {
+  font-weight: 500;
+  color: #ffffff;
+  border: calc(4 * var(--l-vw)) solid #fcccbd;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 100%),
+    linear-gradient(
+      180deg,
+      #f45523 0%,
+      #fb9a45 35.096%,
+      #fb9a45 62.019%,
+      #f45523 100%
+    );
+}
+
+.billingOptionInactive {
+  font-weight: 400;
+  color: #606060;
+}
+
+.billingOptionYearlyActive {
+  font-weight: 500;
+  color: #020100;
+  background: #ffffff;
+}
+
+.saveBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(4 * var(--l-vw)) calc(12 * var(--l-vw));
+  border-radius: 99px;
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+  background: #eee;
+}
+
+.cardsRow {
+  display: flex;
+  gap: calc(20 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.planCard {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  min-width: 0;
+  box-sizing: border-box;
+  padding: calc(40 * var(--l-vw));
+  border-radius: calc(40 * var(--l-vw));
+}
+
+.planCardTeam {
+  border: calc(2 * var(--l-vw)) solid #eee;
+}
+
+.planCardOrg {
+  border: 1px solid #eee;
+}
+
+.planHeader {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+  width: 100%;
+}
+
+.planTitleRow {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--l-vw));
+  width: 100%;
+}
+
+.planTitle {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-32);
+  font-weight: 600;
+  line-height: var(--l-lh-32);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  white-space: nowrap;
+}
+
+.popularBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(6 * var(--l-vw)) calc(14 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #f45523;
+  white-space: nowrap;
+  background: #faede9;
+}
+
+.planDescription {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+.priceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: calc(12 * var(--l-vw));
+  width: 100%;
+}
+
+.price {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(56 * var(--l-vw));
+  font-weight: 500;
+  line-height: calc(64 / 56);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  white-space: nowrap;
+}
+
+.priceSuffix {
+  padding-bottom: calc(8 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+  white-space: nowrap;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--l-vw));
+  width: 100%;
+}
+
+.ctaPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(15 * var(--l-vw));
+  width: 100%;
+  padding: calc(24 * var(--l-vw)) calc(40 * var(--l-vw));
+  border: 1px solid #ffffff;
+  border-radius: calc(16 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  font-weight: 500;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0 calc(2 * var(--l-vw)) calc(4 * var(--l-vw)) rgba(0, 0, 0, 0.24);
+  background: linear-gradient(180deg, #292120 0%, #1f1714 100%);
+  box-shadow: 0 calc(4 * var(--l-vw)) calc(6 * var(--l-vw)) rgba(0, 0, 0, 0.3);
+  transition: opacity 0.15s ease;
+}
+
+.ctaPrimary:hover {
+  opacity: 0.92;
+}
+
+.ctaPrimary .material-symbols-rounded {
+  font-size: var(--l-fs-24);
+  line-height: 1;
+}
+
+.ctaCredits {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(12 * var(--l-vw));
+  width: 100%;
+  padding: calc(24 * var(--l-vw)) calc(40 * var(--l-vw));
+  border: 1px solid #dedede;
+  border-radius: calc(16 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  text-align: left;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.ctaCredits .material-symbols-rounded {
+  flex-shrink: 0;
+  font-size: var(--l-fs-24);
+  line-height: 1;
+}
+
+.ctaHighlight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: calc(24 * var(--l-vw)) calc(40 * var(--l-vw));
+  border: 1px solid #fcccbd;
+  border-radius: calc(16 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  text-align: center;
+  background: #faede9;
+}
+
+.featuresBox {
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(32 * var(--l-vw));
+  border: 1px solid #dedede;
+  border-radius: calc(20 * var(--l-vw));
+}
+
+.featuresBoxOrg {
+  background: #f9f9f9;
+}
+
+.featuresHeading {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 500;
+  line-height: calc(32 / 20);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  width: 100%;
+}
+
+.featureRow {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--l-vw));
+  padding: calc(4 * var(--l-vw)) calc(8 * var(--l-vw));
+  width: 100%;
+}
+
+.checkIcon {
+  flex-shrink: 0;
+  font-size: var(--l-fs-24);
+  line-height: 1;
+  color: #009360;
+}
+
+.featureText {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.orgFeatureRow {
+  display: flex;
+  align-items: flex-start;
+  padding: calc(4 * var(--l-vw)) calc(8 * var(--l-vw));
+  width: 100%;
+}
+
+.orgFeatureInner {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(8 * var(--l-vw));
+  min-width: 0;
+}
+
+.orgFeatureTitleRow {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--l-vw));
+  width: 100%;
+}
+
+.orgFeatureDescription {
+  margin: 0;
+  padding-left: calc(36 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+@media (max-width: 1100px) {
+  .cardsRow {
+    flex-direction: column;
+  }
+
+  .planCard {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    margin-top: calc(48 * var(--l-vw));
+    gap: calc(32 * var(--l-vw));
+  }
+
+  .billingToggle {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .billingOption {
+    width: 100%;
+    white-space: normal;
+  }
+
+  .planTitle {
+    white-space: normal;
+  }
+}

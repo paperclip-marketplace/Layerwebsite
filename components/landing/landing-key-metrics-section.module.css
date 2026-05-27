@@ -1,0 +1,242 @@
+/* Figma 336:1604 — Key Metrics */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-split-pad-x);
+  padding-bottom: 80px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.sectionPinned {
+  overflow: visible;
+  scroll-snap-type: none;
+  padding: 0 0 80px;
+  --split-pin-x-pad: 32px;
+  --metrics-pin-y-pad: 20px;
+  --metrics-available-h: calc(
+    100svh - var(--landing-header-h, 64px) - var(--metrics-pin-y-pad) * 2
+  );
+  --metrics-available-w: 100vw;
+  --metrics-card-w: min(
+    var(--metrics-available-w),
+    calc(
+      var(--metrics-available-h) * var(--l-metrics-design-w) /
+        var(--l-metrics-design-h)
+    )
+  );
+}
+
+@media (min-width: 1201px) {
+  .sectionPinned .pinSpacer {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+}
+
+.pinSpacer {
+  position: relative;
+  width: 100%;
+  min-height: 500vh;
+}
+
+.pinSticky {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100svh - var(--landing-header-h, 64px));
+  padding: var(--metrics-pin-y-pad) 0;
+  overflow: visible;
+}
+
+.track {
+  display: flex;
+  gap: var(--l-split-pad-x);
+  align-items: flex-start;
+  width: max-content;
+  min-width: 100%;
+}
+
+.sectionPinned .track {
+  min-width: 0;
+  align-items: center;
+}
+
+.trackPinned {
+  will-change: transform;
+  transition: none;
+}
+
+.card {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  width: var(--l-metrics-card-w-fluid);
+  overflow: hidden;
+  border-radius: calc(40 * var(--l-vw));
+  scroll-snap-align: start;
+}
+
+/* Pinned desktop: scale card + type like split-section (cqh/cqw) */
+.sectionPinned [data-pin-scroll-card] {
+  container-type: size;
+  container-name: metrics-card;
+  width: var(--metrics-card-w);
+  height: calc(
+    var(--metrics-card-w) * var(--l-metrics-design-h) / var(--l-metrics-design-w)
+  );
+  border-radius: calc(40 / 648 * 100cqh);
+}
+
+.cardGray {
+  background: #f9f9f9;
+}
+
+.cardPeach {
+  background: #faede9;
+}
+
+.imageArea {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: var(--l-metrics-image-h-fluid);
+}
+
+.sectionPinned .imageArea {
+  flex: 0 0 calc(368 / 648 * 100cqh);
+  height: calc(368 / 648 * 100cqh);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.imageFadeGray {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 50%,
+    #f9f9f9 100%
+  );
+}
+
+.imageFadePeach {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 237, 233, 0) 50%,
+    #faede9 100%
+  );
+}
+
+.textBlock {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(24 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 0;
+  padding: calc(40 * var(--l-vw));
+}
+
+.sectionPinned .textBlock {
+  flex: 1 1 0;
+  gap: calc(24 / 648 * 100cqh);
+  padding: calc(40 / 648 * 100cqh) calc(40 / 456 * 100cqw);
+}
+
+.title {
+  width: 100%;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-48);
+  font-weight: 400;
+  line-height: var(--l-lh-48);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.sectionPinned .title {
+  font-size: calc(48 / 648 * 100cqh);
+  line-height: calc(56 / 648 * 100cqh);
+  letter-spacing: calc(-1.92 / 48 * 1em);
+}
+
+.description {
+  width: 100%;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+}
+
+.sectionPinned .description {
+  font-size: calc(24 / 648 * 100cqh);
+  line-height: calc(32 / 648 * 100cqh);
+  letter-spacing: calc(-0.96 / 24 * 1em);
+}
+
+@media (max-width: 1200px) {
+  .card {
+    width: var(--l-metrics-card-w-fluid);
+    border-radius: calc(32 * var(--l-vw));
+  }
+
+  .imageArea {
+    height: var(--l-metrics-image-h-fluid);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 0 0 80px;
+  }
+
+  .card {
+    width: 320px;
+    height: 426px;
+    border-radius: 40px;
+  }
+
+  .imageArea {
+    height: 186px;
+  }
+
+  .textBlock {
+    gap: 12px;
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 32px;
+    line-height: 48px;
+    letter-spacing: -1.28px;
+  }
+
+  .description {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.8px;
+  }
+}

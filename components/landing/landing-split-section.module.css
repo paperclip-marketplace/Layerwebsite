@@ -1,0 +1,993 @@
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 var(--l-split-pad-x) var(--l-split-pad-b);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.sectionPinned {
+  overflow: visible;
+  scroll-snap-type: none;
+  padding-inline: 0;
+  /* Figma 336:1384 — 1120×748; scale to fit viewport below header */
+  --split-design-w: 1120;
+  --split-design-h: 748;
+  --split-pin-y-pad: 20px;
+  --split-pin-x-pad: 32px;
+  --split-available-h: calc(
+    100svh - var(--landing-header-h, 64px) - var(--split-pin-y-pad) * 2
+  );
+  --split-available-w: 100vw;
+  --split-card-h: var(--split-available-h);
+  --split-card-w: min(
+    var(--split-available-w),
+    calc(var(--split-card-h) * var(--split-design-w) / var(--split-design-h))
+  );
+}
+
+@media (min-width: 1201px) {
+  .sectionPinned .pinSpacer {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+}
+
+.pinSpacer {
+  position: relative;
+  width: 100%;
+  min-height: 500vh;
+}
+
+.pinSticky {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100svh - var(--landing-header-h, 64px));
+  padding: var(--split-pin-y-pad, 24px) 0;
+  overflow: visible;
+}
+
+.track {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  width: max-content;
+  min-width: 100%;
+}
+
+.sectionPinned .track {
+  min-width: 0;
+}
+
+.trackPinned {
+  will-change: transform;
+  transition: none;
+}
+
+.sectionPinned .track {
+  align-items: center;
+}
+
+.cardOuter {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: stretch;
+  width: 1120px;
+  min-height: 748px;
+  height: 748px;
+  overflow: hidden;
+  border-radius: 25px;
+  isolation: isolate;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 1201px) {
+  .card {
+    width: 1120px;
+    min-height: 748px;
+    height: 748px;
+    border-radius: 25px;
+  }
+}
+
+/* Pinned desktop: proportional Figma layout scaled to container (cqh/cqw) */
+.sectionPinned .cardOuter {
+  width: var(--split-card-w);
+  height: var(--split-card-h);
+  max-height: var(--split-card-h);
+  overflow: hidden;
+  border-radius: calc(25 / 748 * var(--split-card-h));
+}
+
+.sectionPinned .card {
+  container-type: size;
+  container-name: split-card;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  border-radius: calc(25 / 748 * 100cqh);
+}
+
+/* Figma 336:1385 — header zone (748 − 532 = 216px) */
+.sectionPinned .cardHeader {
+  flex: 0 0 calc(216 / 748 * 100cqh);
+  gap: calc(16 / 748 * 100cqh);
+  padding: calc(40 / 748 * 100cqh) calc(40 / 1120 * 100cqw);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.sectionPinned .cardTitleRow {
+  font-size: calc(48 / 748 * 100cqh);
+  line-height: calc(56 / 748 * 100cqh);
+  letter-spacing: calc(-1.92 / 48 * 1em);
+}
+
+.sectionPinned .cardDescription {
+  font-size: calc(28 / 748 * 100cqh);
+  line-height: calc(32 / 748 * 100cqh);
+  letter-spacing: calc(-1.12 / 28 * 1em);
+}
+
+.sectionPinned .cardPrepare .cardDescription {
+  line-height: 0;
+}
+
+.sectionPinned .cardPrepare .cardDescription span {
+  line-height: calc(32 / 748 * 100cqh);
+}
+
+/* Figma 336:1390 — visual block 532/748 of card height */
+.sectionPinned .cardVisual {
+  flex: 0 0 calc(532 / 748 * 100cqh);
+  width: 100%;
+  height: calc(532 / 748 * 100cqh);
+  min-height: 0;
+  margin-top: 0;
+  padding: 0 calc(40 / 1120 * 100cqw) 0;
+  overflow: hidden;
+  border-radius: 0 0 calc(25 / 748 * 100cqh) calc(25 / 748 * 100cqh);
+}
+
+.sectionPinned .visualShell {
+  width: 100%;
+  padding: calc(8 / 748 * 100cqh);
+  gap: calc(16 / 748 * 100cqh);
+  border-radius: calc(20 / 748 * 100cqh);
+  transform: none;
+}
+
+.sectionPinned .cardVisual .visualShell {
+  margin-top: 0;
+}
+
+/* Figma 336:1393 — 1024×584 mockup (extends past visual clip) */
+.sectionPinned .visualMain {
+  width: calc(1024 / 1120 * 100cqw);
+  max-width: 100%;
+  height: calc(584 / 748 * 100cqh);
+  border-radius: calc(16 / 748 * 100cqh);
+}
+
+.sectionPinned .visualMainImg {
+  border-radius: calc(16 / 748 * 100cqh);
+}
+
+.sectionPinned .visualFade {
+  left: calc(8 / 1120 * 100cqw);
+  width: calc(1024 / 1120 * 100cqw);
+  max-width: calc(100% - 16 / 1120 * 100cqw);
+  height: calc(242 / 748 * 100cqh);
+}
+
+.sectionPinned .visualFadeDark,
+.sectionPinned .visualFadeLight {
+  top: calc(295 / 748 * 100cqh);
+  bottom: auto;
+}
+
+.sectionPinned .visualFadePerform {
+  top: calc(230 / 748 * 100cqh);
+  bottom: auto;
+  height: calc(307 / 748 * 100cqh);
+}
+
+.sectionPinned .visualFadeFollowUp {
+  top: calc(83 / 748 * 100cqh);
+  height: calc(454 / 748 * 100cqh);
+}
+
+.sectionPinned .prepareSecondary {
+  top: calc(70 / 748 * 100cqh);
+  left: calc(709 / 1120 * 100cqw);
+  right: auto;
+  width: calc(352 / 1120 * 100cqw);
+  height: calc(604 / 748 * 100cqh);
+  border-radius: calc(14 / 748 * 100cqh);
+}
+
+.sectionPinned .practiceSecondary {
+  top: calc(86 / 748 * 100cqh);
+  right: calc(8 / 1120 * 100cqw);
+  width: calc(323 / 1120 * 100cqw);
+  height: calc(575 / 748 * 100cqh);
+  border-radius: calc(12 / 748 * 100cqh);
+}
+
+.sectionPinned .performWidget {
+  top: calc(8 / 748 * 100cqh);
+  left: calc(345 / 1040 * 100%);
+  width: calc(349.689 / 1040 * 100%);
+  height: calc(469.444 / 748 * 100cqh);
+  transform: none;
+}
+
+.sectionPinned .improveContent {
+  height: 100%;
+  min-height: 0;
+}
+
+.sectionPinned .improveHighlight {
+  top: calc(17 / 748 * 100cqh);
+  left: calc(179 / 1120 * 100cqw);
+  width: calc(883 / 1120 * 100cqw);
+  height: calc(515 / 748 * 100cqh);
+}
+
+.sectionPinned .improveSubContent {
+  top: calc(-9 / 748 * 100cqh);
+  left: calc(-170 / 883 * 100%);
+  width: calc(1024 / 883 * 100%);
+  height: calc(524 / 748 * 100cqh);
+  padding: calc(10 / 748 * 100cqh) calc(10 / 1120 * 100cqw)
+    calc(10 / 748 * 100cqh) calc(131 / 1024 * 100%);
+  gap: calc(10 / 748 * 100cqh);
+  border-radius: calc(16 / 748 * 100cqh) calc(16 / 748 * 100cqh) 0 0;
+}
+
+.sectionPinned .improveSecondaryFrame,
+.sectionPinned .improveSecondaryClip {
+  border-radius: calc(12 / 748 * 100cqh);
+}
+
+.sectionPinned .improveFeedbackGradient {
+  right: calc(10 / 1024 * 100%);
+  bottom: calc(0.19 / 748 * 100cqh);
+  left: calc(131 / 1024 * 100%);
+  width: auto;
+  max-width: none;
+  padding: calc(40 / 748 * 100cqh) calc(11 / 1120 * 100cqw)
+    calc(12 / 748 * 100cqh);
+}
+
+.sectionPinned .improveFeedbackRow {
+  max-width: calc(854 / 1120 * 100cqw);
+  padding: calc(10.8 / 748 * 100cqh);
+  border-radius: calc(9 / 748 * 100cqh);
+}
+
+.sectionPinned .improveFeedbackLabel {
+  font-size: calc(8.1 / 748 * 100cqh);
+  line-height: calc(10.8 / 748 * 100cqh);
+}
+
+.sectionPinned .improveFeedbackBtnOutline,
+.sectionPinned .improveFeedbackBtnPrimary {
+  font-size: calc(10.8 / 748 * 100cqh);
+  line-height: calc(16.2 / 748 * 100cqh);
+  border-radius: calc(8 / 748 * 100cqh);
+}
+
+.sectionPinned .improveFeedbackBtnPrimary {
+  height: calc(43.2 / 748 * 100cqh);
+  padding: calc(8.1 / 748 * 100cqh) calc(18.2 / 1120 * 100cqw);
+}
+
+.cardImprove .cardBgImg {
+  object-position: center;
+}
+
+.cardPerform .visualMainImg {
+  object-position: center bottom;
+}
+
+.cardBg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.cardBgImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.cardBgImgOverlay {
+  z-index: 1;
+}
+
+.cardBgGradient {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background: linear-gradient(
+    238.39deg,
+    rgba(0, 0, 0, 0) 50.94%,
+    rgba(0, 0, 0, 0.58) 95.69%
+  );
+}
+
+.cardHeader {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 40px;
+}
+
+.cardTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-48);
+  font-weight: 400;
+  line-height: var(--l-lh-48);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+}
+
+.cardTitle {
+  margin: 0;
+  font: inherit;
+}
+
+.cardIndex {
+  opacity: 0.2;
+}
+
+.cardDescription {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-28);
+  font-weight: 600;
+  line-height: var(--l-lh-28);
+  letter-spacing: var(--l-tracking);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Figma 725:1297 — Prepare description */
+.cardPrepare .cardDescription {
+  line-height: 0;
+  letter-spacing: calc(-1.12 * var(--l-vw));
+  word-break: break-word;
+}
+
+.cardPrepare .cardDescription span {
+  line-height: calc(32 * var(--l-vw));
+}
+
+.emphasis {
+  color: #ffffff;
+}
+
+.cardImprove .cardHeader {
+  gap: 17px;
+}
+
+/* Figma 336:1390 — visual block 532px; shell clips overflowing mockup at card bottom */
+.cardVisual {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  height: 532px;
+  margin-top: auto;
+  padding: 0 40px 0;
+  overflow: hidden;
+  border-radius: 0 0 25px 25px;
+}
+
+/* Figma 336:1392 — frosted visual shell (all cards) */
+.visualShell {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  gap: 16px;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  overflow: visible;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* Figma 336:1393 — bordered mockup frame */
+.visualMain {
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 1024px;
+  max-width: 100%;
+  height: 584px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.visualMainImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 16px;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.visualFade {
+  position: absolute;
+  left: 8px;
+  z-index: 2;
+  width: calc(100% - 16px);
+  max-width: 1024px;
+  height: 242px;
+  pointer-events: none;
+}
+
+.visualFadeDark {
+  top: 295px;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 21, 26, 0) 0%,
+    #10151a 100%
+  );
+}
+
+.visualFadeLight {
+  top: 295px;
+  background: linear-gradient(180deg, rgba(249, 248, 248, 0) 0%, #f9f8f8 100%);
+}
+
+.visualFadePerform {
+  top: 230px;
+  height: 307px;
+  background: linear-gradient(180deg, rgba(7, 7, 8, 0) 0%, #070708 100%);
+}
+
+.visualFadeFollowUp {
+  top: 83px;
+  height: 454px;
+  background: linear-gradient(180deg, rgba(16, 21, 26, 0) 0%, #10151a 100%);
+}
+
+.visualSecondary {
+  position: absolute;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  border: 1px solid rgba(249, 249, 249, 0.1);
+  border-radius: 14px;
+}
+
+.prepareSecondary {
+  top: 70px;
+  left: 709px;
+  width: 352px;
+  height: 604px;
+  border-radius: 14px;
+  box-shadow: -22px 4px 34.8px rgba(0, 0, 0, 0.25);
+}
+
+.prepareSecondaryImg {
+  position: absolute;
+  left: -296.57%;
+  top: -26.96%;
+  width: 408.09%;
+  height: 134.81%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.practiceSecondary {
+  top: 86px;
+  right: 8px;
+  width: 323px;
+  height: 575px;
+  border-radius: 12px;
+  box-shadow: -10px 4px 21.6px rgba(0, 0, 0, 0.17);
+}
+
+.practiceSecondaryImg {
+  position: absolute;
+  left: -272.94%;
+  top: -11.86%;
+  width: 380.73%;
+  height: 122.16%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.performWidget {
+  position: absolute;
+  top: 8px;
+  left: calc(345 / 1040 * 100%);
+  z-index: 4;
+  width: calc(349.689 / 1040 * 100%);
+  height: 469.444px;
+  overflow: visible;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* Figma 713:376 — Improve card visual */
+.improveContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.improveContent .visualShell {
+  z-index: 1;
+  gap: 0;
+}
+
+/* Figma 713:379 — overlay panel */
+.improveHighlight {
+  position: absolute;
+  z-index: 2;
+  top: 17px;
+  left: calc(179 / 1040 * 100%);
+  width: calc(883 / 1040 * 100%);
+  height: 515px;
+  pointer-events: none;
+}
+
+.improveSubContent {
+  position: absolute;
+  top: -9px;
+  left: calc(-160 / 883 * 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: calc(1024 / 883 * 100%);
+  height: 524px;
+  padding: 10px 10px 10px calc(131 / 1024 * 100%);
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.improveSecondaryFrame {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  aspect-ratio: 733 / 479;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: -12px 4px 32px rgba(0, 0, 0, 0.06);
+}
+
+.improveSecondaryClip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.improveSecondaryImg {
+  position: absolute;
+  top: 0;
+  left: -14.54%;
+  width: 114.62%;
+  height: 100%;
+  max-width: none;
+  display: block;
+}
+
+.improveFeedbackGradient {
+  position: absolute;
+  right: calc(10 / 1024 * 100%);
+  bottom: 0.19px;
+  left: calc(131 / 1024 * 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: auto;
+  max-width: none;
+  padding: 40px 11px 12px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.improveFeedbackRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: 854px;
+  padding: 10.8px;
+  border-top: 0.675px solid #dedede;
+  border-radius: 9px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+}
+
+.improveFeedbackCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 5.4px;
+  align-items: flex-start;
+}
+
+.improveFeedbackLabel {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 8.1px;
+  font-weight: 400;
+  line-height: 10.8px;
+  letter-spacing: -0.32px;
+  color: #8d8d8d;
+}
+
+.improveFeedbackBtnOutline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.7px;
+  padding: 5.4px 10.8px;
+  border: 0.675px solid #dedede;
+  border-radius: 8px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 10.8px;
+  font-weight: 400;
+  line-height: 16.2px;
+  letter-spacing: -0.43px;
+  color: #020100;
+  cursor: default;
+  background: #ffffff;
+}
+
+.improveFeedbackBtnPrimary {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 2.7px;
+  height: 43.2px;
+  padding: 8.1px 18.2px;
+  border: none;
+  border-radius: 8.1px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 9.12px;
+  font-weight: 400;
+  line-height: 14.58px;
+  letter-spacing: -0.36px;
+  color: #ffffff;
+  cursor: default;
+  background: linear-gradient(180deg, #f45523 0%, #020100 100%);
+}
+
+.improveFeedbackIcon {
+  font-size: 10.8px;
+  line-height: 16.2px;
+}
+
+/* Tablet + mobile horizontal scroll (pinned only ≥1201px) */
+@media (max-width: 1200px) {
+  .card {
+    width: var(--l-split-card-w-fluid);
+    height: var(--l-split-card-h-fluid);
+    min-height: var(--l-split-card-h-fluid);
+    border-radius: calc(25 * var(--l-vw));
+  }
+
+  .cardBg,
+  .cardBgGradient {
+    border-radius: calc(25 * var(--l-vw));
+  }
+
+  .cardVisual {
+    height: calc(248 * var(--l-vw));
+    margin-top: 0;
+    padding: 0 calc(20 * var(--l-vw));
+    border-radius: 0 0 calc(25 * var(--l-vw)) calc(25 * var(--l-vw));
+  }
+
+  .visualMain {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Figma 513:1653 — mobile split card row (513:1575 Prepare, 513:1639 Practice) */
+@media (max-width: 768px) {
+  .section:global(.landing-split-section) {
+    margin-top: 32px;
+  }
+
+  .section {
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .section::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track {
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .cardOuter {
+    scroll-snap-align: start;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 362px;
+    height: 484px;
+    min-height: 484px;
+    border-radius: 25px;
+    overflow: hidden;
+  }
+
+  .cardBg,
+  .cardBgGradient {
+    border-radius: 25px;
+  }
+
+  .cardPrepare .cardBgGradient {
+    background: linear-gradient(
+      252.91deg,
+      rgba(0, 0, 0, 0) 50.94%,
+      rgba(0, 0, 0, 0.58) 95.69%
+    );
+  }
+
+  .cardHeader {
+    position: relative;
+    z-index: 3;
+    flex: 1 1 0;
+    min-height: 0;
+    gap: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .cardPractice .cardHeader {
+    flex: 0 0 auto;
+  }
+
+  .cardTitleRow {
+    font-size: 36px;
+    line-height: 40px;
+    letter-spacing: -1.44px;
+  }
+
+  .cardDescription {
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: -0.96px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .cardPrepare .cardDescription {
+    line-height: 0;
+  }
+
+  .cardPrepare .cardDescription span {
+    line-height: 28px;
+  }
+
+  .cardVisual {
+    position: relative;
+    z-index: 3;
+    flex: 0 0 248px;
+    width: 100%;
+    height: 248px;
+    min-height: 248px;
+    margin-top: 0;
+    padding: 0 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 0 0 25px 25px;
+  }
+
+  .cardPractice .cardVisual {
+    padding-inline: 19px;
+  }
+
+  .visualShell {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  .cardPractice .visualShell {
+    padding: 4px;
+    border-radius: 9px;
+    gap: 8px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .visualMain {
+    position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+  }
+
+  .cardPrepare .visualMain {
+    width: 526px;
+    max-width: none;
+    height: 300px;
+  }
+
+  .cardPractice .visualMain {
+    width: 485px;
+    max-width: none;
+    height: 277px;
+    border-radius: 8px;
+  }
+
+  .cardPerform .visualMain,
+  .cardFollowUp .visualMain,
+  .cardImprove .visualMain {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+  }
+
+  .visualMainImg {
+    border-radius: 8px;
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+  }
+
+  .cardPractice .visualMainImg {
+    border-radius: 8px;
+  }
+
+  .visualFade {
+    display: none;
+  }
+
+  .cardPrepare .visualFadeDark {
+    display: block;
+    top: 151px;
+    left: 4px;
+    width: 526px;
+    max-width: none;
+    height: 124px;
+  }
+
+  .cardPractice .visualFadeLight {
+    display: block;
+    top: 140px;
+    left: 4px;
+    width: 485px;
+    max-width: none;
+    height: 115px;
+  }
+
+  .cardPerform .visualFadePerform {
+    display: block;
+    top: auto;
+    bottom: 4px;
+    left: 4px;
+    width: calc(100% - 8px);
+    height: 120px;
+  }
+
+  .cardFollowUp .visualFadeFollowUp {
+    display: block;
+    top: 40px;
+    left: 4px;
+    width: calc(100% - 8px);
+    height: 180px;
+  }
+
+  .cardPrepare .prepareSecondary {
+    display: block;
+    top: 36px;
+    left: 164px;
+    width: 181px;
+    height: 310px;
+    border: 0.5px solid rgba(249, 249, 249, 0.1);
+    border-radius: 7px;
+    box-shadow: -11px 2px 18px rgba(0, 0, 0, 0.25);
+  }
+
+  .cardPractice .practiceSecondary {
+    display: block;
+    top: 50%;
+    left: calc(50% + 72px);
+    width: 153px;
+    height: 272px;
+    border: 0.5px solid #f9f9f9;
+    border-radius: 6px;
+    box-shadow: -5px 2px 10px rgba(0, 0, 0, 0.17);
+    transform: translateY(-35%);
+  }
+
+  .performWidget,
+  .improveHighlight {
+    display: none;
+  }
+
+  .cardImprove .cardVisual {
+    padding-inline: var(--l-inset-x, 20px);
+  }
+}

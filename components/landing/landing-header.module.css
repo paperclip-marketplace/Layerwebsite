@@ -1,0 +1,203 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #dedede;
+}
+
+/* Figma 788:358 / 713:740 — same 1440px column as section containers (landing-page-gutter) */
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 40px;
+}
+
+@media (width > 1440px) {
+  .headerInner {
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+  }
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 105px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  width: 34px;
+  height: 25px;
+  flex-shrink: 0;
+}
+
+.logoWordmark {
+  width: 61px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 8px 18px;
+  border-radius: 99px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.64px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.buttonOutline {
+  color: #020100;
+  background: #ffffff;
+  border: 1px solid #dedede;
+}
+
+.buttonOutline:hover {
+  background: #f9f9f9;
+}
+
+.buttonPrimary {
+  color: #ffffff;
+  background: #020100;
+  border: 1px solid #020100;
+}
+
+.buttonPrimary:hover {
+  background: #171717;
+  border-color: #171717;
+}
+
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #dedede;
+  border-radius: 99px;
+  color: #020100;
+  cursor: pointer;
+  background: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.menuButton:hover {
+  background: #f9f9f9;
+}
+
+.menuButton .material-symbols-rounded {
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.mobileNav {
+  display: none;
+}
+
+.mobileNavLink {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .headerInner {
+    padding: calc(12 * var(--l-vw)) calc(24 * var(--l-vw));
+  }
+}
+
+@media (max-width: 768px) {
+  .actions {
+    display: none;
+  }
+
+  .menuButton {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+  }
+
+  .headerInner {
+    height: 56px;
+    min-height: 56px;
+    padding: 15px 20px;
+    box-sizing: border-box;
+  }
+
+  .logo {
+    width: 105px;
+    height: 26px;
+  }
+
+  .logoMark {
+    width: 34px;
+    height: 25px;
+  }
+
+  .logoWordmark {
+    width: 61px;
+    height: 22px;
+  }
+
+  .mobileNav {
+    position: fixed;
+    top: 88px;
+    right: 0;
+    left: 0;
+    z-index: 99;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    border-bottom: 1px solid #dedede;
+    background: #ffffff;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .mobileNavOpen {
+    display: flex;
+  }
+
+  .button {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

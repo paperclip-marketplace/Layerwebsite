@@ -1,0 +1,147 @@
+/* Figma 713:825 — hero video frame (desktop) */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-hero-media-pt) var(--l-hero-top-px) var(--l-hero-media-pb);
+  overflow: hidden;
+}
+
+.innerShell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--l-hero-media-gap);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--l-hero-media-max-w);
+  margin-inline: auto;
+}
+
+.imageShell {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(8 * var(--l-vw));
+  background: #ffffff;
+  border: 1px solid #dedede;
+  border-radius: calc(40 * var(--l-vw));
+  box-shadow: 0 calc(8 * var(--l-vw)) calc(11 * var(--l-vw)) 0 rgba(0, 0, 0, 0.12);
+}
+
+.imageFrame {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: calc(1359 * var(--l-vw));
+  overflow: hidden;
+  border: calc(1.088 * var(--l-vw)) solid #dedede;
+  border-radius: calc(40 * var(--l-vw));
+  background: #ffffff;
+}
+
+.videoEmbed {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  background: #000;
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+  background: #000;
+}
+
+.playOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+}
+
+.playOverlay:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -4px;
+}
+
+.playButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(96 * var(--l-vw));
+  height: calc(96 * var(--l-vw));
+  min-width: 64px;
+  min-height: 64px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 calc(8 * var(--l-vw)) calc(24 * var(--l-vw)) rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.playOverlay:hover .playButton,
+.playOverlay:focus-visible .playButton {
+  transform: scale(1.04);
+  background: #ffffff;
+}
+
+.playIcon {
+  width: calc(36 * var(--l-vw));
+  height: calc(36 * var(--l-vw));
+  min-width: 24px;
+  min-height: 24px;
+  margin-left: calc(4 * var(--l-vw));
+  color: #111111;
+}
+
+.caption {
+  width: 100%;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 0 0;
+  }
+
+  .innerShell {
+    gap: 24px;
+  }
+
+  .imageShell {
+    padding: 4px;
+    border-radius: 16px;
+    box-shadow: 0 6.531px 43.538px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .imageFrame {
+    max-width: none;
+    border-radius: 13.061px;
+  }
+
+  .caption {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+}

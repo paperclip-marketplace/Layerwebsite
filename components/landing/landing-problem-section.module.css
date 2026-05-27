@@ -1,0 +1,83 @@
+/* Figma 713:851 — Problem Header */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-py) var(--l-section-px) 80px;
+}
+
+.eyebrow {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headlineLine,
+.muted {
+  display: inline;
+}
+
+.muted {
+  color: #8d8d8d;
+}
+
+.headline,
+.description {
+  font-family: var(--layer-font-geist-sans);
+  font-weight: 400;
+  letter-spacing: var(--l-tracking);
+}
+
+.headline {
+  font-size: var(--l-fs-72);
+  line-height: var(--l-lh-72);
+  color: #020100;
+}
+
+.description {
+  font-size: var(--l-fs-20);
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+.emphasis {
+  font-weight: 600;
+  color: #f45523;
+}
+
+@media (max-width: 768px) {
+  .section {
+    gap: 32px;
+    padding: calc(40 * var(--l-vw)) var(--l-inset-x, 20px) 0;
+  }
+
+  .eyebrow {
+    font-size: var(--l-fs-14);
+    line-height: var(--l-lh-14);
+    letter-spacing: var(--l-tracking);
+    white-space: normal;
+  }
+
+  .headline {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+}

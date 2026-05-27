@@ -1,0 +1,24 @@
+.splitTextLine {
+  display: block;
+}
+
+.splitWord {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.splitWordInner {
+  display: inline-block;
+  will-change: transform;
+}
+
+.splitLineMask {
+  display: block;
+  overflow: hidden;
+}
+
+.splitLineInner {
+  display: block;
+  will-change: transform;
+}

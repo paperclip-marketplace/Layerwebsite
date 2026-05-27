@@ -1,0 +1,30 @@
+/* Figma 513:1153 — Section Title Container (402×32) */
+.section {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 32px;
+    margin: 56px 0 0;
+    padding: 4px 12px;
+    background: #faede9;
+  }
+
+  .text {
+    margin: 0;
+    font-family: var(--layer-font-geist-sans);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+    color: #f45523;
+    text-align: center;
+    white-space: nowrap;
+  }
+}

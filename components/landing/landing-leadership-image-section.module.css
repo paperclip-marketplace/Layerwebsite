@@ -1,0 +1,97 @@
+/* Figma 713:1063 / 713:1069 — leadership image block */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: var(--l-leadership-block-pb);
+  background: #ffffff;
+}
+
+.clipArea {
+  position: relative;
+  width: 100%;
+  height: var(--l-leadership-ticker-h);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.imageCenter {
+  position: absolute;
+  top: calc(0.03 * var(--l-vw));
+  left: 50%;
+  display: flex;
+  align-items: flex-start;
+  transform: translateX(-50%);
+}
+
+.imageCard {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--l-leadership-image-w);
+  height: var(--l-leadership-image-h);
+  overflow: hidden;
+  border: calc(1.313 * var(--l-vw)) solid #dedede;
+  border-radius: calc(15.75 * var(--l-vw));
+  box-shadow: 0 calc(7.875 * var(--l-vw)) calc(52.5 * var(--l-vw)) 0
+    rgba(0, 0, 0, 0.1);
+}
+
+.imageFrame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.imageBackdrop {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(15.75 * var(--l-vw));
+  background: #f9f9f9;
+}
+
+.imageClip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: calc(15.75 * var(--l-vw));
+}
+
+.image {
+  position: absolute;
+  top: -0.01%;
+  left: 0;
+  width: 100%;
+  max-width: none;
+  height: 103.76%;
+  display: block;
+}
+
+.fadeBottom {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--l-leadership-fade-h);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 100%
+  );
+}
+
+@media (max-width: 768px) {
+  .imageCenter {
+    top: 0;
+  }
+
+  .imageCard {
+    border-radius: 12px;
+  }
+
+  .imageBackdrop,
+  .imageClip {
+    border-radius: 12px;
+  }
+}

@@ -1,0 +1,173 @@
+/* Figma 735:1616 — Team Experience (desktop design @ 1440) */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  gap: var(--l-section-gap);
+  padding-block: var(--l-section-py);
+}
+
+.copyRow {
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: var(--l-section-px);
+}
+
+.copy {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #020100;
+}
+
+.logoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--l-section-gap);
+  width: 100%;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: var(--l-section-px);
+}
+
+.logoCell {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--l-logo-w);
+  height: var(--l-logo-h);
+  filter: grayscale(1);
+  opacity: 0.38;
+  transition:
+    filter 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logoCell:hover,
+.logoCell:focus-visible {
+  filter: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoCell {
+    filter: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+.logoImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+}
+
+.logoImgContain {
+  object-fit: contain;
+  object-position: center;
+}
+
+.logoImgContainBottom {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.logoImgCover {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Large screens (wider than 1440) — side strokes + full-bleed horizontal rules */
+@media (width > 1440px) {
+  .section {
+    position: relative;
+    padding-block: calc(80 * var(--l-vw));
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+  }
+
+  .section::before,
+  .section::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    pointer-events: none;
+  }
+
+  .section::before {
+    top: 0;
+    border-top: 1px solid #dedede;
+  }
+
+  .section::after {
+    bottom: 0;
+    border-top: 1px solid #dedede;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    gap: 32px;
+    padding-block: 40px;
+    padding-inline: 0;
+  }
+
+  .copyRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: var(--l-inset-x, 20px);
+  }
+
+  .copy {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .logoGrid {
+    gap: 24px;
+  }
+
+  .logoRow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-items: center;
+    gap: 24px 16px;
+    padding-inline: var(--l-inset-x, 20px);
+  }
+
+  .logoCell {
+    width: 136px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .logoRow:last-child {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .logoRow:last-child .logoCell:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+}

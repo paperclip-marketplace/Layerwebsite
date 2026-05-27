@@ -1,0 +1,79 @@
+/* Figma 336:1601 — Leadership Metrics */
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding-block: var(--l-section-py);
+  padding-inline: var(--l-section-px);
+  background: #ffffff;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  width: 100vw;
+  margin-left: -50vw;
+  pointer-events: none;
+  border-top: 1px solid #dedede;
+}
+
+.eyebrow {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.copyBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-copy-gap);
+  width: 100%;
+}
+
+.headline {
+  width: 100%;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+@media (max-width: 768px) {
+  .eyebrow {
+    font-size: var(--l-fs-14);
+    line-height: var(--l-lh-14);
+    white-space: normal;
+  }
+
+  .copyBlock {
+    gap: 16px;
+  }
+
+  .headline {
+    font-size: 48px;
+    line-height: 52px;
+    letter-spacing: -1.92px;
+  }
+}

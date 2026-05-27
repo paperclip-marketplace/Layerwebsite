@@ -1,0 +1,191 @@
+/* Figma 336:1897 — FAQ */
+.section {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  border-bottom: 1px solid #dedede;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  width: 100vw;
+  margin-left: -50vw;
+  pointer-events: none;
+  border-top: 1px solid #dedede;
+}
+
+.labelColumn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--l-pricing-faq-col-w);
+  padding: var(--l-pricing-cta-py) var(--l-section-px);
+}
+
+.label {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.contentColumn {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  border-left: 1px solid #dedede;
+}
+
+.headline {
+  width: 100%;
+  max-width: var(--l-copy-headline-w);
+  margin: 0;
+  padding: var(--l-pricing-cta-py) var(--l-section-px) var(--l-section-gap);
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.headlineLine {
+  color: #020100;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.item {
+  width: 100%;
+  border-bottom: 1px solid #dedede;
+}
+
+.itemOpen {
+  display: flex;
+  flex-direction: column;
+  gap: calc(32 * var(--l-vw));
+  padding: calc(40 * var(--l-vw));
+  background: #f9f9f9;
+}
+
+.itemTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--l-vw));
+  width: 100%;
+  padding: calc(40 * var(--l-vw));
+  border: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+}
+
+.itemOpen .itemTrigger {
+  padding: 0;
+}
+
+.question {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: calc(800 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: var(--l-fs-32);
+  line-height: 1;
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.iconOpen {
+  color: #8d8d8d;
+}
+
+.answer {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+@media (max-width: 1200px) {
+  .section {
+    flex-direction: column;
+  }
+
+  .labelColumn {
+    max-width: none;
+    padding: calc(48 * var(--l-vw)) var(--l-section-px) calc(24 * var(--l-vw));
+  }
+
+  .contentColumn {
+    border-top: 1px solid #dedede;
+    border-left: none;
+  }
+
+  .headline {
+    max-width: none;
+    padding: calc(48 * var(--l-vw)) var(--l-section-px) calc(32 * var(--l-vw));
+  }
+}
+
+@media (max-width: 768px) {
+  .labelColumn {
+    padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(16 * var(--l-vw));
+  }
+
+  .headline {
+    padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(24 * var(--l-vw));
+  }
+
+  .itemTrigger {
+    padding: calc(24 * var(--l-vw)) var(--l-section-px);
+  }
+
+  .answer {
+    padding: 0 var(--l-section-px) calc(24 * var(--l-vw));
+  }
+
+  .itemOpen {
+    gap: calc(24 * var(--l-vw));
+  }
+}

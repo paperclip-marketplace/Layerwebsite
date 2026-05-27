@@ -1,0 +1,61 @@
+/* Figma 336:1755 — Pricing hero */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(20 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-pricing-hero-pt) var(--l-section-px) 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: calc(4 * var(--l-vw)) calc(12 * var(--l-vw));
+  background: #faede9;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #f45523;
+  white-space: nowrap;
+}
+
+.content {
+  width: 100%;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+@media (max-width: 768px) {
+  .badge {
+    white-space: normal;
+    text-align: center;
+  }
+}

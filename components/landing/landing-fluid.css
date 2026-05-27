@@ -1,0 +1,414 @@
+/*
+ * Landing — Figma 713:798 @ 1440px, 713:404 @ 1920px.
+ * Content stays fixed at 1440px; only scales down below 1440px.
+ * Above 1440px: white side gutters, no upscaling.
+ */
+.landing-main {
+  --l-canvas-w: 1440;
+  --l-vw: min(calc(100vw / var(--l-canvas-w)), 1px);
+  --l-shell-w: 1440px;
+  --l-content-inset-x: 40px;
+
+  /* Typography */
+  --l-fs-16: calc(16 * var(--l-vw));
+  --l-fs-18: calc(18 * var(--l-vw));
+  --l-fs-20: calc(20 * var(--l-vw));
+  --l-fs-24: calc(24 * var(--l-vw));
+  --l-fs-28: calc(28 * var(--l-vw));
+  --l-lh-28: calc(32 / 28);
+  --l-fs-32: calc(32 * var(--l-vw));
+  --l-fs-40: calc(40 * var(--l-vw));
+  --l-fs-48: calc(48 * var(--l-vw));
+  --l-fs-44: calc(44 * var(--l-vw));
+  --l-fs-72: calc(72 * var(--l-vw));
+  --l-fs-92: calc(92 * var(--l-vw));
+  --l-fs-132: calc(132 * var(--l-vw));
+
+  --l-lh-16: 1.5;
+  --l-lh-20: 1.4;
+  --l-lh-24: calc(32 / 24);
+  --l-lh-28: calc(32 / 28);
+  --l-lh-32: calc(40 / 32);
+  --l-lh-40: calc(72 / 40);
+  --l-lh-48: calc(56 / 48);
+  --l-lh-56: calc(56 / 44);
+  --l-lh-72: calc(84 / 72);
+  --l-lh-92: calc(96 / 92);
+  --l-lh-104: calc(104 / 92);
+  --l-lh-132: 1;
+
+  --l-tracking: -0.04em;
+  --l-tracking-sub: calc(-1.76 * var(--l-vw));
+  --l-tracking-caption: calc(-0.8 * var(--l-vw));
+
+  /* Layout — Figma 713:798 (40px inset on 1440 frame) */
+  --l-section-px: calc(40 * var(--l-vw));
+  --l-text-pl-extra: 5px;
+  --l-inset-x: var(--l-section-px);
+  --l-section-py: calc(56 * var(--l-vw));
+  --l-hero-top-px: calc(40 * var(--l-vw));
+  --l-hero-top-pt: calc(96 * var(--l-vw));
+  --l-hero-top-pb: 0;
+  --l-hero-media-gap: calc(80 * var(--l-vw));
+  --l-hero-media-pt: calc(40 * var(--l-vw));
+  --l-hero-media-pb: calc(40 * var(--l-vw));
+  --l-hero-media-max-w: calc(1359 * var(--l-vw));
+  --l-section-gap: calc(40 * var(--l-vw));
+  --l-copy-gap: calc(24 * var(--l-vw));
+  --l-copy-headline-w: calc(840 * var(--l-vw));
+  --l-hero-h: calc(640 * var(--l-vw));
+  --l-hero-inner-w: calc(1280 * var(--l-vw));
+  --l-split-pad-x: calc(10 * var(--l-vw));
+  --l-split-pad-b: calc(56 * var(--l-vw));
+
+  /* Figma 513:2104 — client logo ticker */
+  --l-logo-w: calc(136 * var(--l-vw));
+  --l-logo-h: calc(64 * var(--l-vw));
+  --l-logo-gap: calc(64 * var(--l-vw));
+  --l-logo-fade-w: calc(131 * var(--l-vw));
+
+  /* Figma 713:1063 / 713:1069 — leadership control + screenshot */
+  --l-leadership-image-w: calc(1196 * var(--l-vw));
+  --l-leadership-image-h: calc(747 * var(--l-vw));
+  --l-leadership-ticker-h: calc(577 * var(--l-vw));
+  --l-leadership-fade-h: calc(180 * var(--l-vw));
+  --l-leadership-block-pb: calc(80 * var(--l-vw));
+
+  /* Figma 336:1605 — key metric cards */
+  --l-metrics-design-w: 456;
+  --l-metrics-design-h: 648;
+  --l-metrics-card-w-fluid: calc(456 * var(--l-vw));
+  --l-metrics-image-h-fluid: calc(368 * var(--l-vw));
+
+  /* Figma 336:1755 / 336:1886 — pricing page */
+  --l-pricing-hero-pt: calc(120 * var(--l-vw));
+  --l-pricing-clients-mt: calc(80 * var(--l-vw));
+  --l-pricing-cta-py: calc(80 * var(--l-vw));
+  --l-pricing-cta-image-h: calc(378 * var(--l-vw));
+  --l-pricing-faq-col-w: calc(560 * var(--l-vw));
+}
+
+/* Figma copy row: 840px headline + 24px gap + flex aside (1360px content area) */
+.landing-copy-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--l-copy-gap);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.landing-copy-headline {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  margin: 0;
+}
+
+.landing-copy-aside {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+}
+
+@media (min-width: 1201px) {
+  .landing-copy-headline {
+    flex: 0 0 var(--l-copy-headline-w);
+    width: var(--l-copy-headline-w);
+    max-width: var(--l-copy-headline-w);
+  }
+
+  /* Figma 713:455 — Problem Main Content */
+  .landing-problem-stats {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 24px;
+  }
+
+  .landing-problem-stats .landing-problem-section {
+    gap: var(--l-section-gap);
+    padding: calc(80 * var(--l-vw)) var(--l-section-px) calc(56 * var(--l-vw));
+  }
+
+  .landing-problem-stats .landing-stats-section {
+    padding: 10px;
+  }
+
+  .landing-problem-citation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 24px var(--l-section-px);
+  }
+
+  .landing-problem-citation p {
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 0;
+    font-family: var(--layer-font-geist-sans);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+    color: #8d8d8d;
+    text-align: center;
+    word-break: break-word;
+  }
+}
+
+/* Figma 713:798 / 713:404 — fixed 1440px column + white side gutters only wider than 1440px */
+@media (width > 1440px) {
+  .landing-page-gutter {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--l-shell-w);
+    margin-inline: auto;
+  }
+
+  .landing-main .landing-shell-x {
+    padding-inline: max(
+      var(--l-content-inset-x),
+      calc((100vw - var(--l-shell-w)) / 2 + var(--l-content-inset-x))
+    );
+  }
+
+  /* Divider below clients — full-bleed via .landing-clients-section::after */
+  .landing-problem-stats {
+    border-top: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .landing-copy-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--l-copy-gap);
+  }
+
+  .landing-copy-headline,
+  .landing-copy-aside {
+    flex: none;
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/*
+ * Tablet — 769px–1200px (1024 reference; desktop ≥1201px unchanged above)
+ */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .landing-main {
+    --l-canvas-w: 1024;
+    --l-section-px: calc(32 * var(--l-vw));
+    --l-section-py: calc(48 * var(--l-vw));
+    --l-section-gap: calc(32 * var(--l-vw));
+    --l-copy-gap: calc(20 * var(--l-vw));
+    --l-hero-top-px: calc(32 * var(--l-vw));
+    --l-hero-top-pt: calc(56 * var(--l-vw));
+    --l-hero-top-pb: calc(32 * var(--l-vw));
+    --l-hero-h: calc(520 * var(--l-vw));
+    --l-hero-inner-w: calc(100vw - var(--l-section-px) * 2);
+    --l-split-pad-x: calc(10 * var(--l-vw));
+    --l-split-pad-b: calc(48 * var(--l-vw));
+    --l-logo-gap: calc(48 * var(--l-vw));
+    --l-pricing-hero-pt: calc(96 * var(--l-vw));
+    --l-pricing-clients-mt: calc(56 * var(--l-vw));
+    --l-pricing-cta-py: calc(56 * var(--l-vw));
+    --l-pricing-faq-col-w: 100%;
+    --l-split-card-w-fluid: min(
+      calc(720 * var(--l-vw)),
+      calc(100vw - var(--l-section-px) * 2)
+    );
+    --l-split-card-h-fluid: calc(var(--l-split-card-w-fluid) * 484 / 362);
+    --l-metrics-card-w-fluid: min(calc(380 * var(--l-vw)), calc(100vw - var(--l-section-px) * 2 - 20px));
+    --l-metrics-image-h-fluid: calc(300 * var(--l-vw));
+  }
+}
+
+/*
+ * Mobile — Figma Home / Mobile 513:1100 (402×8060 reference)
+ */
+@media (max-width: 768px) {
+  .landing-main {
+    --l-canvas-w: 402;
+    --l-vw: calc(100vw / var(--l-canvas-w));
+
+    /* Typography — Figma 513:1100 */
+    --l-fs-14: calc(14 * var(--l-vw));
+    --l-fs-16: calc(16 * var(--l-vw));
+    --l-fs-20: calc(16 * var(--l-vw));
+    --l-fs-24: calc(24 * var(--l-vw));
+    --l-fs-28: calc(20 * var(--l-vw));
+    --l-fs-32: calc(32 * var(--l-vw));
+    --l-fs-40: calc(40 * var(--l-vw));
+    --l-fs-48: calc(48 * var(--l-vw));
+    --l-fs-56: calc(56 * var(--l-vw));
+    --l-fs-72: calc(48 * var(--l-vw));
+    --l-fs-92: calc(80 * var(--l-vw));
+    --l-fs-132: calc(80 * var(--l-vw));
+
+    --l-lh-14: calc(20 / 14);
+    --l-lh-20: calc(24 / 16);
+    --l-lh-24: calc(28 / 24);
+    --l-lh-28: calc(28 / 20);
+    --l-lh-32: calc(40 / 32);
+    --l-lh-40: calc(48 / 40);
+    --l-lh-48: calc(52 / 48);
+    --l-lh-56: calc(60 / 56);
+    --l-lh-72: calc(52 / 48);
+    --l-lh-92: 1;
+    --l-lh-132: 1;
+
+    /* Global page gutter — inset content (Figma 513:1100, x=20 / w=362) */
+    --l-page-gutter: 20px;
+    --l-inset-x: var(--l-page-gutter);
+    /* Sections inside .landing-page-gutter use 0; full-bleed blocks break out separately */
+    --l-section-px: 0;
+    --l-section-py: calc(40 * var(--l-vw));
+    --l-section-gap: calc(32 * var(--l-vw));
+    --l-copy-gap: calc(16 * var(--l-vw));
+    --l-hero-top-px: calc(20 * var(--l-vw));
+    --l-hero-top-pt: 0;
+    --l-hero-top-pb: 0;
+    --l-hero-h: auto;
+    --l-hero-mobile-frame-h: calc(229 * var(--l-vw));
+    --l-hero-inner-w: 100%;
+    --l-split-pad-x: calc(10 * var(--l-vw));
+    --l-split-pad-b: calc(40 * var(--l-vw));
+    --l-stats-card-gap: calc(10 * var(--l-vw));
+    --l-stats-card-min-h: calc(204 * var(--l-vw));
+
+    /* Client ticker — 513:1197 (402 reference) */
+    --l-logo-w: 136px;
+    --l-logo-h: 64px;
+    --l-logo-gap: 40px;
+    --l-logo-fade-w: 131px;
+
+    /* Leadership image — 513:1968 */
+    --l-leadership-image-w: calc(362 * var(--l-vw));
+    --l-leadership-image-h: calc(226 * var(--l-vw));
+    --l-leadership-ticker-h: calc(280 * var(--l-vw));
+    --l-leadership-fade-h: calc(70 * var(--l-vw));
+    --l-leadership-block-pb: calc(40 * var(--l-vw));
+
+    /* Split cards — 513:1653 (362×484) */
+    --l-split-design-w: 362;
+    --l-split-design-h: 484;
+    --l-split-card-w-fluid: 362px;
+    --l-split-card-h-fluid: 484px;
+    --l-split-pad-x: 10px;
+
+    /* Key metrics — 513:1991 (320×426) */
+    --l-metrics-design-w: 320;
+    --l-metrics-design-h: 426;
+    --l-metrics-card-w-fluid: calc(320 * var(--l-vw));
+    --l-metrics-image-h-fluid: calc(186 * var(--l-vw));
+
+    /* Pricing */
+    --l-pricing-hero-pt: calc(64 * var(--l-vw));
+    --l-pricing-clients-mt: calc(40 * var(--l-vw));
+    --l-pricing-cta-py: calc(40 * var(--l-vw));
+    --l-pricing-cta-image-h: calc(220 * var(--l-vw));
+    --l-pricing-faq-col-w: 100%;
+  }
+
+  /* Inset sections (hero copy) share one horizontal gutter */
+  .landing-page-gutter {
+    box-sizing: border-box;
+    width: 100%;
+    padding-inline: var(--l-page-gutter);
+  }
+
+  .landing-page-gutter .landing-main__inner {
+    --l-section-px: 0;
+    --l-hero-top-px: 0;
+  }
+
+  /* White band: flush left + top/bottom border, open on the right (513:1372, 513:1771, …) */
+  .landing-band-left {
+    box-sizing: border-box;
+    width: calc(100% + 2 * var(--l-page-gutter));
+    margin-inline: calc(-1 * var(--l-page-gutter));
+    padding-inline: 0;
+    background: #ffffff;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    border-left: 1px solid #dedede;
+    border-right: none;
+  }
+
+  /* Clients → problem: single divider comes from the next section’s top border */
+  .landing-clients-section.landing-band-left {
+    border-bottom: none;
+  }
+
+  /* Integrations → Why Now: bottom rule from section ::after on desktop; no band bottom on mobile */
+  .landing-integration-section.landing-band-left {
+    border-bottom: none;
+  }
+
+  /* Metrics copy — full-bleed top rule via .landing-leadership-metrics-section::before */
+  .landing-metrics-block.landing-band-left {
+    border-top: none;
+  }
+}
+
+/* Section copy — +3px left padding only (strokes and right inset unchanged) */
+.landing-main .landing-page-gutter .landing-top-section {
+  padding-left: calc(var(--l-hero-top-px) + var(--l-text-pl-extra));
+}
+
+.landing-main .landing-page-gutter .landing-problem-section,
+.landing-main .landing-page-gutter .landing-what-we-do-section,
+.landing-main .landing-page-gutter .landing-why-now-section,
+.landing-main .landing-page-gutter .landing-leadership-control-section,
+.landing-main .landing-page-gutter .landing-leadership-metrics-section,
+.landing-main .landing-page-gutter .landing-problem-citation,
+.landing-main .landing-page-gutter .landing-operator-section [data-node-id="729:1315"] {
+  padding-left: calc(var(--l-section-px) + var(--l-text-pl-extra));
+}
+
+.landing-main .landing-page-gutter .landing-clients-section [class*="copyRow"],
+.landing-main .landing-page-gutter .landing-integration-section [class*="copyRow"],
+.landing-main .landing-page-gutter .landing-team-experience-section [class*="copyRow"] {
+  padding-left: calc(var(--l-section-px) + var(--l-text-pl-extra));
+}
+
+.landing-main .landing-page-gutter .landing-hero-section [class*="caption"] {
+  padding-left: var(--l-text-pl-extra);
+}
+
+.landing-main .landing-page-gutter .landing-failure-points-section [class*="row"] {
+  padding-left: calc(40px + var(--l-text-pl-extra));
+}
+
+@media (max-width: 1200px) {
+  .landing-main .landing-page-gutter .landing-failure-points-section [class*="row"] {
+    padding-left: calc(var(--l-section-px) + var(--l-text-pl-extra));
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-main .landing-page-gutter .landing-problem-section,
+  .landing-main .landing-page-gutter .landing-what-we-do-section,
+  .landing-main .landing-page-gutter .landing-why-now-section,
+  .landing-main .landing-page-gutter .landing-leadership-control-section,
+  .landing-main .landing-page-gutter .landing-leadership-metrics-section,
+  .landing-main .landing-page-gutter .landing-clients-section [class*="copyRow"],
+  .landing-main .landing-page-gutter .landing-integration-section [class*="copyRow"],
+  .landing-main .landing-page-gutter .landing-team-experience-section [class*="copyRow"] {
+    padding-left: calc(var(--l-inset-x, 20px) + var(--l-text-pl-extra));
+  }
+
+  .landing-main .landing-page-gutter .landing-failure-points-section [class*="row"] {
+    padding-left: var(--l-text-pl-extra);
+  }
+}

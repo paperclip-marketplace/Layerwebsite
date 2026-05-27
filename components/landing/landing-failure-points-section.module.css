@@ -1,0 +1,212 @@
+/* Figma 451:595 — Failure Points Container */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: var(--l-section-py);
+  background: #ffffff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40px;
+  border-bottom: 1px solid #dedede;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 1201px) {
+  .list {
+    position: relative;
+  }
+
+  .list::before,
+  .list::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+
+  .list::before {
+    top: 0;
+  }
+
+  .list::after {
+    bottom: 0;
+  }
+
+  .row {
+    border-bottom: none;
+  }
+
+  .row:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 2;
+    width: 100vw;
+    margin-left: -50vw;
+    border-bottom: 1px solid #dedede;
+    pointer-events: none;
+  }
+}
+
+.row:focus-visible {
+  outline: 2px solid #f45523;
+  outline-offset: -2px;
+}
+
+.rowBg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 0;
+  width: 100vw;
+  margin-left: -50vw;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.rowBgVisible {
+  opacity: 1;
+}
+
+.rowBgPeach {
+  position: absolute;
+  inset: 0;
+  background: #faede9;
+}
+
+/* Figma active row — gradient only (no baked-in text from export) */
+.rowBgGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #4a2438 0%,
+    #9a6b55 18%,
+    #c4a89a 32%,
+    #8fa3bc 48%,
+    #3d3558 68%,
+    #252a38 100%
+  );
+  pointer-events: none;
+}
+
+.rowBgGrain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.rowBgOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+.index {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 48px;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+  text-align: center;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+
+.statement {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-48);
+  font-weight: 400;
+  line-height: var(--l-lh-48);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+  transition: color 0.25s ease;
+}
+
+.rowActive .index,
+.rowActive .statement {
+  color: #ffffff;
+}
+
+@media (max-width: 1200px) {
+  .row {
+    gap: calc(24 * var(--l-vw));
+    padding: calc(32 * var(--l-vw)) var(--l-section-px);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-bottom: 40px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 16px;
+    padding: 31px 0;
+  }
+
+  .index {
+    width: auto;
+    font-size: var(--l-fs-28);
+    line-height: var(--l-lh-28);
+    text-align: left;
+  }
+
+  .statement {
+    font-size: var(--l-fs-40);
+    line-height: var(--l-lh-40);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .rowBg,
+  .index,
+  .statement {
+    transition: none;
+  }
+}

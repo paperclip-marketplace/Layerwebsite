@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" aria-label="Gong">
+  <circle cx="12" cy="12" r="10" fill="#5B21B6"/>
+  <g fill="white" transform="translate(12 12)">
+    <circle r="1.85"/>
+    <rect x="-0.55" y="-8.2" width="1.1" height="3.6" rx="0.55" transform="rotate(0)"/>
+    <rect x="-0.55" y="-8.2" width="1.1" height="3.6" rx="0.55" transform="rotate(45)"/>
+    <rect x="-0.55" y="-8.2" width="1.1" height="3.6" rx="0.55" transform="rotate(90)"/>
+    <rect x="-0.55" y="-8.2" width="1.1" height="3.6" rx="0.55" transform="rotate(135)"/>
+    <rect x="-0.55" y="-8.2" width="1.1" height="3.6" rx="0.55" transform="rotate(180)"/>
+    <rect x="-0.55" y="-8.2" width="1.1" height="3.6" rx="0.55" transform="rotate(225)"/>
+    <rect x="-0.55" y="-8.2" width="1.1" height="3.6" rx="0.55" transform="rotate(270)"/>
+    <rect x="-0.55" y="-8.2" width="1.1" height="3.6" rx="0.55" transform="rotate(315)"/>
+  </g>
+</svg>

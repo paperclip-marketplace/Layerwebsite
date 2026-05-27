@@ -1,0 +1,209 @@
+/*
+ * Figma Home / Mobile — 513:1100 (402×8060)
+ */
+
+@media (max-width: 768px) {
+  /* Figma 513:1152 — Section Container (gap 40px between copy block and hero image) */
+  .landing-hero-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 64px 0 40px;
+  }
+
+  .landing-hero-intro .landing-top-section {
+    padding: 0;
+    gap: 0;
+    margin: 0;
+  }
+
+  /* 513:1178 — 16px between headline and description */
+  .landing-hero-intro .landing-copy-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .landing-hero-intro .landing-copy-aside {
+    margin: 0;
+  }
+
+  .landing-hero-intro .landing-hero-section {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 40px 0 0;
+    border: none;
+    overflow: visible;
+  }
+
+  /* 32px below forward-thinking copy before logo scroll (513:1194) */
+  .landing-clients-section {
+    gap: 32px;
+  }
+
+  /* Figma 513:1372 — What We Do + split cards (513:1653) */
+  .landing-what-we-do-split {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+  }
+
+  .landing-what-we-do-split .landing-split-section {
+    width: 100%;
+    margin-top: 32px;
+    padding: 0 var(--l-inset-x, 20px);
+    overflow: visible;
+  }
+
+  .landing-what-we-do-split .landing-split-section__track {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* The Solution copy block → split cards */
+  .landing-what-we-do-split .landing-what-we-do-section {
+    gap: 32px;
+    margin-bottom: 0;
+  }
+
+  /* 513:1771 — problem + stats */
+  .landing-problem-stats {
+    /* .landing-band-left handles full-bleed + borders */
+  }
+
+  .landing-problem-stats .landing-problem-section {
+    gap: 32px;
+  }
+
+  .landing-problem-stats .landing-problem-section .landing-copy-row {
+    flex-direction: column;
+    gap: calc(16 * var(--l-vw));
+  }
+
+  .landing-problem-stats .landing-problem-section .eyebrow {
+    font-size: var(--l-fs-14);
+    line-height: var(--l-lh-14);
+  }
+
+  .landing-problem-stats .landing-problem-section .headline {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+  }
+
+  .landing-problem-stats .landing-stats-section {
+    flex-direction: column;
+    gap: var(--l-stats-card-gap);
+    padding: 10px;
+  }
+
+  .landing-problem-stats .landing-stats-card {
+    gap: calc(24 * var(--l-vw));
+    min-height: var(--l-stats-card-min-h);
+    padding: calc(32 * var(--l-vw));
+    border-radius: calc(24 * var(--l-vw));
+  }
+
+  .landing-problem-citation {
+    padding: 24px 0;
+  }
+
+  .landing-problem-citation p {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+  }
+
+  /* 513:1968 — leadership */
+  .landing-leadership-block {
+    /* .landing-band-left handles full-bleed + borders */
+  }
+
+  .landing-leadership-block .landing-leadership-control-section {
+    padding: 40px 20px;
+    gap: 32px;
+  }
+
+  .landing-leadership-block .landing-leadership-control-section .landing-copy-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .landing-leadership-block .landing-leadership-control-section .eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+  }
+
+  .landing-leadership-block .landing-leadership-control-section .headline {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+  }
+
+  .landing-leadership-block .landing-leadership-control-section .description {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .landing-leadership-block .landing-leadership-image-section {
+    border-bottom: none;
+  }
+
+  /* 513:1936 — metrics */
+  .landing-metrics-block {
+    padding-bottom: 40px;
+  }
+
+  .landing-metrics-block .landing-leadership-metrics-section {
+    padding-top: calc(40 * var(--l-vw));
+    gap: calc(32 * var(--l-vw));
+  }
+
+  .landing-metrics-block .landing-leadership-metrics-section .eyebrow {
+    font-size: var(--l-fs-14);
+    line-height: var(--l-lh-14);
+  }
+
+  .landing-metrics-block .landing-leadership-metrics-section .headline {
+    font-size: var(--l-fs-56);
+    line-height: var(--l-lh-56);
+  }
+
+  .landing-metrics-block .landing-key-metrics-section {
+    padding: calc(32 * var(--l-vw)) 0 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .landing-metrics-block .landing-key-metrics-section::-webkit-scrollbar {
+    display: none;
+  }
+
+  .landing-metrics-block .landing-key-metrics-section__track {
+    padding-inline: var(--l-inset-x, 20px);
+    width: max-content;
+  }
+
+  /* Global gutter on .landing-page-gutter — no extra horizontal section padding */
+  .landing-page-gutter .landing-main__inner > section:not(.landing-clients-section) {
+    padding-inline: 0;
+  }
+}
+
+@media (min-width: 769px) {
+  .landing-hero-intro,
+  .landing-what-we-do-split,
+  .landing-problem-stats,
+  .landing-leadership-block,
+  .landing-metrics-block {
+    display: contents;
+  }
+}

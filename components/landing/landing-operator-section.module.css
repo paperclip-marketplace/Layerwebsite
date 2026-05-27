@@ -1,0 +1,249 @@
+/* Figma 729:1314 / 729:1315 — Operator Section */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.gradient {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  overflow: visible;
+  background: transparent;
+}
+
+.gradient::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  background: linear-gradient(180deg, #48a3d0 0%, #fc7303 100%);
+  pointer-events: none;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(120 * var(--l-vw)) var(--l-section-px) 0;
+}
+
+.headerRow {
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: calc(40 * var(--l-vw));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  word-break: break-word;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(108 * var(--l-vw));
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: calc(-4.32 * var(--l-vw));
+  color: #ffffff;
+}
+
+.headerDescription {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #ffffff;
+}
+
+.headlineStack {
+  display: block;
+  line-height: 0;
+}
+
+.headlineLine {
+  display: block;
+  margin: 0;
+  line-height: calc(112 / 108);
+}
+
+.strikethrough {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: line-through;
+  text-decoration-skip-ink: none;
+}
+
+.founderBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+}
+
+.bio {
+  width: 100%;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-32);
+  font-weight: 600;
+  line-height: 0;
+  letter-spacing: calc(-1.28 * var(--l-vw));
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  word-break: break-word;
+}
+
+.bioParagraph {
+  margin: 0;
+}
+
+.bioParagraph span {
+  line-height: var(--l-lh-32);
+}
+
+.bioParagraph + .bioParagraph {
+  margin-top: 0;
+}
+
+.bioMuted {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.bioEmphasis {
+  color: #ffffff;
+}
+
+.bioLink {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-position: from-font;
+}
+
+.imageBlock {
+  position: relative;
+  flex-shrink: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  height: min(calc(897 / 1440 * 100vw), 897px);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.imageClip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.teamPhoto {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.imageFadeTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 31.44%;
+  background: linear-gradient(
+    180deg,
+    #9d8c6f 0%,
+    rgba(157, 140, 111, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.imageFadeBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 21.74%;
+  background: linear-gradient(180deg, rgba(251, 115, 4, 0) 0%, #fb7304 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 1200px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headline {
+    font-size: calc(72 * var(--l-vw));
+  }
+
+  .headlineLine {
+    line-height: calc(80 / 72);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-bottom: 80px;
+  }
+
+  .main {
+    align-items: flex-start;
+    padding: 40px 0 0;
+    gap: 40px;
+  }
+
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 40px;
+  }
+
+  .headline {
+    font-size: var(--l-fs-48);
+    letter-spacing: -1.92px;
+  }
+
+  .headlineLine {
+    line-height: var(--l-lh-48);
+  }
+
+  .headerDescription {
+    max-width: none;
+    font-size: var(--l-fs-16);
+    line-height: calc(24 * var(--l-vw));
+    letter-spacing: -0.64px;
+  }
+
+  .bio {
+    font-size: var(--l-fs-24);
+    letter-spacing: -0.96px;
+  }
+
+  .bioParagraph span {
+    line-height: var(--l-lh-24);
+  }
+
+  .imageBlock {
+    height: min(calc(420 / 402 * 100vw), 420px);
+  }
+}
