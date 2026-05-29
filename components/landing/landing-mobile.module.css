@@ -58,7 +58,14 @@
     width: 100%;
     margin-top: 32px;
     padding: 0 var(--l-inset-x, 20px);
-    overflow: visible;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .landing-what-we-do-split .landing-split-section::-webkit-scrollbar {
+    display: none;
   }
 
   .landing-what-we-do-split .landing-split-section__track {
@@ -179,6 +186,7 @@
   .landing-metrics-block .landing-key-metrics-section {
     padding: calc(32 * var(--l-vw)) 0 0;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
 
