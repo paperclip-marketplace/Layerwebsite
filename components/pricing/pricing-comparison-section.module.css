@@ -155,6 +155,15 @@
   line-height: 1;
 }
 
+.ctaCreditsWrap {
+  position: relative;
+  width: 100%;
+}
+
+.ctaCreditsWrapOpen {
+  z-index: 2;
+}
+
 .ctaCredits {
   display: flex;
   align-items: center;
@@ -179,6 +188,53 @@
   flex-shrink: 0;
   font-size: var(--l-fs-24);
   line-height: 1;
+}
+
+.creditsDropdown {
+  position: absolute;
+  top: calc(100% + calc(8 * var(--l-vw)));
+  left: 0;
+  z-index: 3;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #dedede;
+  border-radius: calc(16 * var(--l-vw));
+  background: #ffffff;
+  box-shadow: 0 calc(8 * var(--l-vw)) calc(24 * var(--l-vw)) rgba(0, 0, 0, 0.12);
+}
+
+.creditsOption {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: calc(24 * var(--l-vw)) calc(40 * var(--l-vw));
+  border: none;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  text-align: left;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.creditsOption + .creditsOption {
+  border-top: 1px solid #dedede;
+}
+
+.creditsOptionSelected {
+  background: #faede9;
+}
+
+.creditsOption:hover {
+  background: #f9f9f9;
+}
+
+.creditsOptionSelected:hover {
+  background: #faede9;
 }
 
 .ctaHighlight {
