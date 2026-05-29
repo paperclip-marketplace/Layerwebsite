@@ -982,9 +982,20 @@
     transform: translateY(-35%);
   }
 
-  .performWidget,
   .improveHighlight {
     display: none;
+  }
+
+  .cardPerform .performWidget {
+    display: block;
+    top: 4px;
+    right: 4px;
+    left: auto;
+    width: 62%;
+    min-width: 180px;
+    max-width: 210px;
+    height: calc(100% - 8px);
+    overflow: hidden;
   }
 
   .cardImprove .cardVisual {

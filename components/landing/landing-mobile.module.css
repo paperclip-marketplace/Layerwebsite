@@ -110,14 +110,13 @@
     border-radius: calc(24 * var(--l-vw));
   }
 
-  .landing-problem-citation {
-    padding: 24px 0;
-  }
-
   .landing-problem-citation p {
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.56px;
+    margin: 0;
+    text-align: left;
+    color: #606060;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
   }
 
   /* 513:1968 — leadership */

@@ -7,6 +7,7 @@ import { LandingWhatWeDoSection } from "./landing-what-we-do-section";
 import { LandingSplitSection } from "./landing-split-section";
 import { IntegrationSection } from "./integration-section";
 import { LandingProblemSection } from "./landing-problem-section";
+import problemSectionStyles from "./landing-problem-section.module.css";
 import { LandingStatsSection } from "./landing-stats-section";
 import { LandingFailurePointsSection } from "./landing-failure-points-section";
 import { LandingWhyNowSection } from "./landing-why-now-section";
@@ -55,7 +56,10 @@ export function LandingPage() {
             data-name="Problem Citation"
             data-node-id="725:1307"
           >
-            <p data-node-id="725:1305">
+            <p
+              className={`${problemSectionStyles.description} landing-copy-aside`}
+              data-node-id="725:1305"
+            >
               * The Bridge Group, 2024 SaaS AE Metrics &amp; Compensation
               Benchmark; Salesforce, State of Sales Report 2026.
             </p>

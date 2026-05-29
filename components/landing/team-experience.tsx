@@ -1,40 +1,12 @@
 import styles from "./team-experience.module.css";
+import {
+  TEAM_LOGO_ROWS,
+  type TeamLogo,
+  type TeamLogoFit,
+} from "./team-experience-logos";
+import { TeamExperienceLogosTicker } from "./team-experience-logos-ticker";
 
-const TEAM_LOGO_BASE = "/assets/images/landing/team-experience";
-
-type LogoFit = "contain" | "contain-bottom" | "cover";
-
-type TeamLogo = {
-  src: string;
-  alt: string;
-  fit?: LogoFit;
-};
-
-const TEAM_LOGO_ROWS: TeamLogo[][] = [
-  [
-    { src: `${TEAM_LOGO_BASE}/sage-logo.png`, alt: "Sage" },
-    { src: `${TEAM_LOGO_BASE}/criteo-logo.png`, alt: "Criteo" },
-    { src: `${TEAM_LOGO_BASE}/xero-logo.png`, alt: "Xero" },
-    { src: `${TEAM_LOGO_BASE}/bandwatch-logo.png`, alt: "Brandwatch" },
-    { src: `${TEAM_LOGO_BASE}/hubspot-logo.png`, alt: "HubSpot" },
-  ],
-  [
-    { src: `${TEAM_LOGO_BASE}/medallia-logo.png`, alt: "Medallia" },
-    { src: `${TEAM_LOGO_BASE}/apple-logo.png`, alt: "Apple" },
-    { src: `${TEAM_LOGO_BASE}/sap-logo.png`, alt: "SAP" },
-    { src: `${TEAM_LOGO_BASE}/parallels-logo.png`, alt: "Parallels" },
-    { src: `${TEAM_LOGO_BASE}/paperclip-logo.png`, alt: "Paperclip" },
-  ],
-  [
-    { src: `${TEAM_LOGO_BASE}/como-logo.png`, alt: "Como" },
-    { src: `${TEAM_LOGO_BASE}/swiggy-logo.png`, alt: "Swiggy" },
-    { src: `${TEAM_LOGO_BASE}/perfios-logo.png`, alt: "Perfios" },
-    { src: `${TEAM_LOGO_BASE}/sbicard-logo.png`, alt: "SBI Card" },
-    { src: `${TEAM_LOGO_BASE}/adgm-logo.png`, alt: "ADGM" },
-  ],
-];
-
-function fitClass(fit: LogoFit | undefined) {
+function fitClass(fit: TeamLogoFit | undefined) {
   if (fit === "contain-bottom") return styles.logoImgContainBottom;
   if (fit === "cover") return styles.logoImgCover;
   return styles.logoImgContain;
@@ -100,6 +72,8 @@ export function TeamExperienceSection() {
           </div>
         ))}
       </div>
+
+      <TeamExperienceLogosTicker />
     </section>
   );
 }

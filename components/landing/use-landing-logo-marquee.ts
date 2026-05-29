@@ -10,6 +10,7 @@ type UseLandingLogoMarqueeOptions = {
   trackRef: RefObject<HTMLDivElement | null>;
   cellsRef: RefObject<(HTMLDivElement | null)[]>;
   activeClassName: string;
+  enableMobileTouch?: boolean;
 };
 
 export function useLandingLogoMarquee({
@@ -17,15 +18,16 @@ export function useLandingLogoMarquee({
   trackRef,
   cellsRef,
   activeClassName,
+  enableMobileTouch = false,
 }: UseLandingLogoMarqueeOptions) {
   useEffect(() => {
     const viewport = viewportRef.current;
     const track = trackRef.current;
-    const cells = cellsRef.current;
-    if (!viewport || !track || !cells) return;
+    if (!viewport || !track) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const desktop = window.matchMedia("(min-width: 1201px)");
+    const mobile = window.matchMedia("(max-width: 768px)");
     const tickerWrap =
       viewport.closest<HTMLElement>("[data-logo-marquee]") ?? viewport;
 
@@ -40,7 +42,7 @@ export function useLandingLogoMarquee({
       let bestIndex = -1;
       let bestDistance = Infinity;
 
-      cells.forEach((cell, index) => {
+      cellsRef.current.forEach((cell, index) => {
         if (!cell || cell.dataset.forceMuted === "true") return;
 
         const rect = cell.getBoundingClientRect();
@@ -67,7 +69,7 @@ export function useLandingLogoMarquee({
         activeIndex = findCenterIndex(centerX);
       }
 
-      for (const [index, cell] of cells.entries()) {
+      for (const [index, cell] of cellsRef.current.entries()) {
         if (!cell) continue;
 
         const isForceMuted = cell.dataset.forceMuted === "true";
@@ -84,18 +86,24 @@ export function useLandingLogoMarquee({
 
     const onTickerEnter = () => {
       isTickerHovered = true;
-      if (desktop.matches) setPlaybackRate(MARQUEE_SLOW_PLAYBACK_RATE);
+      if (desktop.matches || (enableMobileTouch && mobile.matches)) {
+        setPlaybackRate(MARQUEE_SLOW_PLAYBACK_RATE);
+      }
     };
 
     const onTickerLeave = () => {
       isTickerHovered = false;
       hoveredIndex = null;
-      if (desktop.matches) setPlaybackRate(MARQUEE_FAST_PLAYBACK_RATE);
+      if (desktop.matches) {
+        setPlaybackRate(MARQUEE_FAST_PLAYBACK_RATE);
+      } else if (enableMobileTouch && mobile.matches) {
+        setPlaybackRate(1);
+      }
     };
 
     const cellCleanups: Array<() => void> = [];
 
-    for (const [index, cell] of cells.entries()) {
+    for (const [index, cell] of cellsRef.current.entries()) {
       if (!cell) continue;
 
       const onCellEnter = () => {
@@ -104,17 +112,39 @@ export function useLandingLogoMarquee({
       const onCellLeave = () => {
         if (hoveredIndex === index) hoveredIndex = null;
       };
+      const onCellTouchStart = () => {
+        if (!enableMobileTouch || !mobile.matches) return;
+        hoveredIndex = index;
+        isTickerHovered = true;
+        setPlaybackRate(MARQUEE_SLOW_PLAYBACK_RATE);
+      };
+      const onCellTouchEnd = () => {
+        if (!enableMobileTouch || !mobile.matches) return;
+        if (hoveredIndex === index) hoveredIndex = null;
+        isTickerHovered = false;
+        setPlaybackRate(1);
+      };
 
       cell.addEventListener("mouseenter", onCellEnter);
       cell.addEventListener("mouseleave", onCellLeave);
+      if (enableMobileTouch) {
+        cell.addEventListener("touchstart", onCellTouchStart, { passive: true });
+        cell.addEventListener("touchend", onCellTouchEnd);
+        cell.addEventListener("touchcancel", onCellTouchEnd);
+      }
       cellCleanups.push(() => {
         cell.removeEventListener("mouseenter", onCellEnter);
         cell.removeEventListener("mouseleave", onCellLeave);
+        if (enableMobileTouch) {
+          cell.removeEventListener("touchstart", onCellTouchStart);
+          cell.removeEventListener("touchend", onCellTouchEnd);
+          cell.removeEventListener("touchcancel", onCellTouchEnd);
+        }
       });
     }
 
     if (reducedMotion.matches) {
-      for (const cell of cells) {
+      for (const cell of cellsRef.current) {
         cell?.classList.add(activeClassName);
       }
       return () => {
@@ -145,7 +175,7 @@ export function useLandingLogoMarquee({
     const onReducedMotionChange = (event: MediaQueryListEvent) => {
       if (event.matches) {
         cancelAnimationFrame(rafId);
-        for (const cell of cells) {
+        for (const cell of cellsRef.current) {
           cell?.classList.add(activeClassName);
         }
       } else {
@@ -164,5 +194,5 @@ export function useLandingLogoMarquee({
       reducedMotion.removeEventListener("change", onReducedMotionChange);
       for (const cleanup of cellCleanups) cleanup();
     };
-  }, [activeClassName, cellsRef, trackRef, viewportRef]);
+  }, [activeClassName, cellsRef, enableMobileTouch, trackRef, viewportRef]);
 }

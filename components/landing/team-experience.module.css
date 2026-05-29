@@ -51,8 +51,9 @@
   filter: grayscale(1);
   opacity: 0.38;
   transition:
-    filter 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    filter 0.28s ease,
+    opacity 0.28s ease,
+    transform 0.28s ease;
 }
 
 .logoCell:hover,
@@ -90,6 +91,101 @@
 .logoImgCover {
   object-fit: cover;
   object-position: center;
+}
+
+.mobileTicker {
+  display: none;
+  width: 100%;
+}
+
+.marqueeViewport {
+  position: relative;
+  width: 100%;
+  height: var(--l-logo-h);
+  overflow: hidden;
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: var(--l-logo-h);
+  gap: var(--l-logo-gap);
+  animation: teamExperienceMarquee var(--team-marquee-duration, 72s) linear infinite;
+  will-change: transform;
+}
+
+@keyframes teamExperienceMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.logoCellActive {
+  filter: none;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.fadeLeft,
+.fadeRight {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  width: var(--l-logo-fade-w);
+  height: var(--l-logo-h);
+  pointer-events: none;
+}
+
+.fadeLeft {
+  left: -1px;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(
+    270deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoCellActive {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .marqueeTrack {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    padding-inline: var(--l-section-px);
+    animation: none;
+    gap: var(--l-logo-gap);
+  }
+
+  .marqueeViewport {
+    height: auto;
+    min-height: var(--l-logo-h);
+    overflow: visible;
+  }
+
+  .fadeLeft,
+  .fadeRight {
+    display: none;
+  }
 }
 
 /* Large screens (wider than 1440) — side strokes + full-bleed horizontal rules */
@@ -144,30 +240,60 @@
   }
 
   .logoGrid {
-    gap: 24px;
+    display: none;
   }
 
-  .logoRow {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    justify-items: center;
-    gap: 24px 16px;
-    padding-inline: var(--l-inset-x, 20px);
+  .mobileTicker {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  .marqueeViewport {
+    height: 64px;
+  }
+
+  .marqueeTrack {
+    gap: 40px;
+    height: 64px;
   }
 
   .logoCell {
     width: 136px;
     height: 64px;
   }
-}
 
-@media (max-width: 768px) {
-  .logoRow:last-child {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .fadeLeft,
+  .fadeRight {
+    width: 131px;
+    height: 64px;
   }
 
-  .logoRow:last-child .logoCell:last-child {
-    grid-column: 1 / -1;
-    justify-self: center;
+  .fadeLeft {
+    left: 0;
+  }
+
+  .fadeRight {
+    right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 768px) {
+  .marqueeTrack {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-inline: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .marqueeTrack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .marqueeViewport {
+    height: 64px;
+    overflow: visible;
   }
 }
