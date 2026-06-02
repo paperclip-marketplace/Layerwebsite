@@ -7,8 +7,8 @@ const LOGO_MARK = "/assets/images/landing/layer-mark.svg";
 const LOGO_WORDMARK = "/assets/images/landing/layer-wordmark.svg";
 
 const POLICY_LINKS = [
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms of Services", href: "#" },
+  { label: "Privacy Policy", href: ROUTES.privacy },
+  { label: "Terms of Services", href: ROUTES.terms },
   { label: "Cookie Policy", href: "#" },
 ] as const;
 
