@@ -28,6 +28,8 @@ export const ROUTES = {
   copilot: '/copilot',
   prep: '/prep',
   pricing: '/pricing',
+  terms: '/terms',
+  privacy: '/privacy',
 } as const;
 
 /** After auth: org members use home (member v2 shell on `/`); admins and others use personas. */

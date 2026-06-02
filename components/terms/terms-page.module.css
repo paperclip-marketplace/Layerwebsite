@@ -1,0 +1,14 @@
+.page {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #f9f9f9;
+}
+
+.main {
+  width: 100%;
+  max-width: none;
+  --landing-header-h: 64px;
+  padding-top: var(--landing-header-h);
+}
