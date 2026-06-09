@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { forwardRef } from "react";
+import { ROUTES } from "@/lib/config/constants";
 import styles from "./nav-dropdown.module.css";
 
 const imgItemImage = "https://www.figma.com/api/mcp/asset/7bf407f0-7f4e-43e5-a63a-e514811a15af";
@@ -30,6 +30,7 @@ export const ProductsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
               </div>
               <div className={styles.itemsContainer}>
                 <DropdownItem
+                  href={ROUTES.productsRoleplay}
                   image={imgItemImage}
                   title="Roleplay"
                   description="Discover our All-in one Layer studio designed for leadship"
@@ -117,11 +118,13 @@ export const ProductsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
 ProductsDropdown.displayName = "ProductsDropdown";
 
 function DropdownItem({
+  href = "#",
   image,
   title,
   description,
   isActive = false,
 }: {
+  href?: string;
   image: string;
   title: string;
   description: string;
@@ -129,7 +132,7 @@ function DropdownItem({
 }) {
   return (
     <Link
-      href="#"
+      href={href}
       className={`${styles.item} dropdown-anim-stagger`}
       style={isActive ? { backgroundColor: "#f9f9f9" } : {}}
     >

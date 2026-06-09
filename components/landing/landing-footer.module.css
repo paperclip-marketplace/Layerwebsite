@@ -1,8 +1,15 @@
-/* Figma 336:1655 — Footer Content */
+/* Figma 1089:5810 / 1031:6390 — Footer */
 .section {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(10 * var(--l-vw));
 }
 
 .card {
@@ -10,12 +17,12 @@
   flex: 1 1 0;
   flex-direction: column;
   align-items: flex-start;
-  gap: 40px;
+  gap: calc(40 * var(--l-vw));
   min-width: 0;
   box-sizing: border-box;
   width: 100%;
-  padding: 40px;
-  border-radius: 40px;
+  padding: calc(40 * var(--l-vw));
+  border-radius: calc(40 * var(--l-vw));
   background: #f9f9f9;
 }
 
@@ -30,8 +37,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  flex-shrink: 0;
   width: 100%;
-  max-width: 830px;
+  max-width: calc(830 * var(--l-vw));
 }
 
 .logoLink {
@@ -43,54 +51,63 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 17px;
-  width: 225px;
-  height: 56px;
+  gap: calc(17 * var(--l-vw));
+  width: calc(225 * var(--l-vw));
+  height: calc(56 * var(--l-vw));
   flex-shrink: 0;
 }
 
 .logoMark {
-  width: 73px;
-  height: 54px;
+  width: calc(73 * var(--l-vw));
+  height: calc(54 * var(--l-vw));
   flex-shrink: 0;
 }
 
 .logoWordmark {
-  width: 131px;
-  height: 47px;
+  width: calc(131 * var(--l-vw));
+  height: calc(47 * var(--l-vw));
   flex-shrink: 0;
 }
 
 .nav {
   display: flex;
-  flex: 0 0 auto;
+  flex: 1 1 0;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
-  gap: 0;
+  justify-content: center;
+  gap: calc(40 * var(--l-vw));
   min-width: 0;
-  margin-left: auto;
 }
 
-.navPrimary,
+.navPrimary {
+  display: flex;
+  gap: calc(40 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.navColumn {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
 .navSecondary {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: auto;
-}
-
-.navPrimary {
-  flex-shrink: 0;
+  width: 100%;
 }
 
 .linkPrimary,
 .linkSecondary {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 8px 0;
-  border-radius: 8px;
+  gap: calc(4 * var(--l-vw));
+  padding: calc(8 * var(--l-vw)) 0;
+  border-radius: calc(8 * var(--l-vw));
   font-family: var(--layer-font-geist-sans);
   font-size: var(--l-fs-16);
   font-weight: 500;
@@ -125,41 +142,7 @@
   white-space: nowrap;
 }
 
-@media (width > 1440px) {
-  .section:global(.landing-shell-x) {
-    position: relative;
-    isolation: isolate;
-    background: transparent;
-    padding-inline: max(
-      var(--l-content-inset-x),
-      calc((100vw - var(--l-shell-w)) / 2 + var(--l-content-inset-x))
-    );
-  }
-
-  .section:global(.landing-shell-x)::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 100vw;
-    margin-left: -50vw;
-    background: #f9f9f9;
-    pointer-events: none;
-  }
-
-  .card {
-    border-radius: 0;
-    background: transparent;
-  }
-}
-
 @media (max-width: 1200px) {
-  .section {
-    padding: calc(10 * var(--l-vw)) calc(10 * var(--l-vw)) 0;
-  }
-
   .logo {
     width: calc(180 * var(--l-vw));
     height: calc(44 * var(--l-vw));
@@ -178,7 +161,7 @@
 }
 
 @media (max-width: 768px) {
-  .section {
+  .content {
     padding: calc(10 * var(--l-vw)) 0;
   }
 
@@ -214,14 +197,15 @@
   }
 
   .nav {
-    align-items: flex-start;
-    gap: 0;
     width: 100%;
-    margin-left: 0;
+  }
+
+  .navPrimary {
+    flex-direction: column;
+    gap: calc(24 * var(--l-vw));
   }
 
   .copyright {
-    font-size: var(--l-fs-16);
     white-space: normal;
   }
 }

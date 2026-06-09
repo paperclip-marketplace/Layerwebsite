@@ -1,0 +1,50 @@
+/* Figma 1088:4217 — Forward Thinking Logos */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-pricing-cta-py) 0;
+  overflow: hidden;
+  border-bottom: 1px solid #dedede;
+  background: #ffffff;
+}
+
+.copyRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: var(--l-section-px);
+}
+
+.copy {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #020100;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 0;
+    gap: 32px;
+  }
+
+  .copyRow {
+    padding-inline: 20px;
+  }
+
+  .copy {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+}

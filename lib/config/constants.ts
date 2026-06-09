@@ -28,6 +28,7 @@ export const ROUTES = {
   copilot: '/copilot',
   prep: '/prep',
   pricing: '/pricing',
+  productsRoleplay: '/products/roleplay',
   terms: '/terms',
   privacy: '/privacy',
 } as const;

@@ -1,0 +1,604 @@
+/* Figma 1088:4206 — Roleplay hero */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: clip;
+  overflow-y: visible;
+  border-bottom: 1px solid #dedede;
+  background: #ffffff;
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-roleplay-hero-inner-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-px);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: calc(4 * var(--l-vw)) calc(12 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #f45523;
+  white-space: nowrap;
+  background: #faede9;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  width: 100%;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  width: 100%;
+  max-width: var(--l-roleplay-title-max-w);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  white-space: nowrap;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(24 * var(--l-vw));
+  width: 100%;
+}
+
+.primaryCta {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(4 * var(--l-vw));
+  padding: calc(12 * var(--l-vw)) calc(20 * var(--l-vw)) calc(12 * var(--l-vw))
+    calc(24 * var(--l-vw));
+  border-radius: 99px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #020100;
+}
+
+.ctaIcon {
+  font-size: calc(24 * var(--l-vw));
+  line-height: 1;
+}
+
+.modeToggle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding: calc(4 * var(--l-vw));
+  border: 1px solid #eee;
+  border-radius: 99px;
+  background: #f9f9f9;
+}
+
+.modeOption {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(4 * var(--l-vw));
+  width: calc(216 * var(--l-vw));
+  padding: calc(12 * var(--l-vw)) calc(24 * var(--l-vw));
+  border: none;
+  border-radius: 99px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  cursor: pointer;
+  background: transparent;
+}
+
+.modeOptionMuted {
+  opacity: 0.6;
+}
+
+.modeOptionActive {
+  border: 1px solid #f9f9f9;
+  opacity: 1;
+  background: #ffffff;
+  box-shadow: 0 calc(4 * var(--l-vw)) calc(6 * var(--l-vw)) rgba(0, 0, 0, 0.12);
+}
+
+.modeIcon {
+  font-size: calc(24 * var(--l-vw));
+  line-height: 1;
+}
+
+/* Figma 1088:4207 — agent showcase */
+.showcase {
+  position: relative;
+  width: 100%;
+  height: var(--l-roleplay-showcase-h);
+  overflow-x: clip;
+  overflow-y: visible;
+  isolation: isolate;
+  background: #ffffff;
+}
+
+.showcaseSideRow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--l-hero-inner-w);
+  opacity: 0.3;
+  pointer-events: none;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+}
+
+.showcaseNav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(600 * var(--l-vw));
+  transform: translate(-50%, -50%);
+}
+
+.showcaseNavBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(16 * var(--l-vw));
+  border: 1px solid #f9f9f9;
+  border-radius: 99px;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.showcaseNavIcon {
+  font-size: calc(24 * var(--l-vw));
+  line-height: 1;
+  color: #020100;
+}
+
+.agentCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: calc(1.881 * var(--l-vw)) solid #ffffff;
+  border-radius: calc(16 * var(--l-vw));
+  box-shadow: 0 calc(30.09 * var(--l-vw)) calc(48.05 * var(--l-vw)) 0
+    rgba(0, 0, 0, 0.07);
+}
+
+.agentCardSide {
+  flex-shrink: 0;
+  width: var(--l-roleplay-side-card-w);
+  height: var(--l-roleplay-side-card-h);
+}
+
+.agentCardCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: var(--l-roleplay-center-card-w);
+  height: var(--l-roleplay-center-card-h);
+  border-width: calc(2.365 * var(--l-vw));
+  box-shadow:
+    0 calc(24 * var(--l-vw)) calc(200 * var(--l-vw)) calc(32 * var(--l-vw))
+      rgba(62, 130, 234, 0.25),
+    0 calc(37.839 * var(--l-vw)) calc(60.424 * var(--l-vw)) 0
+      rgba(0, 0, 0, 0.07);
+  transform: translate(-50%, -50%);
+}
+
+.agentCardMedia {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.agentCardOverlayLeft {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.agentCardBgRight {
+  position: absolute;
+  top: -16.71%;
+  left: -29.27%;
+  width: 132.59%;
+  max-width: none;
+  height: 137.56%;
+}
+
+.agentCardFeatured {
+  position: absolute;
+  top: -5.74%;
+  left: -42.72%;
+  width: 174.81%;
+  max-width: none;
+  height: 120.92%;
+  object-fit: cover;
+}
+
+.agentCardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100%;
+  pointer-events: none;
+}
+
+.agentCardTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: calc(15.045 * var(--l-vw));
+}
+
+.agentCardCenter .agentCardTop {
+  padding: calc(18.919 * var(--l-vw));
+}
+
+.agentChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(3.761 * var(--l-vw)) calc(7.523 * var(--l-vw));
+  border-radius: 4px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(11.28 * var(--l-vw));
+  font-weight: 600;
+  line-height: calc(15.045 / 11.28);
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  white-space: nowrap;
+  background: #009360;
+}
+
+.agentCardCenter .agentChip {
+  padding: calc(4.73 * var(--l-vw)) calc(9.46 * var(--l-vw));
+  font-size: calc(14.19 * var(--l-vw));
+  line-height: calc(18.919 / 14.19);
+}
+
+.agentCardBottom {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.agentCardBottom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.45) 38%,
+    rgb(0, 0, 0) 100%
+  );
+}
+
+.agentIdentity {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(7.523 * var(--l-vw));
+  padding: calc(18.806 * var(--l-vw)) calc(15.045 * var(--l-vw))
+    calc(7.523 * var(--l-vw));
+}
+
+.agentCardCenter .agentIdentity {
+  gap: calc(9.46 * var(--l-vw));
+  padding: calc(23.649 * var(--l-vw)) calc(18.919 * var(--l-vw))
+    calc(9.46 * var(--l-vw));
+}
+
+.agentName {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(18.81 * var(--l-vw));
+  font-weight: 700;
+  line-height: calc(22.568 / 18.81);
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.agentCardCenter .agentName {
+  font-size: calc(23.65 * var(--l-vw));
+  line-height: calc(28.379 / 23.65);
+}
+
+.agentMeta {
+  display: flex;
+  gap: calc(7.523 * var(--l-vw));
+  align-items: center;
+  font-family: var(--layer-font-inter, var(--layer-font-geist-sans));
+  font-size: calc(15.05 * var(--l-vw));
+  line-height: calc(15.045 / 15.05);
+  letter-spacing: -0.04em;
+  color: #dedede;
+  white-space: nowrap;
+}
+
+.agentCardCenter .agentMeta {
+  gap: calc(9.46 * var(--l-vw));
+  font-size: calc(18.92 * var(--l-vw));
+  line-height: calc(18.919 / 18.92);
+}
+
+.agentCompany {
+  font-weight: 600;
+}
+
+.agentMetaDot {
+  flex-shrink: 0;
+  width: calc(3.761 * var(--l-vw));
+  height: calc(3.761 * var(--l-vw));
+  border-radius: 50%;
+  background: #dedede;
+}
+
+.agentCardCenter .agentMetaDot {
+  width: calc(4.73 * var(--l-vw));
+  height: calc(4.73 * var(--l-vw));
+}
+
+.agentStatsPanel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  margin: calc(11.284 * var(--l-vw));
+  padding: calc(11.284 * var(--l-vw)) calc(7.523 * var(--l-vw))
+    calc(11.284 * var(--l-vw)) calc(11.284 * var(--l-vw));
+  border: calc(0.94 * var(--l-vw)) solid rgba(255, 255, 255, 0.1);
+  border-radius: calc(12 * var(--l-vw));
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.agentCardCenter .agentStatsPanel {
+  margin: calc(14.189 * var(--l-vw));
+  padding: calc(14.189 * var(--l-vw)) calc(9.46 * var(--l-vw))
+    calc(14.189 * var(--l-vw)) calc(14.189 * var(--l-vw));
+  border-width: calc(1.182 * var(--l-vw));
+}
+
+.agentStats {
+  display: flex;
+  flex: 1 1 0;
+  gap: calc(11.284 * var(--l-vw));
+  min-width: 0;
+}
+
+.agentCardCenter .agentStats {
+  gap: calc(14.189 * var(--l-vw));
+}
+
+.agentStat {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(3.761 * var(--l-vw));
+  min-width: 0;
+}
+
+.agentCardCenter .agentStat {
+  gap: calc(4.73 * var(--l-vw));
+}
+
+.agentStatLabel {
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(11.28 * var(--l-vw));
+  font-weight: 500;
+  line-height: calc(15.045 / 11.28);
+  letter-spacing: -0.04em;
+  color: #797979;
+  white-space: nowrap;
+}
+
+.agentCardCenter .agentStatLabel {
+  font-size: calc(14.19 * var(--l-vw));
+  line-height: calc(18.919 / 14.19);
+}
+
+.agentStatValue {
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(15.05 * var(--l-vw));
+  font-weight: 500;
+  line-height: calc(22.568 / 15.05);
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.agentCardCenter .agentStatValue {
+  font-size: calc(18.92 * var(--l-vw));
+  line-height: calc(28.379 / 18.92);
+}
+
+.agentTrainBtn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(3.761 * var(--l-vw));
+  height: 100%;
+  padding: calc(7.523 * var(--l-vw)) calc(11.284 * var(--l-vw))
+    calc(7.523 * var(--l-vw)) calc(15.045 * var(--l-vw));
+  border: calc(0.94 * var(--l-vw)) solid #dedede;
+  border-radius: calc(8 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(15.05 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(22.568 / 15.05);
+  letter-spacing: -0.04em;
+  color: #020100;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  background: #ffffff;
+}
+
+.agentCardCenter .agentTrainBtn {
+  gap: calc(4.73 * var(--l-vw));
+  padding: calc(9.46 * var(--l-vw)) calc(14.189 * var(--l-vw))
+    calc(9.46 * var(--l-vw)) calc(18.919 * var(--l-vw));
+  border-width: calc(1.182 * var(--l-vw));
+  font-size: calc(18.92 * var(--l-vw));
+  line-height: calc(28.379 / 18.92);
+}
+
+.agentTrainIcon {
+  font-size: calc(15.05 * var(--l-vw));
+  line-height: 1;
+}
+
+.supportingCopy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-px);
+}
+
+.supportingCopy p {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+@media (max-width: 1200px) {
+  .actionsRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modeToggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .title {
+    white-space: normal;
+  }
+
+  .showcaseSideRow {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroInner {
+    gap: 32px;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+  }
+
+  .description,
+  .supportingCopy p {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .primaryCta {
+    width: 100%;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .modeOption {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .showcase {
+    height: min(var(--l-roleplay-showcase-h), 72vw);
+  }
+
+  .agentCardCenter {
+    width: min(var(--l-roleplay-center-card-w), 88vw);
+    height: auto;
+    aspect-ratio: 360 / 520;
+  }
+}

@@ -86,6 +86,19 @@
   --l-pricing-cta-py: calc(80 * var(--l-vw));
   --l-pricing-cta-image-h: calc(378 * var(--l-vw));
   --l-pricing-faq-col-w: calc(560 * var(--l-vw));
+
+  /* Figma 1088:4189 — Roleplay product page */
+  --l-roleplay-hero-inner-gap: calc(48 * var(--l-vw));
+  --l-roleplay-title-max-w: calc(680 * var(--l-vw));
+  --l-roleplay-showcase-h: calc(560 * var(--l-vw));
+  --l-roleplay-showcase-fade-h: calc(327 * var(--l-vw));
+  --l-roleplay-side-card-w: calc(264 * var(--l-vw));
+  --l-roleplay-side-card-h: calc(382 * var(--l-vw));
+  --l-roleplay-center-card-w: calc(360 * var(--l-vw));
+  --l-roleplay-center-card-h: calc(520 * var(--l-vw));
+  --l-roleplay-workflow-card-h: calc(550 * var(--l-vw));
+  --l-roleplay-workflow-gap: calc(20 * var(--l-vw));
+  --l-roleplay-bottom-cta-py: calc(160 * var(--l-vw));
 }
 
 /* Figma copy row: 840px headline + 24px gap + flex aside (1360px content area) */
