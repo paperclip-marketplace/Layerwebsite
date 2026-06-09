@@ -1,4 +1,5 @@
 import { LandingHeader } from "./landing-header";
+import { LandingPromoBanner } from "./landing-promo-banner";
 import { LandingMobileTitleSection } from "./landing-mobile-title-section";
 import { LandingHeroSection } from "./landing-hero-section";
 import { LandingTopSection } from "./landing-top-section";
@@ -34,6 +35,8 @@ export function LandingPage() {
 
         <div className="landing-page-gutter">
           <main className={`${styles.main} landing-main__inner`} id="main">
+        <LandingPromoBanner />
+
         <div
           className="landing-hero-intro"
           data-name="Hero intro"

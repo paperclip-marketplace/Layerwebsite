@@ -1,0 +1,74 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 12px 10px;
+  background: #faede9;
+  box-sizing: border-box;
+}
+
+/* Figma 1089:5858 — Geist Medium, 16/24, -0.64px tracking */
+.promoMedium {
+  font-family: var(--layer-font-geist-sans);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 530;
+  font-variation-settings: "wght" 530;
+  line-height: 24px;
+  letter-spacing: -0.64px;
+}
+
+.text {
+  margin: 0;
+  color: #020100;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px 6px 16px;
+  border-radius: 99px;
+  background: #f45523;
+  color: #ffffff;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease;
+}
+
+.button:hover {
+  background: #e04d1f;
+}
+
+.buttonIcon {
+  font-size: 20px;
+  line-height: 20px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.buttonText {
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 20px;
+  }
+
+  .text {
+    white-space: normal;
+  }
+}
