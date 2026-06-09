@@ -63,12 +63,6 @@
 
 @media (max-width: 768px) {
   .banner {
-    flex-direction: column;
-    gap: 10px;
-    padding: 12px 20px;
-  }
-
-  .text {
-    white-space: normal;
+    display: none;
   }
 }
