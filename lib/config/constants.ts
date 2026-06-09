@@ -121,3 +121,6 @@ export const DEFAULT_MEMBER_PERMISSIONS = {
   CAN_CREATE_PERSONAS: true,
   CAN_EDIT_PERSONAS: true,
 } as const;
+
+/** Header demo CTA + home promo banner. Set true when public demo launches from marketing. */
+export const SHOW_LANDING_DEMO_ENTRY = false;

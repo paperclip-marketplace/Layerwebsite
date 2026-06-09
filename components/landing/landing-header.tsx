@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { ROUTES } from "@/lib/config/constants";
+import { ROUTES, SHOW_LANDING_DEMO_ENTRY } from "@/lib/config/constants";
 import styles from "./landing-header.module.css";
 import { ProductsDropdown } from "./products-dropdown";
 import { SolutionsDropdown } from "./solutions-dropdown";
@@ -252,12 +252,14 @@ export function LandingHeader() {
 
           <div className={styles.rightSide}>
             <div className={styles.actions}>
-              <Link href="#" className={styles.buttonDemo}>
-                <span className="material-symbols-rounded" aria-hidden>
-                  terminal
-                </span>
-                Interactive Demo
-              </Link>
+              {SHOW_LANDING_DEMO_ENTRY ? (
+                <Link href="#" className={styles.buttonDemo}>
+                  <span className="material-symbols-rounded" aria-hidden>
+                    terminal
+                  </span>
+                  Interactive Demo
+                </Link>
+              ) : null}
               <Link
                 href={ROUTES.signIn}
                 className={`${styles.button} ${styles.buttonPrimary}`}
@@ -307,16 +309,18 @@ export function LandingHeader() {
         >
           Pricing
         </Link>
-        <Link
-          href="#"
-          className={`${styles.buttonDemo} ${styles.mobileNavLink}`}
-          onClick={() => setMenuOpen(false)}
-        >
-          <span className="material-symbols-rounded" aria-hidden>
-            terminal
-          </span>
-          Interactive Demo
-        </Link>
+        {SHOW_LANDING_DEMO_ENTRY ? (
+          <Link
+            href="#"
+            className={`${styles.buttonDemo} ${styles.mobileNavLink}`}
+            onClick={() => setMenuOpen(false)}
+          >
+            <span className="material-symbols-rounded" aria-hidden>
+              terminal
+            </span>
+            Interactive Demo
+          </Link>
+        ) : null}
         <Link
           href={ROUTES.signIn}
           className={`${styles.button} ${styles.buttonPrimary} ${styles.mobileNavLink}`}

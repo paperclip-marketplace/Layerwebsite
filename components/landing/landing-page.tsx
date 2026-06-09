@@ -22,6 +22,7 @@ import { LandingFooter } from "./landing-footer";
 import { LandingScrollSmoother } from "./landing-scroll-smoother";
 import "./landing-fluid.css";
 import "./landing-mobile.module.css";
+import { SHOW_LANDING_DEMO_ENTRY } from "@/lib/config/constants";
 import styles from "./landing-page.module.css";
 
 const SHOW_TEAM_EXPERIENCE_SECTION = true;
@@ -35,7 +36,7 @@ export function LandingPage() {
 
         <div className="landing-page-gutter">
           <main className={`${styles.main} landing-main__inner`} id="main">
-        <LandingPromoBanner />
+        {SHOW_LANDING_DEMO_ENTRY ? <LandingPromoBanner /> : null}
 
         <div
           className="landing-hero-intro"
