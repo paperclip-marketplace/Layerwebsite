@@ -2,6 +2,7 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 
+import { FixedExploreFeaturesButton } from "@/components/landing/fixed-explore-features-button";
 import "@material-symbols/font-400";
 import "./globals.css";
 
@@ -65,7 +66,10 @@ export default function RootLayout({
 }>) {
   return (
     <html className={`${GeistSans.variable} ${GeistMono.variable}`} lang="en">
-      <body className={`${GeistSans.className} antialiased`}>{children}</body>
+      <body className={`${GeistSans.className} antialiased`}>
+        {children}
+        <FixedExploreFeaturesButton />
+      </body>
     </html>
   );
 }

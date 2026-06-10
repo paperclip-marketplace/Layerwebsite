@@ -86,6 +86,63 @@
   --l-pricing-cta-py: calc(80 * var(--l-vw));
   --l-pricing-cta-image-h: calc(378 * var(--l-vw));
   --l-pricing-faq-col-w: calc(560 * var(--l-vw));
+
+  /* Figma 1088:4189 — Roleplay product page */
+  --l-roleplay-hero-inner-gap: calc(48 * var(--l-vw));
+  --l-roleplay-title-max-w: calc(680 * var(--l-vw));
+  --l-roleplay-showcase-h: calc(560 * var(--l-vw));
+  --l-roleplay-showcase-fade-h: calc(327 * var(--l-vw));
+  --l-roleplay-side-card-w: calc(264 * var(--l-vw));
+  --l-roleplay-side-card-h: calc(382 * var(--l-vw));
+  --l-roleplay-center-card-w: calc(360 * var(--l-vw));
+  --l-roleplay-center-card-h: calc(520 * var(--l-vw));
+  --l-roleplay-workflow-card-h: calc(550 * var(--l-vw));
+  --l-roleplay-workflow-gap: calc(20 * var(--l-vw));
+  --l-roleplay-bottom-cta-py: calc(160 * var(--l-vw));
+
+  /* Figma 1091:5880 — Personal Agent product page */
+  --l-personal-agent-hero-inner-gap: calc(48 * var(--l-vw));
+  --l-personal-agent-title-max-w: calc(680 * var(--l-vw));
+  --l-personal-agent-hero-ticker-h: calc(480 * var(--l-vw));
+  --l-personal-agent-use-case-card: calc(560 * var(--l-vw));
+  --l-personal-agent-use-case-fade-h: calc(640 * var(--l-vw));
+  --l-personal-agent-customize-h: calc(580 * var(--l-vw));
+}
+
+/*
+ * Full-viewport horizontal section strokes only (no vertical rules).
+ * Matches home section ::before/::after 100vw top/bottom dividers.
+ */
+.landing-full-bleed-strokes {
+  position: relative;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.landing-full-bleed-strokes::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 1;
+  width: 100vw;
+  margin-left: -50vw;
+  border-top: 1px solid #dedede;
+  pointer-events: none;
+}
+
+.landing-full-bleed-strokes-top::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 1;
+  width: 100vw;
+  margin-left: -50vw;
+  border-top: 1px solid #dedede;
+  pointer-events: none;
 }
 
 /* Figma copy row: 840px headline + 24px gap + flex aside (1360px content area) */
@@ -369,6 +426,7 @@
 .landing-main .landing-page-gutter .landing-problem-section,
 .landing-main .landing-page-gutter .landing-what-we-do-section,
 .landing-main .landing-page-gutter .landing-why-now-section,
+.landing-main .landing-page-gutter .personal-agent-why-now-section,
 .landing-main .landing-page-gutter .landing-leadership-control-section,
 .landing-main .landing-page-gutter .landing-leadership-metrics-section,
 .landing-main .landing-page-gutter .landing-problem-citation,
@@ -408,6 +466,7 @@
   .landing-main .landing-page-gutter .landing-problem-section,
   .landing-main .landing-page-gutter .landing-what-we-do-section,
   .landing-main .landing-page-gutter .landing-why-now-section,
+  .landing-main .landing-page-gutter .personal-agent-why-now-section,
   .landing-main .landing-page-gutter .landing-leadership-control-section,
   .landing-main .landing-page-gutter .landing-leadership-metrics-section,
   .landing-main .landing-page-gutter .landing-clients-section [class*="copyRow"],

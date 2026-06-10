@@ -1,0 +1,211 @@
+/* Figma 1091:6042 — Personal Agent CTA cards */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-pricing-cta-py) var(--l-split-pad-x);
+  border-bottom: 1px solid #dedede;
+  background: #ffffff;
+}
+
+.cardsRow {
+  display: flex;
+  gap: calc(10 * var(--l-vw));
+  align-items: stretch;
+  width: 100%;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: calc(40 * var(--l-vw));
+}
+
+.cardCreate {
+  border-bottom: 1px solid #dedede;
+  background: linear-gradient(180deg, #c93d00 0%, #fcb902 100%);
+}
+
+.cardDemo {
+  border: 1px solid #f9f9f9;
+  background: linear-gradient(180deg, #48a3d0 0%, #fc7303 100%);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(12 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(40 * var(--l-vw)) calc(40 * var(--l-vw)) calc(20 * var(--l-vw));
+}
+
+.cardTitle {
+  width: 100%;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-32);
+  font-weight: 400;
+  line-height: var(--l-lh-32);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+}
+
+.cardTitleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cardTitleLink:hover {
+  opacity: 0.92;
+}
+
+.cardSubtitle {
+  width: 100%;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  font-weight: 600;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+}
+
+.subtitleMuted {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.subtitleEmphasis {
+  color: #ffffff;
+}
+
+.imageArea {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: var(--l-pricing-cta-image-h);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.imageCreate,
+.imageDemo {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.imageCreate {
+  top: -16.17%;
+  height: 116.15%;
+}
+
+.imageDemo {
+  top: -16.27%;
+  height: 116.15%;
+}
+
+.cardCtaWrap {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: calc(705 * var(--l-vw));
+  max-width: 100%;
+  padding: calc(20 * var(--l-vw)) calc(40 * var(--l-vw)) calc(40 * var(--l-vw));
+}
+
+.cardCta {
+  display: inline-flex;
+  align-items: center;
+  padding: calc(12 * var(--l-vw)) calc(24 * var(--l-vw));
+  border-radius: 99px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-24);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #ffffff;
+}
+
+.footerCopy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-px);
+}
+
+.footerCopy p {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+@media (max-width: 1200px) {
+  .cardsRow {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .cardCtaWrap {
+    position: relative;
+    width: 100%;
+    padding: 0 calc(40 * var(--l-vw)) calc(40 * var(--l-vw));
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px var(--l-split-pad-x);
+  }
+
+  .card {
+    border-radius: calc(24 * var(--l-vw));
+  }
+
+  .cardHeader {
+    padding: calc(32 * var(--l-vw)) calc(24 * var(--l-vw)) calc(16 * var(--l-vw));
+  }
+
+  .imageArea {
+    height: min(var(--l-pricing-cta-image-h), 56vw);
+  }
+
+  .footerCopy {
+    padding: 20px;
+  }
+
+  .footerCopy p {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+}

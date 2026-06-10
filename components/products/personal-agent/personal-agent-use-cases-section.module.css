@@ -1,0 +1,487 @@
+/* Figma 1091:5930 — use cases */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: calc(40 * var(--l-vw));
+  background: #ffffff;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-pricing-cta-py) var(--l-section-px) calc(40 * var(--l-vw));
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.aside {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+/* Figma 1091:5936 — carousel container */
+.carouselWrap {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.sectionPinned .carouselWrap {
+  padding: 0;
+  overflow: visible;
+  scroll-snap-type: none;
+}
+
+@media (min-width: 1201px) {
+  .sectionPinned .pinSpacer {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+}
+
+.pinSpacer {
+  position: relative;
+  width: 100%;
+  min-height: 500vh;
+}
+
+.pinSticky {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100svh - var(--landing-header-h, 64px));
+  padding: calc(20 * var(--l-vw)) 0;
+  overflow: visible;
+}
+
+.carouselInner {
+  position: relative;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  gap: calc(20 * var(--l-vw));
+  align-items: flex-start;
+  width: max-content;
+  min-width: 100%;
+}
+
+.sectionPinned .track {
+  min-width: 0;
+  align-items: center;
+}
+
+.trackPinned {
+  will-change: transform;
+  transition: none;
+}
+
+.track:not(.trackPinned) {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.track:not(.trackPinned)::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .carouselWrap {
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+}
+
+/* Figma 1091:5938 / 5944 / 5950 — 560×560 cards */
+.card {
+  display: flex;
+  flex: 0 0 var(--l-personal-agent-use-case-card);
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  width: var(--l-personal-agent-use-case-card);
+  height: var(--l-personal-agent-use-case-card);
+  overflow: hidden;
+  border: 1px solid #eeeeee;
+  border-radius: calc(24 * var(--l-vw));
+  scroll-snap-align: start;
+  background: #f9f9f9;
+}
+
+.sectionPinned [data-pin-scroll-card] {
+  flex: 0 0 auto;
+  width: var(--l-personal-agent-use-case-card);
+  height: var(--l-personal-agent-use-case-card);
+}
+
+.cardMedia {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cardMediaFrame {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Figma 1091:5940 — pre-call image crop */
+.cardImagePrecall {
+  position: absolute;
+  top: 0;
+  left: -1.58%;
+  width: 134.67%;
+  height: 99.89%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Figma 1091:5952 — tool calling cover */
+.cardImageTools {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Figma 1091:5945 — approval flows composed media */
+.approvalBackdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.approvalBgImage {
+  position: absolute;
+  top: -11.17%;
+  left: -186.71%;
+  width: 477.27%;
+  height: 122.5%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.approvalBgGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 67.625%,
+    #f9f9f9 100%
+  );
+}
+
+.approvalContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  align-items: flex-start;
+  width: calc(503 * var(--l-vw));
+  max-width: calc(100% - calc(32 * var(--l-vw)));
+  margin: 0 auto;
+}
+
+.approvalAvatar {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(56 * var(--l-vw));
+  height: calc(56 * var(--l-vw));
+  overflow: hidden;
+  border: calc(1.186 * var(--l-vw)) solid #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 calc(14.237 * var(--l-vw)) calc(56.949 * var(--l-vw))
+    rgba(0, 0, 0, 0.22);
+}
+
+.approvalAvatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.approvalThread {
+  display: flex;
+  flex-direction: column;
+  gap: calc(9.492 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 calc(8 * var(--l-vw));
+  box-sizing: border-box;
+}
+
+.approvalBubble {
+  display: flex;
+  gap: calc(18.983 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+  max-width: calc(474.576 * var(--l-vw));
+  padding: calc(18.983 * var(--l-vw));
+  border: calc(1.186 * var(--l-vw)) solid rgba(104, 104, 104, 0.24);
+  border-radius: calc(23.729 * var(--l-vw));
+  background: rgba(0, 0, 0, 0.42);
+  box-sizing: border-box;
+}
+
+.approvalBubbleText {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(16.61 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(21.356 / 16.61);
+  letter-spacing: calc(-0.6644 * var(--l-vw));
+  color: #ffffff;
+  white-space: pre-wrap;
+}
+
+.approvalYesBtn {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: calc(4.746 * var(--l-vw));
+  align-items: center;
+  justify-content: center;
+  padding: calc(9.492 * var(--l-vw)) calc(23.729 * var(--l-vw))
+    calc(9.492 * var(--l-vw)) calc(11.864 * var(--l-vw));
+  border: none;
+  border-radius: calc(9.492 * var(--l-vw));
+  color: #020100;
+  cursor: default;
+  background: linear-gradient(180deg, #ffffff 45%, #c5c5c5 100%);
+  box-shadow: 0 calc(1.186 * var(--l-vw)) calc(2.373 * var(--l-vw))
+    rgba(10, 13, 18, 0.05);
+  white-space: nowrap;
+}
+
+.approvalYesIcon {
+  font-size: calc(23.729 * var(--l-vw));
+  line-height: 1;
+}
+
+.approvalYesLabel {
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(16.61 * var(--l-vw));
+  font-weight: 500;
+  line-height: calc(23.729 / 16.61);
+  letter-spacing: calc(-0.6644 * var(--l-vw));
+}
+
+.approvalStatus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(9.492 * var(--l-vw));
+  align-items: center;
+}
+
+.approvalStatusMuted {
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(14.237 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(18.983 / 14.237);
+  letter-spacing: calc(-0.5695 * var(--l-vw));
+  color: #8d8d8d;
+  white-space: nowrap;
+}
+
+.approvalStatusDot {
+  flex-shrink: 0;
+  width: calc(4.746 * var(--l-vw));
+  height: calc(4.746 * var(--l-vw));
+  border-radius: 50%;
+  background: #8d8d8d;
+}
+
+.approvalStatusTrack {
+  display: flex;
+  gap: calc(4.746 * var(--l-vw));
+  align-items: center;
+}
+
+.approvalStatusDivider {
+  flex-shrink: 0;
+  width: calc(18.983 * var(--l-vw));
+  height: calc(1.186 * var(--l-vw));
+  border-radius: calc(117.458 * var(--l-vw));
+  opacity: 0.2;
+  background: #020100;
+}
+
+.approvalStatusApproved {
+  display: inline-flex;
+  gap: calc(4.746 * var(--l-vw));
+  align-items: center;
+  justify-content: center;
+  padding: calc(4.746 * var(--l-vw)) calc(9.492 * var(--l-vw));
+  border-radius: calc(4 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(14.24 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(18.983 / 14.24);
+  letter-spacing: calc(-0.5696 * var(--l-vw));
+  color: #ffffff;
+  white-space: nowrap;
+  background: #01ac62;
+}
+
+.approvalApprovedIcon {
+  font-size: calc(14.24 * var(--l-vw));
+  line-height: 1;
+}
+
+/* Figma 1091:5941 — card footer */
+.cardFooter {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  padding: calc(32 * var(--l-vw));
+  box-sizing: border-box;
+}
+
+.cardLabel {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 600;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.cardDescription {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #020100;
+}
+
+/* Figma 1092:3925 — right fade */
+.fadeRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(260 * var(--l-vw));
+  height: var(--l-personal-agent-use-case-fade-h);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+  pointer-events: none;
+}
+
+/* Figma 1092:3934 — nav track */
+.navTrack {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  height: var(--l-personal-agent-use-case-fade-h);
+  padding: 0 var(--l-section-px);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(16 * var(--l-vw));
+  border: 1px solid #f9f9f9;
+  border-radius: 99px;
+  color: #020100;
+  cursor: pointer;
+  background: #ffffff;
+  box-shadow: 0 calc(4 * var(--l-vw)) calc(6 * var(--l-vw)) rgba(0, 0, 0, 0.12);
+  pointer-events: auto;
+}
+
+.navBtn span {
+  font-size: calc(24 * var(--l-vw));
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex-basis: min(var(--l-personal-agent-use-case-card), 88vw);
+    width: min(var(--l-personal-agent-use-case-card), 88vw);
+    height: auto;
+    min-height: min(var(--l-personal-agent-use-case-card), 88vw);
+  }
+
+  .approvalContent {
+    width: calc(100% - calc(24 * var(--l-vw)));
+    max-width: none;
+  }
+}

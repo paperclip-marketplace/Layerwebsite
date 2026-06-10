@@ -1,14 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { forwardRef } from "react";
+import { CUSTOMER_FACING_PRODUCTS } from "@/lib/config/customer-facing-products";
 import styles from "./nav-dropdown.module.css";
 
-const imgItemImage = "https://www.figma.com/api/mcp/asset/7bf407f0-7f4e-43e5-a63a-e514811a15af";
-const imgItemImage1 = "https://www.figma.com/api/mcp/asset/de9fa87c-0cdc-4945-a66b-884e56f09d2d";
-const imgItemImage2 = "https://www.figma.com/api/mcp/asset/55ef5f8f-1bcb-4bb4-ac5d-1a7c0572394d";
-const imgItemImage3 = "https://www.figma.com/api/mcp/asset/7c4573ec-c420-4a7c-932e-4d187b3599e2";
 const imgItemImage4 = "https://www.figma.com/api/mcp/asset/48dc6d43-e3a8-4c86-878f-07fce15249b8";
 const imgItemImage5 = "https://www.figma.com/api/mcp/asset/46531f2f-8c64-44d2-b156-cbb5ddb15322";
 const imgItemImage6 = "https://www.figma.com/api/mcp/asset/5cfc6c59-8bf8-428d-b0fc-4dc343ecc6a7";
@@ -29,26 +25,15 @@ export const ProductsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
                 <p className={styles.sectionTitle}>For Customer Facing Team</p>
               </div>
               <div className={styles.itemsContainer}>
-                <DropdownItem
-                  image={imgItemImage}
-                  title="Roleplay"
-                  description="Discover our All-in one Layer studio designed for leadship"
-                />
-                <DropdownItem
-                  image={imgItemImage1}
-                  title="Personal Agent"
-                  description="Discover our All-in one Layer studio designed for leadship"
-                />
-                <DropdownItem
-                  image={imgItemImage2}
-                  title="Coaching"
-                  description="Discover our All-in one Layer studio designed for leadship"
-                />
-                <DropdownItem
-                  image={imgItemImage3}
-                  title="Scoring and Feedback"
-                  description="Discover our All-in one Layer studio designed for leadship"
-                />
+                {CUSTOMER_FACING_PRODUCTS.map((product) => (
+                  <DropdownItem
+                    key={product.title}
+                    href={product.href}
+                    image={product.image}
+                    title={product.title}
+                    description={product.description}
+                  />
+                ))}
               </div>
             </div>
 
@@ -117,11 +102,13 @@ export const ProductsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
 ProductsDropdown.displayName = "ProductsDropdown";
 
 function DropdownItem({
+  href = "#",
   image,
   title,
   description,
   isActive = false,
 }: {
+  href?: string;
   image: string;
   title: string;
   description: string;
@@ -129,7 +116,7 @@ function DropdownItem({
 }) {
   return (
     <Link
-      href="#"
+      href={href}
       className={`${styles.item} dropdown-anim-stagger`}
       style={isActive ? { backgroundColor: "#f9f9f9" } : {}}
     >

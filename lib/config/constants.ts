@@ -28,6 +28,8 @@ export const ROUTES = {
   copilot: '/copilot',
   prep: '/prep',
   pricing: '/pricing',
+  productsRoleplay: '/products/roleplay',
+  productsPersonalAgent: '/products/personal-agent',
   terms: '/terms',
   privacy: '/privacy',
 } as const;
