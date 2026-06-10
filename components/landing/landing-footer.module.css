@@ -1,7 +1,22 @@
 /* Figma 1089:5810 / 1031:6390 — Footer */
 .section {
+  position: relative;
+  isolation: isolate;
   box-sizing: border-box;
   width: 100%;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  background: #f9f9f9;
+  pointer-events: none;
 }
 
 .content {
@@ -23,7 +38,7 @@
   width: 100%;
   padding: calc(40 * var(--l-vw));
   border-radius: calc(40 * var(--l-vw));
-  background: #f9f9f9;
+  background: transparent;
 }
 
 .topRow {
