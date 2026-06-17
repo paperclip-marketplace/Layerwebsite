@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import styles from "./nav-dropdown.module.css";
 
 const imgItemImage = "https://www.figma.com/api/mcp/asset/7bf407f0-7f4e-43e5-a63a-e514811a15af";
@@ -67,7 +67,6 @@ export const ProductsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
                   image={imgItemImage5}
                   title="Playbooks"
                   description="Discover our All-in one Layer studio designed for leadship"
-                  isActive
                 />
                 <DropdownItem
                   image={imgItemImage6}
@@ -103,12 +102,7 @@ export const ProductsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
             </p>
           </div>
         </div>
-        <Link href="#" className={styles.downloadButton}>
-          <div className={styles.downloadIcon}>
-            <img src={imgButtonIcon} alt="Apple" />
-          </div>
-          <span className={styles.downloadText}>Download for Mac</span>
-        </Link>
+        <DownloadForMacButton />
       </div>
     </div>
   );
@@ -116,22 +110,36 @@ export const ProductsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
 
 ProductsDropdown.displayName = "ProductsDropdown";
 
+function DownloadForMacButton() {
+  const [label, setLabel] = useState("Download for Mac");
+
+  return (
+    <button
+      type="button"
+      className={styles.downloadButton}
+      onClick={() => setLabel("Coming soon...")}
+    >
+      <div className={styles.downloadIcon}>
+        <img src={imgButtonIcon} alt="Apple" />
+      </div>
+      <span className={styles.downloadText}>{label}</span>
+    </button>
+  );
+}
+
 function DropdownItem({
   image,
   title,
   description,
-  isActive = false,
 }: {
   image: string;
   title: string;
   description: string;
-  isActive?: boolean;
 }) {
   return (
     <Link
       href="#"
       className={`${styles.item} dropdown-anim-stagger`}
-      style={isActive ? { backgroundColor: "#f9f9f9" } : {}}
     >
       <div className={styles.itemImage}>
         <img src={image} alt={title} />

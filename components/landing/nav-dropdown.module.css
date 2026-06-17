@@ -203,6 +203,7 @@
   border: 1px solid #dedede;
   border-radius: 99px;
   text-decoration: none;
+  cursor: pointer;
   transition: background-color 0.15s ease;
 }
 
