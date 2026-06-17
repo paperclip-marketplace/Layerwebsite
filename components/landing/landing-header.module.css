@@ -39,6 +39,15 @@
   align-items: center;
 }
 
+.navItemContainer::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
 .navLink,
 .navLinkActive {
   padding: 8px 18px;
