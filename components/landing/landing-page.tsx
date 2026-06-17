@@ -19,6 +19,7 @@ import { LandingKeyMetricsSection } from "./landing-key-metrics-section";
 import { LandingOperatorSection } from "./landing-operator-section";
 import { TeamExperienceSection } from "./team-experience";
 import { LandingFooter } from "./landing-footer";
+import { LandingHashScroll } from "./landing-hash-scroll";
 import { LandingScrollSmoother } from "./landing-scroll-smoother";
 import "./landing-fluid.css";
 import "./landing-mobile.module.css";
@@ -36,9 +37,11 @@ export function LandingPage() {
 
         <div className="landing-page-gutter">
           <main className={`${styles.main} landing-main__inner`} id="main">
+        <LandingHashScroll />
         {SHOW_LANDING_DEMO_ENTRY ? <LandingPromoBanner /> : null}
 
         <div
+          id="our-story"
           className="landing-hero-intro"
           data-name="Hero intro"
         >

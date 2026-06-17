@@ -1,21 +1,39 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ROUTES } from "@/lib/config/constants";
+import { requestHeaderDropdown } from "@/lib/landing/header-dropdown";
 import styles from "./landing-footer.module.css";
 
 const LOGO_MARK = "/assets/images/landing/layer-mark.svg";
 const LOGO_WORDMARK = "/assets/images/landing/layer-wordmark.svg";
 
-const PRIMARY_NAV_COLUMNS = [
+type FooterLinkItem = {
+  kind: "link";
+  label: string;
+  href: string;
+};
+
+type FooterDropdownItem = {
+  kind: "dropdown";
+  label: string;
+  dropdown: "products" | "solutions";
+};
+
+type FooterNavItem = FooterLinkItem | FooterDropdownItem;
+
+const PRIMARY_NAV_COLUMNS: FooterNavItem[][] = [
   [
-    { label: "Products", href: ROUTES.productsRoleplay },
-    { label: "Solutions", href: "#" },
+    { kind: "dropdown", label: "Products", dropdown: "products" },
+    { kind: "dropdown", label: "Solutions", dropdown: "solutions" },
   ],
   [
-    { label: "Pricing", href: ROUTES.pricing },
-    { label: "Our Story", href: "#" },
+    { kind: "link", label: "Pricing", href: ROUTES.pricing },
+    { kind: "link", label: "Our Story", href: ROUTES.ourStory },
   ],
-] as const;
+];
 
 const POLICY_LINKS = [
   { label: "Privacy Policy", href: ROUTES.privacy },
@@ -23,7 +41,57 @@ const POLICY_LINKS = [
   { label: "Cookie Policy", href: "#" },
 ] as const;
 
+function scrollToOurStory() {
+  document.getElementById("our-story")?.scrollIntoView({ behavior: "smooth" });
+}
+
+function FooterNavItemControl({
+  item,
+  onOurStoryClick,
+}: {
+  item: FooterNavItem;
+  onOurStoryClick?: () => void;
+}) {
+  if (item.kind === "dropdown") {
+    return (
+      <button
+        type="button"
+        className={styles.linkPrimary}
+        onClick={() => requestHeaderDropdown(item.dropdown)}
+      >
+        {item.label}
+      </button>
+    );
+  }
+
+  if (item.href === ROUTES.ourStory) {
+    return (
+      <Link
+        href={item.href}
+        className={styles.linkPrimary}
+        onClick={(event) => {
+          if (onOurStoryClick) {
+            event.preventDefault();
+            onOurStoryClick();
+          }
+        }}
+      >
+        {item.label}
+      </Link>
+    );
+  }
+
+  return (
+    <Link href={item.href} className={styles.linkPrimary}>
+      {item.label}
+    </Link>
+  );
+}
+
 export function LandingFooter() {
+  const pathname = usePathname();
+  const isHome = pathname === ROUTES.home;
+
   return (
     <footer
       className={`${styles.section} landing-shell-x`}
@@ -76,13 +144,11 @@ export function LandingFooter() {
                     data-name="Contact Info Column"
                   >
                     {column.map((item) => (
-                      <Link
+                      <FooterNavItemControl
                         key={item.label}
-                        href={item.href}
-                        className={styles.linkPrimary}
-                      >
-                        {item.label}
-                      </Link>
+                        item={item}
+                        onOurStoryClick={isHome ? scrollToOurStory : undefined}
+                      />
                     ))}
                   </div>
                 ))}

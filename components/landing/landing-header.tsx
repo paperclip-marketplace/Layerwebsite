@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { ROUTES, SHOW_LANDING_DEMO_ENTRY } from "@/lib/config/constants";
+import {
+  LANDING_HEADER_DROPDOWN_EVENT,
+  type LandingHeaderDropdownName,
+} from "@/lib/landing/header-dropdown";
 import styles from "./landing-header.module.css";
 import { ProductsDropdown } from "./products-dropdown";
 import { SolutionsDropdown } from "./solutions-dropdown";
@@ -104,14 +108,12 @@ export function LandingHeader() {
     isAnimatingRef.current = false;
   }, [animateClose, openDropdown]);
 
-  const toggleDropdown = useCallback(
-    (name: DropdownName) => async (e: React.MouseEvent) => {
-      e.preventDefault();
+  const openDropdownByName = useCallback(
+    async (name: DropdownName) => {
       if (isAnimatingRef.current) return;
 
       if (openDropdown === name) {
-        setActiveLink(null);
-        await closeActiveDropdown();
+        setActiveLink(name);
         return;
       }
 
@@ -129,7 +131,23 @@ export function LandingHeader() {
       setOpenDropdown(name);
       animateOpen(name);
     },
-    [animateClose, animateOpen, closeActiveDropdown, openDropdown]
+    [animateClose, animateOpen, openDropdown],
+  );
+
+  const toggleDropdown = useCallback(
+    (name: DropdownName) => async (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (isAnimatingRef.current) return;
+
+      if (openDropdown === name) {
+        setActiveLink(null);
+        await closeActiveDropdown();
+        return;
+      }
+
+      await openDropdownByName(name);
+    },
+    [closeActiveDropdown, openDropdown, openDropdownByName],
   );
 
   const handleLinkClick = async (link: string) => {
@@ -137,6 +155,26 @@ export function LandingHeader() {
     setMenuOpen(false);
     await closeActiveDropdown();
   };
+
+  useEffect(() => {
+    const handleFooterDropdownRequest = (event: Event) => {
+      const { name } = (event as CustomEvent<{ name: LandingHeaderDropdownName }>)
+        .detail;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      void openDropdownByName(name);
+    };
+
+    window.addEventListener(
+      LANDING_HEADER_DROPDOWN_EVENT,
+      handleFooterDropdownRequest,
+    );
+    return () => {
+      window.removeEventListener(
+        LANDING_HEADER_DROPDOWN_EVENT,
+        handleFooterDropdownRequest,
+      );
+    };
+  }, [openDropdownByName]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

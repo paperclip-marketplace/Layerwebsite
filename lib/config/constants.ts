@@ -28,6 +28,7 @@ export const ROUTES = {
   copilot: '/copilot',
   prep: '/prep',
   pricing: '/pricing',
+  ourStory: '/#our-story',
   productsRoleplay: '/products/roleplay',
   productsPersonalAgent: '/products/personal-agent',
   terms: '/terms',

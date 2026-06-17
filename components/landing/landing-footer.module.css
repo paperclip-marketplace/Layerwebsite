@@ -132,6 +132,13 @@
   white-space: nowrap;
 }
 
+button.linkPrimary {
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
 .linkPrimary {
   color: #020100;
 }
