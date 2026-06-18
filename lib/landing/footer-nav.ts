@@ -18,30 +18,30 @@ export const FOOTER_NAV_COLUMNS: readonly FooterNavColumn[] = [
     title: "Customer Facing Team",
     dropdown: "products",
     items: [
-      { label: "Roleplay", href: "#" },
-      { label: "Personal Agent", href: "#" },
-      { label: "Coaching", href: "#" },
-      { label: "Scoring and Feedback", href: "#" },
+      { label: "Roleplay", href: ROUTES.comingSoon },
+      { label: "Personal Agent", href: ROUTES.comingSoon },
+      { label: "Coaching", href: ROUTES.comingSoon },
+      { label: "Scoring and Feedback", href: ROUTES.comingSoon },
     ],
   },
   {
     title: "Leadership",
     dropdown: "products",
     items: [
-      { label: "Agent Management", href: "#" },
-      { label: "Playbooks", href: "#" },
-      { label: "Skills and Frameworks", href: "#" },
-      { label: "Interview and Training", href: "#" },
-      { label: "Tool Calling and Integrations", href: "#" },
+      { label: "Agent Management", href: ROUTES.comingSoon },
+      { label: "Playbooks", href: ROUTES.comingSoon },
+      { label: "Skills and Frameworks", href: ROUTES.comingSoon },
+      { label: "Interview and Training", href: ROUTES.comingSoon },
+      { label: "Tool Calling and Integrations", href: ROUTES.comingSoon },
     ],
   },
   {
     title: "Solutions",
     dropdown: "solutions",
     items: [
-      { label: "Ramp", href: "#" },
-      { label: "Quota Attainment", href: "#" },
-      { label: "Customer Facing Time", href: "#" },
+      { label: "Ramp", href: ROUTES.comingSoon },
+      { label: "Quota Attainment", href: ROUTES.comingSoon },
+      { label: "Customer Facing Time", href: ROUTES.comingSoon },
     ],
   },
   {
@@ -56,5 +56,5 @@ export const FOOTER_NAV_COLUMNS: readonly FooterNavColumn[] = [
 export const FOOTER_POLICY_LINKS = [
   { label: "Privacy Policy", href: ROUTES.privacy },
   { label: "Terms of Services", href: ROUTES.terms },
-  { label: "Cookie Policy", href: "#" },
+  { label: "Cookie Policy", href: ROUTES.comingSoon },
 ] as const;

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { forwardRef, useState } from "react";
+import { ROUTES } from "@/lib/config/constants";
 import styles from "./nav-dropdown.module.css";
 
 const imgItemImage = "https://www.figma.com/api/mcp/asset/7bf407f0-7f4e-43e5-a63a-e514811a15af";
@@ -138,7 +139,7 @@ function DropdownItem({
 }) {
   return (
     <Link
-      href="#"
+      href={ROUTES.comingSoon}
       className={`${styles.item} dropdown-anim-stagger`}
     >
       <div className={styles.itemImage}>

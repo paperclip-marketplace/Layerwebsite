@@ -31,6 +31,7 @@ export const ROUTES = {
   terms: '/terms',
   privacy: '/privacy',
   ourStory: '/#our-story',
+  comingSoon: '/coming-soon',
 } as const;
 
 /** After auth: org members use home (member v2 shell on `/`); admins and others use personas. */
