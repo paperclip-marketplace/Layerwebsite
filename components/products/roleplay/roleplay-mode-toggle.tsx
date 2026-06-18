@@ -12,6 +12,7 @@ export function RoleplayModeToggle() {
         type="button"
         className={`${styles.modeOption} ${mode === "voice" ? styles.modeOptionActive : styles.modeOptionMuted}`}
         onClick={() => setMode("voice")}
+        aria-pressed={mode === "voice"}
         data-node-id="1088:5189"
       >
         <span
@@ -26,6 +27,7 @@ export function RoleplayModeToggle() {
         type="button"
         className={`${styles.modeOption} ${mode === "video" ? styles.modeOptionActive : styles.modeOptionMuted}`}
         onClick={() => setMode("video")}
+        aria-pressed={mode === "video"}
         data-node-id="1088:5192"
       >
         <span

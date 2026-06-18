@@ -51,7 +51,11 @@ export function RoleplayCtaSection() {
           data-node-id="1089:6204"
         >
           <div className={styles.cardHeader}>
-            <h2 className={styles.cardTitle}>Watch Demo</h2>
+            <h2 className={styles.cardTitle}>
+              <Link href={ROUTES.comingSoon} className={styles.cardTitleLink}>
+                Watch Demo
+              </Link>
+            </h2>
             <p className={styles.cardSubtitle}>
               <span className={styles.subtitleMuted}>
                 We have lived the problem.

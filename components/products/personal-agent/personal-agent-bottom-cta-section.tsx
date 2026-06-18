@@ -44,7 +44,7 @@ export function PersonalAgentBottomCtaSection() {
               arrow_forward
             </span>
           </Link>
-          <Link href="#" className={styles.secondaryBtn}>
+          <Link href={ROUTES.contactSales} className={styles.secondaryBtn}>
             <span>Contact Sales</span>
             <span
               className={`material-symbols-rounded ${styles.btnIcon}`}

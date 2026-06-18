@@ -22,20 +22,25 @@ function mcpRequest(body, sessionId) {
 }
 
 (async () => {
-  const init = await mcpRequest({
-    jsonrpc: "2.0",
-    id: 1,
-    method: "initialize",
-    params: {
-      protocolVersion: "2024-11-05",
-      capabilities: {},
-      clientInfo: { name: "node", version: "1" },
-    },
-  });
-  console.log("init", init.status, init.data.slice(0, 800));
-  const sid = init.headers["mcp-session-id"];
-  const notif = await mcpRequest({ jsonrpc: "2.0", method: "notifications/initialized" }, sid);
-  console.log("notif", notif.status, notif.data.slice(0, 200));
-  const tools = await mcpRequest({ jsonrpc: "2.0", id: 2, method: "tools/list" }, sid);
-  console.log("tools", tools.status, tools.data.slice(0, 3000));
+  try {
+    const init = await mcpRequest({
+      jsonrpc: "2.0",
+      id: 1,
+      method: "initialize",
+      params: {
+        protocolVersion: "2024-11-05",
+        capabilities: {},
+        clientInfo: { name: "node", version: "1" },
+      },
+    });
+    console.log("init", init.status, init.data.slice(0, 800));
+    const sid = init.headers["mcp-session-id"];
+    const notif = await mcpRequest({ jsonrpc: "2.0", method: "notifications/initialized" }, sid);
+    console.log("notif", notif.status, notif.data.slice(0, 200));
+    const tools = await mcpRequest({ jsonrpc: "2.0", id: 2, method: "tools/list" }, sid);
+    console.log("tools", tools.status, tools.data.slice(0, 3000));
+  } catch (err) {
+    console.error("MCP probe failed:", err);
+    process.exit(1);
+  }
 })();

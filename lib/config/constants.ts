@@ -34,6 +34,7 @@ export const ROUTES = {
   terms: '/terms',
   privacy: '/privacy',
   comingSoon: '/coming-soon',
+  contactSales: 'mailto:hello@withlayer.ai',
 } as const;
 
 /** After auth: org members use home (member v2 shell on `/`); admins and others use personas. */
@@ -128,3 +129,9 @@ export const DEFAULT_MEMBER_PERMISSIONS = {
 
 /** Header demo CTA + home promo banner. Set true when public demo launches from marketing. */
 export const SHOW_LANDING_DEMO_ENTRY = false;
+
+/** Pricing page FAQ accordion. Set true when FAQ copy is ready to publish. */
+export const SHOW_PRICING_FAQ = false;
+
+/** Pricing page mid-page CTA cards. Set true when section is ready to publish. */
+export const SHOW_PRICING_CTA = false;

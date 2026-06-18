@@ -387,10 +387,14 @@ export function FixedExploreFeaturesButton() {
     return () => {
       const panel = panelRef.current;
       const button = toggleRef.current;
+      const label = labelRef.current;
+      const arrow = arrowRef.current;
       const closeSlot = closeSlotRef.current;
       const closeGlyph = closeGlyphRef.current;
       if (panel) gsap.killTweensOf(panel);
       if (button) gsap.killTweensOf(button);
+      if (label) gsap.killTweensOf(label);
+      if (arrow) gsap.killTweensOf(arrow);
       if (closeSlot) gsap.killTweensOf(closeSlot);
       if (closeGlyph) gsap.killTweensOf(closeGlyph);
     };

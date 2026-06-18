@@ -13,14 +13,14 @@ import styles from "./personal-agent-customize-section.module.css";
 const FEATURE_TABS = [
   { id: "customize", label: "Fully Customizable", icon: "settings" },
   { id: "multimodal", label: "Multimodal Agents", icon: "public" },
-  { id: "workflows", label: "Wrokflows", icon: "tune" },
+  { id: "workflows", label: "Workflows", icon: "tune" },
   { id: "context", label: "Business Context", icon: "description" },
 ] as const;
 
 const FEATURE_ITEMS = [
   {
     id: "configure",
-    title: "Configure exactly how you  want",
+    title: "Configure exactly how you want",
     description:
       "Managers and enablement teams try to close the gap, but the system does not refine performance fast enough. Managers and enablement teams try to close the gap, but the system does not refine performance fast enough.",
     active: true,

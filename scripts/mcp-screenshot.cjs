@@ -3,7 +3,12 @@
 function parseSse(data) {
   const line = data.split("\n").find((l) => l.startsWith("data: "));
   if (!line) return null;
-  return JSON.parse(line.slice(6));
+  try {
+    return JSON.parse(line.slice(6));
+  } catch (err) {
+    console.error("Failed to parse SSE JSON:", err.message);
+    return null;
+  }
 }
 
 function mcpRequest(body, sessionId) {

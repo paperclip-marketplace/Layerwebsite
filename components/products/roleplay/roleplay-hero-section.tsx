@@ -19,7 +19,7 @@ export function RoleplayHeroSection() {
       >
       <div className={styles.heroInner} data-node-id="1088:4211">
         <p className={styles.badge} data-node-id="1088:4213">
-          For Customer Facing Team
+          For Customer-Facing Teams
         </p>
 
         <div className={styles.heroContent} data-node-id="1088:5205">
