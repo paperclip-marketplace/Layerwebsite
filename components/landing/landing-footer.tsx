@@ -2,13 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ROUTES } from "@/lib/config/constants";
 import {
   FOOTER_NAV_COLUMNS,
   FOOTER_POLICY_LINKS,
   type FooterNavColumn,
-  type FooterNavLink,
 } from "@/lib/landing/footer-nav";
 import { requestHeaderDropdown } from "@/lib/landing/header-dropdown";
 import styles from "./landing-footer.module.css";
@@ -16,48 +13,7 @@ import styles from "./landing-footer.module.css";
 const LOGO_MARK = "/assets/images/landing/layer-mark.svg";
 const LOGO_WORDMARK = "/assets/images/landing/layer-wordmark.svg";
 
-function scrollToOurStory() {
-  document.getElementById("our-story")?.scrollIntoView({ behavior: "smooth" });
-}
-
-function FooterNavLinkItem({
-  item,
-  onOurStoryClick,
-}: {
-  item: FooterNavLink;
-  onOurStoryClick?: () => void;
-}) {
-  if (item.href === ROUTES.ourStory) {
-    return (
-      <Link
-        href={item.href}
-        className={styles.navLink}
-        onClick={(event) => {
-          if (onOurStoryClick) {
-            event.preventDefault();
-            onOurStoryClick();
-          }
-        }}
-      >
-        {item.label}
-      </Link>
-    );
-  }
-
-  return (
-    <Link href={item.href} className={styles.navLink}>
-      {item.label}
-    </Link>
-  );
-}
-
-function FooterNavColumnBlock({
-  column,
-  onOurStoryClick,
-}: {
-  column: FooterNavColumn;
-  onOurStoryClick?: () => void;
-}) {
+function FooterNavColumnBlock({ column }: { column: FooterNavColumn }) {
   return (
     <div className={styles.navColumn} data-name="Contact Info Column">
       {column.dropdown ? (
@@ -74,11 +30,9 @@ function FooterNavColumnBlock({
 
       <div className={styles.navItems} data-name="Contact Summary Container">
         {column.items.map((item) => (
-          <FooterNavLinkItem
-            key={item.label}
-            item={item}
-            onOurStoryClick={onOurStoryClick}
-          />
+          <Link key={item.label} href={item.href} className={styles.navLink}>
+            {item.label}
+          </Link>
         ))}
       </div>
     </div>
@@ -86,9 +40,6 @@ function FooterNavColumnBlock({
 }
 
 export function LandingFooter() {
-  const pathname = usePathname();
-  const isHome = pathname === ROUTES.home;
-
   return (
     <footer
       className={styles.section}
@@ -129,11 +80,7 @@ export function LandingFooter() {
 
             <nav className={styles.navColumns} aria-label="Footer">
               {FOOTER_NAV_COLUMNS.map((column) => (
-                <FooterNavColumnBlock
-                  key={column.title}
-                  column={column}
-                  onOurStoryClick={isHome ? scrollToOurStory : undefined}
-                />
+                <FooterNavColumnBlock key={column.title} column={column} />
               ))}
             </nav>
           </div>
