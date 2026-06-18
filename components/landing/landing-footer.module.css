@@ -1,4 +1,4 @@
-/* Figma 1089:5810 / 1031:6390 — Footer */
+/* Figma 1031:6391 — Footer Main */
 .section {
   position: relative;
   isolation: isolate;
@@ -20,31 +20,29 @@
 }
 
 .content {
-  display: flex;
-  align-items: flex-start;
   box-sizing: border-box;
   width: 100%;
-  padding: calc(10 * var(--l-vw));
+  padding: 10px;
 }
 
 .card {
   display: flex;
-  flex: 1 1 0;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(40 * var(--l-vw));
+  gap: 40px;
+  width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  width: 100%;
-  padding: calc(40 * var(--l-vw));
-  border-radius: calc(40 * var(--l-vw));
-  background: transparent;
+  padding: 40px;
+  border-radius: 40px;
+  background: #f9f9f9;
 }
 
 .topRow {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 40px;
   width: 100%;
 }
 
@@ -53,8 +51,8 @@
   flex-direction: column;
   align-items: flex-start;
   flex-shrink: 0;
-  width: 100%;
-  max-width: calc(830 * var(--l-vw));
+  width: 400px;
+  max-width: 100%;
 }
 
 .logoLink {
@@ -66,39 +64,29 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: calc(17 * var(--l-vw));
-  width: calc(225 * var(--l-vw));
-  height: calc(56 * var(--l-vw));
+  gap: 8px;
+  width: 105px;
+  height: 26px;
   flex-shrink: 0;
 }
 
 .logoMark {
-  width: calc(73 * var(--l-vw));
-  height: calc(54 * var(--l-vw));
+  width: 34px;
+  height: 25px;
   flex-shrink: 0;
 }
 
 .logoWordmark {
-  width: calc(131 * var(--l-vw));
-  height: calc(47 * var(--l-vw));
+  width: 61px;
+  height: 22px;
   flex-shrink: 0;
 }
 
-.nav {
+.navColumns {
   display: flex;
   flex: 1 1 0;
-  flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  gap: calc(40 * var(--l-vw));
   min-width: 0;
-}
-
-.navPrimary {
-  display: flex;
-  gap: calc(40 * var(--l-vw));
-  align-items: flex-start;
-  width: 100%;
 }
 
 .navColumn {
@@ -109,76 +97,156 @@
   min-width: 0;
 }
 
-.navSecondary {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-}
-
-.linkPrimary,
-.linkSecondary {
+.sectionHeader,
+.navLink {
   display: inline-flex;
   align-items: center;
-  gap: calc(4 * var(--l-vw));
-  padding: calc(8 * var(--l-vw)) 0;
-  border-radius: calc(8 * var(--l-vw));
+  padding: 8px 0;
+  border-radius: 8px;
   font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-16);
-  font-weight: 500;
-  line-height: var(--l-lh-16);
-  letter-spacing: var(--l-tracking);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.56px;
   text-decoration: none;
   white-space: nowrap;
 }
 
-button.linkPrimary {
+button.sectionHeader {
   border: none;
   background: none;
   cursor: pointer;
   text-align: left;
 }
 
-.linkPrimary {
-  color: #020100;
-}
-
-.linkSecondary {
+.sectionHeader {
   color: #8d8d8d;
 }
 
-.linkPrimary:hover,
-.linkSecondary:hover {
+.navItems {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.navLink {
+  color: #020100;
+}
+
+.sectionHeader:hover,
+.navLink:hover,
+.legalLink:hover {
   opacity: 0.8;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
+
+.copyright,
+.legalLink {
+  font-family: var(--layer-font-geist-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.48px;
+  color: #8d8d8d;
 }
 
 .copyright {
   flex-shrink: 0;
   margin: 0;
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-16);
-  font-weight: 500;
-  line-height: var(--l-lh-16);
-  letter-spacing: var(--l-tracking);
-  color: #8d8d8d;
   white-space: nowrap;
 }
 
+.legalLinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.legalLink {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (width > 1440px) {
+  .content:global(.landing-shell-x) {
+    padding-inline: max(
+      var(--l-content-inset-x),
+      calc((100vw - var(--l-shell-w)) / 2 + var(--l-content-inset-x))
+    );
+  }
+
+  .card {
+    border-radius: 0;
+    background: transparent;
+  }
+}
+
 @media (max-width: 1200px) {
+  .content {
+    padding: calc(10 * var(--l-vw)) calc(10 * var(--l-vw)) 0;
+  }
+
+  .card {
+    gap: calc(40 * var(--l-vw));
+    padding: calc(40 * var(--l-vw));
+    border-radius: calc(40 * var(--l-vw));
+  }
+
+  .topRow {
+    gap: calc(40 * var(--l-vw));
+  }
+
+  .logoColumn {
+    width: calc(400 * var(--l-vw));
+  }
+
   .logo {
-    width: calc(180 * var(--l-vw));
-    height: calc(44 * var(--l-vw));
-    gap: calc(12 * var(--l-vw));
+    width: calc(105 * var(--l-vw));
+    height: calc(26 * var(--l-vw));
+    gap: calc(8 * var(--l-vw));
   }
 
   .logoMark {
-    width: calc(58 * var(--l-vw));
-    height: calc(43 * var(--l-vw));
+    width: calc(34 * var(--l-vw));
+    height: calc(25 * var(--l-vw));
   }
 
   .logoWordmark {
-    width: calc(105 * var(--l-vw));
-    height: calc(38 * var(--l-vw));
+    width: calc(61 * var(--l-vw));
+    height: calc(22 * var(--l-vw));
+  }
+
+  .sectionHeader,
+  .navLink {
+    padding: calc(8 * var(--l-vw)) 0;
+    border-radius: calc(8 * var(--l-vw));
+    font-size: calc(14 * var(--l-vw));
+    line-height: calc(20 * var(--l-vw));
+    letter-spacing: calc(-0.56 * var(--l-vw));
+  }
+
+  .copyright,
+  .legalLink {
+    font-size: calc(12 * var(--l-vw));
+    line-height: calc(16 * var(--l-vw));
+    letter-spacing: calc(-0.48 * var(--l-vw));
+  }
+
+  .legalLinks {
+    gap: calc(20 * var(--l-vw));
+  }
+
+  .bottomRow {
+    gap: calc(24 * var(--l-vw));
   }
 }
 
@@ -188,46 +256,41 @@ button.linkPrimary {
   }
 
   .card {
-    gap: calc(40 * var(--l-vw));
     padding: calc(20 * var(--l-vw));
     border-radius: calc(24 * var(--l-vw));
   }
 
   .topRow {
     flex-direction: column;
-    gap: calc(40 * var(--l-vw));
   }
 
   .logoColumn {
-    max-width: none;
-  }
-
-  .logo {
-    width: calc(157 * var(--l-vw));
-    height: calc(39 * var(--l-vw));
-    gap: calc(12 * var(--l-vw));
-  }
-
-  .logoMark {
-    width: calc(50 * var(--l-vw));
-    height: calc(37 * var(--l-vw));
-  }
-
-  .logoWordmark {
-    width: calc(92 * var(--l-vw));
-    height: calc(33 * var(--l-vw));
-  }
-
-  .nav {
     width: 100%;
   }
 
-  .navPrimary {
+  .navColumns {
     flex-direction: column;
+    width: 100%;
     gap: calc(24 * var(--l-vw));
+  }
+
+  .navColumn {
+    flex: none;
+    width: 100%;
+  }
+
+  .bottomRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(16 * var(--l-vw));
   }
 
   .copyright {
     white-space: normal;
+  }
+
+  .legalLinks {
+    flex-wrap: wrap;
+    row-gap: calc(8 * var(--l-vw));
   }
 }

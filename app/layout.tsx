@@ -6,9 +6,10 @@ import { FixedExploreFeaturesButton } from "@/components/landing/fixed-explore-f
 import "@material-symbols/font-400";
 import "./globals.css";
 
-const siteTitle = "Layer AI | Agentic GTM Performance Platform";
+const siteTitle = "Layer | Agents for Revenue Teams";
 const siteDescription =
-  "AI agents for revenue teams that source, prepare, practise, support live calls, automate follow-up, and coach every interaction.";
+  "AI Agents for revenue teams that source, prepare, practice, support live calls, automate follow-ups and coach every interaction.";
+const previewImage = "/layer-preview-1200x630.jpg";
 const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://www.withlayer.ai");
 
@@ -38,14 +39,21 @@ export const metadata: Metadata = {
     description: siteDescription,
     url: defaultUrl,
     siteName: "Layer AI",
-    images: ["/thumbnail_image.png"],
+    images: [
+      {
+        url: previewImage,
+        width: 1200,
+        height: 630,
+        alt: "Layer agents for revenue teams",
+      },
+    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/thumbnail_image.png"],
+    images: [previewImage],
   },
   robots: {
     index: true,

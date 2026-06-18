@@ -30,6 +30,14 @@ export function LandingHeader() {
   const productsButtonRef = useRef<HTMLAnchorElement>(null);
   const solutionsButtonRef = useRef<HTMLAnchorElement>(null);
   const isAnimatingRef = useRef(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
 
   const getDropdownRef = useCallback((name: DropdownName) => {
     return name === "products" ? productsDropdownRef.current : solutionsDropdownRef.current;
@@ -111,6 +119,7 @@ export function LandingHeader() {
   const openDropdownByName = useCallback(
     async (name: DropdownName) => {
       if (isAnimatingRef.current) return;
+      clearCloseTimer();
 
       if (openDropdown === name) {
         setActiveLink(name);
@@ -131,30 +140,23 @@ export function LandingHeader() {
       setOpenDropdown(name);
       animateOpen(name);
     },
-    [animateClose, animateOpen, openDropdown],
+    [animateClose, animateOpen, clearCloseTimer, openDropdown],
   );
 
-  const toggleDropdown = useCallback(
-    (name: DropdownName) => async (e: React.MouseEvent) => {
-      e.preventDefault();
-      if (isAnimatingRef.current) return;
-
-      if (openDropdown === name) {
-        setActiveLink(null);
-        await closeActiveDropdown();
-        return;
-      }
-
-      await openDropdownByName(name);
-    },
-    [closeActiveDropdown, openDropdown, openDropdownByName],
-  );
+  const scheduleCloseDropdown = useCallback(() => {
+    clearCloseTimer();
+    closeTimerRef.current = setTimeout(() => {
+      void closeActiveDropdown();
+    }, 150);
+  }, [clearCloseTimer, closeActiveDropdown]);
 
   const handleLinkClick = async (link: string) => {
     setActiveLink(link);
     setMenuOpen(false);
     await closeActiveDropdown();
   };
+
+  useEffect(() => () => clearCloseTimer(), [clearCloseTimer]);
 
   useEffect(() => {
     const handleFooterDropdownRequest = (event: Event) => {
@@ -252,27 +254,35 @@ export function LandingHeader() {
             </Link>
 
             <nav className={styles.navLinks} aria-label="Primary">
-              <div className={styles.navItemContainer}>
+              <div
+                className={styles.navItemContainer}
+                onMouseEnter={() => void openDropdownByName("products")}
+                onMouseLeave={scheduleCloseDropdown}
+              >
                 <Link
                   href="#"
                   ref={productsButtonRef}
                   className={
                     activeLink === "products" ? styles.navLinkActive : styles.navLink
                   }
-                  onClick={toggleDropdown("products")}
+                  onClick={(event) => event.preventDefault()}
                 >
                   Products
                 </Link>
                 <ProductsDropdown ref={productsDropdownRef} />
               </div>
-              <div className={styles.navItemContainer}>
+              <div
+                className={styles.navItemContainer}
+                onMouseEnter={() => void openDropdownByName("solutions")}
+                onMouseLeave={scheduleCloseDropdown}
+              >
                 <Link
                   href="#"
                   ref={solutionsButtonRef}
                   className={
                     activeLink === "solutions" ? styles.navLinkActive : styles.navLink
                   }
-                  onClick={toggleDropdown("solutions")}
+                  onClick={(event) => event.preventDefault()}
                 >
                   Solutions
                 </Link>

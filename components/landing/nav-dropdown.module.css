@@ -150,6 +150,8 @@
   display: flex;
   gap: 12px;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
 }
 
 .footerImage {
@@ -203,6 +205,7 @@
   border: 1px solid #dedede;
   border-radius: 99px;
   text-decoration: none;
+  cursor: pointer;
   transition: background-color 0.15s ease;
 }
 

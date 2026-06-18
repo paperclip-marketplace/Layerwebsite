@@ -25,7 +25,7 @@ export const CUSTOMER_FACING_PRODUCTS: CustomerFacingProduct[] = [
       "Discover our All-in one Layer studio designed for leadship",
   },
   {
-    href: "#",
+    href: ROUTES.comingSoon,
     image:
       "https://www.figma.com/api/mcp/asset/55ef5f8f-1bcb-4bb4-ac5d-1a7c0572394d",
     title: "Coaching",
@@ -33,7 +33,7 @@ export const CUSTOMER_FACING_PRODUCTS: CustomerFacingProduct[] = [
       "Discover our All-in one Layer studio designed for leadship",
   },
   {
-    href: "#",
+    href: ROUTES.comingSoon,
     image:
       "https://www.figma.com/api/mcp/asset/7c4573ec-c420-4a7c-932e-4d187b3599e2",
     title: "Scoring and Feedback",
