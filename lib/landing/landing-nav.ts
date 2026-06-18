@@ -31,5 +31,4 @@ export const SOLUTIONS_NAV: readonly LandingNavLink[] = [
 
 export const MORE_NAV: readonly LandingNavLink[] = [
   { label: "Pricing", href: ROUTES.pricing },
-  { label: "Our Story", href: COMING_SOON_HREF },
 ] as const;
