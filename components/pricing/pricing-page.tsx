@@ -1,5 +1,4 @@
-import { LandingFooter } from "@/components/landing/landing-footer";
-import { LandingHeader } from "@/components/landing/landing-header";
+import { LandingPageShell } from "@/components/landing/landing-page-shell";
 import { OurClientSection } from "@/components/landing/our-client-section";
 import "@/components/landing/landing-fluid.css";
 import "@/components/landing/landing-mobile.module.css";
@@ -9,8 +8,7 @@ import { PricingHeroSection } from "./pricing-hero-section";
 
 export function PricingPage() {
   return (
-    <div className={`${styles.page} landing-main`}>
-      <LandingHeader />
+    <LandingPageShell pageClassName={styles.page}>
       <div className="landing-page-gutter">
         <main className={`${styles.main} landing-main__inner`} id="main">
           <PricingHeroSection />
@@ -20,7 +18,6 @@ export function PricingPage() {
           </div>
         </main>
       </div>
-      <LandingFooter />
-    </div>
+    </LandingPageShell>
   );
 }

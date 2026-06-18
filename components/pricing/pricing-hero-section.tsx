@@ -1,3 +1,4 @@
+import { LandingHeadingReveal, LandingSubheadingReveal } from "@/components/landing/landing-text-reveal";
 import styles from "./pricing-hero-section.module.css";
 
 export function PricingHeroSection() {
@@ -10,18 +11,21 @@ export function PricingHeroSection() {
       <p className={styles.badge}>Layer Pricing</p>
 
       <div className={`landing-copy-row ${styles.content}`}>
-        <h1
+        <LandingHeadingReveal
+          as="h1"
           id="pricing-hero-heading"
           className={`landing-copy-headline ${styles.headline}`}
         >
           Pricing built around{" "}
           <span className={styles.highlight}>GTM performance</span>, not seats.
-        </h1>
-        <p className={`landing-copy-aside ${styles.description}`}>
+        </LandingHeadingReveal>
+        <LandingSubheadingReveal
+          className={`landing-copy-aside ${styles.description}`}
+        >
           Start with unlimited users, agents, and 1,000 monthly credits.
           Scale with expert-led context-layer curation, agent configuration, and
           GTM operating support from Layer&apos;s architects and operators.
-        </p>
+        </LandingSubheadingReveal>
       </div>
     </section>
   );

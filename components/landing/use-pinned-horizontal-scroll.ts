@@ -21,6 +21,8 @@ type UsePinnedHorizontalScrollOptions = {
   cardSelector?: string;
   /** Horizontal inset for first/last card; reads --split-pin-x-pad from section when omitted */
   edgePadding?: number;
+  /** Last card end position: `end` = trailing edgePadding; `mirror` = same inset as leading (startInset) */
+  endAlign?: "mirror" | "end";
 };
 
 function readEdgePadding(
@@ -51,6 +53,7 @@ export function usePinnedHorizontalScroll({
   trackRef,
   cardSelector = "[data-pin-scroll-card]",
   edgePadding: edgePaddingOption,
+  endAlign = "end",
 }: UsePinnedHorizontalScrollOptions) {
   const [translateX, setTranslateX] = useState(0);
   const [spacerHeight, setSpacerHeight] = useState<number | null>(null);
@@ -76,20 +79,22 @@ export function usePinnedHorizontalScroll({
     const startInset = sectionLeft + edgePadding;
 
     track.style.paddingLeft = `${startInset}px`;
-    track.style.paddingRight = `${edgePadding}px`;
+    track.style.paddingRight = `${endAlign === "mirror" ? startInset : edgePadding}px`;
     track.style.transform = "translate3d(0, 0, 0)";
 
     const viewportWidth = window.innerWidth;
     const lastCardLeft = lastCard.getBoundingClientRect().left;
     const lastCardWidth = lastCard.getBoundingClientRect().width;
 
-    // Progress 0: first card at content-aligned inset. Progress 1: last card fully visible with trailing inset.
-    const lastCardLeftAtEnd = viewportWidth - edgePadding - lastCardWidth;
+    // Progress 0: first card at startInset. Progress 1: last card with matching trailing gutter.
+    const trailingInset = endAlign === "mirror" ? startInset : edgePadding;
+    const lastCardLeftAtEnd =
+      viewportWidth - trailingInset - lastCardWidth;
     const maxShift = Math.max(0, lastCardLeft - lastCardLeftAtEnd);
 
     maxShiftRef.current = maxShift;
     setSpacerHeight(window.innerHeight + maxShift);
-  }, [cardCount, cardSelector, edgePaddingOption, enabled, trackRef]);
+  }, [cardCount, cardSelector, edgePaddingOption, endAlign, enabled, trackRef]);
 
   useLayoutEffect(() => {
     if (!enabled) {

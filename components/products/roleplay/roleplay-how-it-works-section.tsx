@@ -1,4 +1,8 @@
 import { ROLEPLAY_ASSETS } from "./roleplay-assets";
+import {
+  LandingHeadingReveal,
+  LandingSubheadingReveal,
+} from "@/components/landing/landing-text-reveal";
 import styles from "./roleplay-how-it-works-section.module.css";
 
 type WorkflowCardData = {
@@ -61,7 +65,7 @@ export function RoleplayHowItWorksSection() {
           how it works
         </p>
         <div className="landing-copy-row" data-node-id="1088:5296">
-          <h2
+          <LandingHeadingReveal
             id="roleplay-how-heading"
             className={`${styles.headline} landing-copy-headline`}
             data-node-id="1088:5297"
@@ -70,8 +74,8 @@ export function RoleplayHowItWorksSection() {
             <span className={`${styles.headlineLine} ${styles.highlight}`}>
               faster execution
             </span>
-          </h2>
-          <p
+          </LandingHeadingReveal>
+          <LandingSubheadingReveal
             className={`${styles.aside} landing-copy-aside`}
             data-node-id="1088:5298"
           >
@@ -80,7 +84,7 @@ export function RoleplayHowItWorksSection() {
             researching, preparing, seeking approvals, and documenting and more
             time creating pipeline, advancing deals, serving customers, and
             driving growth.
-          </p>
+          </LandingSubheadingReveal>
         </div>
       </div>
 

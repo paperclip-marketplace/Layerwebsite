@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
 import styles from "./pricing-cta-cards-section.module.css";
 
@@ -16,11 +17,11 @@ export function PricingCtaCardsSection() {
         data-node-id="336:1887"
       >
         <div className={styles.cardHeader}>
-          <h2 className={styles.cardTitle}>
+          <LandingHeadingReveal as="h2" className={styles.cardTitle}>
             <Link href={ROUTES.signUp} className={styles.cardTitleLink}>
               Create your First Agent
             </Link>
-          </h2>
+          </LandingHeadingReveal>
           <p className={styles.cardSubtitle}>
             <span className={styles.subtitleMuted}>
               Built to improve the metrics
@@ -48,7 +49,9 @@ export function PricingCtaCardsSection() {
         data-node-id="336:1892"
       >
         <div className={styles.cardHeader}>
-          <h2 className={styles.cardTitle}>Watch Demo</h2>
+          <LandingHeadingReveal as="h2" className={styles.cardTitle}>
+            Watch Demo
+          </LandingHeadingReveal>
           <p className={styles.cardSubtitle}>
             <span className={styles.subtitleMuted}>
               We have lived the problem.

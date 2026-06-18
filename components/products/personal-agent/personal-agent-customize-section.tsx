@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {
+  LandingHeadingReveal,
+  LandingSubheadingReveal,
+} from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
 import { PersonalAgentCustomizeAppearancePanel } from "./personal-agent-customize-appearance-panel";
 import styles from "./personal-agent-customize-section.module.css";
@@ -24,11 +28,15 @@ const FEATURE_ITEMS = [
   {
     id: "tools",
     title: "Setup tools for automatic tool-calling",
+    description:
+      "Connect CRM, calendar, and call tools so your agent can pull deal context, draft follow-ups, and trigger approvals without you leaving the thread.",
     active: false,
   },
   {
     id: "knowledge",
-    title: "Enrich your with knowledge base",
+    title: "Enrich your agent with knowledge base",
+    description:
+      "Add playbooks, transcripts, and internal docs so prep and answers stay grounded in how your team sells, not generic AI guesses.",
     active: false,
   },
 ] as const;
@@ -49,7 +57,7 @@ export function PersonalAgentCustomizeSection() {
             what you can do
           </p>
           <div className="landing-copy-row" data-node-id="1091:5965">
-            <h2
+            <LandingHeadingReveal
               id="personal-agent-customize-heading"
               className={`${styles.headline} landing-copy-headline`}
               data-node-id="1091:5966"
@@ -58,8 +66,8 @@ export function PersonalAgentCustomizeSection() {
               <span className={`${styles.headlineLine} ${styles.highlight}`}>
                 truly yours!
               </span>
-            </h2>
-            <p
+            </LandingHeadingReveal>
+            <LandingSubheadingReveal
               className={`${styles.aside} landing-copy-aside`}
               data-node-id="1091:5967"
             >
@@ -67,7 +75,7 @@ export function PersonalAgentCustomizeSection() {
               context-heavy work to agents. Your team spends less time researching,
               preparing, seeking approvals, and documenting and more time creating
               pipeline, advancing deals, serving customers, and driving growth.
-            </p>
+            </LandingSubheadingReveal>
           </div>
         </div>
 
@@ -112,10 +120,19 @@ export function PersonalAgentCustomizeSection() {
                 type="button"
                 className={`${styles.featureItem} ${isActive ? styles.featureItemActive : ""}`}
                 onClick={() => setActiveFeature(item.id)}
+                aria-expanded={isActive}
               >
                 <p className={styles.featureTitle}>{item.title}</p>
-                {isActive && "description" in item ? (
-                  <p className={styles.featureDescription}>{item.description}</p>
+                {"description" in item ? (
+                  <div
+                    className={`${styles.featureDescriptionWrap} ${
+                      isActive ? styles.featureDescriptionWrapOpen : ""
+                    }`}
+                  >
+                    <div className={styles.featureDescriptionInner}>
+                      <p className={styles.featureDescription}>{item.description}</p>
+                    </div>
+                  </div>
                 ) : null}
               </button>
             );

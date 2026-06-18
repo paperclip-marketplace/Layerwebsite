@@ -339,7 +339,8 @@
   padding: var(--l-section-px);
 }
 
-.supportingCopy p {
+.supportingCopy p,
+.supportingCopyText {
   margin: 0;
   font-family: var(--layer-font-geist-sans);
   font-size: var(--l-fs-20);

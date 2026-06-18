@@ -1,4 +1,8 @@
 import { ROLEPLAY_ASSETS } from "./roleplay-assets";
+import {
+  LandingHeadingReveal,
+  LandingSubheadingReveal,
+} from "@/components/landing/landing-text-reveal";
 import styles from "./roleplay-persona-builder-section.module.css";
 
 export function RoleplayPersonaBuilderSection() {
@@ -16,7 +20,7 @@ export function RoleplayPersonaBuilderSection() {
           className="landing-copy-row"
           data-node-id="1089:5534"
         >
-          <h2
+          <LandingHeadingReveal
             id="roleplay-persona-heading"
             className={`${styles.headline} landing-copy-headline`}
             data-node-id="1089:5535"
@@ -25,14 +29,14 @@ export function RoleplayPersonaBuilderSection() {
             <span className={`${styles.headlineLine} ${styles.highlight}`}>
               and straightforward
             </span>
-          </h2>
-          <p
+          </LandingHeadingReveal>
+          <LandingSubheadingReveal
             className={`${styles.aside} landing-copy-aside`}
             data-node-id="1089:5536"
           >
             Set what agents know, how they behave, and what actions they can
             take.
-          </p>
+          </LandingSubheadingReveal>
         </div>
       </div>
 

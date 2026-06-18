@@ -150,6 +150,19 @@ export function LandingHeader() {
     }, 150);
   }, [clearCloseTimer, closeActiveDropdown]);
 
+  const scheduleClosePricingHighlight = useCallback(() => {
+    clearCloseTimer();
+    closeTimerRef.current = setTimeout(() => {
+      setActiveLink((prev) => (prev === "pricing" ? null : prev));
+    }, 150);
+  }, [clearCloseTimer]);
+
+  const highlightPricing = useCallback(() => {
+    clearCloseTimer();
+    setActiveLink("pricing");
+    if (openDropdown) void closeActiveDropdown();
+  }, [clearCloseTimer, closeActiveDropdown, openDropdown]);
+
   const handleLinkClick = async (link: string) => {
     setActiveLink(link);
     setMenuOpen(false);
@@ -288,13 +301,21 @@ export function LandingHeader() {
                 </Link>
                 <SolutionsDropdown ref={solutionsDropdownRef} />
               </div>
-              <Link
-                href={ROUTES.pricing}
-                className={activeLink === "pricing" ? styles.navLinkActive : styles.navLink}
-                onClick={() => handleLinkClick("pricing")}
+              <div
+                className={styles.navItemContainer}
+                onMouseEnter={highlightPricing}
+                onMouseLeave={scheduleClosePricingHighlight}
               >
-                Pricing
-              </Link>
+                <Link
+                  href={ROUTES.pricing}
+                  className={
+                    activeLink === "pricing" ? styles.navLinkActive : styles.navLink
+                  }
+                  onClick={() => handleLinkClick("pricing")}
+                >
+                  Pricing
+                </Link>
+              </div>
             </nav>
           </div>
 

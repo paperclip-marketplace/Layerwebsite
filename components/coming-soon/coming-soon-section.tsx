@@ -1,5 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import {
+  LandingHeadingReveal,
+  LandingSubheadingReveal,
+} from "@/components/landing/landing-text-reveal";
 import styles from "./coming-soon-section.module.css";
 
 const BG_PATTERN = "/assets/images/landing/coming-soon/bg-pattern.png";
@@ -46,13 +50,21 @@ export function ComingSoonSection() {
 
         <div className={styles.copyBlock} data-node-id="1310:1741">
           <div className={styles.copy} data-node-id="1310:1742">
-            <h1 id="coming-soon-heading" className={styles.headline} data-node-id="1310:1743">
+            <LandingHeadingReveal
+              as="h1"
+              id="coming-soon-heading"
+              className={styles.headline}
+              data-node-id="1310:1743"
+            >
               We&apos;re <span className={styles.headlineAccent}>still cooking</span> this one up!
-            </h1>
-            <p className={styles.description} data-node-id="1310:1744">
+            </LandingHeadingReveal>
+            <LandingSubheadingReveal
+              className={styles.description}
+              data-node-id="1310:1744"
+            >
               Our team is working hard to make this page live for you. Meanwhile you can play
               with our interactive demo.
-            </p>
+            </LandingSubheadingReveal>
           </div>
 
           <div className={styles.demoButtonShell} data-node-id="1310:1758" data-name="button">

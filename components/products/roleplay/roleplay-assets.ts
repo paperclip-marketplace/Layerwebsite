@@ -4,6 +4,7 @@ export const ROLEPLAY_ASSETS = {
   heroAgentBg: `${BASE}/hero-agent-bg.jpg`,
   heroAgentOverlay: `${BASE}/hero-agent-overlay.jpg`,
   heroAgentFeatured: `${BASE}/hero-agent-featured.jpg`,
+  heroAgentDavid: `${BASE}/hero-agent-david.png`,
   howCreatePersona: `${BASE}/how-create-persona.png`,
   howEnrichUi: `${BASE}/how-enrich-ui.png`,
   howProcessing: `${BASE}/how-processing.png`,

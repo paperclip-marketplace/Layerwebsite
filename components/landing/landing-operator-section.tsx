@@ -1,4 +1,4 @@
-import { LandingHeadingReveal } from "./landing-text-reveal";
+import { LandingHeadingReveal, LandingSubheadingReveal } from "./landing-text-reveal";
 import styles from "./landing-operator-section.module.css";
 
 const TEAM_PHOTO = "/assets/images/landing/operator/team-photo.png";
@@ -30,10 +30,13 @@ export function LandingOperatorSection() {
                 </span>
               </span>
             </LandingHeadingReveal>
-            <p className={`${styles.headerDescription} landing-copy-aside`} data-node-id="729:1318">
+            <LandingSubheadingReveal
+              className={`${styles.headerDescription} landing-copy-aside`}
+              data-node-id="729:1318"
+            >
               We have lived the problem. We know the metrics. We understand the
               operating system of a revenue team.
-            </p>
+            </LandingSubheadingReveal>
           </div>
 
           <div className={styles.founderBlock} data-name="Founder Section" data-node-id="729:1319">

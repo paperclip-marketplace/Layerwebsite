@@ -1,6 +1,5 @@
-import { LandingHeader } from "./landing-header";
+import { LandingPageShell } from "./landing-page-shell";
 import { LandingPromoBanner } from "./landing-promo-banner";
-import { LandingMobileTitleSection } from "./landing-mobile-title-section";
 import { LandingHeroSection } from "./landing-hero-section";
 import { LandingTopSection } from "./landing-top-section";
 import { OurClientSection } from "./our-client-section";
@@ -18,9 +17,7 @@ import { LandingLeadershipMetricsSection } from "./landing-leadership-metrics-se
 import { LandingKeyMetricsSection } from "./landing-key-metrics-section";
 import { LandingOperatorSection } from "./landing-operator-section";
 import { TeamExperienceSection } from "./team-experience";
-import { LandingFooter } from "./landing-footer";
 import { LandingHashScroll } from "./landing-hash-scroll";
-import { LandingScrollSmoother } from "./landing-scroll-smoother";
 import "./landing-fluid.css";
 import "./landing-mobile.module.css";
 import { SHOW_LANDING_DEMO_ENTRY } from "@/lib/config/constants";
@@ -30,13 +27,9 @@ const SHOW_TEAM_EXPERIENCE_SECTION = true;
 
 export function LandingPage() {
   return (
-    <div className={`${styles.page} landing-main`}>
-      <LandingHeader />
-      <LandingScrollSmoother>
-        <LandingMobileTitleSection />
-
-        <div className="landing-page-gutter">
-          <main className={`${styles.main} landing-main__inner`} id="main">
+    <LandingPageShell pageClassName={styles.page} showMobileTitle>
+      <div className="landing-page-gutter">
+        <main className={`${styles.main} landing-main__inner`} id="main">
         <LandingHashScroll />
         {SHOW_LANDING_DEMO_ENTRY ? <LandingPromoBanner /> : null}
 
@@ -104,10 +97,8 @@ export function LandingPage() {
 
         <LandingOperatorSection />
         {SHOW_TEAM_EXPERIENCE_SECTION ? <TeamExperienceSection /> : null}
-          </main>
-        </div>
-        <LandingFooter />
-      </LandingScrollSmoother>
-    </div>
+        </main>
+      </div>
+    </LandingPageShell>
   );
 }

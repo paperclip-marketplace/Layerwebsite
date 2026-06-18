@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import styles from "./roleplay-hero-section.module.css";
-
-type Mode = "voice" | "video";
+import { useRoleplayMode } from "./roleplay-mode-context";
 
 export function RoleplayModeToggle() {
-  const [mode, setMode] = useState<Mode>("video");
+  const { mode, setMode } = useRoleplayMode();
 
   return (
     <div className={styles.modeToggle} data-node-id="1088:5188">

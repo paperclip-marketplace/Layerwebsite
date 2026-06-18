@@ -1,6 +1,10 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import {
+  LandingHeadingReveal,
+  LandingSubheadingReveal,
+} from "@/components/landing/landing-text-reveal";
 import { PERSONAL_AGENT_ASSETS } from "./personal-agent-assets";
 import {
   usePinnedHorizontalScroll,
@@ -234,6 +238,7 @@ export function PersonalAgentUseCasesSection() {
     spacerRef,
     trackRef,
     edgePadding,
+    endAlign: "mirror",
   });
 
   const scrollNext = () => {
@@ -256,7 +261,7 @@ export function PersonalAgentUseCasesSection() {
           use cases
         </p>
         <div className="landing-copy-row" data-node-id="1091:5933">
-          <h2
+          <LandingHeadingReveal
             id="personal-agent-use-cases-heading"
             className={`${styles.headline} landing-copy-headline`}
             data-node-id="1091:5934"
@@ -265,8 +270,8 @@ export function PersonalAgentUseCasesSection() {
             <span className={`${styles.headlineLine} ${styles.highlight}`}>
               agent can do!
             </span>
-          </h2>
-          <p
+          </LandingHeadingReveal>
+          <LandingSubheadingReveal
             className={`${styles.aside} landing-copy-aside`}
             data-node-id="1091:5935"
           >
@@ -274,7 +279,7 @@ export function PersonalAgentUseCasesSection() {
             context-heavy work to agents. Your team spends less time researching,
             preparing, seeking approvals, and documenting and more time creating
             pipeline, advancing deals, serving customers, and driving growth.
-          </p>
+          </LandingSubheadingReveal>
         </div>
       </div>
 

@@ -159,19 +159,47 @@
   background: #ffffff;
 }
 
-.showcaseSideRow {
+/* Fixed center glow — blue halo only; no card-sized fill (transparent center showed white). */
+.showcase::before {
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: var(--l-hero-inner-w);
-  opacity: 0.3;
+  z-index: 0;
+  width: 0;
+  height: 0;
   pointer-events: none;
-  background: #ffffff;
   transform: translate(-50%, -50%);
+  background: transparent;
+  box-shadow:
+    0 calc(24 * var(--l-vw)) calc(200 * var(--l-vw)) calc(32 * var(--l-vw))
+      rgba(62, 130, 234, 0.25);
+}
+
+.showcaseStage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: visible;
+}
+
+.showcaseCardSlot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--l-roleplay-side-card-w);
+  height: var(--l-roleplay-side-card-h);
+  --card-mix: 0;
+  will-change: transform, width, height, opacity;
+}
+
+.showcaseCardSlot .agentCard {
+  width: 100%;
+  height: 100%;
+}
+
+.showcaseSideRow {
+  display: none;
 }
 
 .showcaseNav {
@@ -195,6 +223,28 @@
   border-radius: 99px;
   cursor: pointer;
   background: #ffffff;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.showcaseNavBtn:hover {
+  border-color: #dedede;
+  background: #f9f9f9;
+}
+
+.showcaseNavBtn:active {
+  background: #f3f3f3;
+}
+
+.showcaseSrOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .showcaseNavIcon {
@@ -208,32 +258,19 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: calc(1.881 * var(--l-vw)) solid #ffffff;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: calc(
+    ((1 - var(--card-mix)) * 1.881 + var(--card-mix) * 2.365) * var(--l-vw)
+  );
   border-radius: calc(16 * var(--l-vw));
-  box-shadow: 0 calc(30.09 * var(--l-vw)) calc(48.05 * var(--l-vw)) 0
-    rgba(0, 0, 0, 0.07);
-}
-
-.agentCardSide {
-  flex-shrink: 0;
-  width: var(--l-roleplay-side-card-w);
-  height: var(--l-roleplay-side-card-h);
-}
-
-.agentCardCenter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 2;
-  width: var(--l-roleplay-center-card-w);
-  height: var(--l-roleplay-center-card-h);
-  border-width: calc(2.365 * var(--l-vw));
-  box-shadow:
-    0 calc(24 * var(--l-vw)) calc(200 * var(--l-vw)) calc(32 * var(--l-vw))
-      rgba(62, 130, 234, 0.25),
-    0 calc(37.839 * var(--l-vw)) calc(60.424 * var(--l-vw)) 0
-      rgba(0, 0, 0, 0.07);
-  transform: translate(-50%, -50%);
+  box-shadow: 0
+    calc(((1 - var(--card-mix)) * 30.09 + var(--card-mix) * 37.839) * var(--l-vw))
+    calc(((1 - var(--card-mix)) * 48.05 + var(--card-mix) * 60.424) * var(--l-vw))
+    0 rgba(0, 0, 0, 0.07);
 }
 
 .agentCardMedia {
@@ -272,6 +309,16 @@
   object-fit: cover;
 }
 
+.agentCardDavid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 15%;
+}
+
 .agentCardContent {
   position: relative;
   z-index: 1;
@@ -289,33 +336,46 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  padding: calc(15.045 * var(--l-vw));
-}
-
-.agentCardCenter .agentCardTop {
-  padding: calc(18.919 * var(--l-vw));
+  padding: calc(
+    ((1 - var(--card-mix)) * 15.045 + var(--card-mix) * 18.919) * var(--l-vw)
+  );
 }
 
 .agentChip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: calc(3.761 * var(--l-vw)) calc(7.523 * var(--l-vw));
+  padding: calc(
+      ((1 - var(--card-mix)) * 3.761 + var(--card-mix) * 4.73) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 7.523 + var(--card-mix) * 9.46) * var(--l-vw)
+    );
   border-radius: 4px;
   font-family: var(--layer-font-geist-sans);
-  font-size: calc(11.28 * var(--l-vw));
+  font-size: calc(
+    ((1 - var(--card-mix)) * 11.28 + var(--card-mix) * 14.19) * var(--l-vw)
+  );
   font-weight: 600;
-  line-height: calc(15.045 / 11.28);
+  line-height: calc(
+    (
+        (1 - var(--card-mix)) * 15.045 + var(--card-mix) * 18.919
+      ) /
+      (
+        (1 - var(--card-mix)) * 11.28 + var(--card-mix) * 14.19
+      )
+  );
   letter-spacing: -0.04em;
   color: #ffffff;
   white-space: nowrap;
+}
+
+.agentChipVideo {
   background: #009360;
 }
 
-.agentCardCenter .agentChip {
-  padding: calc(4.73 * var(--l-vw)) calc(9.46 * var(--l-vw));
-  font-size: calc(14.19 * var(--l-vw));
-  line-height: calc(18.919 / 14.19);
+.agentChipVoice {
+  background: #ff8b38;
 }
 
 .agentCardBottom {
@@ -345,49 +405,61 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: calc(7.523 * var(--l-vw));
-  padding: calc(18.806 * var(--l-vw)) calc(15.045 * var(--l-vw))
-    calc(7.523 * var(--l-vw));
-}
-
-.agentCardCenter .agentIdentity {
-  gap: calc(9.46 * var(--l-vw));
-  padding: calc(23.649 * var(--l-vw)) calc(18.919 * var(--l-vw))
-    calc(9.46 * var(--l-vw));
+  gap: calc(
+    ((1 - var(--card-mix)) * 7.523 + var(--card-mix) * 9.46) * var(--l-vw)
+  );
+  padding: calc(
+      ((1 - var(--card-mix)) * 18.806 + var(--card-mix) * 23.649) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 15.045 + var(--card-mix) * 18.919) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 7.523 + var(--card-mix) * 9.46) * var(--l-vw)
+    );
 }
 
 .agentName {
   margin: 0;
   font-family: var(--layer-font-geist-sans);
-  font-size: calc(18.81 * var(--l-vw));
+  font-size: calc(
+    ((1 - var(--card-mix)) * 18.81 + var(--card-mix) * 23.65) * var(--l-vw)
+  );
   font-weight: 700;
-  line-height: calc(22.568 / 18.81);
+  line-height: calc(
+    (
+        (1 - var(--card-mix)) * 22.568 + var(--card-mix) * 28.379
+      ) /
+      (
+        (1 - var(--card-mix)) * 18.81 + var(--card-mix) * 23.65
+      )
+  );
   letter-spacing: -0.04em;
   color: #ffffff;
   white-space: nowrap;
 }
 
-.agentCardCenter .agentName {
-  font-size: calc(23.65 * var(--l-vw));
-  line-height: calc(28.379 / 23.65);
-}
-
 .agentMeta {
   display: flex;
-  gap: calc(7.523 * var(--l-vw));
+  gap: calc(
+    ((1 - var(--card-mix)) * 7.523 + var(--card-mix) * 9.46) * var(--l-vw)
+  );
   align-items: center;
   font-family: var(--layer-font-inter, var(--layer-font-geist-sans));
-  font-size: calc(15.05 * var(--l-vw));
-  line-height: calc(15.045 / 15.05);
+  font-size: calc(
+    ((1 - var(--card-mix)) * 15.05 + var(--card-mix) * 18.92) * var(--l-vw)
+  );
+  line-height: calc(
+    (
+        (1 - var(--card-mix)) * 15.045 + var(--card-mix) * 18.919
+      ) /
+      (
+        (1 - var(--card-mix)) * 15.05 + var(--card-mix) * 18.92
+      )
+  );
   letter-spacing: -0.04em;
   color: #dedede;
   white-space: nowrap;
-}
-
-.agentCardCenter .agentMeta {
-  gap: calc(9.46 * var(--l-vw));
-  font-size: calc(18.92 * var(--l-vw));
-  line-height: calc(18.919 / 18.92);
 }
 
 .agentCompany {
@@ -396,15 +468,14 @@
 
 .agentMetaDot {
   flex-shrink: 0;
-  width: calc(3.761 * var(--l-vw));
-  height: calc(3.761 * var(--l-vw));
+  width: calc(
+    ((1 - var(--card-mix)) * 3.761 + var(--card-mix) * 4.73) * var(--l-vw)
+  );
+  height: calc(
+    ((1 - var(--card-mix)) * 3.761 + var(--card-mix) * 4.73) * var(--l-vw)
+  );
   border-radius: 50%;
   background: #dedede;
-}
-
-.agentCardCenter .agentMetaDot {
-  width: calc(4.73 * var(--l-vw));
-  height: calc(4.73 * var(--l-vw));
 }
 
 .agentStatsPanel {
@@ -412,72 +483,84 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  margin: calc(11.284 * var(--l-vw));
-  padding: calc(11.284 * var(--l-vw)) calc(7.523 * var(--l-vw))
-    calc(11.284 * var(--l-vw)) calc(11.284 * var(--l-vw));
-  border: calc(0.94 * var(--l-vw)) solid rgba(255, 255, 255, 0.1);
+  margin: calc(
+    ((1 - var(--card-mix)) * 11.284 + var(--card-mix) * 14.189) * var(--l-vw)
+  );
+  padding: calc(
+      ((1 - var(--card-mix)) * 11.284 + var(--card-mix) * 14.189) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 7.523 + var(--card-mix) * 9.46) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 11.284 + var(--card-mix) * 14.189) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 11.284 + var(--card-mix) * 14.189) * var(--l-vw)
+    );
+  border: calc(
+      ((1 - var(--card-mix)) * 0.94 + var(--card-mix) * 1.182) * var(--l-vw)
+    )
+    solid rgba(255, 255, 255, 0.1);
   border-radius: calc(12 * var(--l-vw));
   background: rgba(255, 255, 255, 0.1);
-}
-
-.agentCardCenter .agentStatsPanel {
-  margin: calc(14.189 * var(--l-vw));
-  padding: calc(14.189 * var(--l-vw)) calc(9.46 * var(--l-vw))
-    calc(14.189 * var(--l-vw)) calc(14.189 * var(--l-vw));
-  border-width: calc(1.182 * var(--l-vw));
 }
 
 .agentStats {
   display: flex;
   flex: 1 1 0;
-  gap: calc(11.284 * var(--l-vw));
+  gap: calc(
+    ((1 - var(--card-mix)) * 11.284 + var(--card-mix) * 14.189) * var(--l-vw)
+  );
   min-width: 0;
-}
-
-.agentCardCenter .agentStats {
-  gap: calc(14.189 * var(--l-vw));
 }
 
 .agentStat {
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
-  gap: calc(3.761 * var(--l-vw));
+  gap: calc(
+    ((1 - var(--card-mix)) * 3.761 + var(--card-mix) * 4.73) * var(--l-vw)
+  );
   min-width: 0;
-}
-
-.agentCardCenter .agentStat {
-  gap: calc(4.73 * var(--l-vw));
 }
 
 .agentStatLabel {
   font-family: var(--layer-font-geist-sans);
-  font-size: calc(11.28 * var(--l-vw));
+  font-size: calc(
+    ((1 - var(--card-mix)) * 11.28 + var(--card-mix) * 14.19) * var(--l-vw)
+  );
   font-weight: 500;
-  line-height: calc(15.045 / 11.28);
+  line-height: calc(
+    (
+        (1 - var(--card-mix)) * 15.045 + var(--card-mix) * 18.919
+      ) /
+      (
+        (1 - var(--card-mix)) * 11.28 + var(--card-mix) * 14.19
+      )
+  );
   letter-spacing: -0.04em;
   color: #797979;
   white-space: nowrap;
 }
 
-.agentCardCenter .agentStatLabel {
-  font-size: calc(14.19 * var(--l-vw));
-  line-height: calc(18.919 / 14.19);
-}
-
 .agentStatValue {
   font-family: var(--layer-font-geist-sans);
-  font-size: calc(15.05 * var(--l-vw));
+  font-size: calc(
+    ((1 - var(--card-mix)) * 15.05 + var(--card-mix) * 18.92) * var(--l-vw)
+  );
   font-weight: 500;
-  line-height: calc(22.568 / 15.05);
+  line-height: calc(
+    (
+        (1 - var(--card-mix)) * 22.568 + var(--card-mix) * 28.379
+      ) /
+      (
+        (1 - var(--card-mix)) * 15.05 + var(--card-mix) * 18.92
+      )
+  );
   letter-spacing: -0.04em;
   color: #ffffff;
   white-space: nowrap;
-}
-
-.agentCardCenter .agentStatValue {
-  font-size: calc(18.92 * var(--l-vw));
-  line-height: calc(28.379 / 18.92);
 }
 
 .agentTrainBtn {
@@ -485,16 +568,40 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  gap: calc(3.761 * var(--l-vw));
+  gap: calc(
+    ((1 - var(--card-mix)) * 3.761 + var(--card-mix) * 4.73) * var(--l-vw)
+  );
   height: 100%;
-  padding: calc(7.523 * var(--l-vw)) calc(11.284 * var(--l-vw))
-    calc(7.523 * var(--l-vw)) calc(15.045 * var(--l-vw));
-  border: calc(0.94 * var(--l-vw)) solid #dedede;
+  padding: calc(
+      ((1 - var(--card-mix)) * 7.523 + var(--card-mix) * 9.46) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 11.284 + var(--card-mix) * 14.189) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 7.523 + var(--card-mix) * 9.46) * var(--l-vw)
+    )
+    calc(
+      ((1 - var(--card-mix)) * 15.045 + var(--card-mix) * 18.919) * var(--l-vw)
+    );
+  border: calc(
+      ((1 - var(--card-mix)) * 0.94 + var(--card-mix) * 1.182) * var(--l-vw)
+    )
+    solid #dedede;
   border-radius: calc(8 * var(--l-vw));
   font-family: var(--layer-font-geist-sans);
-  font-size: calc(15.05 * var(--l-vw));
+  font-size: calc(
+    ((1 - var(--card-mix)) * 15.05 + var(--card-mix) * 18.92) * var(--l-vw)
+  );
   font-weight: 400;
-  line-height: calc(22.568 / 15.05);
+  line-height: calc(
+    (
+        (1 - var(--card-mix)) * 22.568 + var(--card-mix) * 28.379
+      ) /
+      (
+        (1 - var(--card-mix)) * 15.05 + var(--card-mix) * 18.92
+      )
+  );
   letter-spacing: -0.04em;
   color: #020100;
   white-space: nowrap;
@@ -503,17 +610,10 @@
   background: #ffffff;
 }
 
-.agentCardCenter .agentTrainBtn {
-  gap: calc(4.73 * var(--l-vw));
-  padding: calc(9.46 * var(--l-vw)) calc(14.189 * var(--l-vw))
-    calc(9.46 * var(--l-vw)) calc(18.919 * var(--l-vw));
-  border-width: calc(1.182 * var(--l-vw));
-  font-size: calc(18.92 * var(--l-vw));
-  line-height: calc(28.379 / 18.92);
-}
-
 .agentTrainIcon {
-  font-size: calc(15.05 * var(--l-vw));
+  font-size: calc(
+    ((1 - var(--card-mix)) * 15.05 + var(--card-mix) * 18.92) * var(--l-vw)
+  );
   line-height: 1;
 }
 
@@ -526,7 +626,8 @@
   padding: var(--l-section-px);
 }
 
-.supportingCopy p {
+.supportingCopy p,
+.supportingCopyText {
   flex: 1 1 0;
   min-width: 0;
   margin: 0;
@@ -595,10 +696,10 @@
   .showcase {
     height: min(var(--l-roleplay-showcase-h), 72vw);
   }
+}
 
-  .agentCardCenter {
-    width: min(var(--l-roleplay-center-card-w), 88vw);
-    height: auto;
-    aspect-ratio: 360 / 520;
+@media (prefers-reduced-motion: reduce) {
+  .showcaseCardSlot {
+    will-change: auto;
   }
 }

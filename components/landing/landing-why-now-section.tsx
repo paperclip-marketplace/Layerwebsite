@@ -1,4 +1,4 @@
-import { LandingHeadingReveal } from "./landing-text-reveal";
+import { LandingHeadingReveal, LandingSubheadingReveal } from "./landing-text-reveal";
 import styles from "./landing-why-now-section.module.css";
 
 /** Figma 713:1057 — Why Now */
@@ -25,11 +25,14 @@ export function LandingWhyNowSection() {
           >
             The era of unassisted GTM is ending.
           </LandingHeadingReveal>
-          <p className={`${styles.description} landing-copy-aside`} data-node-id="713:1061">
+          <LandingSubheadingReveal
+            className={`${styles.description} landing-copy-aside`}
+            data-node-id="713:1061"
+          >
             The first wave of AI automated tasks. The next wave improves
             performance. Revenue work is too human to automate blindly, but too
             important to leave unsupported.
-          </p>
+          </LandingSubheadingReveal>
         </div>
       </div>
 

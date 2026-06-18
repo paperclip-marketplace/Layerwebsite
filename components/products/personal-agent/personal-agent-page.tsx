@@ -1,5 +1,4 @@
-import { LandingFooter } from "@/components/landing/landing-footer";
-import { LandingHeader } from "@/components/landing/landing-header";
+import { LandingPageShell } from "@/components/landing/landing-page-shell";
 import { LandingPromoBanner } from "@/components/landing/landing-promo-banner";
 import { SHOW_LANDING_DEMO_ENTRY } from "@/lib/config/constants";
 import "@/components/landing/landing-fluid.css";
@@ -15,8 +14,7 @@ import { PersonalAgentWhyNowSection } from "./personal-agent-why-now-section";
 
 export function PersonalAgentPage() {
   return (
-    <div className={`${styles.page} landing-main`}>
-      <LandingHeader />
+    <LandingPageShell pageClassName={styles.page}>
       <div className="landing-page-gutter">
         <main className={`${styles.main} landing-main__inner`} id="main">
           {SHOW_LANDING_DEMO_ENTRY ? <LandingPromoBanner /> : null}
@@ -29,7 +27,6 @@ export function PersonalAgentPage() {
           <PersonalAgentBottomCtaSection />
         </main>
       </div>
-      <LandingFooter />
-    </div>
+    </LandingPageShell>
   );
 }

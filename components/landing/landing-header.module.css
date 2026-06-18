@@ -68,6 +68,12 @@
   color: #606060;
 }
 
+.navLink:hover,
+.navLink:focus-visible {
+  color: #020100;
+  background: #eeeeee;
+}
+
 .navLinkActive {
   color: #020100;
   background: #eeeeee;

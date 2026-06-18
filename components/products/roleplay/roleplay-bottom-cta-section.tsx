@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
 import { ROLEPLAY_ASSETS } from "./roleplay-assets";
 import styles from "./roleplay-bottom-cta-section.module.css";
@@ -17,16 +18,21 @@ export function RoleplayBottomCtaSection() {
           src={ROLEPLAY_ASSETS.bottomCtaBg}
           alt=""
           className={styles.backdropImage}
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
       <div className={styles.content}>
-        <h2 id="roleplay-bottom-cta-heading" className={styles.headline}>
+        <LandingHeadingReveal
+          id="roleplay-bottom-cta-heading"
+          className={styles.headline}
+        >
           <span className={styles.headlineLine}>Built for the future.</span>
           <span className={`${styles.headlineLine} ${styles.highlight}`}>
             Available today.
           </span>
-        </h2>
+        </LandingHeadingReveal>
 
         <div className={styles.actions}>
           <Link href={ROUTES.signUp} className={styles.primaryBtn}>

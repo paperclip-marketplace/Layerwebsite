@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import {
+  LandingHeadingReveal,
+} from "@/components/landing/landing-text-reveal";
 import styles from "./pricing-faq-section.module.css";
 
 type FaqItem = {
@@ -49,14 +52,17 @@ export function PricingFaqSection() {
       </div>
 
       <div className={styles.contentColumn} data-node-id="336:1900">
-        <h2 id="pricing-faq-heading" className={styles.headline}>
+        <LandingHeadingReveal
+          id="pricing-faq-heading"
+          className={styles.headline}
+        >
           <span className={styles.headlineLine}>
             Not AI-gen answers.
             <br />
           </span>
           <span className={styles.highlight}>Real ones</span>
           <span className={styles.headlineLine}> here.</span>
-        </h2>
+        </LandingHeadingReveal>
 
         <div className={styles.accordion} data-node-id="336:1903">
           {FAQ_ITEMS.map((item) => {
