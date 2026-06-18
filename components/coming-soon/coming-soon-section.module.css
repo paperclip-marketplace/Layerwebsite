@@ -1,0 +1,350 @@
+/* Figma 1310:1735 — bottom-cta / coming soon */
+.section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 100px 10px 80px;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.backgroundWhite {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+}
+
+.backgroundPattern {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.backgroundPatternImage {
+  position: absolute !important;
+  top: -0.04%;
+  left: 0;
+  width: 100% !important;
+  height: 58.86% !important;
+  max-width: none;
+  object-fit: cover;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+}
+
+.previewStack {
+  container-type: inline-size;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: min(940px, 100%);
+  aspect-ratio: 940 / 482;
+  overflow: visible;
+}
+
+.previewCardBack,
+.previewCardMid,
+.previewCardFront {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+/* Figma 1310:1738 — back layer */
+.previewCardBack {
+  top: -2.766cqw;
+  left: calc(50% - 0.055cqw);
+  width: 65.07cqw;
+  height: 42.142cqw;
+  transform: translateX(-50%);
+  border: 0.998px solid #ffffff;
+  border-radius: 1.274cqw;
+  background: #dedede;
+  opacity: 0.6;
+  box-shadow: 0 3.397cqw 5.424cqw rgba(0, 0, 0, 0.07);
+  z-index: 1;
+}
+
+/* Figma 1310:1739 — mid layer */
+.previewCardMid {
+  top: -0.213cqw;
+  left: calc(50% - 0.055cqw);
+  width: 70.379cqw;
+  height: 45.539cqw;
+  transform: translateX(-50%);
+  border: 0.998px solid #ffffff;
+  border-radius: 1.274cqw;
+  background: #f3f3f3;
+  box-shadow: -0.638cqw 0.745cqw 2.309cqw rgba(0, 0, 0, 0.06);
+  z-index: 2;
+}
+
+/* Figma 1310:1740 — front screenshot */
+.previewCardFront {
+  top: 2.123cqw;
+  left: 12.527cqw;
+  width: 75.262cqw;
+  height: 48.724cqw;
+  border: 0.998px solid #eeeeee;
+  border-radius: 0.851cqw;
+  overflow: hidden;
+  box-shadow: -0.638cqw 1.702cqw 2.34cqw rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.previewImage {
+  object-fit: cover;
+}
+
+/* Figma 1310:1756 — bottom fade */
+.previewFade {
+  position: absolute;
+  top: 30.745cqw;
+  left: 50%;
+  width: min(153.191cqw, 100vw);
+  height: 24.362cqw;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 69.006%
+  );
+  pointer-events: none;
+  z-index: 4;
+}
+
+.copyBlock {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  margin-top: 32px;
+  background: #ffffff;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1112px;
+  padding-inline: 164px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 56px;
+  letter-spacing: -1.92px;
+  color: #020100;
+}
+
+.headlineAccent {
+  color: #f45523;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.8px;
+  color: #606060;
+  white-space: pre-wrap;
+}
+
+/* Figma 1310:1758 — Interactive Demo (Stroke/Gradient border) */
+@property --demo-border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.demoButtonShell {
+  --demo-border-angle: 0deg;
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 1px;
+  border-radius: 99px;
+  background: conic-gradient(
+    from var(--demo-border-angle) at 50% 50%,
+    #7a5ce6 0deg,
+    #c8e6ff 52deg,
+    #f0f4b0 104deg,
+    #f45523 168deg,
+    #ff8f4f 212deg,
+    #3ecfb0 268deg,
+    #5b9ef0 316deg,
+    #7a5ce6 360deg
+  );
+  animation: demo-border-revolve 10s linear infinite;
+}
+
+@keyframes demo-border-revolve {
+  /* Spin 1 (~4s) — slow start → speed up → slow down */
+  0% {
+    --demo-border-angle: 0deg;
+  }
+  5% {
+    --demo-border-angle: 12deg;
+  }
+  12% {
+    --demo-border-angle: 55deg;
+  }
+  20% {
+    --demo-border-angle: 155deg;
+  }
+  25% {
+    --demo-border-angle: 245deg;
+  }
+  30% {
+    --demo-border-angle: 318deg;
+  }
+  40% {
+    --demo-border-angle: 360deg;
+  }
+
+  /* Pause ~1s */
+  50% {
+    --demo-border-angle: 360deg;
+  }
+
+  /* Spin 2 (~4s) — slowly start → speed up → slow down */
+  54% {
+    --demo-border-angle: 382deg;
+  }
+  60% {
+    --demo-border-angle: 430deg;
+  }
+  68% {
+    --demo-border-angle: 525deg;
+  }
+  73% {
+    --demo-border-angle: 615deg;
+  }
+  78% {
+    --demo-border-angle: 688deg;
+  }
+  90% {
+    --demo-border-angle: 720deg;
+  }
+
+  /* Pause ~1s, then seamless loop reset */
+  99.9% {
+    --demo-border-angle: 720deg;
+  }
+
+  100% {
+    --demo-border-angle: 0deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demoButtonShell {
+    animation: none;
+  }
+}
+
+.demoButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 18px 20px 18px 24px;
+  border: none;
+  border-radius: 99px;
+  background: #ffffff;
+  color: #020100;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.8px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+.demoButton:hover {
+  background: #fafafa;
+}
+
+.demoIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.demoLabel {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .section {
+    padding: calc(100 * var(--l-vw)) calc(10 * var(--l-vw)) calc(80 * var(--l-vw));
+  }
+
+  .copyBlock {
+    gap: calc(32 * var(--l-vw));
+    margin-top: calc(32 * var(--l-vw));
+  }
+
+  .copy {
+    gap: calc(24 * var(--l-vw));
+    padding-inline: calc(164 * var(--l-vw));
+  }
+
+  .headline {
+    font-size: calc(48 * var(--l-vw));
+    line-height: calc(56 * var(--l-vw));
+    letter-spacing: calc(-1.92 * var(--l-vw));
+  }
+
+  .description {
+    font-size: calc(20 * var(--l-vw));
+    line-height: calc(28 * var(--l-vw));
+    letter-spacing: calc(-0.8 * var(--l-vw));
+  }
+
+  .demoButton {
+    gap: calc(4 * var(--l-vw));
+    padding: calc(18 * var(--l-vw)) calc(20 * var(--l-vw)) calc(18 * var(--l-vw)) calc(24 * var(--l-vw));
+    font-size: calc(20 * var(--l-vw));
+    line-height: calc(28 * var(--l-vw));
+    letter-spacing: calc(-0.8 * var(--l-vw));
+  }
+
+  .demoIcon {
+    width: calc(24 * var(--l-vw));
+    height: calc(24 * var(--l-vw));
+  }
+}
+
+@media (max-width: 768px) {
+  .copy {
+    padding-inline: calc(20 * var(--l-vw));
+  }
+}

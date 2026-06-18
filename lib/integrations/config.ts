@@ -79,7 +79,7 @@ export const INTEGRATIONS = {
     type: 'oauth',
     capabilities: { deals: false, stages: false, transcripts: true, contacts: false },
     icon: 'gong',
-    logoUrl: '/integration-logos/gong.svg',
+    logoUrl: '/integration-logos/gong-logo.png',
     description: 'Revenue intelligence platform integration for analyzing sales conversations and coaching insights.',
     domain: 'gong.io',
     bgColor: 'bg-[#7C3AED]',

@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { ROUTES, SHOW_LANDING_DEMO_ENTRY } from "@/lib/config/constants";
+import {
+  LANDING_HEADER_DROPDOWN_EVENT,
+  type LandingHeaderDropdownName,
+} from "@/lib/landing/header-dropdown";
 import styles from "./landing-header.module.css";
 import { ProductsDropdown } from "./products-dropdown";
 import { SolutionsDropdown } from "./solutions-dropdown";
@@ -153,6 +157,26 @@ export function LandingHeader() {
   };
 
   useEffect(() => () => clearCloseTimer(), [clearCloseTimer]);
+
+  useEffect(() => {
+    const handleFooterDropdownRequest = (event: Event) => {
+      const { name } = (event as CustomEvent<{ name: LandingHeaderDropdownName }>)
+        .detail;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      void openDropdownByName(name);
+    };
+
+    window.addEventListener(
+      LANDING_HEADER_DROPDOWN_EVENT,
+      handleFooterDropdownRequest,
+    );
+    return () => {
+      window.removeEventListener(
+        LANDING_HEADER_DROPDOWN_EVENT,
+        handleFooterDropdownRequest,
+      );
+    };
+  }, [openDropdownByName]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
