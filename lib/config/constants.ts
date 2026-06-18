@@ -30,6 +30,7 @@ export const ROUTES = {
   pricing: '/pricing',
   terms: '/terms',
   privacy: '/privacy',
+  ourStory: '/#our-story',
 } as const;
 
 /** After auth: org members use home (member v2 shell on `/`); admins and others use personas. */
