@@ -55,6 +55,8 @@ const SHOWCASE_AGENTS: readonly ShowcaseAgent[] = [
 const AUTO_ADVANCE_MS = 6000;
 const SLIDE_DURATION = 1.5;
 const SLIDE_EASE = "power2.inOut";
+const GLOW_FADE_OUT = 0.35;
+const GLOW_FADE_IN = 0.55;
 
 /** Figma 1088:4768 — side row width with cards pinned to each edge. */
 const FIGMA_SHOWCASE_TRACK_W = 1280;
@@ -76,7 +78,9 @@ function readCssLength(host: HTMLElement, variable: string, fallback: number) {
 function getCarouselMetrics(showcaseEl: HTMLElement | null) {
   const fluidUnit = Math.min(window.innerWidth / 1440, 1);
   const host =
-    showcaseEl?.closest<HTMLElement>(".landing-main") ?? showcaseEl ?? document.documentElement;
+    showcaseEl?.closest<HTMLElement>(".landing-main") ??
+    showcaseEl ??
+    document.documentElement;
 
   const centerW = readCssLength(
     host,
@@ -88,8 +92,16 @@ function getCarouselMetrics(showcaseEl: HTMLElement | null) {
     "--l-roleplay-center-card-h",
     520 * fluidUnit,
   );
-  const sideW = readCssLength(host, "--l-roleplay-side-card-w", 264 * fluidUnit);
-  const sideH = readCssLength(host, "--l-roleplay-side-card-h", 382 * fluidUnit);
+  const sideW = readCssLength(
+    host,
+    "--l-roleplay-side-card-w",
+    264 * fluidUnit,
+  );
+  const sideH = readCssLength(
+    host,
+    "--l-roleplay-side-card-h",
+    382 * fluidUnit,
+  );
   const trackW = readCssLength(
     host,
     "--l-hero-inner-w",
@@ -276,8 +288,26 @@ export function RoleplayAgentShowcase() {
     gsap.fromTo(
       button,
       { scale: 1 },
-      { scale: 0.9, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.inOut" },
+      {
+        scale: 0.9,
+        duration: 0.12,
+        yoyo: true,
+        repeat: 1,
+        ease: "power2.inOut",
+      },
     );
+  }, []);
+
+  const fadeCenterGlow = useCallback((opacity: number, duration: number) => {
+    const showcase = showcaseRef.current;
+    if (!showcase) return;
+
+    gsap.killTweensOf(showcase, "--showcase-glow-opacity");
+    gsap.to(showcase, {
+      "--showcase-glow-opacity": opacity,
+      duration,
+      ease: "power2.inOut",
+    });
   }, []);
 
   const layoutCards = useCallback(
@@ -288,7 +318,8 @@ export function RoleplayAgentShowcase() {
       direction: 1 | -1,
     ) => {
       const metrics = getCarouselMetrics(showcaseRef.current);
-      const duration = animate && !reducedMotionRef.current ? SLIDE_DURATION : 0;
+      const duration =
+        animate && !reducedMotionRef.current ? SLIDE_DURATION : 0;
 
       timelineRef.current?.kill();
 
@@ -387,12 +418,16 @@ export function RoleplayAgentShowcase() {
   );
 
   const goToIndex = useCallback(
-    (nextIndex: number, options?: { animate?: boolean; pulseButton?: "prev" | "next" }) => {
+    (
+      nextIndex: number,
+      options?: { animate?: boolean; pulseButton?: "prev" | "next" },
+    ) => {
       if (isAnimatingRef.current && options?.animate !== false) return;
 
       const count = SHOWCASE_AGENTS.length;
       const normalized = (nextIndex + count) % count;
-      if (normalized === displayIndexRef.current && options?.animate !== false) return;
+      if (normalized === displayIndexRef.current && options?.animate !== false)
+        return;
 
       const animate = options?.animate !== false && !reducedMotionRef.current;
       const previousIndex = displayIndexRef.current;
@@ -412,7 +447,12 @@ export function RoleplayAgentShowcase() {
         pulseNavButton(nextBtnRef.current);
       }
 
-      const timeline = layoutCards(normalized, animate, previousIndex, direction);
+      const timeline = layoutCards(
+        normalized,
+        animate,
+        previousIndex,
+        direction,
+      );
 
       timeline.eventCallback("onComplete", () => {
         setAnnouncedIndex(normalized);
@@ -461,12 +501,7 @@ export function RoleplayAgentShowcase() {
 
   useEffect(() => {
     const onResize = () =>
-      layoutCards(
-        displayIndexRef.current,
-        false,
-        displayIndexRef.current,
-        1,
-      );
+      layoutCards(displayIndexRef.current, false, displayIndexRef.current, 1);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, [layoutCards]);
@@ -494,7 +529,7 @@ export function RoleplayAgentShowcase() {
   return (
     <div
       ref={showcaseRef}
-      className={styles.showcase}
+      className={`${styles.showcase} ${styles.showcaseVideo}`}
       data-node-id="1088:4207"
       data-name="hero-ticker"
       onMouseEnter={() => {

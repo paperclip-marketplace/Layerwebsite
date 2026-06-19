@@ -2,8 +2,7 @@
 .section {
   box-sizing: border-box;
   width: 100%;
-  overflow-x: clip;
-  overflow-y: visible;
+  overflow: visible;
   border-bottom: 1px solid #dedede;
   background: #ffffff;
 }
@@ -148,37 +147,66 @@
   line-height: 1;
 }
 
-/* Figma 1088:4207 — agent showcase */
+/* Figma 1088:4207 — agent showcase (shared) */
 .showcase {
   position: relative;
   width: 100%;
-  height: var(--l-roleplay-showcase-h);
-  overflow-x: clip;
-  overflow-y: visible;
   isolation: isolate;
   background: #ffffff;
 }
 
-/* Fixed center glow — blue halo only; no card-sized fill (transparent center showed white). */
-.showcase::before {
+/* Video roleplay — original carousel layout */
+.showcaseVideo {
+  height: var(--l-roleplay-video-showcase-h);
+  overflow: visible;
+  isolation: auto;
+  margin-bottom: calc(-1 * var(--l-roleplay-video-glow-overlap));
+  --showcase-glow-opacity: 1;
+}
+
+.showcaseVideo .showcaseStage {
+  top: 0;
+  bottom: auto;
+  height: calc(100% + var(--l-roleplay-video-stage-overflow));
+  overflow: visible;
+}
+
+.showcaseVideo .showcaseCardSlot::after {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
+  inset: 0;
   z-index: 0;
-  width: 0;
-  height: 0;
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  background: transparent;
+  border-radius: calc(16 * var(--l-vw));
   box-shadow:
-    0 calc(24 * var(--l-vw)) calc(200 * var(--l-vw)) calc(32 * var(--l-vw))
-      rgba(62, 130, 234, 0.25);
+    0 calc(18 * var(--l-vw)) calc(110 * var(--l-vw))
+      calc(var(--card-mix) * 18 * var(--l-vw))
+      rgba(
+        62,
+        130,
+        234,
+        calc(var(--card-mix) * var(--showcase-glow-opacity, 1) * 0.16)
+      );
+}
+
+/* Voice roleplay — tall centered stage, overflow visible */
+.showcaseVoice {
+  height: var(--l-roleplay-showcase-h);
+  overflow: visible;
+  --showcase-glow-opacity: 1;
+}
+
+.showcaseVoice .showcaseStage {
+  top: 50%;
+  height: var(--l-roleplay-showcase-stage-h);
+  overflow: visible;
+  transform: translateY(-50%);
 }
 
 .showcaseStage {
   position: absolute;
-  inset: 0;
+  right: 0;
+  left: 0;
   z-index: 1;
   overflow: visible;
 }
@@ -194,6 +222,8 @@
 }
 
 .showcaseCardSlot .agentCard {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
 }
@@ -254,22 +284,46 @@
 }
 
 /* Figma 1411:1912 — voice roleplay orb carousel */
-.showcaseVoice::before {
+.showcaseVoice .voiceOrbSlot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
   box-shadow:
-    0 calc(24 * var(--l-vw)) calc(200 * var(--l-vw)) calc(40 * var(--l-vw))
-      rgba(239, 89, 161, 0.25),
-    0 calc(37.839 * var(--l-vw)) calc(60.424 * var(--l-vw)) 0 rgba(0, 0, 0, 0.07);
+    0 calc(24 * var(--l-vw)) calc(240 * var(--l-vw))
+      calc(var(--orb-mix) * 64 * var(--l-vw))
+      rgba(
+        var(--orb-glow-r),
+        var(--orb-glow-g),
+        var(--orb-glow-b),
+        calc(var(--orb-mix) * var(--showcase-glow-opacity, 1) * 0.5)
+      ),
+    0 calc(12 * var(--l-vw)) calc(72 * var(--l-vw))
+      calc(var(--orb-mix) * 20 * var(--l-vw))
+      rgba(
+        var(--orb-glow-r),
+        var(--orb-glow-g),
+        var(--orb-glow-b),
+        calc(var(--orb-mix) * var(--showcase-glow-opacity, 1) * 0.35)
+      );
 }
 
-.showcaseFade {
+.showcaseVoice .showcaseFade {
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
   height: var(--l-roleplay-showcase-fade-h);
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 60%,
+    #ffffff 100%
+  );
 }
 
 .voiceOrbSlot {
@@ -278,11 +332,13 @@
   left: 50%;
   width: var(--l-roleplay-voice-side-size);
   height: var(--l-roleplay-voice-side-size);
+  --orb-mix: 0;
   will-change: transform, width, height, opacity;
 }
 
 .voiceOrbWrapper {
   position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
 }
@@ -297,15 +353,6 @@
   overflow: hidden;
   border: 0 !important;
   border-radius: 50%;
-}
-
-.voiceOrbCenter {
-  box-shadow: 0 calc(24 * var(--l-vw)) calc(200 * var(--l-vw))
-    calc(40 * var(--l-vw)) rgba(239, 89, 161, 0.25);
-}
-
-.voiceOrbSide {
-  box-shadow: none;
 }
 
 .voiceOrbImage {
@@ -735,12 +782,32 @@
 }
 
 .supportingCopy {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
   padding: var(--l-section-px);
+  background: #ffffff;
+}
+
+.section:has(.showcaseVideo) .supportingCopy {
+  z-index: 1;
+  padding-top: calc(
+    var(--l-section-px) + var(--l-roleplay-video-glow-overlap)
+  );
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 42%,
+    #ffffff 100%
+  );
+}
+
+.section:has(.showcaseVideo) .supportingCopyText {
+  position: relative;
+  z-index: 1;
 }
 
 .supportingCopy p,
@@ -810,8 +877,21 @@
     font-size: 14px;
   }
 
-  .showcase {
-    height: min(var(--l-roleplay-showcase-h), 72vw);
+  .showcaseVideo {
+    height: min(var(--l-roleplay-video-showcase-h), 76vw);
+    margin-bottom: calc(-1 * min(var(--l-roleplay-video-glow-overlap), 8vw));
+  }
+
+  .section:has(.showcaseVideo) .supportingCopy {
+    padding-top: calc(var(--l-section-px) + min(var(--l-roleplay-video-glow-overlap), 8vw));
+  }
+
+  .showcaseVoice {
+    height: min(var(--l-roleplay-showcase-h), 76vw);
+  }
+
+  .showcaseVoice .showcaseStage {
+    height: min(var(--l-roleplay-showcase-stage-h), 82vw);
   }
 }
 

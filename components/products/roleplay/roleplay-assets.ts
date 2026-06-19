@@ -11,6 +11,20 @@ export const ROLEPLAY_VOICE_ORBS = [
   `${VOICE_ORB_BASE}/06.png`,
 ] as const;
 
+/** Outer-ring dominant colors sampled from each voice-orb PNG for matching glow halos. */
+export const VOICE_ORB_GLOW_COLORS: ReadonlyArray<{
+  readonly r: number;
+  readonly g: number;
+  readonly b: number;
+}> = [
+  { r: 252, g: 155, b: 18 },
+  { r: 26, g: 147, b: 184 },
+  { r: 95, g: 168, b: 22 },
+  { r: 161, g: 29, b: 175 },
+  { r: 241, g: 64, b: 121 },
+  { r: 124, g: 111, b: 189 },
+];
+
 export const ROLEPLAY_ASSETS = {
   heroAgentBg: `${BASE}/hero-agent-bg.jpg`,
   heroAgentOverlay: `${BASE}/hero-agent-overlay.jpg`,

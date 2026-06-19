@@ -15,6 +15,11 @@ export const CUSTOMER_FACING_NAV: readonly LandingNavLink[] = [
   { label: "Scoring and Feedback", href: COMING_SOON_HREF },
 ] as const;
 
+/** Live pages under Products → For Customer Facing Team (excludes coming-soon links). */
+export const CUSTOMER_FACING_PRODUCT_PAGE_HREFS = CUSTOMER_FACING_NAV.filter(
+  (item) => item.href !== COMING_SOON_HREF,
+).map((item) => item.href);
+
 export const LEADERSHIP_NAV: readonly LandingNavLink[] = [
   { label: "Agent Management", href: COMING_SOON_HREF },
   { label: "Playbooks", href: COMING_SOON_HREF },
