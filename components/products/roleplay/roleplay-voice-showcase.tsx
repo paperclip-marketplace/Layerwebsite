@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import gsap from "gsap";
-import { ROLEPLAY_VOICE_ORBS } from "./roleplay-assets";
+import { ROLEPLAY_VOICE_ORBS, VOICE_ORB_GLOW_COLORS } from "./roleplay-assets";
 import styles from "./roleplay-hero-section.module.css";
 
 const VOICE_ORB_COUNT = ROLEPLAY_VOICE_ORBS.length;
@@ -10,6 +10,7 @@ const AUTO_ADVANCE_MS = 6000;
 const SLIDE_DURATION = 1.5;
 const SLIDE_EASE = "power2.inOut";
 const TRAIN_BTN_FADE = 0.25;
+const GLOW_FADE = 0.25;
 
 /** Figma 1411:1912 — side row width with orbs pinned to each edge. */
 const FIGMA_VOICE_TRACK_W = 1280;
@@ -52,10 +53,10 @@ function getVoiceCarouselMetrics(showcaseEl: HTMLElement | null) {
     "--l-roleplay-voice-side-size",
     232 * fluidUnit,
   );
-  const showcaseH = readCssLength(
+  const stageH = readCssLength(
     host,
-    "--l-roleplay-showcase-h",
-    560 * fluidUnit,
+    "--l-roleplay-showcase-stage-h",
+    640 * fluidUnit,
   );
   const centerTop = readCssLength(
     host,
@@ -69,7 +70,7 @@ function getVoiceCarouselMetrics(showcaseEl: HTMLElement | null) {
   );
 
   const spread = trackW / 2 - sideSize / 2;
-  const centerY = centerTop + centerSize / 2 - showcaseH / 2;
+  const centerY = centerTop + centerSize / 2 - stageH / 2;
 
   return { centerSize, sideSize, spread, centerY };
 }
@@ -110,22 +111,19 @@ function getVoiceSlotLayout(
     height: size,
     opacity: isCenter ? 1 : isAdjacent ? 0.3 : 0,
     zIndex: isCenter ? 3 : isAdjacent ? 1 : 0,
+    orbMix: isCenter ? 1 : 0,
   };
 }
 
-function VoiceOrb({
-  src,
-  isCenter,
-}: {
-  src: string;
-  isCenter: boolean;
-}) {
+function voiceSlotTweenProps(target: ReturnType<typeof getVoiceSlotLayout>) {
+  const { orbMix, ...layout } = target;
+  return { ...layout, "--orb-mix": orbMix };
+}
+
+function VoiceOrb({ src }: { src: string }) {
   return (
     <div className={styles.voiceOrbWrapper}>
-      <div
-        className={`${styles.voiceOrb} ${isCenter ? styles.voiceOrbCenter : styles.voiceOrbSide}`}
-        data-name="voice-orb"
-      >
+      <div className={styles.voiceOrb} data-name="voice-orb">
         <img src={src} alt="" className={styles.voiceOrbImage} />
       </div>
     </div>
@@ -134,7 +132,6 @@ function VoiceOrb({
 
 export function RoleplayVoiceShowcase() {
   const [announcedIndex, setAnnouncedIndex] = useState(0);
-  const [centerIndex, setCenterIndex] = useState(0);
   const orbRefs = useRef<(HTMLDivElement | null)[]>([]);
   const showcaseRef = useRef<HTMLDivElement>(null);
   const trainBtnRef = useRef<HTMLButtonElement>(null);
@@ -156,6 +153,18 @@ export function RoleplayVoiceShowcase() {
       duration,
       ease: "power2.inOut",
       pointerEvents: opacity > 0 ? "auto" : "none",
+    });
+  }, []);
+
+  const fadeCenterGlow = useCallback((opacity: number, duration: number) => {
+    const showcase = showcaseRef.current;
+    if (!showcase) return;
+
+    gsap.killTweensOf(showcase, "--showcase-glow-opacity");
+    gsap.to(showcase, {
+      "--showcase-glow-opacity": opacity,
+      duration,
+      ease: "power2.inOut",
     });
   }, []);
 
@@ -194,13 +203,13 @@ export function RoleplayVoiceShowcase() {
         const isVisible = Math.abs(newOffset) <= 1;
 
         if (!animate) {
-          gsap.set(slot, target);
+          gsap.set(slot, voiceSlotTweenProps(target));
           return;
         }
 
         if (!isVisible && !wasVisible) {
           gsap.set(slot, {
-            ...target,
+            ...voiceSlotTweenProps(target),
             x: (newOffset > 0 ? 1 : -1) * metrics.spread * 2,
             opacity: 0,
           });
@@ -217,11 +226,12 @@ export function RoleplayVoiceShowcase() {
             height: metrics.sideSize,
             opacity: 0,
             zIndex: 1,
+            "--orb-mix": 0,
           });
           timeline.to(
             slot,
             {
-              ...target,
+              ...voiceSlotTweenProps(target),
               duration,
               ease: SLIDE_EASE,
               force3D: true,
@@ -240,6 +250,7 @@ export function RoleplayVoiceShowcase() {
               width: metrics.sideSize,
               height: metrics.sideSize,
               zIndex: 0,
+              "--orb-mix": 0,
               duration,
               ease: SLIDE_EASE,
               force3D: true,
@@ -252,7 +263,7 @@ export function RoleplayVoiceShowcase() {
         timeline.to(
           slot,
           {
-            ...target,
+            ...voiceSlotTweenProps(target),
             yPercent: -50,
             xPercent: -50,
             duration,
@@ -282,10 +293,10 @@ export function RoleplayVoiceShowcase() {
       if (animate) {
         isAnimatingRef.current = true;
         fadeTrainButton(0, TRAIN_BTN_FADE);
+        fadeCenterGlow(0, GLOW_FADE);
       }
 
       displayIndexRef.current = normalized;
-      setCenterIndex(normalized);
 
       if (!animate) {
         setAnnouncedIndex(normalized);
@@ -303,13 +314,14 @@ export function RoleplayVoiceShowcase() {
         setAnnouncedIndex(normalized);
         isAnimatingRef.current = false;
         fadeTrainButton(1, TRAIN_BTN_FADE);
+        fadeCenterGlow(1, GLOW_FADE);
       });
 
       if (!animate) {
         isAnimatingRef.current = false;
       }
     },
-    [fadeTrainButton, layoutOrbs, pulseNavButton],
+    [fadeCenterGlow, fadeTrainButton, layoutOrbs, pulseNavButton],
   );
 
   const goToPrevious = useCallback(
@@ -344,6 +356,10 @@ export function RoleplayVoiceShowcase() {
 
     if (trainBtnRef.current) {
       gsap.set(trainBtnRef.current, { opacity: 1 });
+    }
+
+    if (showcaseRef.current) {
+      gsap.set(showcaseRef.current, { "--showcase-glow-opacity": 1 });
     }
 
     layoutOrbs(0, false, 0, 1);
@@ -403,17 +419,28 @@ export function RoleplayVoiceShowcase() {
       }}
     >
       <div className={styles.showcaseStage}>
-        {ROLEPLAY_VOICE_ORBS.map((src, index) => (
+        {ROLEPLAY_VOICE_ORBS.map((src, index) => {
+          const glow = VOICE_ORB_GLOW_COLORS[index];
+
+          return (
           <div
             key={src}
             ref={(element) => {
               orbRefs.current[index] = element;
             }}
             className={styles.voiceOrbSlot}
+            style={
+              {
+                "--orb-glow-r": glow.r,
+                "--orb-glow-g": glow.g,
+                "--orb-glow-b": glow.b,
+              } as CSSProperties
+            }
           >
-            <VoiceOrb src={src} isCenter={index === centerIndex} />
+            <VoiceOrb src={src} />
           </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className={styles.voiceTrainAnchor}>

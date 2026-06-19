@@ -90,8 +90,12 @@
   /* Figma 1088:4189 — Roleplay product page */
   --l-roleplay-hero-inner-gap: calc(48 * var(--l-vw));
   --l-roleplay-title-max-w: calc(680 * var(--l-vw));
-  --l-roleplay-showcase-h: calc(560 * var(--l-vw));
-  --l-roleplay-showcase-fade-h: calc(327 * var(--l-vw));
+  --l-roleplay-showcase-h: calc(600 * var(--l-vw));
+  --l-roleplay-showcase-stage-h: calc(640 * var(--l-vw));
+  --l-roleplay-showcase-fade-h: calc(180 * var(--l-vw));
+  --l-roleplay-video-showcase-h: calc(600 * var(--l-vw));
+  --l-roleplay-video-stage-overflow: calc(32 * var(--l-vw));
+  --l-roleplay-video-glow-overlap: calc(56 * var(--l-vw));
   --l-roleplay-side-card-w: calc(264 * var(--l-vw));
   --l-roleplay-side-card-h: calc(382 * var(--l-vw));
   --l-roleplay-center-card-w: calc(360 * var(--l-vw));
