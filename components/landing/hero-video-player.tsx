@@ -40,6 +40,8 @@ function buildEmbedSrc(playerId: string) {
     h: HERO_VIMEO_HASH,
     api: "1",
     player_id: playerId,
+    autoplay: "1",
+    autopause: "0",
     title: "0",
     byline: "0",
     portrait: "0",
@@ -114,6 +116,13 @@ export function HeroVideoPlayer() {
     postToPlayer("getMuted");
   }, [postToPlayer]);
 
+  const startPlaybackWithSound = useCallback(() => {
+    bindPlayerListeners();
+    postToPlayer("setMuted", false);
+    postToPlayer("setVolume", DEFAULT_VOLUME);
+    postToPlayer("play");
+  }, [bindPlayerListeners, postToPlayer]);
+
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== VIMEO_ORIGIN || typeof event.data !== "string") return;
@@ -123,7 +132,7 @@ export function HeroVideoPlayer() {
         if (data.player_id && data.player_id !== playerId) return;
 
         if (data.event === "ready") {
-          bindPlayerListeners();
+          startPlaybackWithSound();
           return;
         }
 
@@ -191,7 +200,7 @@ export function HeroVideoPlayer() {
 
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, [bindPlayerListeners, playerId]);
+  }, [playerId, startPlaybackWithSound]);
 
   useEffect(() => {
     const onFullscreenChange = () => {
@@ -214,11 +223,12 @@ export function HeroVideoPlayer() {
   }, [hasStarted, isPlaying, postToPlayer]);
 
   const handlePlay = useCallback(() => {
-    bindPlayerListeners();
-    postToPlayer("play");
+    startPlaybackWithSound();
     setHasStarted(true);
     setIsPlaying(true);
-  }, [bindPlayerListeners, postToPlayer]);
+    setIsMuted(false);
+    setVolume(DEFAULT_VOLUME);
+  }, [startPlaybackWithSound]);
 
   const handleTogglePlay = useCallback(() => {
     bindPlayerListeners();
@@ -228,10 +238,12 @@ export function HeroVideoPlayer() {
       return;
     }
 
-    postToPlayer("play");
+    startPlaybackWithSound();
     setHasStarted(true);
     setIsPlaying(true);
-  }, [bindPlayerListeners, isPlaying, postToPlayer]);
+    setIsMuted(false);
+    setVolume(DEFAULT_VOLUME);
+  }, [bindPlayerListeners, isPlaying, postToPlayer, startPlaybackWithSound]);
 
   const handleSeek = useCallback(
     (nextTime: number) => {
@@ -310,14 +322,10 @@ export function HeroVideoPlayer() {
       {!hasStarted ? (
         <button
           type="button"
-          className={styles.playOverlay}
+          className={styles.videoTapTarget}
           onClick={handlePlay}
           aria-label="Play product overview video"
-        >
-          <span className={styles.playButton}>
-            <Play className={styles.playIcon} aria-hidden />
-          </span>
-        </button>
+        />
       ) : (
         <button
           type="button"
@@ -327,8 +335,7 @@ export function HeroVideoPlayer() {
         />
       )}
 
-      {hasStarted ? (
-        <div className={styles.videoControls} aria-label="Video controls">
+      <div className={styles.videoControls} aria-label="Video controls">
           <button
             type="button"
             className={styles.controlButton}
@@ -420,8 +427,7 @@ export function HeroVideoPlayer() {
               <Maximize className={styles.controlIcon} aria-hidden />
             )}
           </button>
-        </div>
-      ) : null}
+      </div>
     </div>
   );
 }
