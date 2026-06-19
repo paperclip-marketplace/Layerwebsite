@@ -11,7 +11,7 @@ import {
 } from "react";
 import gsap from "gsap";
 import { CUSTOMER_FACING_PRODUCTS } from "@/lib/config/customer-facing-products";
-import { ROUTES } from "@/lib/config/constants";
+import { CUSTOMER_FACING_PRODUCT_PAGE_HREFS } from "@/lib/landing/landing-nav";
 import styles from "./fixed-explore-features-button.module.css";
 
 const MORPH_DURATION = 0.48;
@@ -420,7 +420,7 @@ export function FixedExploreFeaturesButton() {
     measurePillSize();
   }, [pathname, isOpen, measurePillSize]);
 
-  if (pathname === ROUTES.pricing) {
+  if (!CUSTOMER_FACING_PRODUCT_PAGE_HREFS.includes(pathname)) {
     return null;
   }
 
