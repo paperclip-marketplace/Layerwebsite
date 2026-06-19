@@ -131,7 +131,7 @@ export const DEFAULT_MEMBER_PERMISSIONS = {
 export const SHOW_LANDING_DEMO_ENTRY = false;
 
 /** Pricing page FAQ accordion. Set true when FAQ copy is ready to publish. */
-export const SHOW_PRICING_FAQ = true;
+export const SHOW_PRICING_FAQ = false;
 
 /** Pricing page mid-page CTA cards. Set true when section is ready to publish. */
 export const SHOW_PRICING_CTA = true;
