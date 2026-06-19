@@ -1,5 +1,7 @@
 import { LandingPageShell } from "@/components/landing/landing-page-shell";
 import { LandingPromoBanner } from "@/components/landing/landing-promo-banner";
+import { PricingCtaCardsSection } from "@/components/pricing/pricing-cta-cards-section";
+import { PricingFaqSection } from "@/components/pricing/pricing-faq-section";
 import { SHOW_LANDING_DEMO_ENTRY } from "@/lib/config/constants";
 import "@/components/landing/landing-fluid.css";
 import "@/components/landing/landing-mobile.module.css";
@@ -20,6 +22,8 @@ export function RoleplayPage() {
           <RoleplayLogosSection />
           <RoleplayHowItWorksSection />
           <RoleplayPersonaBuilderSection />
+          <PricingFaqSection headingId="roleplay-faq-heading" />
+          <PricingCtaCardsSection />
           <RoleplayBottomCtaSection />
         </main>
       </div>

@@ -34,7 +34,13 @@ const FAQ_ITEMS: FaqItem[] = [
 
 const DEFAULT_OPEN_ID = "more-agent-time";
 
-export function PricingFaqSection() {
+type PricingFaqSectionProps = {
+  headingId?: string;
+};
+
+export function PricingFaqSection({
+  headingId = "pricing-faq-heading",
+}: PricingFaqSectionProps = {}) {
   const [openId, setOpenId] = useState<string | null>(DEFAULT_OPEN_ID);
 
   const toggleItem = (id: string) => {
@@ -43,8 +49,8 @@ export function PricingFaqSection() {
 
   return (
     <section
-      className={styles.section}
-      aria-labelledby="pricing-faq-heading"
+      className={`${styles.section} landing-full-bleed-strokes landing-full-bleed-strokes-top`}
+      aria-labelledby={headingId}
       data-node-id="336:1897"
     >
       <div className={styles.labelColumn} data-node-id="336:1898">
@@ -53,7 +59,7 @@ export function PricingFaqSection() {
 
       <div className={styles.contentColumn} data-node-id="336:1900">
         <LandingHeadingReveal
-          id="pricing-faq-heading"
+          id={headingId}
           className={styles.headline}
         >
           <span className={styles.headlineLine}>

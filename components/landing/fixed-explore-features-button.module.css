@@ -3,7 +3,7 @@
   position: fixed;
   right: 40px;
   bottom: 24px;
-  z-index: 50;
+  z-index: 110;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -46,16 +46,6 @@
   line-height: 1;
   align-items: center;
   justify-content: center;
-}
-
-.toggleButtonOpen .label,
-.toggleButtonOpen .icon {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .label {

@@ -1,4 +1,15 @@
 const BASE = "/assets/images/landing/products/roleplay";
+const VOICE_ORB_BASE = `${BASE}/voice-orbs`;
+
+/** Persona wizard voice-card circles (`PitchBots/.../voice-orbs/01`–`06.png`). */
+export const ROLEPLAY_VOICE_ORBS = [
+  `${VOICE_ORB_BASE}/01.png`,
+  `${VOICE_ORB_BASE}/02.png`,
+  `${VOICE_ORB_BASE}/03.png`,
+  `${VOICE_ORB_BASE}/04.png`,
+  `${VOICE_ORB_BASE}/05.png`,
+  `${VOICE_ORB_BASE}/06.png`,
+] as const;
 
 export const ROLEPLAY_ASSETS = {
   heroAgentBg: `${BASE}/hero-agent-bg.jpg`,

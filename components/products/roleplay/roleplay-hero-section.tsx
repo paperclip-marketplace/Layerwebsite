@@ -5,7 +5,7 @@ import {
 } from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
 import styles from "./roleplay-hero-section.module.css";
-import { RoleplayAgentShowcase } from "./roleplay-agent-showcase";
+import { RoleplayShowcase } from "./roleplay-showcase";
 import { RoleplayModeProvider } from "./roleplay-mode-context";
 import { RoleplayModeToggle } from "./roleplay-mode-toggle";
 
@@ -64,7 +64,7 @@ export function RoleplayHeroSection() {
         </div>
       </div>
 
-      <RoleplayAgentShowcase />
+      <RoleplayShowcase />
 
       <div className={styles.supportingCopy} data-node-id="1088:5211">
         <LandingSubheadingReveal className={styles.supportingCopyText}>

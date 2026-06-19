@@ -31,6 +31,7 @@ type PillSize = {
 export function FixedExploreFeaturesButton() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isFab, setIsFab] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -100,6 +101,7 @@ export function FixedExploreFeaturesButton() {
       gsap.set(closeSlot, { autoAlpha: 1 });
       gsap.set(closeGlyph, { rotate: 0, scale: 1 });
       gsap.set(items, { opacity: 1, y: 0, scale: 1 });
+      setIsFab(true);
       isAnimatingRef.current = false;
       return;
     }
@@ -122,6 +124,7 @@ export function FixedExploreFeaturesButton() {
     const timeline = gsap.timeline({
       defaults: { ease: "power3.inOut" },
       onComplete: () => {
+        setIsFab(true);
         isAnimatingRef.current = false;
       },
     });
@@ -224,17 +227,28 @@ export function FixedExploreFeaturesButton() {
       gsap.set(closeSlot, { autoAlpha: 0 });
       gsap.set(closeGlyph, { rotate: 0, scale: 1 });
       resetPanelItems();
+      setIsFab(false);
       return Promise.resolve();
     }
+
+    setIsFab(false);
 
     return new Promise<void>((resolve) => {
       const timeline = gsap.timeline({
         defaults: { ease: "power3.inOut" },
         onComplete: () => {
           gsap.set(button, { width: "auto", height: "auto", clearProps: "padding,borderRadius" });
-          gsap.set([label, arrow], { clearProps: "transform,x" });
-          gsap.set(closeGlyph, { clearProps: "transform" });
+          gsap.set([label, arrow], {
+            autoAlpha: 1,
+            x: 0,
+            scale: 1,
+            rotate: 0,
+            clearProps: "transform",
+          });
+          gsap.set(closeSlot, { autoAlpha: 0 });
+          gsap.set(closeGlyph, { rotate: 0, scale: 1, clearProps: "transform" });
           resetPanelItems();
+          setIsFab(false);
           resolve();
         },
       });
@@ -400,6 +414,12 @@ export function FixedExploreFeaturesButton() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isOpen) return;
+    setIsFab(false);
+    measurePillSize();
+  }, [pathname, isOpen, measurePillSize]);
+
   if (pathname === ROUTES.pricing) {
     return null;
   }
@@ -473,7 +493,7 @@ export function FixedExploreFeaturesButton() {
       <button
         ref={toggleRef}
         type="button"
-        className={`${styles.toggleButton} ${isOpen ? styles.toggleButtonOpen : ""}`}
+        className={`${styles.toggleButton} ${isFab ? styles.toggleButtonOpen : ""}`}
         data-node-id={isOpen ? "1089:6934" : "1089:6779"}
         aria-label={isOpen ? "Close explore features" : "Explore other features"}
         aria-expanded={isOpen ? "true" : "false"}

@@ -96,6 +96,9 @@
   --l-roleplay-side-card-h: calc(382 * var(--l-vw));
   --l-roleplay-center-card-w: calc(360 * var(--l-vw));
   --l-roleplay-center-card-h: calc(520 * var(--l-vw));
+  --l-roleplay-voice-center-size: calc(320 * var(--l-vw));
+  --l-roleplay-voice-side-size: calc(232 * var(--l-vw));
+  --l-roleplay-voice-center-top: calc(120 * var(--l-vw));
   --l-roleplay-workflow-card-h: calc(550 * var(--l-vw));
   --l-roleplay-workflow-gap: calc(20 * var(--l-vw));
   --l-roleplay-bottom-cta-py: calc(160 * var(--l-vw));

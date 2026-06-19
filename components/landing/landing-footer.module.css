@@ -22,7 +22,7 @@
 .content {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
+  padding: var(--l-section-px);
 }
 
 .card {
@@ -192,7 +192,7 @@ button.sectionHeader {
 
 @media (max-width: 1200px) {
   .content {
-    padding: calc(10 * var(--l-vw)) calc(10 * var(--l-vw)) 0;
+    padding: var(--l-section-px) var(--l-section-px) 0;
   }
 
   .card {
@@ -252,7 +252,7 @@ button.sectionHeader {
 
 @media (max-width: 768px) {
   .content {
-    padding: calc(10 * var(--l-vw)) 0;
+    padding: var(--l-page-gutter, 20px) 0;
   }
 
   .card {
