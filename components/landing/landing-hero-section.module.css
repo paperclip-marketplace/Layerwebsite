@@ -51,6 +51,27 @@
   background: #000;
 }
 
+.videoEmbed:fullscreen,
+.videoEmbed:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 0;
+}
+
+.videoEmbedFullscreen {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 0;
+}
+
+.videoEmbedIdle .video {
+  pointer-events: none;
+}
+
+.videoEmbed:not(.videoEmbedIdle) .video {
+  pointer-events: none;
+}
+
 .video {
   position: absolute;
   top: 0;
@@ -65,6 +86,7 @@
 .playOverlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,6 +130,174 @@
   color: #111111;
 }
 
+.videoTapTarget {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.videoTapTarget:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -4px;
+}
+
+.videoControls {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--l-vw));
+  box-sizing: border-box;
+  padding: calc(28 * var(--l-vw)) calc(16 * var(--l-vw)) calc(14 * var(--l-vw));
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.55) 48%,
+    rgba(0, 0, 0, 0.78) 100%
+  );
+}
+
+.controlButton {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: calc(36 * var(--l-vw));
+  height: calc(36 * var(--l-vw));
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.controlButton:hover,
+.controlButton:focus-visible {
+  background: rgba(255, 255, 255, 0.24);
+  transform: scale(1.04);
+}
+
+.controlButton:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.controlIcon {
+  width: calc(16 * var(--l-vw));
+  height: calc(16 * var(--l-vw));
+  min-width: 14px;
+  min-height: 14px;
+  color: #ffffff;
+}
+
+.controlButton .controlIcon:last-child {
+  margin-left: calc(1 * var(--l-vw));
+}
+
+.progressWrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: calc(18 * var(--l-vw));
+  min-height: 16px;
+}
+
+.progressTrack {
+  position: absolute;
+  inset: 50% 0 auto;
+  height: calc(4 * var(--l-vw));
+  min-height: 3px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.progressFill {
+  width: var(--hero-progress, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: #ffffff;
+  pointer-events: none;
+}
+
+.progressSlider {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.timeDisplay {
+  flex-shrink: 0;
+  min-width: calc(88 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: right;
+}
+
+.volumeGroup {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+}
+
+.volumeWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(72 * var(--l-vw));
+  min-width: 56px;
+  height: calc(18 * var(--l-vw));
+  min-height: 16px;
+}
+
+.volumeTrack {
+  position: absolute;
+  inset: 50% 0 auto;
+  height: calc(4 * var(--l-vw));
+  min-height: 3px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.volumeFill {
+  width: var(--hero-volume, 85%);
+  height: 100%;
+  border-radius: inherit;
+  background: #ffffff;
+  pointer-events: none;
+}
+
+.volumeSlider {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+
 .caption {
   width: 100%;
   margin: 0;
@@ -143,5 +333,29 @@
     font-size: 16px;
     line-height: 24px;
     letter-spacing: -0.64px;
+  }
+
+  .videoControls {
+    gap: 10px;
+    padding: 20px 12px 10px;
+  }
+
+  .controlButton {
+    width: 32px;
+    height: 32px;
+  }
+
+  .timeDisplay {
+    min-width: 72px;
+    font-size: 11px;
+  }
+
+  .volumeWrap {
+    width: 48px;
+    min-width: 44px;
+  }
+
+  .volumeGroup {
+    gap: 6px;
   }
 }
