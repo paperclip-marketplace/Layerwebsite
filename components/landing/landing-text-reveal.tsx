@@ -13,8 +13,11 @@ import styles from "./landing-text-reveal.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type HeadingRevealProps = ComponentPropsWithoutRef<"h2"> & {
+type HeadingTag = "h1" | "h2" | "h3";
+
+type HeadingRevealProps = Omit<ComponentPropsWithoutRef<"h2">, "children"> & {
   children: ReactNode;
+  as?: HeadingTag;
 };
 
 function isBlockLineElement(node: HTMLElement): boolean {
@@ -125,9 +128,11 @@ export function LandingHeadingReveal({
   children,
   className,
   id,
+  as: Tag = "h2",
+  ...rest
 }: HeadingRevealProps) {
   const reduceMotion = useReducedMotion();
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
   const originalHtmlRef = useRef<string | null>(null);
 
   useLayoutEffect(() => {
@@ -181,21 +186,20 @@ export function LandingHeadingReveal({
 
   if (reduceMotion) {
     return (
-      <h2 id={id} className={className}>
+      <Tag id={id} className={className} {...rest}>
         {children}
-      </h2>
+      </Tag>
     );
   }
 
   return (
-    <h2 id={id} ref={headingRef} className={className}>
+    <Tag id={id} ref={headingRef} className={className} {...rest}>
       {children}
-    </h2>
+    </Tag>
   );
 }
 
 type SubheadingRevealProps = ComponentPropsWithoutRef<"p"> & {
-  children: ReactNode;
   /** Stagger after heading (seconds). */
   delay?: number;
 };
@@ -206,12 +210,13 @@ export function LandingSubheadingReveal({
   className,
   delay = 0.15,
   id,
+  ...rest
 }: SubheadingRevealProps) {
   const reduceMotion = useReducedMotion();
 
   if (reduceMotion) {
     return (
-      <p id={id} className={className}>
+      <p id={id} className={className} {...rest}>
         {children}
       </p>
     );

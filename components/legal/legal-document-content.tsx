@@ -1,4 +1,7 @@
 import {
+  LandingHeadingReveal,
+} from "@/components/landing/landing-text-reveal";
+import {
   FormattedLegalBullet,
   FormattedLegalParagraph,
 } from "./format-legal-text";
@@ -136,10 +139,10 @@ export function LegalDocumentContent({
               Effective Date: {effectiveDate} | Last Updated: {lastUpdated}
             </p>
           </div>
-          <h1 id={`${pageId}-heading`} className={styles.title}>
+          <LandingHeadingReveal as="h1" id={`${pageId}-heading`} className={styles.title}>
             <span className={styles.titleHighlight}>{titleHighlight}</span>
             {titleRest}
-          </h1>
+          </LandingHeadingReveal>
         </div>
       </header>
 

@@ -2,14 +2,16 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 
+import { FixedExploreFeaturesButton } from "@/components/landing/fixed-explore-features-button";
 import "@material-symbols/font-400";
 import "./globals.css";
 
 const siteTitle = "Layer | Agents for Revenue Teams";
 const siteDescription =
   "AI Agents for revenue teams that source, prepare, practice, support live calls, automate follow-ups and coach every interaction.";
-const previewImage = "/layer-preview-1200x630.jpg";
-const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL ||
+const previewImage = "/assets/home-og.png";
+const defaultUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://www.withlayer.ai");
 
 export const metadata: Metadata = {
@@ -43,7 +45,8 @@ export const metadata: Metadata = {
         url: previewImage,
         width: 1200,
         height: 630,
-        alt: "Layer agents for revenue teams",
+        alt: "Layer — Agents for Revenue Teams",
+        type: "image/png",
       },
     ],
     type: "website",
@@ -73,7 +76,10 @@ export default function RootLayout({
 }>) {
   return (
     <html className={`${GeistSans.variable} ${GeistMono.variable}`} lang="en">
-      <body className={`${GeistSans.className} antialiased`}>{children}</body>
+      <body className={`${GeistSans.className} antialiased`}>
+        {children}
+        <FixedExploreFeaturesButton />
+      </body>
     </html>
   );
 }

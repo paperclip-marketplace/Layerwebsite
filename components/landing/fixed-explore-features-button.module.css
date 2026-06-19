@@ -1,0 +1,253 @@
+/* Figma 1089:6779 — closed pill | 1089:6933 — open panel + close */
+.container {
+  position: fixed;
+  right: 40px;
+  bottom: 24px;
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.toggleButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-sizing: border-box;
+  padding: 12px 20px 12px 24px;
+  border: 1px solid #dedede;
+  border-radius: 99px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: -0.8px;
+  color: #020100;
+  white-space: nowrap;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+  pointer-events: auto;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+  will-change: width, height, border-radius, padding;
+}
+
+.toggleButton:hover {
+  opacity: 0.92;
+}
+
+.toggleButtonOpen {
+  gap: 0;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  flex-shrink: 0;
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 24px;
+  line-height: 1;
+  color: #020100;
+}
+
+.closeIconSlot {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.closeIconSvg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  color: #020100;
+  transform-origin: center center;
+}
+
+/* Figma 1089:7169 — features panel */
+.panel {
+  background: #f9f9f9;
+  border: 1px solid #eeeeee;
+  border-radius: 14px;
+  box-shadow:
+    0 8px 24px 3px rgba(0, 0, 0, 0.12),
+    0 1px 3px 0 rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+  pointer-events: auto;
+  transform-origin: bottom right;
+  will-change: transform, opacity;
+}
+
+.panelContent {
+  padding: 8px;
+}
+
+.panelInner {
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.sectionTitle {
+  margin: 0;
+  padding: 0 8px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.48px;
+  color: #606060;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 436px;
+  max-width: calc(100vw - 80px);
+  padding: 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.item:hover {
+  background-color: #f9f9f9;
+}
+
+.itemImage {
+  position: relative;
+  flex-shrink: 0;
+  width: 92px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.itemImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.itemTitle {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.56px;
+  color: #020100;
+  white-space: nowrap;
+}
+
+.currentBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.currentIcon {
+  font-size: 16px;
+  line-height: 1;
+  color: #3b5fff;
+}
+
+.currentLabel {
+  font-family: var(--layer-font-geist-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.56px;
+  color: #3b5fff;
+  white-space: nowrap;
+}
+
+.itemDescription {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.48px;
+  color: #606060;
+}
+
+@media (max-width: 768px) {
+  .container {
+    right: 20px;
+    bottom: 20px;
+    gap: 12px;
+  }
+
+  .toggleButton {
+    padding: 10px 16px 10px 20px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .closeIconSvg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .item {
+    width: min(436px, calc(100vw - 40px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggleButton,
+  .panel {
+    will-change: auto;
+  }
+}

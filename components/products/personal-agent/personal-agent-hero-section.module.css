@@ -1,0 +1,371 @@
+/* Figma 1091:5882 — Personal Agent hero */
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: visible;
+  background: #ffffff;
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-personal-agent-hero-inner-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-px);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: calc(4 * var(--l-vw)) calc(12 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #f45523;
+  white-space: nowrap;
+  background: #faede9;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  width: 100%;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  width: 100%;
+  max-width: var(--l-personal-agent-title-max-w);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  white-space: nowrap;
+}
+
+.titleAccent {
+  color: #f45523;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(16 * var(--l-vw));
+  width: 100%;
+}
+
+.primaryCta {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(4 * var(--l-vw));
+  padding: calc(12 * var(--l-vw)) calc(20 * var(--l-vw)) calc(12 * var(--l-vw))
+    calc(24 * var(--l-vw));
+  border-radius: 99px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #020100;
+}
+
+.secondaryCta {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding: calc(12 * var(--l-vw)) calc(24 * var(--l-vw));
+  border: 1px solid #dedede;
+  border-radius: 99px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-24);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #ffffff;
+}
+
+.ctaIcon {
+  font-size: calc(24 * var(--l-vw));
+  line-height: 1;
+}
+
+/* Figma 1091:5901 — hero ticker + 1091:5904 chat overlay */
+.ticker {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  height: var(--l-personal-agent-hero-ticker-h);
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.tickerBackdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tickerBgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  /* Figma mesh runs light bottom-left → dark top-right (flip from asset export) */
+  transform: scaleY(-1);
+}
+
+/* Figma radial overlay — matrix(9.1 21.65 -64.95 27.3 720 240), 87% opacity */
+.tickerRadial {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 480' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cdefs%3E%3CradialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(9.1 21.65 -64.95 27.3 720 240)'%3E%3Cstop stop-color='rgba(255,255,255,0)' offset='0'/%3E%3Cstop stop-color='rgba(255,255,255,1)' offset='1'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23grad)' opacity='0.87'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.tickerFadeBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: calc(240 * var(--l-vw));
+  background: linear-gradient(
+    0deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.tickerFadeTop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  width: 100%;
+  height: calc(240 * var(--l-vw));
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Figma 1091:5904 */
+.chatWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: calc(10 * var(--l-vw));
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.chatInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: calc(25.415 * var(--l-vw));
+}
+
+/* Figma 1091:5906 */
+.chatCard {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: calc(12.708 * var(--l-vw));
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: min(100%, calc(703.998 * var(--l-vw)));
+  padding: calc(25.415 * var(--l-vw));
+  border: calc(1.271 * var(--l-vw)) solid #f45523;
+  border-radius: calc(25.415 * var(--l-vw));
+  background: #ffffff;
+  box-shadow: 0 calc(10.166 * var(--l-vw)) calc(12.708 * var(--l-vw))
+    rgba(244, 85, 35, 0.32);
+}
+
+.chatPrompt {
+  width: 100%;
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(20.332 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(27.957 * var(--l-vw));
+  letter-spacing: calc(-0.8133 * var(--l-vw));
+  color: #8d8d8d;
+}
+
+.chatPrompt p {
+  margin: 0;
+}
+
+.chatPromptSpacer {
+  visibility: hidden;
+}
+
+.chatActions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.chatAddBtn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(5.083 * var(--l-vw));
+  padding: calc(10.166 * var(--l-vw)) calc(15.249 * var(--l-vw));
+  border: none;
+  border-radius: calc(10.166 * var(--l-vw));
+  color: #000000;
+  cursor: pointer;
+  background: #fbebe6;
+}
+
+.chatRightActions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(10.166 * var(--l-vw));
+}
+
+.chatVoiceBtn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(5.083 * var(--l-vw));
+  padding: calc(10.166 * var(--l-vw)) calc(15.249 * var(--l-vw));
+  border: calc(1.271 * var(--l-vw)) solid #dedede;
+  border-radius: calc(10.166 * var(--l-vw));
+  color: #000000;
+  cursor: pointer;
+  background: #f9f9f9;
+}
+
+.chatActionIcon {
+  font-size: calc(20.33 * var(--l-vw));
+  line-height: calc(30.498 * var(--l-vw));
+  letter-spacing: calc(-0.8132 * var(--l-vw));
+}
+
+.chatSendBtn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(5.083 * var(--l-vw));
+  padding: calc(10.166 * var(--l-vw)) calc(15.249 * var(--l-vw))
+    calc(10.166 * var(--l-vw)) calc(20.332 * var(--l-vw));
+  border: none;
+  border-radius: calc(10.166 * var(--l-vw));
+  color: #ffffff;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #000000;
+}
+
+.chatSendLabel {
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(22.61 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(38.756 * var(--l-vw));
+  letter-spacing: calc(-0.9044 * var(--l-vw));
+}
+
+.chatSendIcon {
+  font-size: calc(25.84 * var(--l-vw));
+  font-weight: 300;
+  line-height: calc(38.756 * var(--l-vw));
+  letter-spacing: calc(-1.0336 * var(--l-vw));
+}
+
+.supportingCopy {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-px);
+}
+
+.supportingCopy p,
+.supportingCopyText {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+@media (max-width: 768px) {
+  .title {
+    white-space: normal;
+  }
+
+  .chatCard {
+    width: 100%;
+    padding: calc(20 * var(--l-vw));
+  }
+
+  .chatActions {
+    flex-wrap: wrap;
+    gap: calc(12 * var(--l-vw));
+  }
+
+  .chatRightActions {
+    flex-wrap: wrap;
+  }
+}

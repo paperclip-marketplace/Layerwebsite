@@ -9,8 +9,8 @@ export type LandingNavLink = {
 export const COMING_SOON_HREF = ROUTES.comingSoon;
 
 export const CUSTOMER_FACING_NAV: readonly LandingNavLink[] = [
-  { label: "Roleplay", href: COMING_SOON_HREF },
-  { label: "Personal Agent", href: COMING_SOON_HREF },
+  { label: "Roleplay", href: ROUTES.productsRoleplay },
+  { label: "Personal Agent", href: ROUTES.productsPersonalAgent },
   { label: "Coaching", href: COMING_SOON_HREF },
   { label: "Scoring and Feedback", href: COMING_SOON_HREF },
 ] as const;
@@ -31,5 +31,4 @@ export const SOLUTIONS_NAV: readonly LandingNavLink[] = [
 
 export const MORE_NAV: readonly LandingNavLink[] = [
   { label: "Pricing", href: ROUTES.pricing },
-  { label: "Our Story", href: COMING_SOON_HREF },
 ] as const;

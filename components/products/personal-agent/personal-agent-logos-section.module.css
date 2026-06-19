@@ -1,0 +1,25 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-pricing-clients-mt) 0;
+  background: #ffffff;
+}
+
+.copyRow {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 var(--l-section-px);
+}
+
+.copy {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #020100;
+}
