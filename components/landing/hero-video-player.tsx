@@ -62,6 +62,7 @@ export function HeroVideoPlayer() {
   const [volume, setVolume] = useState(DEFAULT_VOLUME);
   const [isMuted, setIsMuted] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isVideoHovered, setIsVideoHovered] = useState(false);
 
   const syncPlayerState = useCallback(async (player: Player) => {
     try {
@@ -329,7 +330,15 @@ export function HeroVideoPlayer() {
   return (
     <div
       ref={containerRef}
-      className={`${styles.videoEmbed} ${isFullscreen ? styles.videoEmbedFullscreen : ""}`}
+      className={`${styles.videoEmbed} ${isFullscreen ? styles.videoEmbedFullscreen : ""} ${isVideoHovered ? styles.videoEmbedControlsVisible : ""}`}
+      onMouseEnter={() => setIsVideoHovered(true)}
+      onMouseLeave={() => setIsVideoHovered(false)}
+      onFocusCapture={() => setIsVideoHovered(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setIsVideoHovered(false);
+        }
+      }}
       onClick={() => {
         void handleContainerClick();
       }}
