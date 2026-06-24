@@ -41,14 +41,18 @@
   border: calc(1.088 * var(--l-vw)) solid #dedede;
   border-radius: calc(40 * var(--l-vw));
   background: #000;
+  line-height: 0;
+  font-size: 0;
 }
 
 .videoEmbed {
   position: relative;
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   background: #000;
   overflow: hidden;
+  line-height: 0;
 }
 
 .videoPoster {
@@ -58,22 +62,34 @@
   display: block;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
   object-fit: cover;
+  object-position: center;
   pointer-events: none;
   transition: opacity 0.35s ease;
+  transform: scale(1.02);
+  transform-origin: center center;
 }
 
 .video {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
   border: 0;
   object-fit: cover;
+  object-position: center;
   background: #000;
   pointer-events: none;
   z-index: 1;
+  /* Bleed past Vimeo iframe letterboxing so no sliver shows at the frame edge */
+  transform: scale(1.02);
+  transform-origin: center center;
 }
 
 .videoEmbed:fullscreen,
@@ -168,6 +184,16 @@
     rgba(0, 0, 0, 0.55) 48%,
     rgba(0, 0, 0, 0.78) 100%
   );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.videoEmbed:hover .videoControls,
+.videoEmbed:focus-within .videoControls,
+.videoEmbedControlsVisible .videoControls {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .controlButton {
