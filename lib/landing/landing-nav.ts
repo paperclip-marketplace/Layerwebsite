@@ -9,16 +9,17 @@ export type LandingNavLink = {
 export const COMING_SOON_HREF = ROUTES.comingSoon;
 
 export const CUSTOMER_FACING_NAV: readonly LandingNavLink[] = [
-  { label: "Roleplay", href: ROUTES.productsRoleplay },
-  { label: "Personal Agent", href: ROUTES.productsPersonalAgent },
+  { label: "Roleplay", href: COMING_SOON_HREF },
+  { label: "Personal Agent", href: COMING_SOON_HREF },
   { label: "Coaching", href: COMING_SOON_HREF },
   { label: "Scoring and Feedback", href: COMING_SOON_HREF },
 ] as const;
 
-/** Live pages under Products → For Customer Facing Team (excludes coming-soon links). */
-export const CUSTOMER_FACING_PRODUCT_PAGE_HREFS = CUSTOMER_FACING_NAV.filter(
-  (item) => item.href !== COMING_SOON_HREF,
-).map((item) => item.href);
+/** Live product pages (nav may point to coming soon while pages stay published for direct access). */
+export const CUSTOMER_FACING_PRODUCT_PAGE_HREFS = [
+  ROUTES.productsRoleplay,
+  ROUTES.productsPersonalAgent,
+] as const;
 
 export const LEADERSHIP_NAV: readonly LandingNavLink[] = [
   { label: "Agent Management", href: COMING_SOON_HREF },
