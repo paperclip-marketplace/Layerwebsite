@@ -3,7 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { ROUTES, SHOW_LANDING_DEMO_ENTRY } from "@/lib/config/constants";
+import {
+  ROUTES,
+  SHOW_HEADER_PRODUCTS_SOLUTIONS,
+  SHOW_LANDING_DEMO_ENTRY,
+} from "@/lib/config/constants";
 import {
   LANDING_HEADER_DROPDOWN_EVENT,
   type LandingHeaderDropdownName,
@@ -267,40 +271,44 @@ export function LandingHeader() {
             </Link>
 
             <nav className={styles.navLinks} aria-label="Primary">
-              <div
-                className={styles.navItemContainer}
-                onMouseEnter={() => void openDropdownByName("products")}
-                onMouseLeave={scheduleCloseDropdown}
-              >
-                <Link
-                  href="#"
-                  ref={productsButtonRef}
-                  className={
-                    activeLink === "products" ? styles.navLinkActive : styles.navLink
-                  }
-                  onClick={(event) => event.preventDefault()}
-                >
-                  Products
-                </Link>
-                <ProductsDropdown ref={productsDropdownRef} />
-              </div>
-              <div
-                className={styles.navItemContainer}
-                onMouseEnter={() => void openDropdownByName("solutions")}
-                onMouseLeave={scheduleCloseDropdown}
-              >
-                <Link
-                  href="#"
-                  ref={solutionsButtonRef}
-                  className={
-                    activeLink === "solutions" ? styles.navLinkActive : styles.navLink
-                  }
-                  onClick={(event) => event.preventDefault()}
-                >
-                  Solutions
-                </Link>
-                <SolutionsDropdown ref={solutionsDropdownRef} />
-              </div>
+              {SHOW_HEADER_PRODUCTS_SOLUTIONS ? (
+                <>
+                  <div
+                    className={styles.navItemContainer}
+                    onMouseEnter={() => void openDropdownByName("products")}
+                    onMouseLeave={scheduleCloseDropdown}
+                  >
+                    <Link
+                      href="#"
+                      ref={productsButtonRef}
+                      className={
+                        activeLink === "products" ? styles.navLinkActive : styles.navLink
+                      }
+                      onClick={(event) => event.preventDefault()}
+                    >
+                      Products
+                    </Link>
+                    <ProductsDropdown ref={productsDropdownRef} />
+                  </div>
+                  <div
+                    className={styles.navItemContainer}
+                    onMouseEnter={() => void openDropdownByName("solutions")}
+                    onMouseLeave={scheduleCloseDropdown}
+                  >
+                    <Link
+                      href="#"
+                      ref={solutionsButtonRef}
+                      className={
+                        activeLink === "solutions" ? styles.navLinkActive : styles.navLink
+                      }
+                      onClick={(event) => event.preventDefault()}
+                    >
+                      Solutions
+                    </Link>
+                    <SolutionsDropdown ref={solutionsDropdownRef} />
+                  </div>
+                </>
+              ) : null}
               <div
                 className={styles.navItemContainer}
                 onMouseEnter={highlightPricing}
@@ -357,20 +365,24 @@ export function LandingHeader() {
         id="landing-mobile-nav"
         className={`${styles.mobileNav} ${menuOpen ? styles.mobileNavOpen : ""}`}
       >
-        <Link
-          href="#"
-          className={`${activeLink === "products" ? styles.navLinkActive : styles.navLink} ${styles.mobileNavLink}`}
-          onClick={() => handleLinkClick("products")}
-        >
-          Products
-        </Link>
-        <Link
-          href="#"
-          className={`${activeLink === "solutions" ? styles.navLinkActive : styles.navLink} ${styles.mobileNavLink}`}
-          onClick={() => handleLinkClick("solutions")}
-        >
-          Solutions
-        </Link>
+        {SHOW_HEADER_PRODUCTS_SOLUTIONS ? (
+          <>
+            <Link
+              href="#"
+              className={`${activeLink === "products" ? styles.navLinkActive : styles.navLink} ${styles.mobileNavLink}`}
+              onClick={() => handleLinkClick("products")}
+            >
+              Products
+            </Link>
+            <Link
+              href="#"
+              className={`${activeLink === "solutions" ? styles.navLinkActive : styles.navLink} ${styles.mobileNavLink}`}
+              onClick={() => handleLinkClick("solutions")}
+            >
+              Solutions
+            </Link>
+          </>
+        ) : null}
         <Link
           href={ROUTES.pricing}
           className={`${activeLink === "pricing" ? styles.navLinkActive : styles.navLink} ${styles.mobileNavLink}`}

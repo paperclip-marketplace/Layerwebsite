@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { USE_TEMPORARY_LANDING_FOOTER } from "@/lib/config/constants";
 import { LandingFooter } from "./landing-footer";
+import { LandingFooterTemporary } from "./landing-footer-temporary";
 import { LandingHeader } from "./landing-header";
 import { LandingMobileTitleSection } from "./landing-mobile-title-section";
 import { LandingScrollSmoother } from "./landing-scroll-smoother";
@@ -24,7 +26,13 @@ export function LandingPageShell({
       <LandingScrollSmoother>
         {showMobileTitle ? <LandingMobileTitleSection /> : null}
         {children}
-        {footer ? <LandingFooter /> : null}
+        {footer ? (
+          USE_TEMPORARY_LANDING_FOOTER ? (
+            <LandingFooterTemporary />
+          ) : (
+            <LandingFooter />
+          )
+        ) : null}
       </LandingScrollSmoother>
     </div>
   );
