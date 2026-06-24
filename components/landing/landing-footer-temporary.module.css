@@ -1,0 +1,207 @@
+/* Figma 1494:2744 / 1494:2745 — compact temporary footer */
+.section {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  background: #f9f9f9;
+  pointer-events: none;
+}
+
+/* Figma 713:740 — same 1440px column as header (landing-page-gutter) */
+.gutter {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 40px;
+  border-radius: 24px;
+  background: #f9f9f9;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+}
+
+.logoLink {
+  display: flex;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 105px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  width: 34px;
+  height: 25px;
+  flex-shrink: 0;
+}
+
+.logoWordmark {
+  width: 61px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  flex-shrink: 0;
+  background: #eeeeee;
+}
+
+.meta {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+}
+
+.copyright,
+.legalLink {
+  font-family: var(--layer-font-geist-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.56px;
+  color: #8d8d8d;
+}
+
+.copyright {
+  flex-shrink: 0;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.legalLinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.legalLink {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.legalLink:hover {
+  opacity: 0.8;
+}
+
+@media (width > 1440px) {
+  .card {
+    border-radius: 0;
+    background: transparent;
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+  }
+}
+
+@media (max-width: 1200px) {
+  .card {
+    padding: 40px;
+    border-radius: calc(24 * var(--l-vw));
+  }
+
+  .row {
+    gap: calc(16 * var(--l-vw));
+  }
+
+  .logo {
+    width: calc(105 * var(--l-vw));
+    height: calc(26 * var(--l-vw));
+    gap: calc(8 * var(--l-vw));
+  }
+
+  .logoMark {
+    width: calc(34 * var(--l-vw));
+    height: calc(25 * var(--l-vw));
+  }
+
+  .logoWordmark {
+    width: calc(61 * var(--l-vw));
+    height: calc(22 * var(--l-vw));
+  }
+
+  .divider {
+    height: calc(20 * var(--l-vw));
+  }
+
+  .copyright,
+  .legalLink {
+    font-size: calc(14 * var(--l-vw));
+    line-height: calc(20 * var(--l-vw));
+    letter-spacing: calc(-0.56 * var(--l-vw));
+  }
+
+  .legalLinks {
+    gap: calc(20 * var(--l-vw));
+  }
+
+  .meta {
+    gap: calc(20 * var(--l-vw));
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 40px;
+    border-radius: calc(24 * var(--l-vw));
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .meta {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .copyright {
+    white-space: normal;
+  }
+
+  .legalLinks {
+    flex-wrap: wrap;
+    row-gap: calc(8 * var(--l-vw));
+  }
+}

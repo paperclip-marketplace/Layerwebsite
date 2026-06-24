@@ -130,6 +130,12 @@ export const DEFAULT_MEMBER_PERMISSIONS = {
 /** Header demo CTA + home promo banner. Set true when public demo launches from marketing. */
 export const SHOW_LANDING_DEMO_ENTRY = false;
 
+/** Header Products + Solutions nav and dropdowns. Set true when megamenus are ready to show. */
+export const SHOW_HEADER_PRODUCTS_SOLUTIONS = false;
+
+/** Figma 1494:2745 compact footer. Set false to restore the full nav footer. */
+export const USE_TEMPORARY_LANDING_FOOTER = true;
+
 /** Pricing page FAQ accordion. Set true when FAQ copy is ready to publish. */
 export const SHOW_PRICING_FAQ = false;
 
