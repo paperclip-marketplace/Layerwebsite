@@ -3,17 +3,14 @@
 import Link from "next/link";
 import { forwardRef } from "react";
 import { SOLUTIONS_NAV } from "@/lib/landing/landing-nav";
+import { SOLUTIONS_NAV_IMAGES } from "@/lib/landing/header-nav-assets";
 import styles from "./nav-dropdown.module.css";
 
-const imgRamp = "https://www.figma.com/api/mcp/asset/81a8d7f5-133c-4ad2-9568-3397266578c0";
-const imgQuotaAttainment = "https://www.figma.com/api/mcp/asset/6ce9ed0d-1f12-4517-9ef3-9abaf537f323";
-const imgCustomerFacingTime = "https://www.figma.com/api/mcp/asset/4f7b4f34-562e-42a5-a07a-b733ee077a8f";
-
-const SOLUTION_ITEMS = [
-  { image: imgRamp, description: "Discover our All-in one Layer studio designed for leadship", isActive: true },
-  { image: imgQuotaAttainment, description: "Discover our All-in one Layer studio designed for leadship" },
-  { image: imgCustomerFacingTime, description: "Discover our All-in one Layer studio designed for leadship" },
-] as const;
+const SOLUTION_ITEMS = SOLUTIONS_NAV_IMAGES.map((image, index) => ({
+  image,
+  description: "Discover our All-in one Layer studio designed for leadship",
+  isActive: index === 0,
+}));
 
 export const SolutionsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
   return (
