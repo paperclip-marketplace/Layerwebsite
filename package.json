@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@material-symbols/font-400": "^0.36.0",
+    "@vimeo/player": "^2.30.4",
     "geist": "^1.5.1",
     "gsap": "^3.15.0",
     "lucide-react": "^0.294.0",

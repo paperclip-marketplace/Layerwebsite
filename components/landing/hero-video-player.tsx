@@ -1,59 +1,36 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Player from "@vimeo/player";
 import { Maximize, Minimize, Pause, Play, Volume2, VolumeX } from "lucide-react";
 import styles from "./landing-hero-section.module.css";
 
-const VIMEO_ORIGIN = "https://player.vimeo.com";
-const HERO_VIMEO_VIDEO_ID = "1202820253";
-const HERO_VIMEO_HASH = "4e687234b7";
-const DEFAULT_VOLUME = 0.85;
+const HERO_VIMEO_VIDEO_ID = "1203910576";
+const HERO_VIMEO_APP_ID = "58479";
+const DEFAULT_VOLUME = 1;
+const HERO_VIMEO_THUMBNAIL =
+  "https://i.vimeocdn.com/video/2172120547-38aff336eae8b511d5b9968c513e878d691e974960154410a6a1cc8b575c5971-d_1920x1080?region=us";
+const SYNC_INTERVAL_MS = 250;
+const AUTOPLAY_RETRY_DELAYS_MS = [0, 150, 400, 800, 1500, 2500] as const;
 
-type VimeoMessage = {
-  event?: string;
-  method?: string;
-  value?: number | boolean;
-  player_id?: string;
-  seconds?: number;
-  duration?: number;
-  percent?: number;
-  data?: {
-    seconds?: number;
-    duration?: number;
-    percent?: number;
-    volume?: number;
-  };
-};
-
-function readPlaybackPosition(data: VimeoMessage) {
-  const seconds = data.data?.seconds ?? data.seconds;
-  const duration = data.data?.duration ?? data.duration;
-
-  return {
-    seconds: typeof seconds === "number" ? seconds : null,
-    duration: typeof duration === "number" ? duration : null,
-  };
-}
-
-function buildEmbedSrc(playerId: string) {
+const EMBED_SRC = (() => {
   const params = new URLSearchParams({
-    h: HERO_VIMEO_HASH,
-    api: "1",
-    player_id: playerId,
-    autoplay: "1",
+    badge: "0",
     autopause: "0",
+    autoplay: "1",
+    muted: "1",
+    app_id: HERO_VIMEO_APP_ID,
+    playsinline: "1",
     title: "0",
     byline: "0",
     portrait: "0",
-    badge: "0",
-    dnt: "1",
     controls: "0",
     pip: "0",
     keyboard: "0",
   });
 
-  return `${VIMEO_ORIGIN}/video/${HERO_VIMEO_VIDEO_ID}?${params.toString()}`;
-}
+  return `https://player.vimeo.com/video/${HERO_VIMEO_VIDEO_ID}?${params.toString()}`;
+})();
 
 function formatTime(seconds: number) {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
@@ -69,138 +46,200 @@ function clampVolume(value: number) {
   return Math.min(1, Math.max(0, value));
 }
 
+
 export function HeroVideoPlayer() {
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const playerId = useId().replace(/:/g, "");
-  const embedSrc = buildEmbedSrc(playerId);
-  const listenersBoundRef = useRef(false);
+  const playerRef = useRef<Player | null>(null);
   const isSeekingRef = useRef(false);
   const lastVolumeRef = useRef(DEFAULT_VOLUME);
+  const soundUnlockedRef = useRef(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
+  const [showPoster, setShowPoster] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(DEFAULT_VOLUME);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const postToPlayer = useCallback(
-    (method: string, value?: string | number | boolean) => {
-      const iframe = iframeRef.current;
-      if (!iframe?.contentWindow) return;
+  const syncPlayerState = useCallback(async (player: Player) => {
+    try {
+      const [paused, seconds, videoDuration, nextVolume, muted] = await Promise.all([
+        player.getPaused(),
+        player.getCurrentTime(),
+        player.getDuration(),
+        player.getVolume(),
+        player.getMuted(),
+      ]);
 
-      const payload: Record<string, string | number | boolean> = {
-        method,
-        player_id: playerId,
-      };
+      setIsPlaying(!paused);
+      if (!isSeekingRef.current) setCurrentTime(seconds);
+      if (videoDuration > 0) setDuration(videoDuration);
 
-      if (value !== undefined) payload.value = value;
+      const clampedVolume = clampVolume(nextVolume);
+      setVolume(clampedVolume);
+      setIsMuted(muted);
+      if (clampedVolume > 0 && !muted) lastVolumeRef.current = clampedVolume;
+    } catch {
+      // Player may be destroyed during async reads.
+    }
+  }, []);
 
-      iframe.contentWindow.postMessage(JSON.stringify(payload), VIMEO_ORIGIN);
-    },
-    [playerId],
-  );
+  const ensureMutedAutoplay = useCallback(async (player: Player) => {
+    try {
+      await player.setMuted(true);
+      await player.setVolume(DEFAULT_VOLUME);
 
-  const bindPlayerListeners = useCallback(() => {
-    if (listenersBoundRef.current) return;
-    listenersBoundRef.current = true;
+      if (await player.getPaused()) {
+        await player.play();
+      }
 
-    for (const event of ["play", "pause", "ended", "timeupdate", "volumechange"] as const) {
-      postToPlayer("addEventListener", event);
+      if (!(await player.getPaused())) {
+        setIsPlaying(true);
+        setIsMuted(true);
+        setShowPoster(false);
+        return true;
+      }
+    } catch {
+      // Retry via scheduled attempts.
     }
 
-    postToPlayer("getDuration");
-    postToPlayer("getVolume");
-    postToPlayer("getMuted");
-  }, [postToPlayer]);
+    return false;
+  }, []);
 
-  const startPlaybackWithSound = useCallback(() => {
-    bindPlayerListeners();
-    postToPlayer("setMuted", false);
-    postToPlayer("setVolume", DEFAULT_VOLUME);
-    postToPlayer("play");
-  }, [bindPlayerListeners, postToPlayer]);
+  const unlockSound = useCallback(async (player: Player) => {
+    if (soundUnlockedRef.current) return;
+
+    try {
+      await player.setVolume(DEFAULT_VOLUME);
+      await player.setMuted(false);
+
+      soundUnlockedRef.current = true;
+      setVolume(DEFAULT_VOLUME);
+      setIsMuted(false);
+      lastVolumeRef.current = DEFAULT_VOLUME;
+    } catch {
+      // Ignore volume errors.
+    }
+  }, []);
+
+  const handleContainerClick = useCallback(async () => {
+    const player = playerRef.current;
+    if (!player) return;
+
+    try {
+      await unlockSound(player);
+
+      if (await player.getPaused()) {
+        await player.play();
+      }
+
+      setIsPlaying(true);
+      setShowPoster(false);
+    } catch {
+      // Ignore playback errors.
+    }
+  }, [unlockSound]);
+
+  const handleTogglePlay = useCallback(async () => {
+    const player = playerRef.current;
+    if (!player) return;
+
+    try {
+      await unlockSound(player);
+
+      const paused = await player.getPaused();
+      if (paused) {
+        await player.play();
+        setIsPlaying(true);
+        setShowPoster(false);
+      } else {
+        await player.pause();
+        setIsPlaying(false);
+      }
+    } catch {
+      // Ignore playback errors.
+    }
+  }, [unlockSound]);
 
   useEffect(() => {
-    const onMessage = (event: MessageEvent) => {
-      if (event.origin !== VIMEO_ORIGIN || typeof event.data !== "string") return;
+    const iframe = iframeRef.current;
+    if (!iframe) return;
 
+    let cancelled = false;
+    let syncIntervalId = 0;
+    const retryTimeouts: number[] = [];
+
+    let player = playerRef.current;
+    if (!player) {
+      player = new Player(iframe);
+      playerRef.current = player;
+    }
+
+    const onPlay = () => {
+      setIsPlaying(true);
+      setShowPoster(false);
+    };
+    const onPause = () => setIsPlaying(false);
+    const onEnded = () => setIsPlaying(false);
+    const onTimeUpdate = (data: { seconds: number; duration: number }) => {
+      if (!isSeekingRef.current) setCurrentTime(data.seconds);
+      if (data.duration > 0) setDuration(data.duration);
+    };
+    const onVolumeChange = (data: { volume: number }) => {
+      const nextVolume = clampVolume(data.volume);
+      setVolume(nextVolume);
+      if (nextVolume > 0) lastVolumeRef.current = nextVolume;
+    };
+
+    player.off("play");
+    player.off("pause");
+    player.off("ended");
+    player.off("timeupdate");
+    player.off("volumechange");
+    player.on("play", onPlay);
+    player.on("pause", onPause);
+    player.on("ended", onEnded);
+    player.on("timeupdate", onTimeUpdate);
+    player.on("volumechange", onVolumeChange);
+
+    const init = async () => {
       try {
-        const data = JSON.parse(event.data) as VimeoMessage;
-        if (data.player_id && data.player_id !== playerId) return;
+        await player!.ready();
+        if (cancelled) return;
 
-        if (data.event === "ready") {
-          startPlaybackWithSound();
-          return;
+        setShowPoster(false);
+
+        for (const delay of AUTOPLAY_RETRY_DELAYS_MS) {
+          const timeoutId = window.setTimeout(() => {
+            if (cancelled) return;
+            void ensureMutedAutoplay(player!);
+          }, delay);
+          retryTimeouts.push(timeoutId);
         }
 
-        if (data.event === "play") {
-          setIsPlaying(true);
-          setHasStarted(true);
-          return;
-        }
+        await ensureMutedAutoplay(player!);
+        await syncPlayerState(player!);
 
-        if (data.event === "pause") {
-          setIsPlaying(false);
-          return;
-        }
-
-        if (data.event === "ended") {
-          setIsPlaying(false);
-          return;
-        }
-
-        if (data.event === "timeupdate") {
-          const { seconds, duration: nextDuration } = readPlaybackPosition(data);
-
-          if (!isSeekingRef.current && seconds !== null) {
-            setCurrentTime(seconds);
-          }
-          if (nextDuration !== null && nextDuration > 0) {
-            setDuration(nextDuration);
-          }
-          return;
-        }
-
-        if (data.method === "getCurrentTime" && typeof data.value === "number") {
-          if (!isSeekingRef.current) setCurrentTime(data.value);
-          return;
-        }
-
-        if (data.event === "volumechange" && data.data) {
-          if (typeof data.data.volume === "number") {
-            const nextVolume = clampVolume(data.data.volume);
-            setVolume(nextVolume);
-            if (nextVolume > 0) lastVolumeRef.current = nextVolume;
-          }
-          return;
-        }
-
-        if (data.method === "getDuration" && typeof data.value === "number") {
-          setDuration(data.value);
-          return;
-        }
-
-        if (data.method === "getVolume" && typeof data.value === "number") {
-          const nextVolume = clampVolume(data.value);
-          setVolume(nextVolume);
-          if (nextVolume > 0) lastVolumeRef.current = nextVolume;
-          return;
-        }
-
-        if (data.method === "getMuted" && typeof data.value === "boolean") {
-          setIsMuted(data.value);
-        }
-      } catch {
-        // Ignore non-JSON Vimeo messages.
+        syncIntervalId = window.setInterval(() => {
+          if (cancelled || !playerRef.current) return;
+          void syncPlayerState(playerRef.current);
+        }, SYNC_INTERVAL_MS);
+      } catch (error) {
+        console.error("Hero video player failed to initialize", error);
+        if (!cancelled) setShowPoster(false);
       }
     };
 
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
-  }, [playerId, startPlaybackWithSound]);
+    void init();
+
+    return () => {
+      cancelled = true;
+      for (const timeoutId of retryTimeouts) window.clearTimeout(timeoutId);
+      if (syncIntervalId) window.clearInterval(syncIntervalId);
+    };
+  }, [ensureMutedAutoplay, syncPlayerState]);
 
   useEffect(() => {
     const onFullscreenChange = () => {
@@ -211,77 +250,60 @@ export function HeroVideoPlayer() {
     return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
 
-  useEffect(() => {
-    if (!hasStarted || !isPlaying) return;
+  const handleSeek = useCallback(async (nextTime: number) => {
+    const player = playerRef.current;
+    setCurrentTime(nextTime);
+    setShowPoster(false);
 
-    postToPlayer("getCurrentTime");
-    const intervalId = window.setInterval(() => {
-      postToPlayer("getCurrentTime");
-    }, 250);
+    if (!player) return;
 
-    return () => window.clearInterval(intervalId);
-  }, [hasStarted, isPlaying, postToPlayer]);
+    try {
+      await player.setCurrentTime(nextTime);
+    } catch {
+      // Ignore seek errors.
+    }
+  }, []);
 
-  const handlePlay = useCallback(() => {
-    startPlaybackWithSound();
-    setHasStarted(true);
-    setIsPlaying(true);
-    setIsMuted(false);
-    setVolume(DEFAULT_VOLUME);
-  }, [startPlaybackWithSound]);
+  const handleVolumeChange = useCallback(async (nextVolume: number) => {
+    const player = playerRef.current;
+    const clamped = clampVolume(nextVolume);
 
-  const handleTogglePlay = useCallback(() => {
-    bindPlayerListeners();
-    if (isPlaying) {
-      postToPlayer("pause");
-      setIsPlaying(false);
-      return;
+    setVolume(clamped);
+    setIsMuted(clamped === 0);
+    if (clamped > 0) {
+      lastVolumeRef.current = clamped;
+      soundUnlockedRef.current = true;
     }
 
-    startPlaybackWithSound();
-    setHasStarted(true);
-    setIsPlaying(true);
-    setIsMuted(false);
-    setVolume(DEFAULT_VOLUME);
-  }, [bindPlayerListeners, isPlaying, postToPlayer, startPlaybackWithSound]);
+    if (!player) return;
 
-  const handleSeek = useCallback(
-    (nextTime: number) => {
-      setCurrentTime(nextTime);
-      postToPlayer("setCurrentTime", nextTime);
-    },
-    [postToPlayer],
-  );
+    try {
+      await player.setVolume(clamped);
+      await player.setMuted(clamped === 0);
+    } catch {
+      // Ignore volume errors.
+    }
+  }, []);
 
-  const handleVolumeChange = useCallback(
-    (nextVolume: number) => {
-      const clamped = clampVolume(nextVolume);
-      setVolume(clamped);
-      setIsMuted(clamped === 0);
-      if (clamped > 0) lastVolumeRef.current = clamped;
-      postToPlayer("setVolume", clamped);
-      postToPlayer("setMuted", clamped === 0);
-    },
-    [postToPlayer],
-  );
-
-  const handleToggleMute = useCallback(() => {
-    bindPlayerListeners();
+  const handleToggleMute = useCallback(async () => {
+    const player = playerRef.current;
+    if (!player) return;
 
     if (isMuted || volume === 0) {
-      const restored = lastVolumeRef.current > 0 ? lastVolumeRef.current : DEFAULT_VOLUME;
-      setVolume(restored);
-      setIsMuted(false);
-      postToPlayer("setMuted", false);
-      postToPlayer("setVolume", restored);
+      await unlockSound(player);
       return;
     }
 
     lastVolumeRef.current = volume > 0 ? volume : DEFAULT_VOLUME;
     setVolume(0);
     setIsMuted(true);
-    postToPlayer("setMuted", true);
-  }, [bindPlayerListeners, isMuted, postToPlayer, volume]);
+
+    try {
+      await player.setMuted(true);
+    } catch {
+      // Ignore volume errors.
+    }
+  }, [isMuted, unlockSound, volume]);
 
   const handleToggleFullscreen = useCallback(async () => {
     const container = containerRef.current;
@@ -307,126 +329,146 @@ export function HeroVideoPlayer() {
   return (
     <div
       ref={containerRef}
-      className={`${styles.videoEmbed} ${!hasStarted ? styles.videoEmbedIdle : ""} ${isFullscreen ? styles.videoEmbedFullscreen : ""}`}
+      className={`${styles.videoEmbed} ${isFullscreen ? styles.videoEmbedFullscreen : ""}`}
+      onClick={() => {
+        void handleContainerClick();
+      }}
     >
       <iframe
         ref={iframeRef}
         className={styles.video}
-        title="Layer product overview"
-        src={embedSrc}
-        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+        title="Layer - Agents for revenue teams | www.withlayer.ai"
+        src={EMBED_SRC}
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
         allowFullScreen
         referrerPolicy="strict-origin-when-cross-origin"
       />
 
-      {!hasStarted ? (
-        <button
-          type="button"
-          className={styles.videoTapTarget}
-          onClick={handlePlay}
-          aria-label="Play product overview video"
+      {showPoster ? (
+        <img
+          className={styles.videoPoster}
+          src={HERO_VIMEO_THUMBNAIL}
+          alt=""
+          draggable={false}
         />
-      ) : (
-        <button
-          type="button"
-          className={styles.videoTapTarget}
-          onClick={handleTogglePlay}
-          aria-label={isPlaying ? "Pause video" : "Play video"}
-        />
-      )}
+      ) : null}
 
-      <div className={styles.videoControls} aria-label="Video controls">
+      <button
+        type="button"
+        className={styles.videoTapTarget}
+        onClick={(event) => {
+          event.stopPropagation();
+          void handleTogglePlay();
+        }}
+        aria-label={isPlaying ? "Pause video" : "Play video"}
+      />
+
+      <div
+        className={styles.videoControls}
+        aria-label="Video controls"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          className={styles.controlButton}
+          onClick={() => {
+            void handleTogglePlay();
+          }}
+          aria-label={isPlaying ? "Pause video" : "Play video"}
+        >
+          {isPlaying ? (
+            <Pause className={styles.controlIcon} aria-hidden />
+          ) : (
+            <Play className={styles.controlIcon} aria-hidden />
+          )}
+        </button>
+
+        <div className={styles.progressWrap}>
+          <div className={styles.progressTrack} aria-hidden>
+            <div
+              className={styles.progressFill}
+              style={{ ["--hero-progress" as string]: `${progressPercent}%` }}
+            />
+          </div>
+          <input
+            type="range"
+            className={styles.progressSlider}
+            min={0}
+            max={Math.max(duration, 0.1)}
+            step={0.1}
+            value={Math.min(currentTime, duration || currentTime)}
+            onChange={(event) => {
+              void handleSeek(Number(event.target.value));
+            }}
+            onPointerDown={() => {
+              isSeekingRef.current = true;
+            }}
+            onPointerUp={() => {
+              isSeekingRef.current = false;
+            }}
+            onPointerCancel={() => {
+              isSeekingRef.current = false;
+            }}
+            aria-label={`Video progress, ${formatTime(currentTime)} of ${formatTime(duration)}`}
+          />
+        </div>
+
+        <span className={styles.timeDisplay} aria-hidden>
+          {formatTime(currentTime)} / {formatTime(duration)}
+        </span>
+
+        <div className={styles.volumeGroup}>
           <button
             type="button"
             className={styles.controlButton}
-            onClick={handleTogglePlay}
-            aria-label={isPlaying ? "Pause video" : "Play video"}
+            onClick={() => {
+              void handleToggleMute();
+            }}
+            aria-label={isMuted || volume === 0 ? "Unmute video" : "Mute video"}
           >
-            {isPlaying ? (
-              <Pause className={styles.controlIcon} aria-hidden />
+            {isMuted || volume === 0 ? (
+              <VolumeX className={styles.controlIcon} aria-hidden />
             ) : (
-              <Play className={styles.controlIcon} aria-hidden />
+              <Volume2 className={styles.controlIcon} aria-hidden />
             )}
           </button>
 
-          <div className={styles.progressWrap}>
-            <div className={styles.progressTrack} aria-hidden>
+          <div className={styles.volumeWrap}>
+            <div className={styles.volumeTrack} aria-hidden>
               <div
-                className={styles.progressFill}
-                style={{ ["--hero-progress" as string]: `${progressPercent}%` }}
+                className={styles.volumeFill}
+                style={{ ["--hero-volume" as string]: `${effectiveVolume * 100}%` }}
               />
             </div>
             <input
               type="range"
-              className={styles.progressSlider}
+              className={styles.volumeSlider}
               min={0}
-              max={Math.max(duration, 0.1)}
-              step={0.1}
-              value={Math.min(currentTime, duration || currentTime)}
-              onChange={(event) => handleSeek(Number(event.target.value))}
-              onPointerDown={() => {
-                isSeekingRef.current = true;
+              max={1}
+              step={0.01}
+              value={effectiveVolume}
+              onChange={(event) => {
+                void handleVolumeChange(Number(event.target.value));
               }}
-              onPointerUp={() => {
-                isSeekingRef.current = false;
-              }}
-              onPointerCancel={() => {
-                isSeekingRef.current = false;
-              }}
-              aria-label={`Video progress, ${formatTime(currentTime)} of ${formatTime(duration)}`}
+              aria-label={`Volume, ${volumePercent} percent`}
             />
           </div>
+        </div>
 
-          <span className={styles.timeDisplay} aria-hidden>
-            {formatTime(currentTime)} / {formatTime(duration)}
-          </span>
-
-          <div className={styles.volumeGroup}>
-            <button
-              type="button"
-              className={styles.controlButton}
-              onClick={handleToggleMute}
-              aria-label={isMuted || volume === 0 ? "Unmute video" : "Mute video"}
-            >
-              {isMuted || volume === 0 ? (
-                <VolumeX className={styles.controlIcon} aria-hidden />
-              ) : (
-                <Volume2 className={styles.controlIcon} aria-hidden />
-              )}
-            </button>
-
-            <div className={styles.volumeWrap}>
-              <div className={styles.volumeTrack} aria-hidden>
-                <div
-                  className={styles.volumeFill}
-                  style={{ ["--hero-volume" as string]: `${effectiveVolume * 100}%` }}
-                />
-              </div>
-              <input
-                type="range"
-                className={styles.volumeSlider}
-                min={0}
-                max={1}
-                step={0.01}
-                value={effectiveVolume}
-                onChange={(event) => handleVolumeChange(Number(event.target.value))}
-                aria-label={`Volume, ${volumePercent} percent`}
-              />
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className={styles.controlButton}
-            onClick={handleToggleFullscreen}
-            aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-          >
-            {isFullscreen ? (
-              <Minimize className={styles.controlIcon} aria-hidden />
-            ) : (
-              <Maximize className={styles.controlIcon} aria-hidden />
-            )}
-          </button>
+        <button
+          type="button"
+          className={styles.controlButton}
+          onClick={() => {
+            void handleToggleFullscreen();
+          }}
+          aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+        >
+          {isFullscreen ? (
+            <Minimize className={styles.controlIcon} aria-hidden />
+          ) : (
+            <Maximize className={styles.controlIcon} aria-hidden />
+          )}
+        </button>
       </div>
     </div>
   );

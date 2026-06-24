@@ -40,36 +40,27 @@
   overflow: hidden;
   border: calc(1.088 * var(--l-vw)) solid #dedede;
   border-radius: calc(40 * var(--l-vw));
-  background: #ffffff;
+  background: #000;
 }
 
 .videoEmbed {
   position: relative;
   width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
+  aspect-ratio: 16 / 9;
   background: #000;
+  overflow: hidden;
 }
 
-.videoEmbed:fullscreen,
-.videoEmbed:-webkit-full-screen {
+.videoPoster {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
   width: 100%;
   height: 100%;
-  padding-bottom: 0;
-}
-
-.videoEmbedFullscreen {
-  width: 100%;
-  height: 100%;
-  padding-bottom: 0;
-}
-
-.videoEmbedIdle .video {
+  object-fit: cover;
   pointer-events: none;
-}
-
-.videoEmbed:not(.videoEmbedIdle) .video {
-  pointer-events: none;
+  transition: opacity 0.35s ease;
 }
 
 .video {
@@ -81,6 +72,21 @@
   border: 0;
   object-fit: cover;
   background: #000;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.videoEmbed:fullscreen,
+.videoEmbed:-webkit-full-screen {
+  aspect-ratio: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.videoEmbedFullscreen {
+  aspect-ratio: auto;
+  width: 100%;
+  height: 100%;
 }
 
 .playOverlay {
