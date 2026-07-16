@@ -1,0 +1,580 @@
+/* Figma 1634:8775 — Contact Us section */
+
+.section {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: visible;
+  background: transparent;
+}
+
+/*
+ * Figma 1634:8734 — 1440px contact bg
+ * Vertical lines every ~95.824px (16 lines across 1440)
+ * Horizontal lines every ~84.4px
+ * Fade: white at top → transparent at bottom (grid stronger toward bottom)
+ */
+.backdrop {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  overflow: hidden;
+  pointer-events: none;
+  --contact-grid-x: calc(95.824 * var(--l-vw));
+  --contact-grid-y: calc(84.4 * var(--l-vw));
+}
+
+.backdropWhite {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+}
+
+.backdropGlow {
+  position: absolute;
+  top: calc(-1 * var(--l-vw));
+  left: 50%;
+  width: min(100vw, var(--l-shell-w));
+  height: calc(210 * var(--l-vw));
+  margin-left: calc(min(100vw, var(--l-shell-w)) / -2);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.backdropGlowImg {
+  position: absolute;
+  inset: -384.76% -44.65% -44.29% -44.58%;
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.backdropGrid {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Uniform light stroke — opaque gray so H/V overlaps stay the same weight */
+.backdropGridV,
+.backdropGridH {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.backdropGridV {
+  background-image: repeating-linear-gradient(
+    to right,
+    #eeeeee 0,
+    #eeeeee 1px,
+    transparent 1px,
+    transparent var(--contact-grid-x)
+  );
+  background-size: var(--contact-grid-x) 100%;
+}
+
+.backdropGridH {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #eeeeee 0,
+    #eeeeee 1px,
+    transparent 1px,
+    transparent var(--contact-grid-y)
+  );
+  background-size: 100% var(--contact-grid-y);
+}
+
+.backdropGridPattern {
+  display: none;
+}
+
+/* Figma 1634:8768 — white at top, clear at bottom so grid reads stronger downward */
+.backdropFade {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 100%;
+  height: calc(621 * var(--l-vw));
+  max-height: 100%;
+  background-image: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 0%,
+    rgba(255, 255, 255, 0.992) 11.79%,
+    rgba(255, 255, 255, 0.968) 21.384%,
+    rgba(255, 255, 255, 0.93) 29.12%,
+    rgba(255, 255, 255, 0.879) 35.336%,
+    rgba(255, 255, 255, 0.819) 40.37%,
+    rgba(255, 255, 255, 0.749) 44.56%,
+    rgba(255, 255, 255, 0.672) 48.243%,
+    rgba(255, 255, 255, 0.589) 51.757%,
+    rgba(255, 255, 255, 0.503) 55.44%,
+    rgba(255, 255, 255, 0.415) 59.63%,
+    rgba(255, 255, 255, 0.326) 64.664%,
+    rgba(255, 255, 255, 0.238) 70.88%,
+    rgba(255, 255, 255, 0.154) 78.616%,
+    rgba(255, 255, 255, 0.074) 88.21%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(48 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(80 * var(--l-vw));
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: calc(4 * var(--l-vw)) calc(12 * var(--l-vw));
+  background: #faede9;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #f45523;
+  white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  gap: calc(40 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  align-self: stretch;
+  width: calc(680 * var(--l-vw));
+  min-width: 0;
+}
+
+.copyInner {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.headlineStack {
+  display: block;
+  line-height: 0;
+}
+
+.headlineLine {
+  display: block;
+  margin: 0;
+  line-height: calc(84 * var(--l-vw));
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  word-break: break-word;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.description {
+  margin: 0;
+  width: 100%;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+.formCard {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(24 * var(--l-vw));
+  align-items: flex-end;
+  align-self: stretch;
+  min-width: 0;
+  min-height: calc(534 * var(--l-vw));
+  box-sizing: border-box;
+  padding: calc(40 * var(--l-vw));
+  border: 1px solid #eeeeee;
+  border-radius: calc(16 * var(--l-vw));
+  background: #f9f9f9;
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Figma 1634:9657 — Success state (same card footprint as form) */
+.successCard {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(24 * var(--l-vw));
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  min-width: 0;
+  min-height: calc(534 * var(--l-vw));
+  box-sizing: border-box;
+  padding: calc(16 * var(--l-vw));
+  border: 1px solid #eeeeee;
+  border-radius: calc(16 * var(--l-vw));
+  background: #f9f9f9;
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.12);
+}
+
+.successBody {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  width: 100%;
+}
+
+.successIcon {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(120 * var(--l-vw));
+  height: calc(120 * var(--l-vw));
+  overflow: hidden;
+}
+
+.successIconImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.successCopy {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.successTitle {
+  margin: 0;
+  width: 100%;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-44);
+  font-weight: 400;
+  line-height: calc(56 * var(--l-vw));
+  letter-spacing: var(--l-tracking-sub);
+  color: #020100;
+}
+
+.successTitleHighlight {
+  color: #f45523;
+}
+
+.successMessage {
+  margin: 0;
+  width: 100%;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+.successCta {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(12 * var(--l-vw)) 0;
+  border: 1px solid #eeeeee;
+  border-radius: calc(12 * var(--l-vw));
+  background: #ffffff;
+}
+
+.successCtaText {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.successCtaLink {
+  font-weight: 500;
+  color: #020100;
+  text-decoration: none;
+}
+
+.successCtaLink:hover {
+  text-decoration: underline;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.fieldRow {
+  display: flex;
+  gap: calc(16 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(6 * var(--l-vw));
+  align-items: flex-start;
+  min-width: 0;
+  width: 100%;
+}
+
+.label {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(14 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(24 * var(--l-vw));
+  letter-spacing: calc(-0.56 * var(--l-vw));
+  color: #020100;
+  white-space: nowrap;
+}
+
+.input,
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: calc(12 * var(--l-vw)) calc(16 * var(--l-vw));
+  border: 1px solid #dedede;
+  border-radius: calc(8 * var(--l-vw));
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #8d8d8d;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #020100;
+}
+
+.textarea {
+  height: calc(156 * var(--l-vw));
+  resize: vertical;
+  min-height: calc(156 * var(--l-vw));
+}
+
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(8 * var(--l-vw));
+  flex-shrink: 0;
+  margin: 0;
+  padding: calc(12 * var(--l-vw)) calc(36 * var(--l-vw)) calc(12 * var(--l-vw))
+    calc(40 * var(--l-vw));
+  border: 1px solid #ffffff;
+  border-radius: 40px;
+  background: linear-gradient(180deg, #292120 0%, #1f1714 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 500;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.submit:hover {
+  opacity: 0.92;
+}
+
+.submit:focus-visible {
+  outline: 2px solid #f45523;
+  outline-offset: 2px;
+}
+
+.submitIcon {
+  font-size: calc(20 * var(--l-vw));
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .row {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .copy {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    gap: 32px;
+    padding: 40px 20px 64px;
+  }
+
+  .badge {
+    padding: 4px 12px;
+    font-size: var(--l-fs-16);
+    line-height: var(--l-lh-16);
+    letter-spacing: var(--l-tracking);
+  }
+
+  .copyInner {
+    gap: var(--l-copy-gap);
+  }
+
+  .headlineLine {
+    line-height: calc(52 * var(--l-vw));
+  }
+
+  .formCard {
+    gap: 20px;
+    min-height: 0;
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .successCard {
+    gap: 20px;
+    min-height: 420px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .successIcon {
+    width: 96px;
+    height: 96px;
+  }
+
+  .successTitle {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.28px;
+  }
+
+  .successMessage {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .successCta {
+    padding: 12px 8px;
+    border-radius: 12px;
+  }
+
+  .successCtaText {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .fields {
+    gap: 16px;
+  }
+
+  .fieldRow {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .label {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.56px;
+  }
+
+  .input,
+  .textarea {
+    padding: 12px 16px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .textarea {
+    height: 140px;
+    min-height: 140px;
+  }
+
+  .submit {
+    width: 100%;
+    padding: 12px 24px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .submitIcon {
+    font-size: 20px;
+  }
+}

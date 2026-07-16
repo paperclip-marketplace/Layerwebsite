@@ -34,6 +34,7 @@ export const ROUTES = {
   terms: '/terms',
   privacy: '/privacy',
   comingSoon: '/coming-soon',
+  contact: '/contact',
   contactSales: 'mailto:hello@withlayer.ai',
 } as const;
 
