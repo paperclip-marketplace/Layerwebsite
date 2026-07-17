@@ -240,23 +240,21 @@ export function ContactUs() {
         data-name="bg"
       >
         <div className={styles.backdropWhite} />
+        {/*
+          PitchBots glow — under the grid. Edit colors in new-frame.svg
+        */}
+        <div className={styles.bottomEllipse}>
+          <img
+            src={CONTACT_ASSETS.bottomGlow}
+            alt=""
+            className={styles.bottomEllipseSvg}
+          />
+        </div>
         <div className={styles.backdropGrid} data-node-id="1634:8737">
           <div className={styles.backdropGridV} />
           <div className={styles.backdropGridH} />
         </div>
         <div className={styles.backdropFade} data-node-id="1634:8768" />
-      </div>
-
-      {/*
-        PitchBots glow as editable SVG — edit stop colors in
-        public/assets/images/contact/new-frame.svg
-      */}
-      <div className={styles.bottomEllipse} aria-hidden>
-        <img
-          src={CONTACT_ASSETS.bottomGlow}
-          alt=""
-          className={styles.bottomEllipseSvg}
-        />
       </div>
 
       <div className={styles.content}>
