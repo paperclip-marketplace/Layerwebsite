@@ -3,13 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useEffect, useState, type ChangeEvent } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   LandingHeadingReveal,
   LandingSubheadingReveal,
 } from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
-import { CONTACT_ASSETS, SUCCESS_CHECK_DURATION_MS } from "./contact-assets";
+import { CONTACT_ASSETS } from "./contact-assets";
+import { SuccessCheckIcon } from "./success-check-icon";
 import styles from "./contact-us.module.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type ContactFormState = {
   firstName: string;
@@ -27,37 +32,19 @@ const INITIAL_STATE: ContactFormState = {
   message: "",
 };
 
-/** Check GIF plays once, then locks to the completed frame. */
-function SuccessCheckIcon() {
-  const [frozen, setFrozen] = useState(false);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setFrozen(true);
-    }, SUCCESS_CHECK_DURATION_MS);
-
-    return () => window.clearTimeout(timer);
-  }, []);
-
-  return (
-    <Image
-      src={
-        frozen ? CONTACT_ASSETS.successCheckFinal : CONTACT_ASSETS.successCheck
-      }
-      alt=""
-      width={120}
-      height={120}
-      className={styles.successIconImg}
-      unoptimized
-      priority
-    />
-  );
-}
-
 /** Form + success card — state lives here so typing does not re-render the headline. */
 function ContactFormCard() {
   const [form, setForm] = useState<ContactFormState>(INITIAL_STATE);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!submitted) return;
+    // Layout swaps form → success; refresh smoother/triggers so the card isn’t clipped.
+    const id = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [submitted]);
 
   const updateField =
     (field: keyof ContactFormState) =>
@@ -67,6 +54,7 @@ function ContactFormCard() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    event.stopPropagation();
     setSubmitted(true);
   };
 
@@ -85,7 +73,7 @@ function ContactFormCard() {
             data-node-id="1634:9787"
             data-name="https://lottiefiles.com/animations/check-M8DjnL5QnE"
           >
-            <SuccessCheckIcon />
+            <SuccessCheckIcon className={styles.successIconImg} />
           </div>
           <div className={styles.successCopy} data-node-id="1634:9762">
             <p className={styles.successTitle} data-node-id="1634:9763">
@@ -244,11 +232,21 @@ export function ContactUs() {
           PitchBots glow — under the grid. Edit colors in new-frame.svg
         */}
         <div className={styles.bottomEllipse}>
-          <img
-            src={CONTACT_ASSETS.bottomGlow}
-            alt=""
-            className={styles.bottomEllipseSvg}
-          />
+          <div className={styles.bottomEllipsePulse}>
+            <div className={styles.bottomEllipseFlow}>
+              <img
+                src={CONTACT_ASSETS.bottomGlow}
+                alt=""
+                className={styles.bottomEllipseSvg}
+              />
+              <img
+                src={CONTACT_ASSETS.bottomGlow}
+                alt=""
+                className={styles.bottomEllipseSvg}
+                aria-hidden
+              />
+            </div>
+          </div>
         </div>
         <div className={styles.backdropGrid} data-node-id="1634:8737">
           <div className={styles.backdropGridV} />

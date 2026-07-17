@@ -54,19 +54,94 @@
   bottom: -75px;
   width: 1800px;
   height: 250px;
+  overflow: hidden;
+  /* Blur stays on the wrapper so pulse/flow can animate children safely */
   filter: blur(90px);
-  opacity: 1;
   pointer-events: none;
   transform: scaleY(-1);
 }
 
+.bottomEllipsePulse {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  animation: contactGlowPulse 7.2s ease-in-out infinite;
+}
+
+.bottomEllipseFlow {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  /* One L→R tile shift per pulse beat */
+  animation: contactGlowFlow 3.6s linear infinite;
+}
+
 .bottomEllipseSvg {
   display: block;
-  width: 100%;
+  flex: 0 0 50%;
+  width: 50%;
   height: 100%;
   max-width: none;
   object-fit: fill;
   pointer-events: none;
+}
+
+/*
+ * Pulse intensity + gentle warm hue drift (lime/gold ↔ peach/rose).
+ * hue-rotate stays small so colors stay related — no opposite jumps.
+ */
+@keyframes contactGlowPulse {
+  /* soft trough — slight lime-gold */
+  0%,
+  100% {
+    opacity: 0.55;
+    filter: brightness(1.08) saturate(0.95) contrast(1) hue-rotate(-4deg);
+    transform: scale(1);
+  }
+  /* peak 1 — deeper amber / gold */
+  25% {
+    opacity: 1;
+    filter: brightness(0.76) saturate(1.28) contrast(1.12) hue-rotate(-11deg);
+    transform: scale(1.04);
+  }
+  /* soft trough — neutral warm */
+  50% {
+    opacity: 0.55;
+    filter: brightness(1.08) saturate(0.95) contrast(1) hue-rotate(2deg);
+    transform: scale(1);
+  }
+  /* peak 2 — deeper peach / rose */
+  75% {
+    opacity: 1;
+    filter: brightness(0.76) saturate(1.28) contrast(1.12) hue-rotate(12deg);
+    transform: scale(1.04);
+  }
+}
+
+@keyframes contactGlowFlow {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottomEllipsePulse,
+  .bottomEllipseFlow {
+    animation: none;
+  }
+
+  .bottomEllipsePulse {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .bottomEllipseFlow {
+    transform: none;
+  }
 }
 
 .backdropGrid {
@@ -272,6 +347,8 @@
 
 /* Figma 1634:9657 — Success state (same card footprint as form) */
 .successCard {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
@@ -279,6 +356,7 @@
   align-items: center;
   justify-content: center;
   align-self: stretch;
+  width: 100%;
   min-width: 0;
   min-height: calc(534 * var(--l-vw));
   box-sizing: border-box;
@@ -302,9 +380,10 @@
 .successIcon {
   position: relative;
   flex-shrink: 0;
-  width: calc(120 * var(--l-vw));
-  height: calc(120 * var(--l-vw));
-  overflow: hidden;
+  /* Figma 1634:9787 — 120×120 */
+  width: calc(96 * var(--l-vw));
+  height: calc(96 * var(--l-vw));
+  overflow: visible;
 }
 
 .successIconImg {
@@ -312,7 +391,6 @@
   width: 100%;
   height: 100%;
   max-width: none;
-  object-fit: cover;
   pointer-events: none;
 }
 
@@ -432,7 +510,8 @@
   padding: calc(12 * var(--l-vw)) calc(16 * var(--l-vw));
   border: 1px solid #dedede;
   border-radius: calc(8 * var(--l-vw));
-  background: #ffffff;
+  background-color: #ffffff;
+  background-image: none;
   box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
   font-family: var(--layer-font-geist-sans);
   font-size: var(--l-fs-16);
@@ -440,8 +519,11 @@
   line-height: var(--l-lh-16);
   letter-spacing: var(--l-tracking);
   color: #020100;
+  caret-color: #020100;
   outline: none;
   transition: border-color 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .input::placeholder,
@@ -450,8 +532,29 @@
 }
 
 .input:focus,
-.textarea:focus {
-  border-color: #020100;
+.input:focus-visible,
+.textarea:focus,
+.textarea:focus-visible {
+  outline: none;
+  border-color: #dedede;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
+}
+
+/* Keep white surface — browsers paint autofill / typed fields blue otherwise */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active,
+.textarea:-webkit-autofill,
+.textarea:-webkit-autofill:hover,
+.textarea:-webkit-autofill:focus,
+.textarea:-webkit-autofill:active {
+  -webkit-text-fill-color: #020100;
+  caret-color: #020100;
+  border: 1px solid #dedede;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  transition: background-color 99999s ease-out;
 }
 
 .textarea {
@@ -580,8 +683,8 @@
   }
 
   .successIcon {
-    width: 96px;
-    height: 96px;
+    width: 80px;
+    height: 80px;
   }
 
   .successTitle {

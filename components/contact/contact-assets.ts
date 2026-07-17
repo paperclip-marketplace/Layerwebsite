@@ -2,10 +2,4 @@
 export const CONTACT_ASSETS = {
   /** Editable glow SVG (converted from PitchBots new-frame.png). */
   bottomGlow: "/assets/images/contact/new-frame.svg",
-  /** Plays once (~1.06s), then freeze on successCheckFinal. */
-  successCheck: "/assets/images/contact/success-check.gif",
-  successCheckFinal: "/assets/images/contact/success-check-final.png",
 } as const;
-
-/** Duration of success-check.gif before freezing on the final frame. */
-export const SUCCESS_CHECK_DURATION_MS = 1100;

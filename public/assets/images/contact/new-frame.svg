@@ -6,24 +6,25 @@
 >
   <!--
     Contact Us bottom glow. Edit stop-color values below to retune.
-    This file is what the contact page loads (not new-frame.png).
-    Order: lime (left) → gold → peach → pink (right) — L/R swapped.
+    Spectrum is mirrored end-to-end so L→R tiling flows seamlessly.
   -->
   <defs>
     <linearGradient id="contactGlowH" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="5%" stop-color="#d7d97f" />
-      <stop offset="12%" stop-color="#dbce5e" />
-      <stop offset="20%" stop-color="#e8bd44" />
-      <stop offset="28%" stop-color="#f4b339" />
-      <stop offset="36%" stop-color="#f8a836" />
-      <stop offset="44%" stop-color="#f99d39" />
-      <stop offset="52%" stop-color="#f5943f" />
-      <stop offset="60%" stop-color="#ef8a44" />
-      <stop offset="68%" stop-color="#e97e4c" />
-      <stop offset="76%" stop-color="#e47256" />
+      <stop offset="0%" stop-color="#d7d97f" />
+      <stop offset="8%" stop-color="#dbce5e" />
+      <stop offset="16%" stop-color="#e8bd44" />
+      <stop offset="24%" stop-color="#f4b339" />
+      <stop offset="32%" stop-color="#f8a836" />
+      <stop offset="40%" stop-color="#f99d39" />
+      <stop offset="48%" stop-color="#f5943f" />
+      <stop offset="50%" stop-color="#e97e4c" />
+      <stop offset="52%" stop-color="#e47256" />
+      <stop offset="60%" stop-color="#e16865" />
+      <stop offset="68%" stop-color="#dc657b" />
+      <stop offset="76%" stop-color="#dd779e" />
       <stop offset="84%" stop-color="#e16865" />
-      <stop offset="92%" stop-color="#dc657b" />
-      <stop offset="97%" stop-color="#dd779e" />
+      <stop offset="92%" stop-color="#e97e4c" />
+      <stop offset="100%" stop-color="#d7d97f" />
     </linearGradient>
     <linearGradient id="contactGlowFade" x1="0" y1="0" x2="0" y2="409" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#fff" stop-opacity="1" />
