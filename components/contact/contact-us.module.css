@@ -8,7 +8,9 @@
   align-items: flex-start;
   box-sizing: border-box;
   width: 100%;
+  /* Clip bottom bleed into the next section; allow L/R glow overflow */
   overflow: visible;
+  clip-path: inset(0 -100vw 0 -100vw);
   background: transparent;
 }
 
@@ -38,24 +40,28 @@
   background: #ffffff;
 }
 
-.backdropGlow {
+/*
+ * PitchBots glow — loads new-frame.svg (not the PNG).
+ * Edit stop-color values in public/assets/images/contact/new-frame.svg
+ */
+.bottomEllipse {
   position: absolute;
-  top: calc(-1 * var(--l-vw));
-  left: 50%;
-  width: min(100vw, var(--l-shell-w));
-  height: calc(210 * var(--l-vw));
-  margin-left: calc(min(100vw, var(--l-shell-w)) / -2);
-  overflow: visible;
+  z-index: 0;
+  left: calc(50% - 900px);
+  bottom: -75px;
+  width: 1800px;
+  height: 250px;
+  filter: blur(90px);
+  opacity: 1;
   pointer-events: none;
+  transform: scaleY(-1);
 }
 
-.backdropGlowImg {
-  position: absolute;
-  inset: -384.76% -44.65% -44.29% -44.58%;
+.bottomEllipseSvg {
   display: block;
   width: 100%;
-  max-width: none;
   height: 100%;
+  max-width: none;
   object-fit: fill;
   pointer-events: none;
 }
@@ -132,7 +138,7 @@
 
 .content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -465,50 +471,84 @@
   line-height: 1;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .row {
     flex-direction: column;
+    align-items: stretch;
     gap: 40px;
   }
 
   .copy {
     width: 100%;
+    align-self: auto;
   }
 }
 
+/* Figma 1634:9238 — Contact Us mobile (402 reference) */
 @media (max-width: 768px) {
   .content {
-    gap: 32px;
-    padding: 40px 20px 64px;
+    gap: 40px;
+    /* Gutter already provides 20px inset */
+    padding: 40px 0 80px;
   }
 
   .badge {
     padding: 4px 12px;
-    font-size: var(--l-fs-16);
-    line-height: var(--l-lh-16);
-    letter-spacing: var(--l-tracking);
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .row {
+    gap: 40px;
+  }
+
+  .copy {
+    gap: 0;
   }
 
   .copyInner {
-    gap: var(--l-copy-gap);
+    gap: 16px;
+  }
+
+  .headline {
+    font-size: 48px;
+    letter-spacing: -1.92px;
   }
 
   .headlineLine {
-    line-height: calc(52 * var(--l-vw));
+    line-height: 52px;
   }
 
-  .formCard {
-    gap: 20px;
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .formCard,
+  .successCard {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     min-height: 0;
-    padding: 24px;
+    gap: 24px;
+    padding: 20px;
+    border: 1px solid #eeeeee;
     border-radius: 16px;
+    background: #f9f9f9;
+    box-shadow: 0 16px 16px rgba(0, 0, 0, 0.12);
   }
 
   .successCard {
-    gap: 20px;
+    align-items: center;
     min-height: 420px;
-    padding: 16px;
-    border-radius: 16px;
   }
 
   .successIcon {
@@ -539,39 +579,78 @@
     letter-spacing: -0.64px;
   }
 
+  /* Figma 1634:9525 — stacked fields, 20px gap, full card width */
   .fields {
-    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
   }
 
   .fieldRow {
+    display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .field {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
   }
 
   .label {
     font-size: 14px;
     line-height: 24px;
     letter-spacing: -0.56px;
+    color: #020100;
   }
 
   .input,
   .textarea {
+    box-sizing: border-box;
+    width: 100%;
     padding: 12px 16px;
+    border: 1px solid #dedede;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
     font-size: 16px;
     line-height: 24px;
     letter-spacing: -0.64px;
   }
 
-  .textarea {
-    height: 140px;
-    min-height: 140px;
+  .input {
+    height: 48px;
   }
 
+  .textarea {
+    height: 156px;
+    min-height: 156px;
+    resize: vertical;
+  }
+
+  /* Figma 1634:9566 — full-width 48px pill button */
   .submit {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
     width: 100%;
-    padding: 12px 24px;
+    height: 48px;
+    padding: 12px 36px 12px 40px;
+    border: 1px solid #ffffff;
+    border-radius: 40px;
     font-size: 16px;
+    font-weight: 500;
     line-height: 24px;
+    letter-spacing: -0.64px;
   }
 
   .submitIcon {

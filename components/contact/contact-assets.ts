@@ -1,6 +1,7 @@
 /** Figma 1634:8734 / 1634:9657 — Contact Us assets. */
 export const CONTACT_ASSETS = {
-  bgGlow: "/assets/images/contact/bg-glow.svg",
+  /** Editable glow SVG (converted from PitchBots new-frame.png). */
+  bottomGlow: "/assets/images/contact/new-frame.svg",
   /** Plays once (~1.06s), then freeze on successCheckFinal. */
   successCheck: "/assets/images/contact/success-check.gif",
   successCheckFinal: "/assets/images/contact/success-check-final.png",

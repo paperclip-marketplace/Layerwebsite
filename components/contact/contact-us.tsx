@@ -2,21 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FormEvent,
-  useEffect,
-  useState,
-  type ChangeEvent,
-} from "react";
+import { FormEvent, useEffect, useState, type ChangeEvent } from "react";
 import {
   LandingHeadingReveal,
   LandingSubheadingReveal,
 } from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
-import {
-  CONTACT_ASSETS,
-  SUCCESS_CHECK_DURATION_MS,
-} from "./contact-assets";
+import { CONTACT_ASSETS, SUCCESS_CHECK_DURATION_MS } from "./contact-assets";
 import styles from "./contact-us.module.css";
 
 type ContactFormState = {
@@ -50,9 +42,7 @@ function SuccessCheckIcon() {
   return (
     <Image
       src={
-        frozen
-          ? CONTACT_ASSETS.successCheckFinal
-          : CONTACT_ASSETS.successCheck
+        frozen ? CONTACT_ASSETS.successCheckFinal : CONTACT_ASSETS.successCheck
       }
       alt=""
       width={120}
@@ -250,18 +240,23 @@ export function ContactUs() {
         data-name="bg"
       >
         <div className={styles.backdropWhite} />
-        <div className={styles.backdropGlow} data-node-id="1634:8735">
-          <img
-            src={CONTACT_ASSETS.bgGlow}
-            alt=""
-            className={styles.backdropGlowImg}
-          />
-        </div>
         <div className={styles.backdropGrid} data-node-id="1634:8737">
           <div className={styles.backdropGridV} />
           <div className={styles.backdropGridH} />
         </div>
         <div className={styles.backdropFade} data-node-id="1634:8768" />
+      </div>
+
+      {/*
+        PitchBots glow as editable SVG — edit stop colors in
+        public/assets/images/contact/new-frame.svg
+      */}
+      <div className={styles.bottomEllipse} aria-hidden>
+        <img
+          src={CONTACT_ASSETS.bottomGlow}
+          alt=""
+          className={styles.bottomEllipseSvg}
+        />
       </div>
 
       <div className={styles.content}>

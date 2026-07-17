@@ -19,10 +19,18 @@
 
 @media (max-width: 768px) {
   .main {
+    --landing-header-h: 56px;
     padding-top: var(--landing-header-h);
   }
 
   .landing-page-gutter .main.landing-main__inner {
     padding-inline: 0;
+  }
+
+  /* Figma 1634:9297 — clients band under contact form */
+  .clientsSpacing :global(.landing-clients-section) {
+    gap: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 }
