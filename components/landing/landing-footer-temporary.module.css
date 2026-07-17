@@ -1,4 +1,6 @@
-/* Figma 1494:2744 / 1494:2745 — compact temporary footer */
+/* Figma 1494:2744 / 1494:2745 — compact temporary footer
+ * Phone: Figma 1634:9419 Footer Content
+ */
 .section {
   position: relative;
   isolation: isolate;
@@ -70,6 +72,27 @@
   width: 61px;
   height: 22px;
   flex-shrink: 0;
+}
+
+/* Phone-only primary nav (1634:9427) */
+.pricingLink {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  border-radius: 8px;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.64px;
+  color: #020100;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pricingLink:hover {
+  opacity: 0.8;
 }
 
 .divider {
@@ -175,15 +198,49 @@
   }
 }
 
+/* Figma 1634:9419 — phone Footer Content (402) */
 @media (max-width: 768px) {
+  .gutter:global(.landing-page-gutter) {
+    padding-inline: 10px;
+  }
+
   .card {
-    padding: 40px;
-    border-radius: calc(24 * var(--l-vw));
+    gap: 40px;
+    padding: 20px;
+    border-radius: 40px;
   }
 
   .row {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+  }
+
+  .logoLink {
+    order: 1;
+  }
+
+  .logo {
+    width: 157px;
+    height: 39px;
+    gap: 12px;
+  }
+
+  .logoMark {
+    width: 51px;
+    height: 38px;
+  }
+
+  .logoWordmark {
+    width: 91px;
+    height: 33px;
+  }
+
+  .pricingLink {
+    display: inline-flex;
+    order: 2;
   }
 
   .divider {
@@ -191,17 +248,37 @@
   }
 
   .meta {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .copyright {
-    white-space: normal;
+    display: contents;
   }
 
   .legalLinks {
-    flex-wrap: wrap;
-    row-gap: calc(8 * var(--l-vw));
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+  }
+
+  .legalLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+    color: #8d8d8d;
+  }
+
+  .copyright {
+    order: 4;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+    white-space: nowrap;
   }
 }
