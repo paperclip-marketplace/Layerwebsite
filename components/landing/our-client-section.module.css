@@ -186,6 +186,10 @@
 /* Figma 513:1194 — Forward Thinking Logos Container (mobile only) */
 @media (max-width: 768px) {
   .section {
+    /* Restore full-bleed band — module width:100% was overriding .landing-band-left */
+    width: calc(100% + 2 * var(--l-page-gutter, 20px));
+    max-width: none;
+    margin-inline: calc(-1 * var(--l-page-gutter, 20px));
     gap: 32px;
     padding-top: 40px;
     padding-bottom: 80px;
