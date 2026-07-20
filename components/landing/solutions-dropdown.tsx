@@ -4,7 +4,6 @@ import Link from "next/link";
 import { forwardRef } from "react";
 import { SOLUTIONS_NAV } from "@/lib/landing/landing-nav";
 import { SOLUTIONS_NAV_IMAGES } from "@/lib/landing/header-nav-assets";
-import { LandingOptimizedImage } from "./landing-optimized-image";
 import styles from "./nav-dropdown.module.css";
 
 const SOLUTION_ITEMS = SOLUTIONS_NAV_IMAGES.map((image, index) => ({
@@ -65,13 +64,7 @@ function DropdownItem({
       style={isActive ? { backgroundColor: "#f9f9f9" } : {}}
     >
       <div className={styles.itemImage}>
-        <LandingOptimizedImage
-          src={image}
-          alt={title}
-          fill
-          sizes="92px"
-          className={styles.itemImageImg}
-        />
+        <img src={image} alt={title} />
       </div>
       <div className={styles.itemText}>
         <p className={styles.itemTitle}>{title}</p>

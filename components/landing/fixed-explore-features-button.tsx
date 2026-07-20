@@ -12,7 +12,6 @@ import {
 import gsap from "gsap";
 import { CUSTOMER_FACING_PRODUCTS } from "@/lib/config/customer-facing-products";
 import { CUSTOMER_FACING_PRODUCT_PAGE_HREFS } from "@/lib/landing/landing-nav";
-import { LandingOptimizedImage } from "./landing-optimized-image";
 import styles from "./fixed-explore-features-button.module.css";
 
 const MORPH_DURATION = 0.48;
@@ -458,13 +457,7 @@ export function FixedExploreFeaturesButton() {
                         onClick={close}
                       >
                         <div className={styles.itemImage}>
-                          <LandingOptimizedImage
-                            src={product.image}
-                            alt=""
-                            fill
-                            sizes="92px"
-                            className={styles.itemImageImg}
-                          />
+                          <img src={product.image} alt="" />
                         </div>
                         <div className={styles.itemText}>
                           <div className={styles.itemTitleRow}>

@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import styles from "./team-experience.module.css";
-import { LandingOptimizedImage } from "./landing-optimized-image";
 import { TEAM_LOGOS, type TeamLogo, type TeamLogoFit } from "./team-experience-logos";
 import { useLandingLogoMarquee } from "./use-landing-logo-marquee";
 
@@ -21,13 +20,14 @@ function TeamLogoCell({
 }) {
   return (
     <div ref={cellRef} className={styles.logoCell} data-name="Logo">
-      <LandingOptimizedImage
+      <img
         src={logo.src}
         alt={logo.alt}
         width={136}
         height={64}
         className={`${styles.logoImg} ${fitClass(logo.fit)}`}
-        sizes="136px"
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );

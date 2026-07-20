@@ -18,6 +18,8 @@ export function PersonalAgentWhyNowSection() {
           src={PERSONAL_AGENT_ASSETS.whyNowTexture}
           alt=""
           className={styles.texture}
+          loading="lazy"
+          decoding="async"
         />
       </div>
 

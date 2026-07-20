@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
-import { LandingOptimizedImage } from "@/components/landing/landing-optimized-image";
 import { ROUTES } from "@/lib/config/constants";
 import styles from "./pricing-cta-cards-section.module.css";
 
@@ -33,13 +32,14 @@ export function PricingCtaCardsSection() {
           </p>
         </div>
         <div className={styles.imageArea} data-node-id="336:1891">
-          <LandingOptimizedImage
-            src={`${CTA_IMAGE_BASE}/create-agent.webp`}
+          <img
+            src={`${CTA_IMAGE_BASE}/create-agent.png`}
             alt="Layer workflow builder for creating your first agent"
             className={styles.imageCreate}
             width={700}
             height={378}
-            sizes="(max-width: 900px) 90vw, 700px"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </article>
@@ -68,13 +68,14 @@ export function PricingCtaCardsSection() {
           </p>
         </div>
         <div className={styles.imageArea} data-node-id="336:1896">
-          <LandingOptimizedImage
-            src={`${CTA_IMAGE_BASE}/watch-demo.webp`}
+          <img
+            src={`${CTA_IMAGE_BASE}/watch-demo.png`}
             alt="Layer product demo with video and copilot interface"
             className={styles.imageDemo}
             width={700}
             height={378}
-            sizes="(max-width: 900px) 90vw, 700px"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </article>
