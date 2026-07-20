@@ -1,13 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import styles from "./landing-split-section.module.css";
 import { PerformWidgetExpanded } from "./perform-widget-expanded";
-import {
-  LandingOptimizedImage,
-  prefetchOptimizedImages,
-} from "./landing-optimized-image";
 import {
   usePinnedHorizontalScroll,
   usePinnedHorizontalScrollEnabled,
@@ -52,14 +48,13 @@ const SPLIT_CARDS: SplitCardConfig[] = [
         <span className={styles.emphasis}>win the stage.</span>
       </>
     ),
-    backgrounds: [`${ASSET}/prepare-bg.webp`],
+    backgrounds: [`${ASSET}/prepare-bg.png`],
     bgGradient: true,
-    mainImage: `${ASSET}/prepare-main.webp`,
-    mainAlt:
-      "Prepare workflow showing conversation context and next-best actions",
+    mainImage: `${ASSET}/prepare-main.png`,
+    mainAlt: "Prepare workflow showing conversation context and next-best actions",
     fadeClass: styles.visualFadeDark,
     secondary: {
-      src: `${ASSET}/prepare-secondary.webp`,
+      src: `${ASSET}/prepare-secondary.png`,
       alt: "Recommended approach panel",
       wrapClass: styles.prepareSecondary,
       imgClass: styles.prepareSecondaryImg,
@@ -77,12 +72,12 @@ const SPLIT_CARDS: SplitCardConfig[] = [
         stakes are real.
       </>
     ),
-    backgrounds: [`${ASSET}/practice-bg.webp`],
-    mainImage: `${ASSET}/practice-main.webp`,
+    backgrounds: [`${ASSET}/practice-bg.png`],
+    mainImage: `${ASSET}/practice-main.png`,
     mainAlt: "Practice roleplay session interface",
     fadeClass: styles.visualFadeLight,
     secondary: {
-      src: `${ASSET}/practice-secondary.webp`,
+      src: `${ASSET}/practice-secondary.png`,
       alt: "Roleplay participant card",
       wrapClass: styles.practiceSecondary,
       imgClass: styles.practiceSecondaryImg,
@@ -103,7 +98,7 @@ const SPLIT_CARDS: SplitCardConfig[] = [
         <span className={styles.emphasis}>in the moment.</span>
       </>
     ),
-    backgrounds: [`${ASSET}/perform-bg.webp`],
+    backgrounds: [`${ASSET}/perform-bg.png`],
     performLayout: true,
   },
   {
@@ -119,8 +114,8 @@ const SPLIT_CARDS: SplitCardConfig[] = [
         Increase <span className={styles.emphasis}>customer time.</span>
       </>
     ),
-    backgrounds: [`${ASSET}/follow-up-bg.webp`],
-    mainImage: `${ASSET}/follow-up-main.webp`,
+    backgrounds: [`${ASSET}/follow-up-bg.png`],
+    mainImage: `${ASSET}/follow-up-main.png`,
     mainAlt: "Follow-up and CRM update workflow",
     fadeClass: styles.visualFadeFollowUp,
   },
@@ -137,54 +132,26 @@ const SPLIT_CARDS: SplitCardConfig[] = [
         <span className={styles.emphasis}> after every call.</span>
       </>
     ),
-    backgrounds: [`${ASSET}/improve-bg.webp`],
-    mainImage: `${ASSET}/improve-main.webp`,
+    backgrounds: [`${ASSET}/improve-bg.png`],
+    mainImage: `${ASSET}/improve-main.png`,
     mainAlt: "Session list in Layer",
     improveLayout: true,
   },
 ];
 
-function slideAssets(card: SplitCardConfig): string[] {
-  const srcs = [...card.backgrounds];
-  if (card.mainImage) srcs.push(card.mainImage);
-  if (card.secondary?.src) srcs.push(card.secondary.src);
-  if (card.performLayout) {
-    srcs.push(
-      `${ASSET}/perform-main.webp`,
-      `${ASSET}/perform-widget/texture.webp`,
-      `${ASSET}/perform-widget/agent-avatar.webp`,
-    );
-  }
-  if (card.improveLayout) {
-    srcs.push(`${ASSET}/improve-main.webp`, `${ASSET}/improve-secondary.webp`);
-  }
-  return srcs;
-}
-
-function PerformCardVisual({ priority }: { priority?: boolean }) {
+function PerformCardVisual() {
   return (
     <div
       className={styles.cardVisual}
       data-name="Perform Content"
       data-node-id="713:277"
     >
-      <div
-        className={styles.visualShell}
-        data-name="Perform Content Row"
-        data-node-id="713:278"
-      >
-        <div
-          className={styles.visualMain}
-          data-name="Perform Image"
-          data-node-id="713:279"
-        >
-          <LandingOptimizedImage
-            src={`${ASSET}/perform-main.webp`}
+      <div className={styles.visualShell} data-name="Perform Content Row" data-node-id="713:278">
+        <div className={styles.visualMain} data-name="Perform Image" data-node-id="713:279">
+          <img
+            src={`${ASSET}/perform-main.png`}
             alt="Live performance coaching interface"
-            fill
-            priority={priority}
             className={styles.visualMainImg}
-            sizes="(max-width: 900px) 100vw, 1024px"
           />
         </div>
         <div
@@ -198,14 +165,14 @@ function PerformCardVisual({ priority }: { priority?: boolean }) {
           data-name="Widget / Expanded"
           data-node-id="713:281"
         >
-          <PerformWidgetExpanded priority={priority} />
+          <PerformWidgetExpanded />
         </div>
       </div>
     </div>
   );
 }
 
-function ImproveCardVisual({ priority }: { priority?: boolean }) {
+function ImproveCardVisual() {
   return (
     <div
       className={styles.cardVisual}
@@ -223,13 +190,10 @@ function ImproveCardVisual({ priority }: { priority?: boolean }) {
             data-name="Improve Main Image"
             data-node-id="713:378"
           >
-            <LandingOptimizedImage
-              src={`${ASSET}/improve-main.webp`}
+            <img
+              src={`${ASSET}/improve-main.png`}
               alt="Layer sessions coaching dashboard"
-              fill
-              priority={priority}
               className={styles.visualMainImg}
-              sizes="(max-width: 900px) 100vw, 1024px"
             />
           </div>
         </div>
@@ -250,12 +214,10 @@ function ImproveCardVisual({ priority }: { priority?: boolean }) {
               data-node-id="713:381"
             >
               <div className={styles.improveSecondaryClip}>
-                <LandingOptimizedImage
-                  src={`${ASSET}/improve-secondary.webp`}
+                <img
+                  src={`${ASSET}/improve-secondary.png`}
                   alt="Discovery call coaching session review"
-                  fill
                   className={styles.improveSecondaryImg}
-                  sizes="(max-width: 900px) 80vw, 420px"
                 />
               </div>
             </div>
@@ -307,13 +269,7 @@ function ImproveCardVisual({ priority }: { priority?: boolean }) {
   );
 }
 
-function SplitCard({
-  card,
-  priority,
-}: {
-  card: SplitCardConfig;
-  priority?: boolean;
-}) {
+function SplitCard({ card }: { card: SplitCardConfig }) {
   return (
     <div className={styles.cardOuter} data-pin-scroll-card>
       <article
@@ -333,14 +289,11 @@ function SplitCard({
       >
         <div className={styles.cardBg} aria-hidden>
           {card.backgrounds.map((src, i) => (
-            <LandingOptimizedImage
+            <img
               key={src}
               src={src}
               alt=""
-              fill
-              priority={priority && i === 0}
               className={`${styles.cardBgImg} ${i > 0 ? styles.cardBgImgOverlay : ""}`}
-              sizes="(max-width: 900px) 100vw, 56vw"
             />
           ))}
           {card.bgGradient ? <div className={styles.cardBgGradient} /> : null}
@@ -357,23 +310,18 @@ function SplitCard({
         </header>
 
         {card.improveLayout ? (
-          <ImproveCardVisual priority={priority} />
+          <ImproveCardVisual />
         ) : card.performLayout ? (
-          <PerformCardVisual priority={priority} />
+          <PerformCardVisual />
         ) : (
           <div className={styles.cardVisual}>
             <div className={styles.visualShell}>
               <div className={styles.visualMain}>
-                {card.mainImage ? (
-                  <LandingOptimizedImage
-                    src={card.mainImage}
-                    alt={card.mainAlt ?? ""}
-                    fill
-                    priority={priority}
-                    className={styles.visualMainImg}
-                    sizes="(max-width: 900px) 100vw, 1024px"
-                  />
-                ) : null}
+                <img
+                  src={card.mainImage}
+                  alt={card.mainAlt}
+                  className={styles.visualMainImg}
+                />
               </div>
               {card.fadeClass ? (
                 <div className={`${styles.visualFade} ${card.fadeClass}`} />
@@ -382,13 +330,10 @@ function SplitCard({
                 <div
                   className={`${styles.visualSecondary} ${card.secondary.wrapClass}`}
                 >
-                  <LandingOptimizedImage
+                  <img
                     src={card.secondary.src}
                     alt={card.secondary.alt}
-                    fill
-                    priority={priority}
                     className={card.secondary.imgClass}
-                    sizes="(max-width: 900px) 50vw, 360px"
                   />
                 </div>
               ) : null}
@@ -404,12 +349,10 @@ function SplitCardTrack({
   trackRef,
   translateX,
   pinEnabled,
-  activeIndex,
 }: {
   trackRef: React.RefObject<HTMLDivElement>;
   translateX: number;
   pinEnabled: boolean;
-  activeIndex: number;
 }) {
   return (
     <div
@@ -422,9 +365,9 @@ function SplitCardTrack({
           : undefined
       }
     >
-      {SPLIT_CARDS.map((card, i) => (
+      {SPLIT_CARDS.map((card) => (
         <div key={card.id} role="listitem">
-          <SplitCard card={card} priority={i === 0 && activeIndex === 0} />
+          <SplitCard card={card} />
         </div>
       ))}
     </div>
@@ -435,33 +378,12 @@ export function LandingSplitSection() {
   const pinEnabled = usePinnedHorizontalScrollEnabled();
   const spacerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const { translateX, spacerHeight } = usePinnedHorizontalScroll({
     cardCount: SPLIT_CARDS.length,
     enabled: pinEnabled,
     spacerRef,
     trackRef,
   });
-
-  useEffect(() => {
-    if (!pinEnabled) {
-      prefetchOptimizedImages(slideAssets(SPLIT_CARDS[0]));
-      prefetchOptimizedImages(slideAssets(SPLIT_CARDS[1]));
-      return;
-    }
-    const next = Math.min(activeIndex + 1, SPLIT_CARDS.length - 1);
-    prefetchOptimizedImages(slideAssets(SPLIT_CARDS[next]));
-  }, [activeIndex, pinEnabled]);
-
-  useEffect(() => {
-    if (!pinEnabled || !trackRef.current) return;
-    const cardWidth = trackRef.current.scrollWidth / SPLIT_CARDS.length || 1;
-    const idx = Math.min(
-      SPLIT_CARDS.length - 1,
-      Math.max(0, Math.round(Math.abs(translateX) / cardWidth)),
-    );
-    setActiveIndex(idx);
-  }, [translateX, pinEnabled]);
 
   return (
     <section
@@ -481,17 +403,11 @@ export function LandingSplitSection() {
               trackRef={trackRef}
               translateX={translateX}
               pinEnabled
-              activeIndex={activeIndex}
             />
           </div>
         </div>
       ) : (
-        <SplitCardTrack
-          trackRef={trackRef}
-          translateX={0}
-          pinEnabled={false}
-          activeIndex={0}
-        />
+        <SplitCardTrack trackRef={trackRef} translateX={0} pinEnabled={false} />
       )}
     </section>
   );

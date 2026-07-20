@@ -72,6 +72,8 @@ export function PersonalAgentHeroSection() {
             src={PERSONAL_AGENT_ASSETS.heroTickerBg}
             alt=""
             className={styles.tickerBgImage}
+            loading="lazy"
+            decoding="async"
           />
           <div className={styles.tickerRadial} />
         </div>

@@ -57,6 +57,8 @@ function UseCaseCardMedia({
             src={PERSONAL_AGENT_ASSETS.useCasePrecall}
             alt=""
             className={styles.cardImagePrecall}
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -71,6 +73,8 @@ function UseCaseCardMedia({
             src={PERSONAL_AGENT_ASSETS.useCaseApprovalBg}
             alt=""
             className={styles.approvalBgImage}
+            loading="lazy"
+            decoding="async"
           />
           <div className={styles.approvalBgGradient} />
         </div>
@@ -79,6 +83,8 @@ function UseCaseCardMedia({
             <img
               src={PERSONAL_AGENT_ASSETS.useCaseApprovalAvatar}
               alt=""
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className={styles.approvalThread}>
@@ -129,6 +135,8 @@ function UseCaseCardMedia({
           src={PERSONAL_AGENT_ASSETS.useCaseTools}
           alt=""
           className={styles.cardImageTools}
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </div>

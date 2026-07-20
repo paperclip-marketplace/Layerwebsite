@@ -167,14 +167,6 @@
   opacity: 0.05;
 }
 
-.panelTextureWrap {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  overflow: hidden;
-  pointer-events: none;
-}
-
 .panelBlur {
   position: absolute;
   inset: 0;

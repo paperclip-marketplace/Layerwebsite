@@ -3,26 +3,26 @@ const BASE = "/assets/images/landing/header-nav";
 /** Figma 1070:1046 / 1070:1244 — header Products & Solutions dropdown thumbnails. */
 export const HEADER_NAV_ASSETS = {
   customerFacing: {
-    roleplay: `${BASE}/roleplay.webp`,
-    personalAgent: `${BASE}/personal-agent.webp`,
-    coaching: `${BASE}/coaching.webp`,
-    scoringAndFeedback: `${BASE}/scoring-and-feedback.webp`,
+    roleplay: `${BASE}/roleplay.png`,
+    personalAgent: `${BASE}/personal-agent.png`,
+    coaching: `${BASE}/coaching.png`,
+    scoringAndFeedback: `${BASE}/scoring-and-feedback.png`,
   },
   leadership: {
-    agentManagement: `${BASE}/agent-management.webp`,
-    playbooks: `${BASE}/playbooks.webp`,
-    skillsAndFrameworks: `${BASE}/skills-and-frameworks.webp`,
-    interviewAndTraining: `${BASE}/interview-and-training.webp`,
-    toolCallingAndIntegrations: `${BASE}/tool-calling-and-integrations.webp`,
+    agentManagement: `${BASE}/agent-management.png`,
+    playbooks: `${BASE}/playbooks.png`,
+    skillsAndFrameworks: `${BASE}/skills-and-frameworks.png`,
+    interviewAndTraining: `${BASE}/interview-and-training.png`,
+    toolCallingAndIntegrations: `${BASE}/tool-calling-and-integrations.png`,
   },
   solutions: {
-    ramp: `${BASE}/ramp.webp`,
-    quotaAttainment: `${BASE}/quota-attainment.webp`,
-    customerFacingTime: `${BASE}/customer-facing-time.webp`,
+    ramp: `${BASE}/ramp.png`,
+    quotaAttainment: `${BASE}/quota-attainment.png`,
+    customerFacingTime: `${BASE}/customer-facing-time.png`,
   },
   productsFooter: {
-    coPilotV2: `${BASE}/co-pilot-v2.webp`,
-    appleIcon: `${BASE}/apple-icon.webp`,
+    coPilotV2: `${BASE}/co-pilot-v2.png`,
+    appleIcon: `${BASE}/apple-icon.png`,
   },
 } as const;
 

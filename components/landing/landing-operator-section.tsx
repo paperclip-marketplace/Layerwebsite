@@ -1,8 +1,7 @@
-import { LandingOptimizedImage } from "./landing-optimized-image";
 import { LandingHeadingReveal, LandingSubheadingReveal } from "./landing-text-reveal";
 import styles from "./landing-operator-section.module.css";
 
-const TEAM_PHOTO = "/assets/images/landing/operator/team-photo.webp";
+const TEAM_PHOTO = "/assets/images/landing/operator/team-photo.png";
 
 /** Figma 713:1104 — Operator Section */
 export function LandingOperatorSection() {
@@ -74,12 +73,12 @@ export function LandingOperatorSection() {
 
         <div className={styles.imageBlock} data-name="Frame 1171276700" data-node-id="729:1330">
           <div className={styles.imageClip}>
-            <LandingOptimizedImage
+            <img
               src={TEAM_PHOTO}
               alt="Layer team in London"
-              fill
               className={styles.teamPhoto}
-              sizes="(max-width: 900px) 100vw, 720px"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className={styles.imageFadeTop} aria-hidden data-node-id="729:1331" />

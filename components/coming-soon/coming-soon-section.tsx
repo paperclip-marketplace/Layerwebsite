@@ -6,8 +6,8 @@ import {
 } from "@/components/landing/landing-text-reveal";
 import styles from "./coming-soon-section.module.css";
 
-const BG_PATTERN = "/assets/images/landing/coming-soon/bg-pattern.webp";
-const APP_PREVIEW = "/assets/images/landing/coming-soon/app-preview.webp";
+const BG_PATTERN = "/assets/images/landing/coming-soon/bg-pattern.png";
+const APP_PREVIEW = "/assets/images/landing/coming-soon/app-preview.png";
 
 export function ComingSoonSection() {
   return (
