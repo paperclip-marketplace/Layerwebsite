@@ -324,6 +324,17 @@ export function LandingHeader() {
                   Pricing
                 </Link>
               </div>
+              <div className={styles.navItemContainer}>
+                <Link
+                  href={ROUTES.contact}
+                  className={
+                    activeLink === "contact" ? styles.navLinkActive : styles.navLink
+                  }
+                  onClick={() => handleLinkClick("contact")}
+                >
+                  Contact Us
+                </Link>
+              </div>
             </nav>
           </div>
 
@@ -389,6 +400,13 @@ export function LandingHeader() {
           onClick={() => handleLinkClick("pricing")}
         >
           Pricing
+        </Link>
+        <Link
+          href={ROUTES.contact}
+          className={`${activeLink === "contact" ? styles.navLinkActive : styles.navLink} ${styles.mobileNavLink}`}
+          onClick={() => handleLinkClick("contact")}
+        >
+          Contact Us
         </Link>
         {SHOW_LANDING_DEMO_ENTRY ? (
           <Link

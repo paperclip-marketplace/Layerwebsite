@@ -1,0 +1,790 @@
+/* Figma 1634:8775 — Contact Us section */
+
+.section {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  /* Clip bottom bleed into the next section; allow L/R glow overflow */
+  overflow: visible;
+  clip-path: inset(0 -100vw 0 -100vw);
+  background: transparent;
+}
+
+/*
+ * Figma 1634:8734 — 1440px contact bg
+ * Vertical lines every ~95.824px (16 lines across 1440)
+ * Horizontal lines every ~84.4px
+ * Fade: white at top → transparent at bottom (grid stronger toward bottom)
+ */
+.backdrop {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  /* Visible so glow can spill L/R; section clip-path still cuts bottom */
+  overflow: visible;
+  pointer-events: none;
+  --contact-grid-x: calc(95.824 * var(--l-vw));
+  --contact-grid-y: calc(84.4 * var(--l-vw));
+}
+
+.backdropWhite {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: #ffffff;
+}
+
+/*
+ * PitchBots glow — loads new-frame.svg (not the PNG).
+ * Edit stop-color values in public/assets/images/contact/new-frame.svg
+ * Stack: white (0) → glow (1) → grid (2) → fade (3) → content (4)
+ */
+.bottomEllipse {
+  position: absolute;
+  z-index: 1;
+  left: calc(50% - 900px);
+  bottom: -75px;
+  width: 1800px;
+  height: 250px;
+  overflow: hidden;
+  /* Blur stays on the wrapper so pulse/flow can animate children safely */
+  filter: blur(90px);
+  pointer-events: none;
+  transform: scaleY(-1);
+}
+
+.bottomEllipsePulse {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  animation: contactGlowPulse 7.2s ease-in-out infinite;
+}
+
+.bottomEllipseFlow {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  /* One L→R tile shift per pulse beat */
+  animation: contactGlowFlow 3.6s linear infinite;
+}
+
+.bottomEllipseSvg {
+  display: block;
+  flex: 0 0 50%;
+  width: 50%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+/*
+ * Pulse intensity + gentle warm hue drift (lime/gold ↔ peach/rose).
+ * hue-rotate stays small so colors stay related — no opposite jumps.
+ */
+@keyframes contactGlowPulse {
+  /* soft trough — slight lime-gold */
+  0%,
+  100% {
+    opacity: 0.55;
+    filter: brightness(1.08) saturate(0.95) contrast(1) hue-rotate(-4deg);
+    transform: scale(1);
+  }
+  /* peak 1 — deeper amber / gold */
+  25% {
+    opacity: 1;
+    filter: brightness(0.76) saturate(1.28) contrast(1.12) hue-rotate(-11deg);
+    transform: scale(1.04);
+  }
+  /* soft trough — neutral warm */
+  50% {
+    opacity: 0.55;
+    filter: brightness(1.08) saturate(0.95) contrast(1) hue-rotate(2deg);
+    transform: scale(1);
+  }
+  /* peak 2 — deeper peach / rose */
+  75% {
+    opacity: 1;
+    filter: brightness(0.76) saturate(1.28) contrast(1.12) hue-rotate(12deg);
+    transform: scale(1.04);
+  }
+}
+
+@keyframes contactGlowFlow {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottomEllipsePulse,
+  .bottomEllipseFlow {
+    animation: none;
+  }
+
+  .bottomEllipsePulse {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .bottomEllipseFlow {
+    transform: none;
+  }
+}
+
+.backdropGrid {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  /*
+   * Figma 1634:8768 — inverse of white overlay so grid fades in downward
+   * (transparent at top → full opacity at bottom)
+   */
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.008) 11.79%,
+    rgba(0, 0, 0, 0.032) 21.384%,
+    rgba(0, 0, 0, 0.07) 29.12%,
+    rgba(0, 0, 0, 0.121) 35.336%,
+    rgba(0, 0, 0, 0.181) 40.37%,
+    rgba(0, 0, 0, 0.251) 44.56%,
+    rgba(0, 0, 0, 0.328) 48.243%,
+    rgba(0, 0, 0, 0.411) 51.757%,
+    rgba(0, 0, 0, 0.497) 55.44%,
+    rgba(0, 0, 0, 0.585) 59.63%,
+    rgba(0, 0, 0, 0.674) 64.664%,
+    rgba(0, 0, 0, 0.762) 70.88%,
+    rgba(0, 0, 0, 0.846) 78.616%,
+    rgba(0, 0, 0, 0.926) 88.21%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.008) 11.79%,
+    rgba(0, 0, 0, 0.032) 21.384%,
+    rgba(0, 0, 0, 0.07) 29.12%,
+    rgba(0, 0, 0, 0.121) 35.336%,
+    rgba(0, 0, 0, 0.181) 40.37%,
+    rgba(0, 0, 0, 0.251) 44.56%,
+    rgba(0, 0, 0, 0.328) 48.243%,
+    rgba(0, 0, 0, 0.411) 51.757%,
+    rgba(0, 0, 0, 0.497) 55.44%,
+    rgba(0, 0, 0, 0.585) 59.63%,
+    rgba(0, 0, 0, 0.674) 64.664%,
+    rgba(0, 0, 0, 0.762) 70.88%,
+    rgba(0, 0, 0, 0.846) 78.616%,
+    rgba(0, 0, 0, 0.926) 88.21%,
+    #000 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/*
+ * Figma 1634:8740 (V) + 1634:8757 (H):
+ * stroke #020100, group opacity 10% → rgba(2, 1, 0, 0.1)
+ */
+.backdropGridV,
+.backdropGridH {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.backdropGridV {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(2, 1, 0, 0.1) 0,
+    rgba(2, 1, 0, 0.1) 1px,
+    transparent 1px,
+    transparent var(--contact-grid-x)
+  );
+  background-size: var(--contact-grid-x) 100%;
+}
+
+.backdropGridH {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(2, 1, 0, 0.1) 0,
+    rgba(2, 1, 0, 0.1) 1px,
+    transparent 1px,
+    transparent var(--contact-grid-y)
+  );
+  background-size: 100% var(--contact-grid-y);
+}
+
+.backdropGridPattern {
+  display: none;
+}
+
+/* Figma 1634:8768 fade is applied as mask on .backdropGrid above */
+.backdropFade {
+  display: none;
+}
+
+.content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(48 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(80 * var(--l-vw));
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: calc(4 * var(--l-vw)) calc(12 * var(--l-vw));
+  background: #faede9;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #f45523;
+  white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  gap: calc(40 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  align-self: stretch;
+  width: calc(680 * var(--l-vw));
+  min-width: 0;
+}
+
+.copyInner {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.headlineStack {
+  display: block;
+  line-height: 0;
+}
+
+.headlineLine {
+  display: block;
+  margin: 0;
+  line-height: calc(84 * var(--l-vw));
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  word-break: break-word;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.description {
+  margin: 0;
+  width: 100%;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+.formCard {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(24 * var(--l-vw));
+  align-items: flex-end;
+  align-self: stretch;
+  min-width: 0;
+  min-height: calc(534 * var(--l-vw));
+  box-sizing: border-box;
+  padding: calc(40 * var(--l-vw));
+  border: 1px solid #eeeeee;
+  border-radius: calc(16 * var(--l-vw));
+  background: #f9f9f9;
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Figma 1634:9657 — Success state (same card footprint as form) */
+.successCard {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(24 * var(--l-vw));
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+  min-height: calc(534 * var(--l-vw));
+  box-sizing: border-box;
+  padding: calc(16 * var(--l-vw));
+  border: 1px solid #eeeeee;
+  border-radius: calc(16 * var(--l-vw));
+  background: #f9f9f9;
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.12);
+}
+
+.successBody {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  width: 100%;
+}
+
+.successIcon {
+  position: relative;
+  flex-shrink: 0;
+  /* Figma 1634:9787 — 120×120 */
+  width: calc(96 * var(--l-vw));
+  height: calc(96 * var(--l-vw));
+  overflow: visible;
+}
+
+.successIconImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+}
+
+.successCopy {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.successTitle {
+  margin: 0;
+  width: 100%;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-44);
+  font-weight: 400;
+  line-height: calc(56 * var(--l-vw));
+  letter-spacing: var(--l-tracking-sub);
+  color: #020100;
+}
+
+.successTitleHighlight {
+  color: #f45523;
+}
+
+.successMessage {
+  margin: 0;
+  width: 100%;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+.successCta {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(12 * var(--l-vw)) 0;
+  border: 1px solid #eeeeee;
+  border-radius: calc(12 * var(--l-vw));
+  background: #ffffff;
+}
+
+.successCtaText {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.successCtaLink {
+  font-weight: 500;
+  color: #020100;
+  text-decoration: none;
+}
+
+.successCtaLink:hover {
+  text-decoration: underline;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.fieldRow {
+  display: flex;
+  gap: calc(16 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(6 * var(--l-vw));
+  align-items: flex-start;
+  min-width: 0;
+  width: 100%;
+}
+
+.label {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(14 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(24 * var(--l-vw));
+  letter-spacing: calc(-0.56 * var(--l-vw));
+  color: #020100;
+  white-space: nowrap;
+}
+
+.input,
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: calc(12 * var(--l-vw)) calc(16 * var(--l-vw));
+  border: 1px solid #dedede;
+  border-radius: calc(8 * var(--l-vw));
+  background-color: #ffffff;
+  background-image: none;
+  box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  caret-color: #020100;
+  outline: none;
+  transition: border-color 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #8d8d8d;
+}
+
+.input:focus,
+.input:focus-visible,
+.textarea:focus,
+.textarea:focus-visible {
+  outline: none;
+  border-color: #dedede;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
+}
+
+/* Keep white surface — browsers paint autofill / typed fields blue otherwise */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active,
+.textarea:-webkit-autofill,
+.textarea:-webkit-autofill:hover,
+.textarea:-webkit-autofill:focus,
+.textarea:-webkit-autofill:active {
+  -webkit-text-fill-color: #020100;
+  caret-color: #020100;
+  border: 1px solid #dedede;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  transition: background-color 99999s ease-out;
+}
+
+.textarea {
+  height: calc(156 * var(--l-vw));
+  resize: vertical;
+  min-height: calc(156 * var(--l-vw));
+}
+
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(8 * var(--l-vw));
+  flex-shrink: 0;
+  margin: 0;
+  padding: calc(12 * var(--l-vw)) calc(36 * var(--l-vw)) calc(12 * var(--l-vw))
+    calc(40 * var(--l-vw));
+  border: 1px solid #ffffff;
+  border-radius: 40px;
+  background: linear-gradient(180deg, #292120 0%, #1f1714 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 500;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.submit:hover {
+  opacity: 0.92;
+}
+
+.submit:focus-visible {
+  outline: 2px solid #f45523;
+  outline-offset: 2px;
+}
+
+.submitIcon {
+  font-size: calc(20 * var(--l-vw));
+  line-height: 1;
+}
+
+@media (max-width: 1200px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .copy {
+    width: 100%;
+    align-self: auto;
+  }
+}
+
+/* Figma 1634:9238 — Contact Us mobile (402 reference) */
+@media (max-width: 768px) {
+  .content {
+    gap: 40px;
+    /* Gutter already provides 20px inset */
+    padding: 40px 0 80px;
+  }
+
+  .badge {
+    padding: 4px 12px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .row {
+    gap: 40px;
+  }
+
+  .copy {
+    gap: 0;
+  }
+
+  .copyInner {
+    gap: 16px;
+  }
+
+  .headline {
+    font-size: 48px;
+    letter-spacing: -1.92px;
+  }
+
+  .headlineLine {
+    line-height: 52px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .formCard,
+  .successCard {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+    gap: 24px;
+    padding: 20px;
+    border: 1px solid #eeeeee;
+    border-radius: 16px;
+    background: #f9f9f9;
+    box-shadow: 0 16px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .successCard {
+    align-items: center;
+    min-height: 420px;
+  }
+
+  .successIcon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .successTitle {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.28px;
+  }
+
+  .successMessage {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .successCta {
+    padding: 12px 8px;
+    border-radius: 12px;
+  }
+
+  .successCtaText {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  /* Figma 1634:9525 — stacked fields, 20px gap, full card width */
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .fieldRow {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .field {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .label {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.56px;
+    color: #020100;
+  }
+
+  .input,
+  .textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #dedede;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .input {
+    height: 48px;
+  }
+
+  .textarea {
+    height: 156px;
+    min-height: 156px;
+    resize: vertical;
+  }
+
+  /* Figma 1634:9566 — full-width 48px pill button */
+  .submit {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 48px;
+    padding: 12px 36px 12px 40px;
+    border: 1px solid #ffffff;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .submitIcon {
+    font-size: 20px;
+  }
+}

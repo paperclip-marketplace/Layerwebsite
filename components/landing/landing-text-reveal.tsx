@@ -182,7 +182,7 @@ export function LandingHeadingReveal({
       timeline.scrollTrigger?.kill();
       timeline.kill();
     };
-  }, [children, reduceMotion]);
+  }, [reduceMotion]);
 
   if (reduceMotion) {
     return (
