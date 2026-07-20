@@ -18,8 +18,6 @@ export function RoleplayBottomCtaSection() {
           src={ROLEPLAY_ASSETS.bottomCtaBg}
           alt=""
           className={styles.backdropImage}
-          loading="lazy"
-          decoding="async"
         />
       </div>
 

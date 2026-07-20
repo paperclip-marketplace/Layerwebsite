@@ -1,4 +1,5 @@
 import styles from "./team-experience.module.css";
+import { LandingOptimizedImage } from "./landing-optimized-image";
 import {
   TEAM_LOGO_ROWS,
   type TeamLogo,
@@ -15,14 +16,13 @@ function fitClass(fit: TeamLogoFit | undefined) {
 function TeamLogoCell({ logo }: { logo: TeamLogo }) {
   return (
     <div className={styles.logoCell} data-name="Logo">
-      <img
+      <LandingOptimizedImage
         src={logo.src}
         alt={logo.alt}
         width={136}
         height={64}
         className={`${styles.logoImg} ${fitClass(logo.fit)}`}
-        loading="lazy"
-        decoding="async"
+        sizes="136px"
       />
     </div>
   );

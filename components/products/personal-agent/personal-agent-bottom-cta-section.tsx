@@ -18,8 +18,6 @@ export function PersonalAgentBottomCtaSection() {
           src={PERSONAL_AGENT_ASSETS.bottomCtaBg}
           alt=""
           className={styles.backdropImage}
-          loading="lazy"
-          decoding="async"
         />
       </div>
 

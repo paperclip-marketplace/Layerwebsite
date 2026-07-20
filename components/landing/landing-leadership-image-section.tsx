@@ -1,6 +1,7 @@
+import { LandingOptimizedImage } from "./landing-optimized-image";
 import styles from "./landing-leadership-image-section.module.css";
 
-const LEADERSHIP_IMAGE = "/assets/images/landing/leadership/control-plane.png";
+const LEADERSHIP_IMAGE = "/assets/images/landing/leadership/control-plane.webp";
 
 /** Figma 713:1069 — hero-ticker / Leadership Image */
 export function LandingLeadershipImageSection() {
@@ -25,12 +26,12 @@ export function LandingLeadershipImageSection() {
             <div className={styles.imageFrame} aria-hidden>
               <div className={styles.imageBackdrop} />
               <div className={styles.imageClip}>
-                <img
+                <LandingOptimizedImage
                   src={LEADERSHIP_IMAGE}
                   alt="Layer control plane playbooks interface showing workflow management"
+                  fill
                   className={styles.image}
-                  loading="lazy"
-                  decoding="async"
+                  sizes="(max-width: 900px) 100vw, 1200px"
                 />
               </div>
             </div>
