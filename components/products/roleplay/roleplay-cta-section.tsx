@@ -35,8 +35,6 @@ export function RoleplayCtaSection() {
               src={ROLEPLAY_ASSETS.ctaCreate}
               alt="Layer workflow builder for creating your first agent"
               className={styles.imageCreate}
-              loading="lazy"
-              decoding="async"
             />
           </div>
           <div className={styles.cardCtaWrap}>
@@ -76,8 +74,6 @@ export function RoleplayCtaSection() {
               src={ROLEPLAY_ASSETS.ctaDemo}
               alt="Layer product demo with video and copilot interface"
               className={styles.imageDemo}
-              loading="lazy"
-              decoding="async"
             />
           </div>
         </article>

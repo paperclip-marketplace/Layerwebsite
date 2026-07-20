@@ -50,8 +50,6 @@ export function RoleplayPersonaBuilderSection() {
                   src={ROLEPLAY_ASSETS.personaBuilder}
                   alt="Layer persona builder interface"
                   className={styles.image}
-                  loading="lazy"
-                  decoding="async"
                 />
               </div>
             </div>
