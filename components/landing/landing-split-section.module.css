@@ -221,8 +221,8 @@
 }
 
 .sectionPinned .practiceSecondary {
-  top: calc(86 / 748 * 100cqh);
-  right: calc(8 / 1120 * 100cqw);
+  top: calc(56 / 748 * 100cqh);
+  right: calc(-28 / 1120 * 100cqw);
   width: calc(323 / 1120 * 100cqw);
   height: calc(575 / 748 * 100cqh);
   border-radius: calc(12 / 748 * 100cqh);
@@ -232,7 +232,8 @@
   top: calc(8 / 748 * 100cqh);
   left: calc(345 / 1040 * 100%);
   width: calc(349.689 / 1040 * 100%);
-  height: calc(469.444 / 748 * 100cqh);
+  /* Figma 713:281 — collapse bar (~41) + panel 454.811 */
+  height: calc(495.911 / 748 * 100cqh);
   transform: none;
 }
 
@@ -267,10 +268,10 @@
 .sectionPinned .improveFeedbackGradient {
   right: calc(10 / 1024 * 100%);
   bottom: calc(0.19 / 748 * 100cqh);
-  left: calc(131 / 1024 * 100%);
+  left: calc(118 / 1024 * 100%);
   width: auto;
   max-width: none;
-  padding: calc(40 / 748 * 100cqh) calc(11 / 1120 * 100cqw)
+  padding: calc(36 / 748 * 100cqh) calc(11 / 1120 * 100cqw)
     calc(12 / 748 * 100cqh);
 }
 
@@ -519,17 +520,17 @@
 
 .prepareSecondaryImg {
   position: absolute;
-  left: -296.57%;
-  top: -26.96%;
-  width: 408.09%;
-  height: 134.81%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   max-width: none;
   object-fit: cover;
+  object-position: top center;
 }
 
 .practiceSecondary {
-  top: 86px;
-  right: 8px;
+  top: 56px;
+  right: -28px;
   width: 323px;
   height: 575px;
   border-radius: 12px;
@@ -538,12 +539,12 @@
 
 .practiceSecondaryImg {
   position: absolute;
-  left: -272.94%;
-  top: -11.86%;
-  width: 380.73%;
-  height: 122.16%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   max-width: none;
   object-fit: cover;
+  object-position: top center;
 }
 
 .performWidget {
@@ -552,7 +553,8 @@
   left: calc(345 / 1040 * 100%);
   z-index: 4;
   width: calc(349.689 / 1040 * 100%);
-  height: 469.444px;
+  /* Figma: collapse controls + gap + Perform Widget 891:479 (454.811) */
+  height: 495.911px;
   overflow: visible;
   pointer-events: none;
   background: transparent;
@@ -623,33 +625,49 @@
 
 .improveSecondaryImg {
   position: absolute;
-  top: 0;
-  left: -14.54%;
-  width: 114.62%;
+  inset: 0;
+  width: 100%;
   height: 100%;
   max-width: none;
   display: block;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .improveFeedbackGradient {
   position: absolute;
   right: calc(10 / 1024 * 100%);
   bottom: 0.19px;
-  left: calc(131 / 1024 * 100%);
+  left: calc(118 / 1024 * 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   width: auto;
   max-width: none;
-  padding: 40px 11px 12px;
+  padding: 36px 11px 12px;
   box-sizing: border-box;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.3) 100%
+    rgba(0, 0, 0, 0.18) 55%,
+    rgba(0, 0, 0, 0.28) 100%
   );
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 28%,
+    #000 58%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 28%,
+    #000 58%,
+    #000 100%
+  );
 }
 
 .improveFeedbackRow {

@@ -2,6 +2,7 @@
 
 import { useRef, type RefObject } from "react";
 import styles from "./landing-key-metrics-section.module.css";
+import { LandingOptimizedImage } from "./landing-optimized-image";
 import {
   usePinnedHorizontalScroll,
   usePinnedHorizontalScrollEnabled,
@@ -25,7 +26,7 @@ type MetricCard = {
 const KEY_METRIC_CARDS: MetricCard[] = [
   {
     id: "ramp-time",
-    image: `${METRIC_IMAGE_BASE}/metric-01.png`,
+    image: `${METRIC_IMAGE_BASE}/metric-01.webp`,
     imageAlt: "Line chart showing reduced ramp time",
     variant: "gray",
     imageFade: true,
@@ -35,7 +36,7 @@ const KEY_METRIC_CARDS: MetricCard[] = [
   },
   {
     id: "quota",
-    image: `${METRIC_IMAGE_BASE}/metric-02.png`,
+    image: `${METRIC_IMAGE_BASE}/metric-02.webp`,
     imageAlt: "Circular progress showing 90 percent quota attainment",
     variant: "peach",
     imageFade: true,
@@ -46,7 +47,7 @@ const KEY_METRIC_CARDS: MetricCard[] = [
   },
   {
     id: "hours-back",
-    image: `${METRIC_IMAGE_BASE}/metric-03.png`,
+    image: `${METRIC_IMAGE_BASE}/metric-03.webp`,
     imageAlt: "Circular diagram showing 15 hours saved per week",
     variant: "gray",
     imageFade: false,
@@ -56,7 +57,7 @@ const KEY_METRIC_CARDS: MetricCard[] = [
   },
   {
     id: "forecast",
-    image: `${METRIC_IMAGE_BASE}/metric-04.png`,
+    image: `${METRIC_IMAGE_BASE}/metric-04.webp`,
     imageAlt: "Forecast confidence visualization",
     variant: "peach",
     imageFade: true,
@@ -67,7 +68,7 @@ const KEY_METRIC_CARDS: MetricCard[] = [
   },
   {
     id: "playbook",
-    image: `${METRIC_IMAGE_BASE}/metric-05.png`,
+    image: `${METRIC_IMAGE_BASE}/metric-05.webp`,
     imageAlt: "Playbook adoption visualization",
     variant: "gray",
     imageFade: true,
@@ -90,14 +91,13 @@ function MetricCardView({ card }: { card: MetricCard }) {
       data-pin-scroll-card
     >
       <div className={styles.imageArea}>
-        <img
+        <LandingOptimizedImage
           src={card.image}
           alt={card.imageAlt}
           className={styles.image}
           width={456}
           height={368}
-          loading="lazy"
-          decoding="async"
+          sizes="(max-width: 900px) 80vw, 456px"
         />
         {card.imageFade ? <div className={fadeClass} aria-hidden /> : null}
       </div>

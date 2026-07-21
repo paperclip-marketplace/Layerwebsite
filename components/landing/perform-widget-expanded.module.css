@@ -130,10 +130,11 @@
 .panel {
   position: relative;
   display: flex;
-  flex: 1 1 0;
   flex-direction: column;
-  min-height: 0;
+  flex-shrink: 0;
+  /* Figma 891:479 — Perform Widget 349.689 × 454.811 */
   width: 100%;
+  height: calc(454.811 / var(--pw) * 100cqw);
   overflow: hidden;
   border: calc(0.781 / var(--pw) * 100cqw) solid rgba(238, 238, 238, 0.2);
   border-radius: calc(12.489 / var(--pw) * 100cqw);
@@ -167,6 +168,14 @@
   opacity: 0.05;
 }
 
+.panelTextureWrap {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .panelBlur {
   position: absolute;
   inset: 0;
@@ -182,20 +191,24 @@
   position: relative;
   z-index: 1;
   display: flex;
-  flex: 1 1 0;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: calc(15.611 / var(--pw) * 100cqw);
   min-height: 0;
+  width: 100%;
+  height: 100%;
   padding: calc(9.367 / var(--pw) * 100cqw);
+  box-sizing: border-box;
 }
 
 .widgetMain {
   display: flex;
-  flex: 1 1 0;
+  flex-shrink: 0;
   flex-direction: column;
   gap: calc(18.733 / var(--pw) * 100cqw);
-  min-height: 0;
+  /* Figma 891:480 — Perform Widget Element h-[370px] */
   width: 100%;
+  height: calc(370 / var(--pw) * 100cqw);
   overflow: hidden;
 }
 
@@ -293,7 +306,7 @@
 
 .thread {
   display: flex;
-  flex: 1 1 0;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: calc(12.489 / var(--pw) * 100cqw);
   min-height: 0;
@@ -512,6 +525,7 @@
 
 .footer {
   flex-shrink: 0;
+  width: 100%;
   padding: calc(12.489 / var(--pw) * 100cqw);
   border: calc(0.781 / var(--pw) * 100cqw) solid rgba(249, 249, 249, 0.1);
   border-radius: calc(10.928 / var(--pw) * 100cqw);
