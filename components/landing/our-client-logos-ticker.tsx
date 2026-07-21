@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import styles from "./our-client-section.module.css";
+import { LandingOptimizedImage } from "./landing-optimized-image";
 import { useLandingLogoMarquee } from "./use-landing-logo-marquee";
 
 const CLIENT_LOGO_BASE = "/assets/images/landing/clients";
@@ -16,29 +17,29 @@ type ClientLogo = {
 
 /** Figma 513:2104 — single horizontal row (all client logos). */
 const CLIENT_LOGOS: ClientLogo[] = [
-  { src: `${CLIENT_LOGO_BASE}/client-01.png`, alt: "Payhawk" },
-  { src: `${CLIENT_LOGO_BASE}/client-02.png`, alt: "Modulr" },
-  { src: `${CLIENT_LOGO_BASE}/client-03.png`, alt: "Risk Ledger" },
-  { src: `${CLIENT_LOGO_BASE}/client-04.png`, alt: "Atlar" },
-  { src: `${CLIENT_LOGO_BASE}/client-05.png`, alt: "Cronofy" },
-  { src: `${CLIENT_LOGO_BASE}/client-06.png`, alt: "Vixio" },
+  { src: `${CLIENT_LOGO_BASE}/client-01.webp`, alt: "Payhawk" },
+  { src: `${CLIENT_LOGO_BASE}/client-02.webp`, alt: "Modulr" },
+  { src: `${CLIENT_LOGO_BASE}/client-03.webp`, alt: "Risk Ledger" },
+  { src: `${CLIENT_LOGO_BASE}/client-04.webp`, alt: "Atlar" },
+  { src: `${CLIENT_LOGO_BASE}/client-05.webp`, alt: "Cronofy" },
+  { src: `${CLIENT_LOGO_BASE}/client-06.webp`, alt: "Vixio" },
   {
-    src: `${CLIENT_LOGO_BASE}/client-07.png`,
+    src: `${CLIENT_LOGO_BASE}/client-07.webp`,
     alt: "Rivero",
     fit: "contain-bottom",
   },
-  { src: `${CLIENT_LOGO_BASE}/client-08.png`, alt: "Medfin" },
-  { src: `${CLIENT_LOGO_BASE}/client-09.png`, alt: "Mecenat" },
+  { src: `${CLIENT_LOGO_BASE}/client-08.webp`, alt: "Medfin" },
+  { src: `${CLIENT_LOGO_BASE}/client-09.webp`, alt: "Mecenat" },
   {
-    src: `${CLIENT_LOGO_BASE}/client-10.png`,
+    src: `${CLIENT_LOGO_BASE}/client-10.webp`,
     alt: "Times Higher Education",
   },
-  { src: `${CLIENT_LOGO_BASE}/client-11.png`, alt: "Tacto" },
-  { src: `${CLIENT_LOGO_BASE}/client-12.png`, alt: "Datamaran" },
-  { src: `${CLIENT_LOGO_BASE}/client-13.png`, alt: "SALESmanago" },
-  { src: `${CLIENT_LOGO_BASE}/client-14.png`, alt: "Atmio" },
-  { src: `${CLIENT_LOGO_BASE}/client-15.png`, alt: "Legalfly" },
-  { src: `${CLIENT_LOGO_BASE}/client-16.png`, alt: "9fin" },
+  { src: `${CLIENT_LOGO_BASE}/client-11.webp`, alt: "Tacto" },
+  { src: `${CLIENT_LOGO_BASE}/client-12.webp`, alt: "Datamaran" },
+  { src: `${CLIENT_LOGO_BASE}/client-13.webp`, alt: "SALESmanago" },
+  { src: `${CLIENT_LOGO_BASE}/client-14.webp`, alt: "Atmio" },
+  { src: `${CLIENT_LOGO_BASE}/client-15.webp`, alt: "Legalfly" },
+  { src: `${CLIENT_LOGO_BASE}/client-16.webp`, alt: "9fin" },
 ];
 
 function ClientLogoCell({
@@ -55,14 +56,13 @@ function ClientLogoCell({
 
   return (
     <div ref={cellRef} className={styles.logoCell} data-name="Logo">
-      <img
+      <LandingOptimizedImage
         src={logo.src}
         alt={logo.alt}
         width={136}
         height={64}
         className={`${styles.logoImg} ${fitClass}`}
-        loading="lazy"
-        decoding="async"
+        sizes="136px"
       />
     </div>
   );

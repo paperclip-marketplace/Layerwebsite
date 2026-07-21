@@ -30,3 +30,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# Local image optimization backups (do not commit)
+/_image-backup-pre-optimize/

@@ -12,6 +12,7 @@ import {
   HEADER_NAV_ASSETS,
   LEADERSHIP_NAV_IMAGES,
 } from "@/lib/landing/header-nav-assets";
+import { LandingOptimizedImage } from "./landing-optimized-image";
 import styles from "./nav-dropdown.module.css";
 
 const CUSTOMER_FACING_ITEMS = CUSTOMER_FACING_NAV_IMAGES.map((image) => ({
@@ -70,9 +71,12 @@ export const ProductsDropdown = forwardRef<HTMLDivElement>((props, ref) => {
       <div className={`${styles.footer} dropdown-anim-stagger`}>
         <Link href={ROUTES.comingSoon} className={styles.footerItem}>
           <div className={styles.footerImage}>
-            <img
+            <LandingOptimizedImage
               src={HEADER_NAV_ASSETS.productsFooter.coPilotV2}
               alt=""
+              fill
+              sizes="120px"
+              className={styles.footerImageImg}
             />
           </div>
           <div className={styles.footerText}>
@@ -94,7 +98,13 @@ function DownloadForMacButton() {
   return (
     <Link href={ROUTES.comingSoon} className={styles.downloadButton}>
       <div className={styles.downloadIcon}>
-        <img src={HEADER_NAV_ASSETS.productsFooter.appleIcon} alt="Apple" />
+        <LandingOptimizedImage
+          src={HEADER_NAV_ASSETS.productsFooter.appleIcon}
+          alt="Apple"
+          width={20}
+          height={20}
+          sizes="20px"
+        />
       </div>
       <span className={styles.downloadText}>Download for Mac</span>
     </Link>
@@ -115,7 +125,13 @@ function DropdownItem({
   return (
     <Link href={href} className={`${styles.item} dropdown-anim-stagger`}>
       <div className={styles.itemImage}>
-        <img src={image} alt={title} />
+        <LandingOptimizedImage
+          src={image}
+          alt={title}
+          fill
+          sizes="80px"
+          className={styles.itemImageImg}
+        />
       </div>
       <div className={styles.itemText}>
         <p className={styles.itemTitle}>{title}</p>

@@ -10,25 +10,25 @@ export type TeamLogo = {
 
 export const TEAM_LOGO_ROWS: TeamLogo[][] = [
   [
-    { src: `${TEAM_LOGO_BASE}/sage-logo.png`, alt: "Sage" },
-    { src: `${TEAM_LOGO_BASE}/criteo-logo.png`, alt: "Criteo" },
-    { src: `${TEAM_LOGO_BASE}/xero-logo.png`, alt: "Xero" },
-    { src: `${TEAM_LOGO_BASE}/bandwatch-logo.png`, alt: "Brandwatch" },
-    { src: `${TEAM_LOGO_BASE}/hubspot-logo.png`, alt: "HubSpot" },
+    { src: `${TEAM_LOGO_BASE}/sage-logo.webp`, alt: "Sage" },
+    { src: `${TEAM_LOGO_BASE}/criteo-logo.webp`, alt: "Criteo" },
+    { src: `${TEAM_LOGO_BASE}/xero-logo.webp`, alt: "Xero" },
+    { src: `${TEAM_LOGO_BASE}/bandwatch-logo.webp`, alt: "Brandwatch" },
+    { src: `${TEAM_LOGO_BASE}/hubspot-logo.webp`, alt: "HubSpot" },
   ],
   [
-    { src: `${TEAM_LOGO_BASE}/medallia-logo.png`, alt: "Medallia" },
-    { src: `${TEAM_LOGO_BASE}/apple-logo.png`, alt: "Apple" },
-    { src: `${TEAM_LOGO_BASE}/sap-logo.png`, alt: "SAP" },
-    { src: `${TEAM_LOGO_BASE}/parallels-logo.png`, alt: "Parallels" },
-    { src: `${TEAM_LOGO_BASE}/paperclip-logo.png`, alt: "Paperclip" },
+    { src: `${TEAM_LOGO_BASE}/medallia-logo.webp`, alt: "Medallia" },
+    { src: `${TEAM_LOGO_BASE}/apple-logo.webp`, alt: "Apple" },
+    { src: `${TEAM_LOGO_BASE}/sap-logo.webp`, alt: "SAP" },
+    { src: `${TEAM_LOGO_BASE}/parallels-logo.webp`, alt: "Parallels" },
+    { src: `${TEAM_LOGO_BASE}/paperclip-logo.webp`, alt: "Paperclip" },
   ],
   [
-    { src: `${TEAM_LOGO_BASE}/como-logo.png`, alt: "Como" },
-    { src: `${TEAM_LOGO_BASE}/swiggy-logo.png`, alt: "Swiggy" },
-    { src: `${TEAM_LOGO_BASE}/perfios-logo.png`, alt: "Perfios" },
-    { src: `${TEAM_LOGO_BASE}/sbicard-logo.png`, alt: "SBI Card" },
-    { src: `${TEAM_LOGO_BASE}/adgm-logo.png`, alt: "ADGM" },
+    { src: `${TEAM_LOGO_BASE}/como-logo.webp`, alt: "Como" },
+    { src: `${TEAM_LOGO_BASE}/swiggy-logo.webp`, alt: "Swiggy" },
+    { src: `${TEAM_LOGO_BASE}/perfios-logo.webp`, alt: "Perfios" },
+    { src: `${TEAM_LOGO_BASE}/sbicard-logo.webp`, alt: "SBI Card" },
+    { src: `${TEAM_LOGO_BASE}/adgm-logo.webp`, alt: "ADGM" },
   ],
 ];
 
