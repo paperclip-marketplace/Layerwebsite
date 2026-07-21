@@ -59,7 +59,7 @@ const SPLIT_CARDS: SplitCardConfig[] = [
       "Prepare workflow showing conversation context and next-best actions",
     fadeClass: styles.visualFadeDark,
     secondary: {
-      src: `${ASSET}/prepare-secondary.webp`,
+src: `${ASSET}/prepare-secondary-sm.webp`,
       alt: "Recommended approach panel",
       wrapClass: styles.prepareSecondary,
       imgClass: styles.prepareSecondaryImg,
@@ -82,7 +82,7 @@ const SPLIT_CARDS: SplitCardConfig[] = [
     mainAlt: "Practice roleplay session interface",
     fadeClass: styles.visualFadeLight,
     secondary: {
-      src: `${ASSET}/practice-secondary.webp`,
+      src: `${ASSET}/practice-secondary-sm.webp`,
       alt: "Roleplay participant card",
       wrapClass: styles.practiceSecondary,
       imgClass: styles.practiceSecondaryImg,
@@ -156,7 +156,7 @@ function slideAssets(card: SplitCardConfig): string[] {
     );
   }
   if (card.improveLayout) {
-    srcs.push(`${ASSET}/improve-main.webp`, `${ASSET}/improve-secondary.webp`);
+    srcs.push(`${ASSET}/improve-main.webp`, `${ASSET}/improve-secondary-sm.webp`);
   }
   return srcs;
 }
@@ -251,7 +251,7 @@ function ImproveCardVisual({ priority }: { priority?: boolean }) {
             >
               <div className={styles.improveSecondaryClip}>
                 <LandingOptimizedImage
-                  src={`${ASSET}/improve-secondary.webp`}
+                  src={`${ASSET}/improve-secondary-sm.webp`}
                   alt="Discovery call coaching session review"
                   fill
                   className={styles.improveSecondaryImg}
