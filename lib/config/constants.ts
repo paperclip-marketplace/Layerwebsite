@@ -13,6 +13,7 @@ export const ROUTES = {
   home: '/',
   signIn: `${LAYER_APP_URL}/sign-in`,
   signUp: `${LAYER_APP_URL}/sign-up`,
+  demo: `${LAYER_APP_URL}/demo`,
   /** Invited members: workspace + profile (cannot skip; must finish before main onboarding on `/`). */
   preOnboarding: '/pre-onboarding',
   onboarding: '/onboarding',
@@ -128,7 +129,7 @@ export const DEFAULT_MEMBER_PERMISSIONS = {
 } as const;
 
 /** Header demo CTA + home promo banner. Set true when public demo launches from marketing. */
-export const SHOW_LANDING_DEMO_ENTRY = false;
+export const SHOW_LANDING_DEMO_ENTRY = true;
 
 /** Header Products + Solutions nav and dropdowns. Set true when megamenus are ready to show. */
 export const SHOW_HEADER_PRODUCTS_SOLUTIONS = false;
