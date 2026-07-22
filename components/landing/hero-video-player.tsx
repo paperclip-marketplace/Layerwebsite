@@ -19,6 +19,7 @@ const EMBED_SRC = (() => {
     autopause: "0",
     autoplay: "1",
     muted: "1",
+    loop: "1",
     app_id: HERO_VIMEO_APP_ID,
     playsinline: "1",
     title: "0",
@@ -52,6 +53,8 @@ export function HeroVideoPlayer() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const playerRef = useRef<Player | null>(null);
   const isSeekingRef = useRef(false);
+  const pendingSeekRef = useRef<number | null>(null);
+  const seekTokenRef = useRef(0);
   const lastVolumeRef = useRef(DEFAULT_VOLUME);
   const soundUnlockedRef = useRef(false);
 
@@ -183,7 +186,20 @@ export function HeroVideoPlayer() {
       setShowPoster(false);
     };
     const onPause = () => setIsPlaying(false);
-    const onEnded = () => setIsPlaying(false);
+    const onEnded = () => {
+      // Fallback if loop param/API fails: restart from the beginning.
+      void (async () => {
+        try {
+          setCurrentTime(0);
+          await player.setCurrentTime(0);
+          await player.play();
+          setIsPlaying(true);
+          setShowPoster(false);
+        } catch {
+          setIsPlaying(false);
+        }
+      })();
+    };
     const onTimeUpdate = (data: { seconds: number; duration: number }) => {
       if (!isSeekingRef.current) setCurrentTime(data.seconds);
       if (data.duration > 0) setDuration(data.duration);
@@ -211,6 +227,12 @@ export function HeroVideoPlayer() {
         if (cancelled) return;
 
         setShowPoster(false);
+
+        try {
+          await player!.setLoop(true);
+        } catch {
+          // Ignore if the embed host rejects loop.
+        }
 
         for (const delay of AUTOPLAY_RETRY_DELAYS_MS) {
           const timeoutId = window.setTimeout(() => {
@@ -251,19 +273,47 @@ export function HeroVideoPlayer() {
     return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
 
-  const handleSeek = useCallback(async (nextTime: number) => {
+  /** Update the scrubber UI only — do not hit Vimeo until commit. */
+  const handleSeekPreview = useCallback((nextTime: number) => {
+    isSeekingRef.current = true;
+    pendingSeekRef.current = nextTime;
+    setCurrentTime(nextTime);
+    setShowPoster(false);
+  }, []);
+
+  /** Commit a single seek to Vimeo after click/drag ends. */
+  const commitSeek = useCallback(async () => {
     const player = playerRef.current;
+    const nextTime = pendingSeekRef.current;
+
+    if (!player || nextTime == null || !Number.isFinite(nextTime)) {
+      isSeekingRef.current = false;
+      pendingSeekRef.current = null;
+      return;
+    }
+
+    const token = ++seekTokenRef.current;
+    isSeekingRef.current = true;
     setCurrentTime(nextTime);
     setShowPoster(false);
 
-    if (!player) return;
-
     try {
       await player.setCurrentTime(nextTime);
+      // Keep playback going after a scrub so the timeline doesn't "stick".
+      if (await player.getPaused()) {
+        await player.play();
+        setIsPlaying(true);
+      }
     } catch {
       // Ignore seek errors.
     }
-  }, []);
+
+    if (token !== seekTokenRef.current) return;
+
+    pendingSeekRef.current = null;
+    isSeekingRef.current = false;
+    void syncPlayerState(player);
+  }, [syncPlayerState]);
 
   const handleVolumeChange = useCallback(async (nextVolume: number) => {
     const player = playerRef.current;
@@ -404,19 +454,30 @@ export function HeroVideoPlayer() {
             className={styles.progressSlider}
             min={0}
             max={Math.max(duration, 0.1)}
-            step={0.1}
+            step={0.05}
             value={Math.min(currentTime, duration || currentTime)}
-            onChange={(event) => {
-              void handleSeek(Number(event.target.value));
-            }}
             onPointerDown={() => {
               isSeekingRef.current = true;
             }}
+            onInput={(event) => {
+              handleSeekPreview(Number((event.target as HTMLInputElement).value));
+            }}
+            onChange={(event) => {
+              handleSeekPreview(Number(event.target.value));
+            }}
             onPointerUp={() => {
-              isSeekingRef.current = false;
+              void commitSeek();
             }}
             onPointerCancel={() => {
-              isSeekingRef.current = false;
+              void commitSeek();
+            }}
+            onClick={(event) => {
+              // Click-to-seek fallback when pointerup ordering is unreliable.
+              handleSeekPreview(Number((event.target as HTMLInputElement).value));
+              void commitSeek();
+            }}
+            onKeyUp={() => {
+              void commitSeek();
             }}
             aria-label={`Video progress, ${formatTime(currentTime)} of ${formatTime(duration)}`}
           />
