@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef, useCallback } from "react";
+import { LiveStroke } from "live-stroke";
 import {
   ROUTES,
   SHOW_HEADER_PRODUCTS_SOLUTIONS,
@@ -330,12 +331,18 @@ export function LandingHeader() {
           <div className={styles.rightSide}>
             <div className={styles.actions}>
               {SHOW_LANDING_DEMO_ENTRY ? (
-                <Link href="#" className={styles.buttonDemo}>
-                  <span className="material-symbols-rounded" aria-hidden>
-                    terminal
-                  </span>
-                  Interactive Demo
-                </Link>
+                <LiveStroke strokeSize="md" speed="normal" opacity={85} shadow>
+                  <Link
+                    href={ROUTES.demo}
+                    className={styles.buttonDemo}
+                    style={{ borderRadius: 99 }}
+                  >
+                    <span className="material-symbols-rounded" aria-hidden>
+                      terminal
+                    </span>
+                    Interactive Demo
+                  </Link>
+                </LiveStroke>
               ) : null}
               <Link
                 href={ROUTES.signIn}
@@ -390,18 +397,6 @@ export function LandingHeader() {
         >
           Pricing
         </Link>
-        {SHOW_LANDING_DEMO_ENTRY ? (
-          <Link
-            href="#"
-            className={`${styles.buttonDemo} ${styles.mobileNavLink}`}
-            onClick={() => setMenuOpen(false)}
-          >
-            <span className="material-symbols-rounded" aria-hidden>
-              terminal
-            </span>
-            Interactive Demo
-          </Link>
-        ) : null}
         <Link
           href={ROUTES.signIn}
           className={`${styles.button} ${styles.buttonPrimary} ${styles.mobileNavLink}`}

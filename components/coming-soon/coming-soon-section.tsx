@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LiveStroke } from "live-stroke";
 import {
   LandingHeadingReveal,
   LandingSubheadingReveal,
 } from "@/components/landing/landing-text-reveal";
+import { ROUTES } from "@/lib/config/constants";
 import styles from "./coming-soon-section.module.css";
 
 const BG_PATTERN = "/assets/images/landing/coming-soon/bg-pattern.webp";
@@ -67,18 +69,24 @@ export function ComingSoonSection() {
             </LandingSubheadingReveal>
           </div>
 
-          <div className={styles.demoButtonShell} data-node-id="1310:1758" data-name="button">
-            <Link href="#" className={styles.demoButton}>
-              <Image
-                src="/assets/images/landing/coming-soon/terminal-icon.svg"
-                alt=""
-                width={24}
-                height={24}
-                className={styles.demoIcon}
-                aria-hidden
-              />
-              <span className={styles.demoLabel}>Interactive Demo</span>
-            </Link>
+          <div data-node-id="1310:1758" data-name="button">
+            <LiveStroke strokeSize="md" speed="normal" opacity={85} shadow>
+              <Link
+                href={ROUTES.demo}
+                className={styles.demoButton}
+                style={{ borderRadius: 99 }}
+              >
+                <Image
+                  src="/assets/images/landing/coming-soon/terminal-icon.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className={styles.demoIcon}
+                  aria-hidden
+                />
+                <span className={styles.demoLabel}>Interactive Demo</span>
+              </Link>
+            </LiveStroke>
           </div>
         </div>
       </div>

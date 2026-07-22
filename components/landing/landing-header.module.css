@@ -91,7 +91,7 @@
   gap: 4px;
   padding: 8px 18px;
   border-radius: 99px;
-  border: 1px solid #f45523;
+  border: none;
   color: #020100;
   font-family: var(--layer-font-geist-sans);
   font-size: 16px;
