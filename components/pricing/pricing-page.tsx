@@ -4,6 +4,7 @@ import { SHOW_PRICING_CTA, SHOW_PRICING_FAQ } from "@/lib/config/constants";
 import "@/components/landing/landing-fluid.css";
 import "@/components/landing/landing-mobile.module.css";
 import styles from "./pricing-page.module.css";
+import { CreditUsageSection } from "./credit-usage-section";
 import { PricingComparisonSection } from "./pricing-comparison-section";
 import { PricingCtaCardsSection } from "./pricing-cta-cards-section";
 import { PricingFaqSection } from "./pricing-faq-section";
@@ -16,9 +17,8 @@ export function PricingPage() {
         <main className={`${styles.main} landing-main__inner`} id="main">
           <PricingHeroSection />
           <PricingComparisonSection />
-          <div className={styles.clientsSpacing}>
-            <OurClientSection />
-          </div>
+          <CreditUsageSection />
+          <OurClientSection />
           {SHOW_PRICING_FAQ ? <PricingFaqSection /> : null}
           {SHOW_PRICING_CTA ? <PricingCtaCardsSection /> : null}
         </main>

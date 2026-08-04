@@ -1,0 +1,216 @@
+/* Figma 1783:3710 — Credit usage */
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: calc(56 * var(--l-vw));
+  padding-bottom: calc(56 * var(--l-vw));
+  background: #ffffff;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-py) var(--l-section-px);
+}
+
+.label {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.copyRow {
+  width: 100%;
+  gap: var(--l-copy-gap);
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+.tables {
+  display: flex;
+  flex-direction: column;
+  gap: calc(32 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 var(--l-section-px);
+}
+
+.tableGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #eee;
+  border-radius: calc(16 * var(--l-vw));
+  background: #f9f9f9;
+}
+
+.tableTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(16 * var(--l-vw)) calc(32 * var(--l-vw));
+}
+
+.tableTitle {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 500;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.tableBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: calc(16 * var(--l-vw));
+  background: #ffffff;
+  container-type: inline-size;
+}
+
+.tableRow {
+  display: contents;
+}
+
+.tableCell {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: calc(20 * var(--l-vw)) calc(32 * var(--l-vw));
+  border-bottom: 1px solid #eee;
+}
+
+.tableCell:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+.tableCellLabel {
+  border-right: 1px solid #eee;
+}
+
+.tableCellValue {
+  justify-content: flex-start;
+}
+
+.rowLabel {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  white-space: nowrap;
+}
+
+.rowValue {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  white-space: pre-wrap;
+}
+
+.rowValueUnit {
+  color: #8d8d8d;
+}
+
+@media (max-width: 768px) {
+  .header {
+    gap: calc(32 * var(--l-vw));
+    padding: calc(40 * var(--l-vw)) var(--l-section-px);
+  }
+
+  .label {
+    white-space: normal;
+  }
+
+  .tables {
+    gap: calc(24 * var(--l-vw));
+  }
+
+  .tableTitleRow {
+    padding: calc(16 * var(--l-vw)) calc(20 * var(--l-vw));
+  }
+
+  .tableCell {
+    padding: calc(16 * var(--l-vw)) calc(20 * var(--l-vw));
+  }
+
+  .rowLabel {
+    white-space: normal;
+  }
+
+  .rowValue {
+    white-space: nowrap;
+  }
+
+  @container (max-width: 320px) {
+    .tableBody {
+      grid-template-columns: 1fr;
+    }
+
+    .tableCellLabel {
+      border-right: none;
+    }
+
+    .tableCellValue {
+      padding-left: calc(24 * var(--l-vw));
+      padding-top: calc(4 * var(--l-vw));
+    }
+
+    .rowValue {
+      white-space: normal;
+    }
+  }
+}

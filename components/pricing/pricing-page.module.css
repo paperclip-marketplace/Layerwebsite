@@ -13,10 +13,6 @@
   padding-top: var(--landing-header-h);
 }
 
-.clientsSpacing {
-  margin-top: var(--l-pricing-clients-mt);
-}
-
 @media (max-width: 768px) {
   .main {
     padding-top: var(--landing-header-h);
