@@ -71,13 +71,15 @@
 }
 
 .tableGroup {
+  --credit-table-line: 1px solid #eee;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
-  border: 1px solid #eee;
+  border: var(--credit-table-line);
+  border-bottom: none;
   border-radius: calc(16 * var(--l-vw));
   background: #f9f9f9;
 }
@@ -104,35 +106,45 @@
 }
 
 .tableBody {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid #eee;
+  border: var(--credit-table-line);
   border-radius: calc(16 * var(--l-vw));
   background: #ffffff;
   container-type: inline-size;
 }
 
 .tableRow {
-  display: contents;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.tableRowDivider {
+  box-sizing: border-box;
+  width: 100%;
+  height: 0;
+  margin: 0;
+  border: none;
+  border-top: var(--credit-table-line);
+  flex-shrink: 0;
 }
 
 .tableCell {
   display: flex;
   align-items: center;
+  flex: 1 1 0;
   min-width: 0;
   box-sizing: border-box;
   padding: calc(20 * var(--l-vw)) calc(32 * var(--l-vw));
-  border-bottom: 1px solid #eee;
-}
-
-.tableCell:nth-last-child(-n + 2) {
-  border-bottom: none;
 }
 
 .tableCellLabel {
-  border-right: 1px solid #eee;
+  border-right: var(--credit-table-line);
 }
 
 .tableCellValue {
@@ -201,8 +213,8 @@
   }
 
   @container (max-width: 320px) {
-    .tableBody {
-      grid-template-columns: 1fr;
+    .tableRow {
+      flex-direction: column;
     }
 
     .tableCellLabel {
