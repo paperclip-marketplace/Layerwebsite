@@ -16,32 +16,40 @@
   padding-inline: var(--l-section-px);
 }
 
-@media (width > 1440px) {
+@media (min-width: 769px) {
   .section {
     position: relative;
-    border-left: 1px solid #dedede;
-    border-right: 1px solid #dedede;
   }
 
-  .section::before,
   .section::after {
     content: "";
     position: absolute;
     left: 50%;
+    bottom: 0;
     z-index: 1;
     width: 100vw;
     margin-left: -50vw;
+    border-top: 1px solid #dedede;
     pointer-events: none;
+  }
+}
+
+@media (width > 1440px) {
+  .section {
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
   }
 
   .section::before {
+    content: "";
+    position: absolute;
+    left: 50%;
     top: 0;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
     border-top: 1px solid #dedede;
-  }
-
-  .section::after {
-    bottom: 0;
-    border-top: 1px solid #dedede;
+    pointer-events: none;
   }
 }
 
@@ -186,10 +194,31 @@
 /* Figma 513:1194 — Forward Thinking Logos Container (mobile only) */
 @media (max-width: 768px) {
   .section {
+    position: relative;
     gap: 32px;
     padding-top: 40px;
     padding-bottom: 80px;
     padding-inline: 0;
+  }
+
+  .section::before,
+  .section::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+
+  .section::before {
+    top: 0;
+  }
+
+  .section::after {
+    bottom: 0;
   }
 
   .copyRow {

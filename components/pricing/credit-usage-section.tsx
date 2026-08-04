@@ -55,7 +55,7 @@ export function CreditUsageSection({
 }: CreditUsageSectionProps = {}) {
   return (
     <section
-      className={`${styles.section} landing-full-bleed-strokes landing-full-bleed-strokes-top`}
+      className={`${styles.section} landing-full-bleed-strokes-top`}
       aria-labelledby={headingId}
       data-name="Forward Thinking Logos Container"
       data-node-id="1783:3710"

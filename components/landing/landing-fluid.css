@@ -228,6 +228,16 @@
   }
 }
 
+/* Single divider below clients — suppress the next section’s top stroke */
+.landing-clients-section + .landing-problem-stats {
+  border-top: none;
+}
+
+.landing-clients-section + .landing-full-bleed-strokes-top::before {
+  content: none;
+  display: none;
+}
+
 /* Figma 713:798 / 713:404 — fixed 1440px column + white side gutters only wider than 1440px */
 @media (width > 1440px) {
   .landing-page-gutter {
@@ -242,11 +252,6 @@
       var(--l-content-inset-x),
       calc((100vw - var(--l-shell-w)) / 2 + var(--l-content-inset-x))
     );
-  }
-
-  /* Divider below clients — full-bleed via .landing-clients-section::after */
-  .landing-problem-stats {
-    border-top: none;
   }
 }
 
@@ -409,8 +414,9 @@
     border-right: none;
   }
 
-  /* Clients → problem: single divider comes from the next section’s top border */
+  /* Clients — full-viewport top/bottom via .landing-clients-section::before/::after */
   .landing-clients-section.landing-band-left {
+    border-top: none;
     border-bottom: none;
   }
 

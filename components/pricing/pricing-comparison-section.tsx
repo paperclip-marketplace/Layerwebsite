@@ -184,7 +184,7 @@ export function PricingComparisonSection() {
             </div>
             <p className={styles.planDescription}>
               For teams looking to improve ramp time, quota
-              <br />
+              <br className={styles.planDescriptionBreak} />
               attainment, win rates and growth
             </p>
           </div>
@@ -199,7 +199,7 @@ export function PricingComparisonSection() {
 
           <div className={styles.ctaGroup}>
             <Link href={ROUTES.signUp} className={styles.ctaPrimary}>
-              <span>Start Winning More</span>
+              <span className={styles.ctaPrimaryLabel}>Start Winning More</span>
               <span className="material-symbols-rounded" aria-hidden>
                 arrow_forward
               </span>
@@ -216,7 +216,9 @@ export function PricingComparisonSection() {
                 aria-controls="team-credits-panel"
                 id="team-credits-trigger"
               >
-                <span>{formatTierLabel(selectedTier.credits)}</span>
+                <span className={styles.ctaCreditsLabel}>
+                  {formatTierLabel(selectedTier.credits)}
+                </span>
                 <span className="material-symbols-rounded" aria-hidden>
                   {creditsOpen ? "expand_less" : "expand_more"}
                 </span>
@@ -272,18 +274,20 @@ export function PricingComparisonSection() {
             <h2 className={styles.planTitle}>Organization</h2>
             <p className={styles.planDescription}>
               Expert-led deployment for teams rebuilding GTM
-              <br />
+              <br className={styles.planDescriptionBreak} />
               around agents.
             </p>
           </div>
 
           <div className={styles.priceRow}>
-            <p className={styles.price}>Custom Plan</p>
+            <p className={`${styles.price} ${styles.priceCustom}`}>Custom Plan</p>
           </div>
 
           <div className={styles.ctaGroup}>
             <Link href={ROUTES.signUp} className={styles.ctaPrimary}>
-              <span>Talk to a GTM Architect</span>
+              <span className={styles.ctaPrimaryLabel}>
+                Talk to a GTM Architect
+              </span>
               <span className="material-symbols-rounded" aria-hidden>
                 arrow_forward
               </span>

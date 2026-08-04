@@ -106,6 +106,13 @@
   white-space: nowrap;
 }
 
+.priceCustom {
+  font-size: var(--l-fs-32);
+  font-weight: 600;
+  line-height: var(--l-lh-32);
+  white-space: normal;
+}
+
 .priceSuffix {
   padding-bottom: calc(8 * var(--l-vw));
   font-family: var(--layer-font-geist-sans);
@@ -153,6 +160,12 @@
 .ctaPrimary .material-symbols-rounded {
   font-size: var(--l-fs-24);
   line-height: 1;
+  flex-shrink: 0;
+}
+
+.ctaPrimaryLabel {
+  min-width: 0;
+  text-align: center;
 }
 
 .ctaCreditsWrap {
@@ -188,6 +201,11 @@
   flex-shrink: 0;
   font-size: var(--l-fs-24);
   line-height: 1;
+}
+
+.ctaCreditsLabel {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .creditsDropdown {
@@ -359,11 +377,160 @@
 
 @media (max-width: 768px) {
   .section {
-    margin-top: calc(48 * var(--l-vw));
-    gap: calc(32 * var(--l-vw));
+    position: relative;
+    box-sizing: border-box;
+    width: calc(100% + 2 * var(--l-page-gutter));
+    margin-inline: calc(-1 * var(--l-page-gutter));
+    margin-top: calc(56 * var(--l-vw));
+    gap: calc(24 * var(--l-vw));
+    padding: calc(40 * var(--l-vw)) 0 0;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    background: #ffffff;
+  }
+
+  .cardsRow {
+    gap: 0;
+  }
+
+  .planCard {
+    gap: calc(24 * var(--l-vw));
+    padding: calc(24 * var(--l-vw)) var(--l-page-gutter);
+    border-radius: 0;
+  }
+
+  .planCardTeam {
+    padding-top: 0;
+    border: none;
+    border-bottom: 1px solid #dedede;
+  }
+
+  .planCardOrg {
+    border: none;
+    padding-top: calc(24 * var(--l-vw));
+  }
+
+  .planHeader {
+    gap: calc(8 * var(--l-vw));
+  }
+
+  .planTitleRow {
+    flex-wrap: wrap;
+    gap: calc(8 * var(--l-vw));
   }
 
   .planTitle {
     white-space: normal;
+    font-size: var(--l-fs-32);
+    line-height: var(--l-lh-32);
+  }
+
+  .popularBadge {
+    padding: calc(4 * var(--l-vw)) calc(10 * var(--l-vw));
+    font-size: var(--l-fs-14);
+    line-height: var(--l-lh-14);
+    white-space: normal;
+  }
+
+  .planDescription {
+    font-size: var(--l-fs-20);
+    line-height: var(--l-lh-20);
+  }
+
+  .planDescriptionBreak {
+    display: none;
+  }
+
+  .priceRow {
+    flex-wrap: wrap;
+    gap: calc(4 * var(--l-vw)) calc(8 * var(--l-vw));
+  }
+
+  .price {
+    font-size: var(--l-fs-40);
+    line-height: var(--l-lh-40);
+    white-space: normal;
+  }
+
+  .priceCustom {
+    font-size: var(--l-fs-32);
+    font-weight: 600;
+    line-height: var(--l-lh-32);
+  }
+
+  .priceSuffix {
+    padding-bottom: 0;
+    font-size: var(--l-fs-20);
+    line-height: var(--l-lh-20);
+    white-space: normal;
+  }
+
+  .ctaGroup {
+    gap: calc(12 * var(--l-vw));
+  }
+
+  .ctaPrimary,
+  .ctaCredits,
+  .ctaHighlight,
+  .creditsOption {
+    padding: calc(16 * var(--l-vw)) calc(20 * var(--l-vw));
+    border-radius: calc(12 * var(--l-vw));
+    font-size: var(--l-fs-16);
+    line-height: var(--l-lh-16);
+  }
+
+  .ctaPrimary .material-symbols-rounded,
+  .ctaCredits .material-symbols-rounded {
+    font-size: calc(20 * var(--l-vw));
+  }
+
+  .ctaPrimaryLabel,
+  .ctaCreditsLabel {
+    white-space: normal;
+  }
+
+  .ctaHighlight {
+    font-size: var(--l-fs-16);
+    line-height: var(--l-lh-16);
+  }
+
+  .creditsDropdown {
+    border-radius: calc(12 * var(--l-vw));
+  }
+
+  .featuresBox {
+    gap: calc(16 * var(--l-vw));
+    padding: calc(20 * var(--l-vw));
+    border-radius: calc(16 * var(--l-vw));
+  }
+
+  .featuresHeading {
+    font-size: var(--l-fs-16);
+    line-height: var(--l-lh-16);
+  }
+
+  .featuresList {
+    gap: calc(12 * var(--l-vw));
+  }
+
+  .featureRow,
+  .orgFeatureRow {
+    align-items: flex-start;
+    padding: calc(2 * var(--l-vw)) 0;
+  }
+
+  .checkIcon {
+    font-size: calc(20 * var(--l-vw));
+  }
+
+  .featureText {
+    font-size: var(--l-fs-16);
+    line-height: var(--l-lh-16);
+  }
+
+  .orgFeatureDescription {
+    padding-left: calc(32 * var(--l-vw));
+    font-size: var(--l-fs-16);
+    line-height: var(--l-lh-16);
   }
 }
