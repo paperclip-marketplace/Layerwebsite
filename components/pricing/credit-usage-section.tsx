@@ -106,28 +106,24 @@ export function CreditUsageSection({
             </div>
 
             <div className={styles.tableBody}>
-              {table.rows.map((row, rowIndex) => {
-                const isLastRow = rowIndex === table.rows.length - 1;
-
-                return (
+              {table.rows.map((row) => (
                   <div
                     key={row.label}
-                    className={`${styles.tableRow} ${isLastRow ? "" : styles.tableRowBordered}`}
+                    className={styles.tableRow}
                   >
                     <div
                       className={`${styles.tableCell} ${styles.tableCellLabel}`}
                     >
                       <p className={styles.rowLabel}>{row.label}</p>
                     </div>
-                    <div className={styles.tableCell}>
+                    <div className={`${styles.tableCell} ${styles.tableCellValue}`}>
                       <p className={styles.rowValue}>
                         {row.credits}{" "}
                         <span className={styles.rowValueUnit}>{row.unit}</span>
                       </p>
                     </div>
                   </div>
-                );
-              })}
+                ))}
             </div>
           </div>
         ))}
