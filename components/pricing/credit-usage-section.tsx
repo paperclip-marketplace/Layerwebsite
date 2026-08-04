@@ -2,6 +2,7 @@ import {
   LandingHeadingReveal,
   LandingSubheadingReveal,
 } from "@/components/landing/landing-text-reveal";
+import { Fragment } from "react";
 import styles from "./credit-usage-section.module.css";
 
 type CreditUsageRow = {
@@ -106,24 +107,28 @@ export function CreditUsageSection({
             </div>
 
             <div className={styles.tableBody}>
-              {table.rows.map((row) => (
-                  <div
-                    key={row.label}
-                    className={styles.tableRow}
-                  >
+              {table.rows.map((row, rowIndex) => (
+                <Fragment key={row.label}>
+                  {rowIndex > 0 ? (
+                    <div className={styles.tableRowDivider} aria-hidden="true" />
+                  ) : null}
+                  <div className={styles.tableRow}>
                     <div
                       className={`${styles.tableCell} ${styles.tableCellLabel}`}
                     >
                       <p className={styles.rowLabel}>{row.label}</p>
                     </div>
-                    <div className={`${styles.tableCell} ${styles.tableCellValue}`}>
+                    <div
+                      className={`${styles.tableCell} ${styles.tableCellValue}`}
+                    >
                       <p className={styles.rowValue}>
                         {row.credits}{" "}
                         <span className={styles.rowValueUnit}>{row.unit}</span>
                       </p>
                     </div>
                   </div>
-                ))}
+                </Fragment>
+              ))}
             </div>
           </div>
         ))}
