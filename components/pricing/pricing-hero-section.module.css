@@ -54,8 +54,27 @@
 }
 
 @media (max-width: 768px) {
+  .section {
+    gap: calc(16 * var(--l-vw));
+    padding-top: calc(64 * var(--l-vw));
+  }
+
   .badge {
     white-space: normal;
-    text-align: center;
+    text-align: left;
+    font-size: var(--l-fs-16);
+    line-height: var(--l-lh-16);
+  }
+
+  .headline {
+    white-space: normal;
+    font-size: var(--l-fs-72);
+    line-height: var(--l-lh-72);
+  }
+
+  .description {
+    font-size: var(--l-fs-20);
+    line-height: var(--l-lh-20);
+    letter-spacing: var(--l-tracking-caption);
   }
 }

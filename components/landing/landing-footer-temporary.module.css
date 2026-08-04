@@ -177,7 +177,8 @@
 
 @media (max-width: 768px) {
   .card {
-    padding: 40px;
+    padding-block: calc(40 * var(--l-vw));
+    padding-inline: 0;
     border-radius: calc(24 * var(--l-vw));
   }
 

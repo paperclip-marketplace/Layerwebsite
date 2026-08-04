@@ -187,12 +187,17 @@
     padding: calc(16 * var(--l-vw)) calc(20 * var(--l-vw));
   }
 
+  .tableCellValue {
+    justify-content: center;
+  }
+
   .rowLabel {
     white-space: normal;
   }
 
   .rowValue {
     white-space: nowrap;
+    text-align: center;
   }
 
   @container (max-width: 320px) {
@@ -205,7 +210,6 @@
     }
 
     .tableCellValue {
-      padding-left: calc(24 * var(--l-vw));
       padding-top: calc(4 * var(--l-vw));
     }
 
