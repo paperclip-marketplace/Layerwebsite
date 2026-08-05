@@ -1,0 +1,232 @@
+/* Figma 1822:22480 — How Layer Works */
+
+.copySection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--l-section-gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-py) var(--l-section-px);
+  background: #ffffff;
+}
+
+.eyebrow {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.headline,
+.description {
+  font-family: var(--layer-font-geist-sans);
+  font-weight: 400;
+  letter-spacing: var(--l-tracking);
+}
+
+.headline {
+  margin: 0;
+  font-size: var(--l-fs-72);
+  line-height: var(--l-lh-72);
+  color: #020100;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.description {
+  margin: 0;
+  font-size: var(--l-fs-20);
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+.carouselSection {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 var(--l-split-pad-x) var(--l-split-pad-b);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  background: #ffffff;
+}
+
+.sectionPinned {
+  overflow: visible;
+  scroll-snap-type: none;
+  padding-inline: 0;
+}
+
+@media (min-width: 1201px) {
+  .sectionPinned .pinSpacer {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+}
+
+.pinSpacer {
+  position: relative;
+  width: 100%;
+  min-height: 500vh;
+}
+
+.pinSticky {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100svh - var(--landing-header-h, 64px));
+  padding: calc(20 * var(--l-vw)) 0;
+  overflow: visible;
+}
+
+.track {
+  display: flex;
+  gap: calc(20 * var(--l-vw));
+  align-items: flex-start;
+  width: max-content;
+  min-width: 100%;
+}
+
+.sectionPinned .track {
+  min-width: 0;
+  align-items: center;
+}
+
+.trackPinned {
+  will-change: transform;
+  transition: none;
+}
+
+.card {
+  display: flex;
+  flex: 0 0 var(--l-personal-agent-use-case-card);
+  flex-shrink: 0;
+  flex-direction: column;
+  width: var(--l-personal-agent-use-case-card);
+  height: var(--l-personal-agent-use-case-card);
+  overflow: hidden;
+  border: 1px solid #eeeeee;
+  border-radius: calc(24 * var(--l-vw));
+  background: #f9f9f9;
+  scroll-snap-align: start;
+}
+
+.sectionPinned [data-pin-scroll-card] {
+  flex: 0 0 auto;
+  width: var(--l-personal-agent-use-case-card);
+  height: var(--l-personal-agent-use-case-card);
+}
+
+.copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+  justify-content: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 0;
+  padding: calc(32 * var(--l-vw));
+}
+
+.cardTitle {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 600;
+  line-height: calc(28 * var(--l-vw));
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.cardDescription {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 * var(--l-vw));
+  letter-spacing: var(--l-tracking-caption);
+  color: #020100;
+}
+
+@media (max-width: 768px) {
+  .copySection {
+    gap: 32px;
+    padding: calc(40 * var(--l-vw)) var(--l-inset-x, 20px);
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+  }
+
+  .headline {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .copySection :global(.landing-copy-row) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .copySection :global(.landing-copy-headline),
+  .copySection :global(.landing-copy-aside) {
+    width: 100%;
+    max-width: none;
+  }
+
+  .carouselSection {
+    padding: 0 var(--l-inset-x, 20px) 40px;
+  }
+
+  .card {
+    flex-basis: min(var(--l-personal-agent-use-case-card), calc(100vw - 40px));
+    width: min(var(--l-personal-agent-use-case-card), calc(100vw - 40px));
+    height: auto;
+    min-height: min(var(--l-personal-agent-use-case-card), calc(100vw - 40px));
+    border-radius: 20px;
+  }
+
+  .copy {
+    gap: 12px;
+    min-height: 120px;
+    padding: 20px;
+  }
+
+  .cardTitle,
+  .cardDescription {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+}

@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion } from "motion/react";
 import {
+  memo,
   useLayoutEffect,
   useRef,
   type ComponentPropsWithoutRef,
@@ -124,80 +125,89 @@ function setupSplitTextReveal(container: HTMLElement) {
 }
 
 /** GSAP scroll reveal — first line words, then following lines slide up from below. */
-export function LandingHeadingReveal({
-  children,
-  className,
-  id,
-  as: Tag = "h2",
-  ...rest
-}: HeadingRevealProps) {
-  const reduceMotion = useReducedMotion();
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const originalHtmlRef = useRef<string | null>(null);
+export const LandingHeadingReveal = memo(
+  function LandingHeadingReveal({
+    children,
+    className,
+    id,
+    as: Tag = "h2",
+    ...rest
+  }: HeadingRevealProps) {
+    const reduceMotion = useReducedMotion();
+    const headingRef = useRef<HTMLHeadingElement | null>(null);
+    const originalHtmlRef = useRef<string | null>(null);
 
-  useLayoutEffect(() => {
-    const el = headingRef.current;
-    if (!el || reduceMotion) return;
+    useLayoutEffect(() => {
+      const el = headingRef.current;
+      if (!el || reduceMotion) return;
 
-    if (originalHtmlRef.current === null) {
+      // Setup once — parent re-renders must not reset/re-play the reveal
+      if (originalHtmlRef.current !== null) return;
       originalHtmlRef.current = el.innerHTML;
-    } else {
-      el.innerHTML = originalHtmlRef.current;
+
+      const { firstLineWords, lineSlides } = setupSplitTextReveal(el);
+
+      gsap.set(firstLineWords, { yPercent: 110 });
+      gsap.set(lineSlides, { yPercent: 100 });
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: "top 88%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+
+      timeline.to(firstLineWords, {
+        yPercent: 0,
+        duration: 0.65,
+        stagger: 0.055,
+        ease: "power4.out",
+      });
+
+      lineSlides.forEach((lineInner, index) => {
+        timeline.to(
+          lineInner,
+          {
+            yPercent: 0,
+            duration: 0.75,
+            ease: "power3.out",
+          },
+          index === 0 ? "-=0.2" : "<0.12",
+        );
+      });
+
+      return () => {
+        timeline.scrollTrigger?.kill();
+        timeline.kill();
+        if (originalHtmlRef.current && el.isConnected) {
+          el.innerHTML = originalHtmlRef.current;
+        }
+        originalHtmlRef.current = null;
+      };
+    }, [reduceMotion]);
+
+    if (reduceMotion) {
+      return (
+        <Tag id={id} className={className} {...rest}>
+          {children}
+        </Tag>
+      );
     }
 
-    const { firstLineWords, lineSlides } = setupSplitTextReveal(el);
-
-    gsap.set(firstLineWords, { yPercent: 110 });
-    gsap.set(lineSlides, { yPercent: 100 });
-
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start: "top 88%",
-        toggleActions: "play none none none",
-        once: true,
-      },
-    });
-
-    timeline.to(firstLineWords, {
-      yPercent: 0,
-      duration: 0.65,
-      stagger: 0.055,
-      ease: "power4.out",
-    });
-
-    lineSlides.forEach((lineInner, index) => {
-      timeline.to(
-        lineInner,
-        {
-          yPercent: 0,
-          duration: 0.75,
-          ease: "power3.out",
-        },
-        index === 0 ? "-=0.2" : "<0.12",
-      );
-    });
-
-    return () => {
-      timeline.scrollTrigger?.kill();
-      timeline.kill();
-    };
-  }, [children, reduceMotion]);
-
-  if (reduceMotion) {
     return (
-      <Tag id={id} className={className} {...rest}>
+      <Tag id={id} ref={headingRef} className={className} {...rest}>
         {children}
       </Tag>
     );
-  }
-
-  return (
-    <Tag id={id} ref={headingRef} className={className} {...rest}>
-      {children}
-    </Tag>
-  );
-}
+  },
+  // Ignore `children` identity — split DOM must not be reconciled away on parent re-renders
+  (prev, next) =>
+    prev.as === next.as &&
+    prev.id === next.id &&
+    prev.className === next.className,
+);
 
 type SubheadingRevealProps = ComponentPropsWithoutRef<"p"> & {
   /** Stagger after heading (seconds). */

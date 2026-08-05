@@ -54,7 +54,8 @@
     padding: 0;
   }
 
-  .landing-what-we-do-split .landing-split-section {
+  .landing-what-we-do-split .landing-split-section,
+  .landing-what-we-do-split .landing-lead-how-layer-works-carousel {
     width: 100%;
     margin-top: 32px;
     padding: 0 var(--l-inset-x, 20px);
@@ -64,17 +65,20 @@
     scrollbar-width: none;
   }
 
-  .landing-what-we-do-split .landing-split-section::-webkit-scrollbar {
+  .landing-what-we-do-split .landing-split-section::-webkit-scrollbar,
+  .landing-what-we-do-split .landing-lead-how-layer-works-carousel::-webkit-scrollbar {
     display: none;
   }
 
-  .landing-what-we-do-split .landing-split-section__track {
+  .landing-what-we-do-split .landing-split-section__track,
+  .landing-what-we-do-split .landing-lead-how-layer-works-carousel__track {
     padding-left: 0;
     padding-right: 0;
   }
 
   /* The Solution copy block → split cards */
-  .landing-what-we-do-split .landing-what-we-do-section {
+  .landing-what-we-do-split .landing-what-we-do-section,
+  .landing-what-we-do-split .landing-how-layer-works-section {
     gap: 32px;
     margin-bottom: 0;
   }

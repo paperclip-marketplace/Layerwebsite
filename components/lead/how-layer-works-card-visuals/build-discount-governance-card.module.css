@@ -1,0 +1,84 @@
+/* Figma 1822:23901 — elevated center card with white ring + 1822:23903/23904 rings */
+
+.wrap {
+  width: 100%;
+  pointer-events: none;
+  container-type: inline-size;
+  container-name: build-directive-wrap;
+}
+
+.card {
+  width: 100%;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 23px 21.7px rgba(0, 0, 0, 0.1);
+}
+
+/* Figma hero 176px @ 280px card (vs 148px default SkillCard) */
+.hero {
+  height: 62.857cqw;
+  overflow: hidden;
+  /* Inner radius = card 12px − white border 3px */
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+}
+
+/*
+ * Higher specificity than SkillCard hero clip so the 9px inner
+ * curve wins. clip-path stops backdrop-filter / type washes from
+ * painting square corners past the radius.
+ */
+.wrap .hero {
+  clip-path: inset(0 round 9px 9px 0 0);
+}
+
+.heroIllustration {
+  top: 15.714cqw;
+}
+
+/* 1822:23903 — container for wash + rings */
+.heroOverlay {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  clip-path: inset(0 round 9px 9px 0 0);
+  pointer-events: none;
+}
+
+/* Blur + white fade sit behind the rings so strokes stay sharp */
+.heroWash {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 100%
+  );
+  backdrop-filter: blur(23.95px);
+  -webkit-backdrop-filter: blur(23.95px);
+}
+
+/* 1822:23904 — 288×176 rings, centered on 280-wide card */
+.heroRingsWrap {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 50%;
+  width: 102.857cqw;
+  height: 62.857cqw;
+  transform: translateX(-50%);
+}
+
+.heroRingsImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}

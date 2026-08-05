@@ -1,0 +1,10 @@
+/* Scale PitchBots FrameworkCard (227px ref) within Build stage */
+
+.wrap {
+  width: 100%;
+  pointer-events: none;
+}
+
+.wrap article {
+  width: 100%;
+}

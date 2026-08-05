@@ -1,0 +1,535 @@
+.playbookCard {
+  --playbook-card-surface: #ffffff;
+  position: relative;
+  width: 288px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: clip;
+  isolation: isolate;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  background-color: var(--playbook-card-surface);
+  box-sizing: border-box;
+  transition:
+    --playbook-card-surface 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playbookCardSelectable {
+  cursor: pointer;
+}
+
+.playbookCardMenuOpen,
+.playbookCard:focus-within {
+  z-index: 2;
+}
+
+.playbookCardSelected {
+  --playbook-card-surface: #fbebe6;
+  border-color: #eeeeee;
+  box-shadow: none;
+}
+
+.playbookCardSelected .playbookCardHeroThumbFrame {
+  background: #f9f9f9;
+  border-color: #eeeeee;
+}
+
+.playbookCardSelected .playbookCardHeroThumbIconDefault {
+  opacity: 1;
+}
+
+.playbookCardSelected .playbookCardHeroThumbIconHover {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .playbookCardSelected:hover {
+    border-color: #eeeeee;
+    box-shadow: none;
+  }
+
+  .playbookCardSelected:hover .playbookCardHeroThumbFrame {
+    background: #f9f9f9;
+    border-color: #eeeeee;
+  }
+
+  .playbookCardSelected:hover .playbookCardHeroThumbIconDefault {
+    opacity: 1;
+  }
+
+  .playbookCardSelected:hover .playbookCardHeroThumbIconHover {
+    opacity: 0;
+  }
+}
+
+.playbookCardSelected.playbookCardMenuOpen,
+.playbookCardSelected:focus-within {
+  border-color: #eeeeee;
+  box-shadow: none;
+}
+
+.playbookCardSelected.playbookCardMenuOpen .playbookCardHeroThumbFrame,
+.playbookCardSelected:focus-within .playbookCardHeroThumbFrame {
+  background: #f9f9f9;
+  border-color: #eeeeee;
+}
+
+.playbookCardSelected.playbookCardMenuOpen .playbookCardHeroThumbIconDefault,
+.playbookCardSelected:focus-within .playbookCardHeroThumbIconDefault {
+  opacity: 1;
+}
+
+.playbookCardSelected.playbookCardMenuOpen .playbookCardHeroThumbIconHover,
+.playbookCardSelected:focus-within .playbookCardHeroThumbIconHover {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .playbookCard:not(.playbookCardSelected):hover {
+    border-color: #dedede;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .playbookCard:not(.playbookCardSelected):hover .playbookCardHeroThumbFrame {
+    background: #fbebe6;
+    border-color: #fcccbd;
+  }
+}
+
+.playbookCardMenuOpen:not(.playbookCardSelected),
+.playbookCard:not(.playbookCardSelected):focus-within {
+  border-color: #dedede;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.playbookCardMenuOpen:not(.playbookCardSelected) .playbookCardHeroThumbFrame,
+.playbookCard:not(.playbookCardSelected):focus-within .playbookCardHeroThumbFrame {
+  background: #fbebe6;
+  border-color: #fcccbd;
+}
+
+.playbookCardHero {
+  position: relative;
+  width: 100%;
+  height: 132px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 16px 16px 0;
+  box-sizing: border-box;
+}
+
+.playbookCardHeroBgWrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 288px;
+  height: 132px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.playbookCardHeroGridMask {
+  position: absolute;
+  inset: -115.58% -102.1% -125.98% -101.4%;
+  opacity: 0.1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.playbookCardHeroGridMask::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background-color: #020100;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.playbookCardHeroGridV {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  display: block;
+}
+
+.playbookCardHeroRingsWrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 288px;
+  height: 176px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.playbookCardHeroRings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  object-fit: fill;
+}
+
+.playbookCardHeroFadeBottom {
+  position: absolute;
+  top: -4px;
+  left: -7px;
+  width: 302px;
+  height: 201px;
+  background: linear-gradient(
+    to top,
+    var(--playbook-card-surface) 37.065%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  transition: background 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playbookCardHeroThumbWrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  width: 289px;
+  height: 132px;
+  transform: translateX(calc(-50% - 0.5px));
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.playbookCardHeroThumbRotate {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 105px;
+  height: 118px;
+  transform: translateX(calc(-50% + 0.46px));
+}
+
+.playbookCardHeroThumbFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15.656px 15.656px 31.311px;
+  border: 1px solid #eeeeee;
+  border-bottom: none;
+  border-radius: 15.656px 15.656px 0 0;
+  background: #f9f9f9;
+  box-shadow: 0 6.262px 7.828px rgba(0, 0, 0, 0.08);
+  transform: rotate(7.81deg);
+  transform-origin: center center;
+  box-sizing: border-box;
+  transition:
+    background-color 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playbookCardHeroThumbIconWrap {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.playbookCardHeroThumbIcon {
+  display: block;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playbookCardHeroThumbIconHover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .playbookCard:not(.playbookCardSelected):hover .playbookCardHeroThumbIconDefault {
+    opacity: 0;
+  }
+
+  .playbookCard:not(.playbookCardSelected):hover .playbookCardHeroThumbIconHover {
+    opacity: 1;
+  }
+}
+
+.playbookCardMenuOpen:not(.playbookCardSelected) .playbookCardHeroThumbIconDefault,
+.playbookCard:not(.playbookCardSelected):focus-within .playbookCardHeroThumbIconDefault {
+  opacity: 0;
+}
+
+.playbookCardMenuOpen:not(.playbookCardSelected) .playbookCardHeroThumbIconHover,
+.playbookCard:not(.playbookCardSelected):focus-within .playbookCardHeroThumbIconHover {
+  opacity: 1;
+}
+
+.playbookCardHeroThumbFadeBottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 287px;
+  height: 20px;
+  transform: translateX(calc(-50% + 1px));
+  background: linear-gradient(
+    to top,
+    var(--playbook-card-surface) 10.697%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  transition: background 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playbookCardHeroThumbFadeTop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 287px;
+  height: 40px;
+  transform: translateX(calc(-50% + 1px));
+  background: linear-gradient(
+    to bottom,
+    var(--playbook-card-surface) 89.303%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  transition: background 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playbookCardHeroTop {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+  gap: 10px;
+}
+
+.playbookPlatformChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #eeeeee;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.48px;
+  color: #020100;
+  flex-shrink: 0;
+}
+
+.playbookCardMenuAnchor {
+  position: relative;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.playbookCardMenuBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border: 1px solid #eeeeee;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #020100;
+  cursor: pointer;
+}
+
+.playbookCardMenuBtn .ms {
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.playbookCardMenu {
+  position: absolute;
+  top: 43px;
+  right: 16px;
+  z-index: 20;
+  min-width: 128px;
+  padding: 4px;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 32px 25.55px rgba(0, 0, 0, 0.07);
+  box-sizing: border-box;
+}
+
+.playbookCardMenuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 128px;
+  padding: 6px 8px;
+  border: none;
+  border-bottom: 1px solid #eeeeee;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.56px;
+  color: #000000;
+  text-align: left;
+  cursor: pointer;
+}
+
+.playbookCardMenuItem:last-child {
+  border-bottom: none;
+}
+
+.playbookCardMenuItem:hover {
+  background: #fafafa;
+}
+
+.playbookCardMenuItemDanger {
+  color: #e32a00;
+}
+
+.playbookCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+  padding: 8px 16px 16px;
+  box-sizing: border-box;
+}
+
+.playbookCardCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+}
+
+.playbookCardTitle {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: -0.64px;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.playbookCardDescription {
+  margin: 0;
+  height: 32px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: -0.48px;
+  color: #8d8d8d;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.playbookCardMetaBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  background: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.playbookCardMetaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.playbookCardMetaLabel {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: -0.48px;
+  color: #8d8d8d;
+}
+
+.playbookCardCreatorAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #ececec;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.32px;
+  color: #020100;
+  flex-shrink: 0;
+}
+
+.playbookCardMetaValue {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.48px;
+  color: #636363;
+  text-align: right;
+}
+
+/* Scale within Build card stage */
+.playbookCard {
+  width: 100%;
+}
+
+/* Build card visual — always show hover colors when requested */
+.playbookCardAlwaysActive .playbookCardHeroThumbFrame {
+  background: #fbebe6;
+  border-color: #fcccbd;
+}
+
+.playbookCardAlwaysActive .playbookCardHeroThumbIconDefault {
+  opacity: 0;
+}
+
+.playbookCardAlwaysActive .playbookCardHeroThumbIconHover {
+  opacity: 1;
+}

@@ -1,0 +1,130 @@
+/* Figma 1822:24327 — 560×400 Improve stage */
+
+/* 1822:24328 — purple textured backdrop */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #1a0a14;
+}
+
+.backdropImage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  /*
+   * Figma fill is 784×928: pale at the top, deep plum at the bottom.
+   * Stage is 560×400 landscape — cover + bottom pin matches the node crop.
+   */
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+.layerImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* 1822:24330 — outer soft plate @ inset 12% 13.77% 14.75% -4.46% */
+.callOuter {
+  position: absolute;
+  top: 12%;
+  right: 13.77%;
+  bottom: 14.75%;
+  left: -4.46%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 1822:24332 — call UI @ inset 12.98% 14.47% 15.73% -3.77% */
+.callUi {
+  position: absolute;
+  top: 12.98%;
+  right: 14.47%;
+  bottom: 15.73%;
+  left: -3.77%;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 1.74cqw;
+}
+
+.callImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: left center;
+}
+
+/* 1822:24333 — inner stroke @ inset 13.04% 14.51% 15.79% -3.72% */
+.callInner {
+  position: absolute;
+  top: 13.04%;
+  right: 14.51%;
+  bottom: 15.79%;
+  left: -3.72%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* 1822:24336 — scorecard @ inset 5.5% 3.13% 3.32% 58.39%, rotate 2.45deg */
+.scorecardWrap {
+  position: absolute;
+  top: 5.5%;
+  right: 3.13%;
+  bottom: 3.32%;
+  left: 58.39%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.scorecardRotate {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: rotate(2.45deg);
+  transform-origin: center center;
+}
+
+.scorecardImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+  /* Layer effect: soft elevation shadow (not in SVG export) */
+  filter: drop-shadow(0 0.7cqw 3.6cqw rgba(10, 13, 18, 0.38));
+}
+
+/* 1822:24334 — bottom fade h=153; keep it short so the raw purple stays visible */
+.bottomFade {
+  position: absolute;
+  z-index: 4;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  height: 28%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 0%,
+    rgba(249, 249, 249, 0.15) 45%,
+    rgba(249, 249, 249, 0.55) 75%,
+    #f9f9f9 100%
+  );
+}

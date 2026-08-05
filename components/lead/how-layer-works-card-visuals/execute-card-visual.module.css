@@ -1,0 +1,79 @@
+/* Figma 1822:23958 — 560×400 Execute stage */
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #f9f9f9;
+}
+
+.backdropGrid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(to right, rgba(2, 1, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(2, 1, 0, 0.06) 1px, transparent 1px);
+  background-size: calc(48 * var(--l-vw)) calc(48 * var(--l-vw));
+  background-position: center top;
+}
+
+.backdropGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(249, 249, 249, 0) 0%, #f9f9f9 100%);
+}
+
+/* Figma 1822:23960 — Home @ x=-43 y=6, 646×394 */
+.desktopWrap {
+  position: absolute;
+  top: 1.5%;
+  left: -7.68%;
+  z-index: 1;
+  width: 115.36%;
+  height: 98.5%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Figma 1822:24186 — layer-notch @ x=12 y=6, 536×334 */
+.notchWrap {
+  position: absolute;
+  top: 1.5%;
+  left: 2.14%;
+  z-index: 3;
+  width: 95.71%;
+  height: 83.5%;
+  pointer-events: none;
+}
+
+/* Figma 1822:24237 — bottom fade 160px @ 400px stage */
+.bottomFade {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 40%;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 0%,
+    rgba(249, 249, 249, 0.008) 11.79%,
+    rgba(249, 249, 249, 0.032) 21.384%,
+    rgba(249, 249, 249, 0.07) 29.12%,
+    rgba(249, 249, 249, 0.121) 35.336%,
+    rgba(249, 249, 249, 0.181) 40.37%,
+    rgba(249, 249, 249, 0.251) 44.56%,
+    rgba(249, 249, 249, 0.328) 48.243%,
+    rgba(249, 249, 249, 0.411) 51.757%,
+    rgba(249, 249, 249, 0.497) 55.44%,
+    rgba(249, 249, 249, 0.585) 59.63%,
+    rgba(249, 249, 249, 0.674) 64.664%,
+    rgba(249, 249, 249, 0.762) 70.88%,
+    rgba(249, 249, 249, 0.846) 78.616%,
+    rgba(249, 249, 249, 0.926) 88.21%,
+    #f9f9f9 100%
+  );
+  pointer-events: none;
+}

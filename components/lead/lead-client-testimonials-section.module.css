@@ -1,0 +1,355 @@
+/* Figma 1822:22945 — Client testimonials expandable cards */
+
+.section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  border-bottom: 1px solid #dedede;
+  background: #ffffff;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(40 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(80 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
+}
+
+.eyebrow {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headlineRow {
+  width: 100%;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: calc(84 / 72);
+  letter-spacing: calc(-2.88 * var(--l-vw));
+  color: #020100;
+  white-space: nowrap;
+}
+
+.headlineHighlight {
+  color: #f45523;
+}
+
+.cardsSection {
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
+}
+
+.cardRow {
+  display: flex;
+  gap: calc(20 * var(--l-vw));
+  align-items: stretch;
+  width: 100%;
+}
+
+.card {
+  position: relative;
+  flex: 0 0 calc(325 * var(--l-vw));
+  width: calc(325 * var(--l-vw));
+  height: calc(550 * var(--l-vw));
+  overflow: hidden;
+  border: 1px solid #eeeeee;
+  border-radius: calc(24 * var(--l-vw));
+  cursor: pointer;
+  transition:
+    flex 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:focus-visible {
+  outline: 2px solid #f45523;
+  outline-offset: 2px;
+}
+
+.cardExpanded {
+  flex: 1 1 0;
+  width: auto;
+  min-width: calc(325 * var(--l-vw));
+}
+
+.cardBackdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.cardBackgroundFrame {
+  position: absolute;
+  inset: 0;
+}
+
+.cardBackgroundImage {
+  object-fit: cover;
+}
+
+.card1Background {
+  left: -7.6%;
+  width: 123.33%;
+}
+
+.cardGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, var(--card-gradient-opacity, 0.45)) 100%
+  );
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: calc(32 * var(--l-vw));
+}
+
+.logoWrap {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.logoImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card1Logo {
+  width: calc(62 * var(--l-vw));
+  height: calc(56 * var(--l-vw));
+}
+
+.card1Logo .logoImage {
+  position: absolute;
+  width: 220.2%;
+  height: 244.26%;
+  max-width: none;
+  left: -60.1%;
+  top: -72.13%;
+}
+
+.card2Logo {
+  width: calc(80 * var(--l-vw));
+  height: calc(56 * var(--l-vw));
+}
+
+.card2Logo .logoImage {
+  position: absolute;
+  width: 139.29%;
+  height: 200%;
+  max-width: none;
+  left: -19.64%;
+  top: -50%;
+}
+
+/* Figma 1822:22966 — 43×56 mint Payhawk “P” (pre-cropped) */
+.card3Logo {
+  width: calc(43 * var(--l-vw));
+  aspect-ratio: 43 / 56;
+  height: auto;
+}
+
+.card3Logo .logoImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+.minimizedCopy,
+.expandedCopy {
+  width: 100%;
+}
+
+.minimizedCopy {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.minimizedCopyHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.minimizedText {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #ffffff;
+  word-break: break-word;
+}
+
+.expandedCopy {
+  position: absolute;
+  right: calc(32 * var(--l-vw));
+  bottom: calc(32 * var(--l-vw));
+  left: calc(32 * var(--l-vw));
+  display: flex;
+  flex-direction: column;
+  gap: calc(22 * var(--l-vw));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease 0.08s;
+}
+
+.expandedCopyVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.expandedQuote {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-32);
+  font-weight: 600;
+  line-height: calc(40 / 32);
+  letter-spacing: calc(-1.28 * var(--l-vw));
+  color: #ffffff;
+}
+
+.expandedMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.expandedName {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #ffffff;
+}
+
+.expandedRole {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: calc(24 / 16);
+  letter-spacing: calc(-0.64 * var(--l-vw));
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .header {
+    gap: 32px;
+    padding: 40px var(--l-inset-x, 20px) 24px;
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: normal;
+  }
+
+  .headline {
+    font-size: 48px;
+    line-height: 52px;
+    letter-spacing: -1.92px;
+    white-space: normal;
+  }
+
+  .cardsSection {
+    padding: 24px var(--l-inset-x, 20px) 40px;
+  }
+
+  .cardRow {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card,
+  .cardExpanded {
+    flex: none;
+    width: 100%;
+    height: 420px;
+    min-width: 0;
+  }
+
+  .cardContent {
+    padding: 24px;
+  }
+
+  .expandedCopy {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .minimizedCopyHidden {
+    display: none;
+  }
+
+  .card:not(.cardExpanded) .expandedCopy {
+    display: none;
+  }
+
+  .expandedQuote {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.96px;
+  }
+
+  .expandedName {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .expandedRole {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .minimizedCopy,
+  .expandedCopy {
+    transition: none;
+  }
+}

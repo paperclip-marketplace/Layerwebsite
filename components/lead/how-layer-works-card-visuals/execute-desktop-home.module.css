@@ -1,0 +1,37 @@
+/* Figma 1822:23960 — Home frame 646×394 within Execute stage */
+
+.home {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Figma 1822:23961 — wallpaper/bg 1512×984 positioned inside Home */
+.wallpaper {
+  position: absolute;
+  top: -0.25%;
+  left: -70.74%;
+  width: 234.05%;
+  height: 249.75%;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.wallpaperMainLayer,
+.wallpaperTopRightLayer {
+  position: absolute;
+}
+
+.wallpaperMainLayer {
+  inset: -3.9% -2.99% -11.88% -2.52%;
+}
+
+.wallpaperTopRightLayer {
+  inset: -5.07% -5.91% 24.2% 18.88%;
+}
+
+.wallpaperImg {
+  object-fit: cover;
+  object-position: center;
+}
