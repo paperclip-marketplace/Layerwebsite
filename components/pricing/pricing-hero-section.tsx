@@ -22,7 +22,7 @@ export function PricingHeroSection() {
         <LandingSubheadingReveal
           className={`landing-copy-aside ${styles.description}`}
         >
-          Start with unlimited users, agents, and 1,000 monthly credits.
+          Start with unlimited users, agents, and 10,000 monthly credits.
           Scale with expert-led context-layer curation, agent configuration, and
           GTM operating support from Layer&apos;s architects and operators.
         </LandingSubheadingReveal>
