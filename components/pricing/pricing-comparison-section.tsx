@@ -12,17 +12,14 @@ type CreditTier = {
 };
 
 const TEAM_CREDIT_TIERS: CreditTier[] = [
-  { id: "1000", credits: 1_000, priceMonthly: 200 },
-  { id: "2500", credits: 2_500, priceMonthly: 500 },
-  { id: "5000", credits: 5_000, priceMonthly: 1_000 },
-  { id: "10000", credits: 10_000, priceMonthly: 2_000 },
-  { id: "15000", credits: 15_000, priceMonthly: 3_000 },
-  { id: "20000", credits: 20_000, priceMonthly: 4_000 },
+  { id: "10000", credits: 10_000, priceMonthly: 200 },
+  { id: "15000", credits: 15_000, priceMonthly: 300 },
+  { id: "20000", credits: 20_000, priceMonthly: 400 },
 ];
 
 const TEAM_FEATURES = [
   "Unlimited users",
-  "1,000 monthly credits",
+  "10,000 monthly credits",
   "One agent for every rep",
   "Agent memory, personality, and seller profile matrix",
   "Voice and video agents",
