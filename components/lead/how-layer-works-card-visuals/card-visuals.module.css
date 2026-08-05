@@ -162,8 +162,9 @@
   object-position: center top;
 }
 
+/* Figma 1835:19222 — mobile card media stage is 280px */
 @media (max-width: 768px) {
   .visual {
-    height: 228px;
+    height: 280px;
   }
 }

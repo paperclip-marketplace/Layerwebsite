@@ -13,6 +13,7 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from "react";
+import { createPortal } from "react-dom";
 import { SuccessCheckIcon } from "@/components/contact/success-check-icon";
 import { ROUTES } from "@/lib/config/constants";
 import {
@@ -31,6 +32,7 @@ const SENTINEL_ID = "lead-capture";
 const MORPH_DURATION = 0.52;
 const PANEL_DURATION = 0.55;
 const CLOSE_DURATION = 0.48;
+const MOBILE_SCROLL_HIDE_DELTA = 10;
 
 type PillSize = {
   width: number;
@@ -43,7 +45,10 @@ type PillSize = {
 
 /** Figma 1822:25389 closed | 1822:25649/25650/25715 open */
 export function LeadWalkthroughFab() {
+  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
+  /** Mobile: hide pill while scrolling up; show again on scroll down */
+  const [scrollHidden, setScrollHidden] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isCircle, setIsCircle] = useState(false);
   const [form, setForm] = useState<LeadFormState>(LEAD_FORM_INITIAL_STATE);
@@ -51,6 +56,7 @@ export function LeadWalkthroughFab() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
+  const backdropScrimRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
@@ -61,6 +67,7 @@ export function LeadWalkthroughFab() {
   const isOpenRef = useRef(false);
   const visibleRef = useRef(false);
   const prefersReducedMotionRef = useRef(false);
+  const lastScrollYRef = useRef(0);
   const pillSizeRef = useRef<PillSize>({
     width: 0,
     height: 56,
@@ -69,6 +76,10 @@ export function LeadWalkthroughFab() {
     paddingBottom: 12,
     paddingLeft: 24,
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     isOpenRef.current = isOpen;
@@ -96,6 +107,26 @@ export function LeadWalkthroughFab() {
       paddingBottom: parseFloat(computed.paddingBottom),
       paddingLeft: parseFloat(computed.paddingLeft),
     };
+  }, []);
+
+  /** Size scrim to just above the panel top so the card feels elevated. */
+  const syncBackdropScrim = useCallback(() => {
+    const panel = panelRef.current;
+    const scrim = backdropScrimRef.current;
+    const stack = panel?.parentElement;
+    if (!panel || !scrim || !stack) return;
+
+    const stackStyles = window.getComputedStyle(stack);
+    const gap = parseFloat(stackStyles.gap) || 16;
+    const bottom = parseFloat(stackStyles.bottom) || 24;
+    const closeH = toggleRef.current?.offsetHeight || 56;
+    const panelH = panel.offsetHeight;
+    const lift = 40; /* a little above the FAB container */
+    const height = Math.min(
+      window.innerHeight,
+      Math.ceil(bottom + closeH + gap + panelH + lift),
+    );
+    scrim.style.setProperty("--fab-scrim-h", `${height}px`);
   }, []);
 
   const resetToggleToPill = useCallback(() => {
@@ -153,13 +184,19 @@ export function LeadWalkthroughFab() {
     const arrow = arrowRef.current;
     const closeSlot = closeSlotRef.current;
     const closeGlyph = closeGlyphRef.current;
+    const backdrop = backdropRef.current;
     if (!panel || !button || !label || !arrow || !closeSlot || !closeGlyph) {
       return;
     }
 
-    gsap.killTweensOf([panel, button, label, arrow, closeSlot, closeGlyph]);
+    gsap.killTweensOf(
+      [panel, button, label, arrow, closeSlot, closeGlyph, backdrop].filter(
+        Boolean,
+      ),
+    );
 
     if (prefersReducedMotionRef.current) {
+      if (backdrop) gsap.set(backdrop, { autoAlpha: 1 });
       gsap.set(panel, { autoAlpha: 1, y: 0, scale: 1 });
       gsap.set(button, {
         width: 56,
@@ -170,17 +207,25 @@ export function LeadWalkthroughFab() {
       gsap.set([label, arrow], { autoAlpha: 0, scale: 0.8 });
       gsap.set(closeSlot, { autoAlpha: 1 });
       gsap.set(closeGlyph, { rotate: 0, scale: 1 });
+      syncBackdropScrim();
       setIsCircle(true);
       isAnimatingRef.current = false;
       return;
     }
 
+    const panelOrigin =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 768px)").matches
+        ? "bottom center"
+        : "bottom right";
+
     gsap.set(panel, {
       autoAlpha: 0,
       y: 32,
       scale: 0.92,
-      transformOrigin: "bottom right",
+      transformOrigin: panelOrigin,
     });
+    if (backdrop) gsap.set(backdrop, { autoAlpha: 0 });
     gsap.set(closeSlot, { autoAlpha: 0 });
     gsap.set(closeGlyph, {
       rotate: -90,
@@ -188,14 +233,24 @@ export function LeadWalkthroughFab() {
       transformOrigin: "50% 50%",
     });
     gsap.set([label, arrow], { autoAlpha: 1, scale: 1 });
+    syncBackdropScrim();
 
     const timeline = gsap.timeline({
       defaults: { ease: "power3.inOut" },
       onComplete: () => {
+        syncBackdropScrim();
         setIsCircle(true);
         isAnimatingRef.current = false;
       },
     });
+
+    if (backdrop) {
+      timeline.to(
+        backdrop,
+        { autoAlpha: 1, duration: 0.45, ease: "power2.out" },
+        0,
+      );
+    }
 
     timeline
       .to(
@@ -256,7 +311,7 @@ export function LeadWalkthroughFab() {
         },
         0.1,
       );
-  }, []);
+  }, [syncBackdropScrim]);
 
   const animateClose = useCallback(() => {
     const panel = panelRef.current;
@@ -265,6 +320,7 @@ export function LeadWalkthroughFab() {
     const arrow = arrowRef.current;
     const closeSlot = closeSlotRef.current;
     const closeGlyph = closeGlyphRef.current;
+    const backdrop = backdropRef.current;
 
     if (!button || !label || !arrow || !closeSlot || !closeGlyph) {
       return Promise.resolve();
@@ -283,10 +339,15 @@ export function LeadWalkthroughFab() {
       paddingLeft = 24;
     }
 
-    gsap.killTweensOf([panel, button, label, arrow, closeSlot, closeGlyph].filter(Boolean));
+    gsap.killTweensOf(
+      [panel, button, label, arrow, closeSlot, closeGlyph, backdrop].filter(
+        Boolean,
+      ),
+    );
 
     if (prefersReducedMotionRef.current) {
       if (panel) gsap.set(panel, { autoAlpha: 0 });
+      if (backdrop) gsap.set(backdrop, { autoAlpha: 0 });
       gsap.set(button, {
         width: "auto",
         height: "auto",
@@ -335,6 +396,18 @@ export function LeadWalkthroughFab() {
             autoAlpha: 0,
             y: 28,
             scale: 0.94,
+            duration: CLOSE_DURATION,
+            ease: "power2.inOut",
+          },
+          0,
+        );
+      }
+
+      if (backdrop) {
+        timeline.to(
+          backdrop,
+          {
+            autoAlpha: 0,
             duration: CLOSE_DURATION,
             ease: "power2.inOut",
           },
@@ -445,12 +518,14 @@ export function LeadWalkthroughFab() {
     }
 
     resetToggleToPill();
+    setScrollHidden(false);
     setVisible(false);
   }, [animateClose, resetToggleToPill]);
 
   const showClosedFab = useCallback(() => {
     setIsOpen(false);
     resetToggleToPill();
+    setScrollHidden(false);
     setVisible(true);
   }, [resetToggleToPill]);
 
@@ -458,6 +533,28 @@ export function LeadWalkthroughFab() {
     if (!isOpen) return;
     animateOpen();
   }, [isOpen, animateOpen]);
+
+  /* Keep scrim height locked to panel top (+ lift) while open */
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    syncBackdropScrim();
+
+    const panel = panelRef.current;
+    const onResize = () => syncBackdropScrim();
+    window.addEventListener("resize", onResize);
+
+    let observer: ResizeObserver | null = null;
+    if (panel && typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(onResize);
+      observer.observe(panel);
+    }
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      observer?.disconnect();
+    };
+  }, [isOpen, submitted, syncBackdropScrim]);
 
   /* Lock page scroll while panel is open — only the panel may scroll */
   useEffect(() => {
@@ -562,6 +659,37 @@ export function LeadWalkthroughFab() {
     };
   }, [closeAndHide, showClosedFab]);
 
+  /* Mobile: keep FAB viewport-fixed feel — tuck away on scroll-up, restore on scroll-down */
+  useEffect(() => {
+    if (!visible) {
+      setScrollHidden(false);
+      return;
+    }
+
+    const mobile = window.matchMedia("(max-width: 768px)");
+    lastScrollYRef.current = window.scrollY;
+
+    const onScroll = () => {
+      if (!mobile.matches || isOpenRef.current || isAnimatingRef.current) {
+        return;
+      }
+
+      const y = window.scrollY;
+      const delta = y - lastScrollYRef.current;
+      if (Math.abs(delta) < MOBILE_SCROLL_HIDE_DELTA) return;
+
+      if (delta < 0) {
+        setScrollHidden(true);
+      } else {
+        setScrollHidden(false);
+      }
+      lastScrollYRef.current = y;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [visible]);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -614,58 +742,91 @@ export function LeadWalkthroughFab() {
     setSubmitted(true);
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div
       ref={containerRef}
-      className={`${styles.root} ${visible ? styles.rootVisible : ""}`}
+      className={`${styles.root} ${visible ? styles.rootVisible : ""} ${
+        scrollHidden && !isOpen ? styles.rootScrollHidden : ""
+      }`}
       data-node-id={isOpen ? "1822:25649" : "1822:25389"}
     >
       {isOpen ? (
         <div
           ref={backdropRef}
           className={styles.backdrop}
+          data-node-id="1835:27234"
           aria-hidden
           onClick={() => void close()}
-        />
+        >
+          <div ref={backdropScrimRef} className={styles.backdropScrim} />
+        </div>
       ) : null}
 
       <div className={styles.stack}>
         {isOpen ? (
           <div
             ref={panelRef}
-            className={styles.panel}
+            className={[styles.panel, submitted ? styles.panelSuccess : ""]
+              .filter(Boolean)
+              .join(" ")}
             data-node-id="1822:25650"
             role="dialog"
             aria-modal="true"
             aria-label="Get a Personalized Walkthrough"
           >
             {submitted ? (
-              <div className={styles.successBody} role="status" aria-live="polite">
-                <SuccessCheckIcon />
-                <p className={styles.successTitle}>
-                  Thank
-                  <span className={styles.successTitleHighlight}> You!</span>
-                </p>
-                <p className={styles.successMessage}>
-                  Our team will get back to you within 24–48 hours depending on
-                  availability.
-                </p>
-                <p className={styles.successCtaText}>
-                  Want to get started now?{" "}
-                  <Link href={ROUTES.signUp} className={styles.successCtaLink}>
-                    Sign Up
-                  </Link>
-                </p>
-              </div>
+              <>
+                <div
+                  className={styles.successBody}
+                  role="status"
+                  aria-live="polite"
+                  data-node-id="1835:32199"
+                >
+                  <div className={styles.successIcon} data-node-id="1835:32200">
+                    <SuccessCheckIcon className={styles.successIconImg} />
+                  </div>
+                  <div className={styles.successCopy} data-node-id="1835:32201">
+                    <p className={styles.successTitle} data-node-id="1835:32202">
+                      Thank
+                      <span className={styles.successTitleHighlight}> You!</span>
+                    </p>
+                    <p
+                      className={styles.successMessage}
+                      data-node-id="1835:32203"
+                    >
+                      Our team will get back to you within 24–48 hours depending
+                      on availability.
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.successCta} data-node-id="1835:32204">
+                  <p
+                    className={styles.successCtaText}
+                    data-node-id="1835:32205"
+                  >
+                    Want to get started now?{" "}
+                    <Link href={ROUTES.signUp} className={styles.successCtaLink}>
+                      Sign Up
+                    </Link>
+                  </p>
+                </div>
+              </>
             ) : (
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.panelHeader} data-node-id="1822:25651">
                   <h2 className={styles.panelTitle} data-node-id="1822:25652">
                     See what{" "}
-                    <span className={styles.panelTitleHighlight}>Layer</span> can
-                    do for
-                    <br />
-                    your team.
+                    <span className={styles.panelTitleHighlight}>Layer</span>{" "}
+                    can{" "}
+                    <span className={styles.panelTitleDesktopRest}>
+                      do for
+                      <br />
+                      your team.
+                    </span>
+                    {/* Figma 1835:28128 — mobile open panel */}
+                    <span className={styles.panelTitleMobileRest}>do!</span>
                   </h2>
                   <p className={styles.panelSubtitle} data-node-id="1822:25653">
                     Tell us about your team and we&apos;ll show you where Layer
@@ -814,7 +975,7 @@ export function LeadWalkthroughFab() {
               : "Get a Personalized Walkthrough"
           }
           aria-expanded={isOpen ? "true" : "false"}
-          tabIndex={visible ? 0 : -1}
+          tabIndex={visible && !scrollHidden ? 0 : -1}
           onClick={isOpen ? () => void close() : open}
         >
           <span ref={labelRef} className={styles.pillLabel}>
@@ -851,6 +1012,7 @@ export function LeadWalkthroughFab() {
           </span>
         </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

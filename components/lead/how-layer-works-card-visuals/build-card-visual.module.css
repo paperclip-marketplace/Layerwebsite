@@ -55,6 +55,50 @@
   transform: translate(-50%, -50%);
 }
 
+/*
+ * Figma 1835:19614 — mobile Build stage 362×280
+ * Place at Figma top-left, keep desktop design widths, scale once into frame.
+ * 1835:19616 Objection:  -50.51, 124.47, 192.43×193.71  (ref 244)
+ * 1835:19617 MEDDIC:      236, -20, 179.18×183.04       (ref 227)
+ * 1835:19619 Discount:    81.20, 41.54, 220.83×212.20   (ref 280)
+ */
+@media (max-width: 768px) {
+  .meddicWrap {
+    top: calc(-20 / 280 * 100%);
+    left: calc(236 / 362 * 100%);
+    width: 227px;
+    height: calc(183.04 * 227 / 179.18);
+    overflow: hidden;
+    transform: scale(calc(179.18 / 227));
+    transform-origin: top left;
+  }
+
+  .objectionWrap {
+    top: calc(124.47 / 280 * 100%);
+    left: calc(-50.51 / 362 * 100%);
+    width: 244px;
+    height: calc(193.71 * 244 / 192.43);
+    overflow: hidden;
+    transform: scale(calc(192.43 / 244));
+    transform-origin: top left;
+  }
+
+  .directiveWrap {
+    top: calc(41.54 / 280 * 100%);
+    left: calc(81.2 / 362 * 100%);
+    width: 280px;
+    height: calc(212.2 * 280 / 220.83);
+    overflow: hidden;
+    transform: scale(calc(220.83 / 280));
+    transform-origin: top left;
+  }
+
+  .bottomFade {
+    width: calc(441 / 362 * 100%);
+    height: calc(93 / 280 * 100%);
+  }
+}
+
 .bottomFade {
   position: absolute;
   z-index: 4;

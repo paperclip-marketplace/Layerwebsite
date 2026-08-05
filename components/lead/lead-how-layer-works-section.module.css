@@ -168,10 +168,11 @@
   color: #020100;
 }
 
+/* Figma 1835:19222 — stacked vertical cards (not horizontal scroll) */
 @media (max-width: 768px) {
   .copySection {
     gap: 32px;
-    padding: calc(40 * var(--l-vw)) var(--l-inset-x, 20px);
+    padding: 64px var(--l-inset-x, 20px) 0;
   }
 
   .eyebrow {
@@ -206,24 +207,50 @@
   }
 
   .carouselSection {
-    padding: 0 var(--l-inset-x, 20px) 40px;
+    padding: 40px var(--l-inset-x, 20px) 64px;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .track {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .track > [role="listitem"] {
+    width: 100%;
   }
 
   .card {
-    flex-basis: min(var(--l-personal-agent-use-case-card), calc(100vw - 40px));
-    width: min(var(--l-personal-agent-use-case-card), calc(100vw - 40px));
+    flex: none;
+    flex-basis: auto;
+    width: 100%;
     height: auto;
-    min-height: min(var(--l-personal-agent-use-case-card), calc(100vw - 40px));
+    min-height: 0;
     border-radius: 20px;
   }
 
   .copy {
     gap: 12px;
-    min-height: 120px;
+    flex: none;
+    min-height: 0;
     padding: 20px;
+    justify-content: flex-start;
   }
 
-  .cardTitle,
+  .cardTitle {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.8px;
+    font-weight: 400;
+    color: #8d8d8d;
+    opacity: 1;
+  }
+
   .cardDescription {
     font-size: 16px;
     line-height: 24px;

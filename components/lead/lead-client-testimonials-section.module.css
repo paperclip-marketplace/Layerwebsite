@@ -52,6 +52,11 @@
   color: #f45523;
 }
 
+/* Shown only on mobile — Figma 1835:23121 */
+.mobileDescription {
+  display: none;
+}
+
 .cardsSection {
   box-sizing: border-box;
   width: 100%;
@@ -176,21 +181,25 @@
   top: -50%;
 }
 
-/* Figma 1822:22966 — 43×56 mint Payhawk “P” (pre-cropped) */
+/*
+ * Figma 1822:22966 — 43×56 Payhawk “P”.
+ * Pre-cropped mark fills its artboard; inset so the glyph lines up with
+ * RiskLedger / Salesforce marks (those assets have built-in padding).
+ */
 .card3Logo {
   width: calc(43 * var(--l-vw));
-  aspect-ratio: 43 / 56;
-  height: auto;
+  height: calc(56 * var(--l-vw));
 }
 
 .card3Logo .logoImage {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 26%;
   width: 100%;
-  height: 100%;
+  height: 48%;
   max-width: none;
   object-fit: contain;
-  object-position: center;
+  object-position: left center;
 }
 
 .minimizedCopy,
@@ -274,10 +283,15 @@
   opacity: 0.5;
 }
 
+/* Figma 1835:23116 — stacked cards; first tall with quote, others short */
 @media (max-width: 768px) {
+  /*
+   * Already inside .landing-page-gutter (20px). Extra --l-inset-x here
+   * doubled the left inset vs How Layer Works / Why Now — keep only text nudge.
+   */
   .header {
     gap: 32px;
-    padding: 40px var(--l-inset-x, 20px) 24px;
+    padding: 64px var(--l-text-pl-extra, 5px) 0;
   }
 
   .eyebrow {
@@ -287,62 +301,132 @@
     white-space: normal;
   }
 
+  .headlineRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
   .headline {
-    font-size: 48px;
-    line-height: 52px;
-    letter-spacing: -1.92px;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
     white-space: normal;
   }
 
+  .mobileDescription {
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-family: var(--layer-font-geist-sans);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+    color: #606060;
+  }
+
   .cardsSection {
-    padding: 24px var(--l-inset-x, 20px) 40px;
+    padding: 40px var(--l-text-pl-extra, 5px) 64px;
   }
 
   .cardRow {
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
   }
 
   .card,
   .cardExpanded {
     flex: none;
     width: 100%;
-    height: 420px;
     min-width: 0;
+    height: 240px;
+    border-radius: 20px;
+  }
+
+  /* First card — featured quote (480px) */
+  .cardRow > .card:first-child,
+  .cardRow > .cardExpanded:first-child {
+    height: 480px;
   }
 
   .cardContent {
     padding: 24px;
   }
 
-  .expandedCopy {
+  .card1Logo {
+    width: 53px;
+    height: 48px;
+  }
+
+  .card2Logo {
+    width: 69px;
+    height: 48px;
+  }
+
+  .card3Logo {
+    width: 37px;
+    height: 48px;
+  }
+
+  .card3Logo .logoImage {
+    top: 26%;
+    height: 48%;
+  }
+
+  /* Always show first card expanded; others minimized — no hover needed */
+  .cardRow > .card:first-child .expandedCopy,
+  .cardRow > .cardExpanded:first-child .expandedCopy {
     position: static;
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .cardRow > .card:first-child .minimizedCopy,
+  .cardRow > .cardExpanded:first-child .minimizedCopy {
+    display: none;
+  }
+
+  .cardRow > .card:not(:first-child) .expandedCopy,
+  .cardRow > .cardExpanded:not(:first-child) .expandedCopy {
+    display: none;
+  }
+
+  .cardRow > .card:not(:first-child) .minimizedCopy,
+  .cardRow > .cardExpanded:not(:first-child) .minimizedCopy {
+    display: block;
     opacity: 1;
     pointer-events: auto;
   }
 
   .minimizedCopyHidden {
-    display: none;
-  }
-
-  .card:not(.cardExpanded) .expandedCopy {
-    display: none;
+    display: none !important;
   }
 
   .expandedQuote {
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: -0.96px;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.28px;
+    font-weight: 600;
   }
 
   .expandedName {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.8px;
   }
 
   .expandedRole {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .minimizedText {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
   }
 }
 

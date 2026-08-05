@@ -54,8 +54,7 @@
     padding: 0;
   }
 
-  .landing-what-we-do-split .landing-split-section,
-  .landing-what-we-do-split .landing-lead-how-layer-works-carousel {
+  .landing-what-we-do-split .landing-split-section {
     width: 100%;
     margin-top: 32px;
     padding: 0 var(--l-inset-x, 20px);
@@ -65,13 +64,19 @@
     scrollbar-width: none;
   }
 
-  .landing-what-we-do-split .landing-split-section::-webkit-scrollbar,
-  .landing-what-we-do-split .landing-lead-how-layer-works-carousel::-webkit-scrollbar {
+  /* Lead How Layer Works — Figma 1835:19222 vertical stack (not horizontal scroll) */
+  .landing-what-we-do-split .landing-lead-how-layer-works-carousel {
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .landing-what-we-do-split .landing-split-section::-webkit-scrollbar {
     display: none;
   }
 
-  .landing-what-we-do-split .landing-split-section__track,
-  .landing-what-we-do-split .landing-lead-how-layer-works-carousel__track {
+  .landing-what-we-do-split .landing-split-section__track {
     padding-left: 0;
     padding-right: 0;
   }

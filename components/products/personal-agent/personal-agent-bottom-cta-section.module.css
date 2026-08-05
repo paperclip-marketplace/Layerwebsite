@@ -103,29 +103,43 @@
   line-height: 1;
 }
 
+/* Figma 1835:25112 — Home / Mobile bottom CTA */
 @media (max-width: 768px) {
   .section {
-    padding: 80px 20px;
+    padding: 96px 20px;
+  }
+
+  .content {
+    gap: 32px;
+    align-items: center;
   }
 
   .headline {
-    font-size: 40px;
-    line-height: 48px;
-    letter-spacing: -1.6px;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.28px;
+    text-align: center;
+  }
+
+  .headlineLine {
+    display: block;
   }
 
   .actions {
     flex-direction: column;
     align-items: stretch;
-    width: 100%;
-    max-width: 320px;
+    width: 240px;
+    max-width: 100%;
+    gap: 16px;
   }
 
   .primaryBtn,
   .secondaryBtn {
     width: 100%;
     justify-content: center;
-    font-size: 16px;
-    line-height: 24px;
+    padding: 16px 20px 16px 24px;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.8px;
   }
 }

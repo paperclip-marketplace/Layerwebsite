@@ -205,11 +205,7 @@ export function LeadHowLayerWorksSection() {
             </div>
           </div>
         ) : (
-          <CardTrack
-            trackRef={trackRef}
-            translateX={0}
-            pinEnabled={false}
-          />
+          <CardTrack trackRef={trackRef} translateX={0} pinEnabled={false} />
         )}
       </section>
     </div>

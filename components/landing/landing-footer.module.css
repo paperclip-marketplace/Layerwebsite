@@ -250,18 +250,21 @@ button.sectionHeader {
   }
 }
 
+/* Figma 1835:16666 / 1310:9105 — Footer-Mobile (2-col link grid) */
 @media (max-width: 768px) {
   .content {
-    padding: var(--l-page-gutter, 20px) 0;
+    padding: 10px;
   }
 
   .card {
-    padding: calc(20 * var(--l-vw));
-    border-radius: calc(24 * var(--l-vw));
+    gap: 40px;
+    padding: 20px;
+    border-radius: 24px;
   }
 
   .topRow {
     flex-direction: column;
+    gap: 40px;
   }
 
   .logoColumn {
@@ -269,9 +272,11 @@ button.sectionHeader {
   }
 
   .navColumns {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 40px;
     width: 100%;
-    gap: calc(24 * var(--l-vw));
   }
 
   .navColumn {
@@ -279,18 +284,36 @@ button.sectionHeader {
     width: 100%;
   }
 
+  .sectionHeader,
+  .navLink {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+  }
+
   .bottomRow {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
-    gap: calc(16 * var(--l-vw));
+    gap: 20px;
   }
 
   .copyright {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.48px;
     white-space: normal;
   }
 
   .legalLinks {
-    flex-wrap: wrap;
-    row-gap: calc(8 * var(--l-vw));
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+
+  .legalLink {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.48px;
   }
 }

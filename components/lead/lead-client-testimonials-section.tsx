@@ -184,6 +184,11 @@ function TestimonialsHeader() {
           What our clients{" "}
           <span className={styles.headlineHighlight}>say about us!</span>
         </LandingHeadingReveal>
+        {/* Mobile-only supporting copy — Figma 1835:23121 */}
+        <p className={styles.mobileDescription}>
+          Bring your GTM knowledge, workflows, and tools together to equip every
+          team member with AI that helps them prepare, perform, and improve.
+        </p>
       </div>
     </div>
   );
