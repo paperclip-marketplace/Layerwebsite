@@ -2,12 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FormEvent,
-  useEffect,
-  useState,
-  type ChangeEvent,
-} from "react";
+import { FormEvent, useEffect, useState, type ChangeEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -21,10 +16,13 @@ import {
   LEAD_FORM_INITIAL_STATE,
   LEAD_IMPROVEMENT_OPTIONS,
   LEAD_ROLE_OPTIONS,
+  LEAD_ROLE_PLACEHOLDER,
   LEAD_TEAM_SIZE_OPTIONS,
+  LEAD_TEAM_SIZE_PLACEHOLDER,
   type LeadFormState,
   type LeadImprovementOption,
 } from "./lead-form-shared";
+import { LeadFormSelect } from "./lead-form-select";
 import styles from "./lead-capture-section.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -42,8 +40,7 @@ function LeadFormCard() {
   }, [submitted]);
 
   const updateField =
-    (field: "workEmail" | "role" | "teamSize") =>
-    (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    (field: "workEmail") => (event: ChangeEvent<HTMLInputElement>) => {
       setForm((prev) => ({ ...prev, [field]: event.target.value }));
     };
 
@@ -132,52 +129,38 @@ function LeadFormCard() {
         <div className={styles.fieldRow}>
           <label className={styles.field}>
             <span className={styles.label}>Your Role*</span>
-            <div className={styles.selectWrap}>
-              <select
-                className={styles.select}
-                name="role"
-                required
-                value={form.role}
-                onChange={updateField("role")}
-              >
-                {LEAD_ROLE_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <span
-                className={`material-symbols-rounded ${styles.selectIcon}`}
-                aria-hidden
-              >
-                expand_more
-              </span>
-            </div>
+            <LeadFormSelect
+              name="role"
+              value={form.role}
+              placeholder={LEAD_ROLE_PLACEHOLDER}
+              options={LEAD_ROLE_OPTIONS}
+              required
+              fluid
+              onChange={(role) =>
+                setForm((prev) => ({
+                  ...prev,
+                  role: role as LeadFormState["role"],
+                }))
+              }
+            />
           </label>
 
           <label className={styles.field}>
             <span className={styles.label}>Team Size*</span>
-            <div className={styles.selectWrap}>
-              <select
-                className={styles.select}
-                name="teamSize"
-                required
-                value={form.teamSize}
-                onChange={updateField("teamSize")}
-              >
-                {LEAD_TEAM_SIZE_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <span
-                className={`material-symbols-rounded ${styles.selectIcon}`}
-                aria-hidden
-              >
-                expand_more
-              </span>
-            </div>
+            <LeadFormSelect
+              name="teamSize"
+              value={form.teamSize}
+              placeholder={LEAD_TEAM_SIZE_PLACEHOLDER}
+              options={LEAD_TEAM_SIZE_OPTIONS}
+              required
+              fluid
+              onChange={(teamSize) =>
+                setForm((prev) => ({
+                  ...prev,
+                  teamSize: teamSize as LeadFormState["teamSize"],
+                }))
+              }
+            />
           </label>
         </div>
 
@@ -191,7 +174,11 @@ function LeadFormCard() {
               const inputId = `lead-improvement-${option.replace(/\s+/g, "-").toLowerCase()}`;
 
               return (
-                <label key={option} className={styles.checkboxOption} htmlFor={inputId}>
+                <label
+                  key={option}
+                  className={styles.checkboxOption}
+                  htmlFor={inputId}
+                >
                   <input
                     id={inputId}
                     className={styles.checkboxInput}
@@ -307,11 +294,19 @@ export function LeadCaptureSection() {
               className={styles.testimonialCard}
               data-node-id="1822:22393"
             >
-              <p className={styles.testimonialQuote} data-node-id="1822:22394">
-                &ldquo;It&apos;s a no brainer!&rdquo;
-              </p>
+              <LandingHeadingReveal
+                as="p"
+                className={styles.testimonialQuote}
+                data-node-id="1822:22394"
+                delay={0.75}
+              >
+                &ldquo;It&apos;s a no f**cking brainer!&rdquo;
+              </LandingHeadingReveal>
               <div className={styles.testimonialMeta} data-node-id="1822:22395">
-                <div className={styles.testimonialPerson} data-node-id="1822:22396">
+                <div
+                  className={styles.testimonialPerson}
+                  data-node-id="1822:22396"
+                >
                   <div
                     className={styles.testimonialAvatarWrap}
                     data-node-id="1822:22397"
@@ -328,10 +323,16 @@ export function LeadCaptureSection() {
                     className={styles.testimonialIdentity}
                     data-node-id="1822:22398"
                   >
-                    <p className={styles.testimonialName} data-node-id="1822:22399">
+                    <p
+                      className={styles.testimonialName}
+                      data-node-id="1822:22399"
+                    >
                       Alex Lyma-Young
                     </p>
-                    <p className={styles.testimonialRole} data-node-id="1822:22400">
+                    <p
+                      className={styles.testimonialRole}
+                      data-node-id="1822:22400"
+                    >
                       VP of Sales at RiskLedger
                     </p>
                   </div>

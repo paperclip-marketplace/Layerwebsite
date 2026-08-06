@@ -4,10 +4,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--l-section-gap);
+  /* Figma 1835:8515 — 40px eyebrow → copy row */
+  gap: calc(40 * var(--l-vw));
   box-sizing: border-box;
   width: 100%;
-  padding: var(--l-section-py) var(--l-section-px);
+  /* Figma 1835:8515 — pt 80, pb 40 */
+  padding: calc(80 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
   background: #ffffff;
 }
 
@@ -57,7 +59,8 @@
 .carouselSection {
   box-sizing: border-box;
   width: 100%;
-  padding: 0 var(--l-split-pad-x) var(--l-split-pad-b);
+  /* Figma 1835:8520 — pt 40, pb 40 around 560 cards */
+  padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x proximity;
@@ -71,29 +74,33 @@
   padding-inline: 0;
 }
 
+.pinSpacer {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+}
+
 @media (min-width: 1201px) {
-  .sectionPinned .pinSpacer {
+  .pinSpacer {
     width: 100vw;
     max-width: 100vw;
     margin-left: calc(50% - 50vw);
   }
 }
 
-.pinSpacer {
-  position: relative;
-  width: 100%;
-  min-height: 500vh;
-}
-
+/* Pins How Layer Works + Why Now together (Figma stack). Cards scrub; both
+   flanking sections stay in place — Why Now is not pushed below the pin gap. */
 .pinSticky {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   justify-content: flex-start;
   box-sizing: border-box;
   width: 100%;
-  height: calc(100svh - var(--landing-header-h, 64px));
-  padding: calc(20 * var(--l-vw)) 0;
+  margin-top: 0;
+  padding: 0;
   overflow: visible;
+  background: transparent;
 }
 
 .track {
@@ -171,8 +178,9 @@
 /* Figma 1835:19222 — stacked vertical cards (not horizontal scroll) */
 @media (max-width: 768px) {
   .copySection {
+    /* Figma 1835:19262 — pt 64, px 20, 32px eyebrow → copy */
     gap: 32px;
-    padding: 64px var(--l-inset-x, 20px) 0;
+    padding: 64px var(--l-inset-x, 20px) 40px;
   }
 
   .eyebrow {
@@ -207,7 +215,7 @@
   }
 
   .carouselSection {
-    padding: 40px var(--l-inset-x, 20px) 64px;
+    padding: 40px var(--l-inset-x, 20px) 80px;
     overflow: visible;
     scroll-snap-type: none;
   }

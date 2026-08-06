@@ -13,6 +13,7 @@ import {
   HowLayerWorksCardVisual,
   type HowLayerWorksCardId,
 } from "./how-layer-works-card-visuals";
+import { LeadWhyNowSection } from "./lead-why-now-section";
 import styles from "./lead-how-layer-works-section.module.css";
 
 type HowLayerWorksCard = {
@@ -91,6 +92,7 @@ function CardTrack({
       className={`${styles.track} landing-lead-how-layer-works-carousel__track ${pinEnabled ? styles.trackPinned : ""}`}
       data-name="Frame 1171276378"
       data-node-id="1822:22487"
+      data-pin-align
       role="list"
       style={
         pinEnabled
@@ -107,39 +109,17 @@ function CardTrack({
   );
 }
 
-/** Figma 1822:22480 — How Layer Works (matches home THE SOLUTION scroll + reveal effects) */
-export function LeadHowLayerWorksSection() {
-  const pinEnabled = usePinnedHorizontalScrollEnabled();
-  const headerRef = useRef<HTMLElement>(null);
-  const spacerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [edgePadding, setEdgePadding] = useState(32);
-
-  useLayoutEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    const measure = () => {
-      const pad = Number.parseFloat(getComputedStyle(header).paddingLeft);
-      if (Number.isFinite(pad) && pad >= 0) {
-        setEdgePadding(pad);
-      }
-    };
-
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
-  const { translateX, spacerHeight } = usePinnedHorizontalScroll({
-    cardCount: HOW_LAYER_WORKS_CARDS.length,
-    enabled: pinEnabled,
-    spacerRef,
-    trackRef,
-    edgePadding,
-    endAlign: "mirror",
-  });
-
+function HowLayerWorksBody({
+  headerRef,
+  trackRef,
+  translateX,
+  pinEnabled,
+}: {
+  headerRef: React.RefObject<HTMLElement | null>;
+  trackRef: React.RefObject<HTMLDivElement | null>;
+  translateX: number;
+  pinEnabled: boolean;
+}) {
   return (
     <div
       className="landing-what-we-do-split landing-band-left"
@@ -190,24 +170,79 @@ export function LeadHowLayerWorksSection() {
         data-name="What We Do Container"
         data-node-id="1822:22486"
       >
-        {pinEnabled ? (
-          <div
-            ref={spacerRef}
-            className={styles.pinSpacer}
-            style={spacerHeight != null ? { height: spacerHeight } : undefined}
-          >
-            <div className={styles.pinSticky} data-pin-sticky>
-              <CardTrack
-                trackRef={trackRef}
-                translateX={translateX}
-                pinEnabled
-              />
-            </div>
-          </div>
-        ) : (
-          <CardTrack trackRef={trackRef} translateX={0} pinEnabled={false} />
-        )}
+        <CardTrack
+          trackRef={trackRef}
+          translateX={translateX}
+          pinEnabled={pinEnabled}
+        />
       </section>
+    </div>
+  );
+}
+
+/**
+ * Figma 1822:22480 + 1822:22940 — How Layer Works then Why Now immediately below.
+ * On desktop pin, Why Now stays with the block (visible under the cards) while
+ * the track scrubs horizontally — same as the top copy.
+ */
+export function LeadHowLayerWorksSection() {
+  const pinEnabled = usePinnedHorizontalScrollEnabled();
+  const headerRef = useRef<HTMLElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [edgePadding, setEdgePadding] = useState(32);
+
+  useLayoutEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const measure = () => {
+      const pad = Number.parseFloat(getComputedStyle(header).paddingLeft);
+      if (Number.isFinite(pad) && pad >= 0) {
+        setEdgePadding(pad);
+      }
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  const { translateX, spacerHeight } = usePinnedHorizontalScroll({
+    cardCount: HOW_LAYER_WORKS_CARDS.length,
+    enabled: pinEnabled,
+    spacerRef,
+    trackRef,
+    edgePadding,
+    endAlign: "mirror",
+    compactPin: true,
+  });
+
+  const stack = (
+    <>
+      <HowLayerWorksBody
+        headerRef={headerRef}
+        trackRef={trackRef}
+        translateX={pinEnabled ? translateX : 0}
+        pinEnabled={pinEnabled}
+      />
+      <LeadWhyNowSection />
+    </>
+  );
+
+  if (!pinEnabled) {
+    return stack;
+  }
+
+  return (
+    <div
+      ref={spacerRef}
+      className={styles.pinSpacer}
+      style={spacerHeight != null ? { height: spacerHeight } : undefined}
+    >
+      <div className={styles.pinSticky} data-pin-sticky>
+        {stack}
+      </div>
     </div>
   );
 }

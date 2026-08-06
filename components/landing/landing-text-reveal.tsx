@@ -14,11 +14,18 @@ import styles from "./landing-text-reveal.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type HeadingTag = "h1" | "h2" | "h3";
+type RevealTag = "h1" | "h2" | "h3" | "p";
 
 type HeadingRevealProps = Omit<ComponentPropsWithoutRef<"h2">, "children"> & {
   children: ReactNode;
-  as?: HeadingTag;
+  as?: RevealTag;
+  /** GSAP timeline delay before the reveal starts (seconds). */
+  delay?: number;
+  /**
+   * When false, split/reveal setup is deferred. Use for sections that sit
+   * inside a pin stack so the animation doesn't play off-screen.
+   */
+  ready?: boolean;
 };
 
 function isBlockLineElement(node: HTMLElement): boolean {
@@ -131,15 +138,17 @@ export const LandingHeadingReveal = memo(
     className,
     id,
     as: Tag = "h2",
+    delay = 0,
+    ready = true,
     ...rest
   }: HeadingRevealProps) {
     const reduceMotion = useReducedMotion();
-    const headingRef = useRef<HTMLHeadingElement | null>(null);
+    const headingRef = useRef<HTMLElement | null>(null);
     const originalHtmlRef = useRef<string | null>(null);
 
     useLayoutEffect(() => {
       const el = headingRef.current;
-      if (!el || reduceMotion) return;
+      if (!el || reduceMotion || !ready) return;
 
       // Setup once — parent re-renders must not reset/re-play the reveal
       if (originalHtmlRef.current !== null) return;
@@ -151,11 +160,13 @@ export const LandingHeadingReveal = memo(
       gsap.set(lineSlides, { yPercent: 100 });
 
       const timeline = gsap.timeline({
+        delay,
         scrollTrigger: {
           trigger: el,
           start: "top 88%",
           toggleActions: "play none none none",
           once: true,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -186,7 +197,7 @@ export const LandingHeadingReveal = memo(
         }
         originalHtmlRef.current = null;
       };
-    }, [reduceMotion]);
+    }, [delay, ready, reduceMotion]);
 
     if (reduceMotion) {
       return (
@@ -206,12 +217,19 @@ export const LandingHeadingReveal = memo(
   (prev, next) =>
     prev.as === next.as &&
     prev.id === next.id &&
-    prev.className === next.className,
+    prev.className === next.className &&
+    prev.delay === next.delay &&
+    prev.ready === next.ready,
 );
 
 type SubheadingRevealProps = ComponentPropsWithoutRef<"p"> & {
   /** Stagger after heading (seconds). */
   delay?: number;
+  /**
+   * When false, stay hidden until ready. Use with pinned parents so the fade
+   * doesn't run while the section is still off-screen.
+   */
+  ready?: boolean;
 };
 
 /** Subheading: fade in only — no vertical shift, layout unchanged. */
@@ -219,6 +237,7 @@ export function LandingSubheadingReveal({
   children,
   className,
   delay = 0.15,
+  ready = true,
   id,
   ...rest
 }: SubheadingRevealProps) {
@@ -232,13 +251,21 @@ export function LandingSubheadingReveal({
     );
   }
 
+  if (!ready) {
+    return (
+      <p id={id} className={className} style={{ opacity: 0 }} {...rest}>
+        {children}
+      </p>
+    );
+  }
+
   return (
     <motion.p
       id={id}
       className={className}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.35 }}
       transition={{
         duration: 0.5,
         delay,

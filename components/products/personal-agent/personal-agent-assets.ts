@@ -12,5 +12,5 @@ export const PERSONAL_AGENT_ASSETS = {
   avatarMark: `${BASE}/avatar-mark.webp`,
   ctaCreate: `${BASE}/cta-create.webp`,
   ctaDemo: `${BASE}/cta-demo.webp`,
-  bottomCtaBg: `${BASE}/bottom-cta-bg.webp`,
+  bottomCtaBg: `${BASE}/bottom-cta-bg.png`,
 } as const;

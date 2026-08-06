@@ -76,7 +76,8 @@
   position: absolute;
   z-index: 1;
   right: 40px;
-  bottom: 24px;
+  /* --fab-footer-lift raises the stack above the footer when it enters view */
+  bottom: max(var(--fab-footer-lift, 0px), 24px);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -223,7 +224,14 @@
   color: #020100;
 }
 
-.select:invalid,
+.selectPlaceholder {
+  color: #8d8d8d;
+}
+
+.select option {
+  color: #020100;
+}
+
 .select option[value=""] {
   color: #8d8d8d;
 }
@@ -266,11 +274,15 @@
 }
 
 .checkboxOption {
-  display: inline-flex;
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  flex-flow: row nowrap;
   align-items: center;
   gap: 6px;
-  min-width: 0;
+  width: auto;
   max-width: 100%;
+  min-width: 0;
   cursor: pointer;
 }
 
@@ -288,13 +300,13 @@
 
 .checkboxBox {
   display: flex;
-  flex-shrink: 0;
+  flex: 0 0 16px;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   width: 16px;
   height: 16px;
-  padding: 3px;
+  padding: 0;
   border: 1px solid #dedede;
   border-radius: 4px;
   background: #f9f9f9;
@@ -308,19 +320,26 @@
 }
 
 .checkboxMark {
-  font-size: 10px;
-  line-height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  line-height: 1;
   font-weight: 700;
 }
 
 .checkboxLabel {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
   font-family: var(--layer-font-geist-sans);
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: -0.56px;
   color: #606060;
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -533,7 +552,11 @@
   .stack {
     left: 20px;
     right: 20px;
-    bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    bottom: max(
+      var(--fab-footer-lift, 0px),
+      16px,
+      env(safe-area-inset-bottom, 0px)
+    );
     gap: 12px;
     /* Pill + close circle sit on the horizontal center; panel still full-width */
     align-items: center;
@@ -554,9 +577,9 @@
     max-height: calc(100svh - 92px);
     padding: 16px;
     gap: 16px;
-    border: 1px solid #eeeeee;
+    border: 1px solid var(--layer-gray-200);
     border-radius: 16px;
-    background: #ffffff;
+    background: var(--layer-gray-50);
     box-shadow: 0 12px 16px rgba(0, 0, 0, 0.12);
     transform-origin: bottom center;
     /* Prefer fitting; only scroll as last resort on very short viewports */
@@ -649,12 +672,16 @@
   }
 
   .checkboxOption {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
     width: 100%;
   }
 
   .checkboxLabel {
+    flex: 1 1 auto;
     font-size: 13px;
-    line-height: 18px;
+    line-height: 16px;
     letter-spacing: -0.52px;
   }
 

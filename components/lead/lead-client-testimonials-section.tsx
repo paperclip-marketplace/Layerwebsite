@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { memo, useCallback, useState } from "react";
+import { memo, useState } from "react";
 import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
 import { LEAD_CLIENT_TESTIMONIALS_ASSETS } from "./lead-client-testimonials-assets";
 import styles from "./lead-client-testimonials-section.module.css";
@@ -35,8 +35,8 @@ const TESTIMONIAL_CARDS: TestimonialCard[] = [
     logoClassName: styles.card1Logo,
     backgroundClassName: styles.card1Background,
     gradientOpacity: 0.6,
-    minimizedText: "It\u2019s a no brainer!",
-    expandedQuote: "It\u2019s a no brainer!",
+    minimizedText: "It\u2019s a no f**cking brainer!",
+    expandedQuote: "It\u2019s a no f**cking brainer!",
     expandedName: "Alex Lyma-Young",
     expandedRole: "VP of Sales at RiskLedger",
   },
@@ -195,19 +195,11 @@ function TestimonialsHeader() {
 }
 
 function TestimonialsCards() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const clearActive = useCallback(() => {
-    setActiveIndex(null);
-  }, []);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className={styles.cardsSection} data-node-id="1822:22950">
-      <div
-        className={styles.cardRow}
-        data-node-id="1822:22951"
-        onMouseLeave={clearActive}
-      >
+      <div className={styles.cardRow} data-node-id="1822:22951">
         {TESTIMONIAL_CARDS.map((card, index) => (
           <TestimonialCardItem
             key={card.id}
@@ -225,7 +217,7 @@ function TestimonialsCards() {
 export function LeadClientTestimonialsSection() {
   return (
     <section
-      className={`${styles.section} lead-client-testimonials-section landing-full-bleed-strokes`}
+      className={`${styles.section} lead-client-testimonials-section landing-clients-section landing-band-left`}
       aria-labelledby="lead-client-testimonials-heading"
       data-name="Sub-section Container"
       data-node-id="1822:22945"

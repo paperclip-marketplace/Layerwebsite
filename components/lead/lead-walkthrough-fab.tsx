@@ -20,15 +20,21 @@ import {
   LEAD_FORM_INITIAL_STATE,
   LEAD_IMPROVEMENT_OPTIONS,
   LEAD_ROLE_OPTIONS,
+  LEAD_ROLE_PLACEHOLDER,
   LEAD_TEAM_SIZE_OPTIONS,
+  LEAD_TEAM_SIZE_PLACEHOLDER,
   type LeadFormState,
   type LeadImprovementOption,
 } from "./lead-form-shared";
+import { LeadFormSelect } from "./lead-form-select";
 import styles from "./lead-walkthrough-fab.module.css";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const SENTINEL_ID = "lead-capture";
+const FOOTER_SELECTOR = 'footer[data-name="Footer"]';
+/** Space between FAB stack bottom and footer top */
+const FOOTER_CLEARANCE = 16;
 const MORPH_DURATION = 0.52;
 const PANEL_DURATION = 0.55;
 const CLOSE_DURATION = 0.48;
@@ -55,6 +61,7 @@ export function LeadWalkthroughFab() {
   const [submitted, setSubmitted] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const backdropScrimRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -66,6 +73,7 @@ export function LeadWalkthroughFab() {
   const isAnimatingRef = useRef(false);
   const isOpenRef = useRef(false);
   const visibleRef = useRef(false);
+  const scrollHiddenRef = useRef(false);
   const prefersReducedMotionRef = useRef(false);
   const lastScrollYRef = useRef(0);
   const pillSizeRef = useRef<PillSize>({
@@ -89,6 +97,10 @@ export function LeadWalkthroughFab() {
     visibleRef.current = visible;
   }, [visible]);
 
+  useEffect(() => {
+    scrollHiddenRef.current = scrollHidden;
+  }, [scrollHidden]);
+
   const measurePillSize = useCallback(() => {
     const button = toggleRef.current;
     if (!button) return;
@@ -109,11 +121,33 @@ export function LeadWalkthroughFab() {
     };
   }, []);
 
+  /**
+   * Lift FAB so it never covers the footer (privacy / policy links).
+   * Returns the lift in px (0 when footer is below the viewport).
+   */
+  const syncStackAboveFooter = useCallback(() => {
+    const stack = stackRef.current;
+    if (!stack) return 0;
+
+    const footer = document.querySelector(FOOTER_SELECTOR);
+    if (!footer) {
+      stack.style.setProperty("--fab-footer-lift", "0px");
+      return 0;
+    }
+
+    const footerTop = footer.getBoundingClientRect().top;
+    // visualViewport tracks mobile browser chrome; fall back to innerHeight
+    const viewportH = window.visualViewport?.height ?? window.innerHeight;
+    const lift = Math.max(0, viewportH - footerTop + FOOTER_CLEARANCE);
+    stack.style.setProperty("--fab-footer-lift", `${lift}px`);
+    return lift;
+  }, []);
+
   /** Size scrim to just above the panel top so the card feels elevated. */
   const syncBackdropScrim = useCallback(() => {
     const panel = panelRef.current;
     const scrim = backdropScrimRef.current;
-    const stack = panel?.parentElement;
+    const stack = stackRef.current ?? panel?.parentElement;
     if (!panel || !scrim || !stack) return;
 
     const stackStyles = window.getComputedStyle(stack);
@@ -659,22 +693,39 @@ export function LeadWalkthroughFab() {
     };
   }, [closeAndHide, showClosedFab]);
 
-  /* Mobile: keep FAB viewport-fixed feel — tuck away on scroll-up, restore on scroll-down */
+  /*
+   * Keep FAB above the footer on the way down (not only after scroll-up).
+   * gsap.ticker covers native scroll + ScrollSmoother transform frames.
+   * Near the footer, disable scroll-hide so the pill stays parked above links.
+   */
   useEffect(() => {
     if (!visible) {
+      stackRef.current?.style.setProperty("--fab-footer-lift", "0px");
       setScrollHidden(false);
       return;
     }
 
     const mobile = window.matchMedia("(max-width: 768px)");
-    lastScrollYRef.current = window.scrollY;
+    lastScrollYRef.current =
+      ScrollSmoother.get()?.scrollTop() ?? window.scrollY;
 
-    const onScroll = () => {
+    const tick = () => {
+      const lift = syncStackAboveFooter();
+      if (isOpenRef.current) syncBackdropScrim();
+
       if (!mobile.matches || isOpenRef.current || isAnimatingRef.current) {
         return;
       }
 
-      const y = window.scrollY;
+      // Footer in view — keep FAB visible and lifted; don't tuck it away
+      if (lift > 0) {
+        if (scrollHiddenRef.current) setScrollHidden(false);
+        lastScrollYRef.current =
+          ScrollSmoother.get()?.scrollTop() ?? window.scrollY;
+        return;
+      }
+
+      const y = ScrollSmoother.get()?.scrollTop() ?? window.scrollY;
       const delta = y - lastScrollYRef.current;
       if (Math.abs(delta) < MOBILE_SCROLL_HIDE_DELTA) return;
 
@@ -686,9 +737,21 @@ export function LeadWalkthroughFab() {
       lastScrollYRef.current = y;
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [visible]);
+    // Immediate first paint so the first scroll-to-bottom is already correct
+    tick();
+    gsap.ticker.add(tick);
+    window.addEventListener("resize", tick);
+    window.visualViewport?.addEventListener("resize", tick);
+    window.visualViewport?.addEventListener("scroll", tick);
+
+    return () => {
+      gsap.ticker.remove(tick);
+      window.removeEventListener("resize", tick);
+      window.visualViewport?.removeEventListener("resize", tick);
+      window.visualViewport?.removeEventListener("scroll", tick);
+      stackRef.current?.style.setProperty("--fab-footer-lift", "0px");
+    };
+  }, [visible, syncStackAboveFooter, syncBackdropScrim]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -718,8 +781,7 @@ export function LeadWalkthroughFab() {
   }, []);
 
   const updateField =
-    (field: "workEmail" | "role" | "teamSize") =>
-    (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    (field: "workEmail") => (event: ChangeEvent<HTMLInputElement>) => {
       setForm((prev) => ({ ...prev, [field]: event.target.value }));
     };
 
@@ -764,7 +826,7 @@ export function LeadWalkthroughFab() {
         </div>
       ) : null}
 
-      <div className={styles.stack}>
+      <div ref={stackRef} className={styles.stack}>
         {isOpen ? (
           <div
             ref={panelRef}
@@ -852,52 +914,36 @@ export function LeadWalkthroughFab() {
                   <div className={styles.fieldRow}>
                     <label className={styles.field}>
                       <span className={styles.label}>Your Role*</span>
-                      <div className={styles.selectWrap}>
-                        <select
-                          className={styles.select}
-                          name="role"
-                          required
-                          value={form.role}
-                          onChange={updateField("role")}
-                        >
-                          {LEAD_ROLE_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                        <span
-                          className={`material-symbols-rounded ${styles.selectIcon}`}
-                          aria-hidden
-                        >
-                          expand_more
-                        </span>
-                      </div>
+                      <LeadFormSelect
+                        name="role"
+                        value={form.role}
+                        placeholder={LEAD_ROLE_PLACEHOLDER}
+                        options={LEAD_ROLE_OPTIONS}
+                        required
+                        onChange={(role) =>
+                          setForm((prev) => ({
+                            ...prev,
+                            role: role as LeadFormState["role"],
+                          }))
+                        }
+                      />
                     </label>
 
                     <label className={styles.field}>
                       <span className={styles.label}>Team Size*</span>
-                      <div className={styles.selectWrap}>
-                        <select
-                          className={styles.select}
-                          name="teamSize"
-                          required
-                          value={form.teamSize}
-                          onChange={updateField("teamSize")}
-                        >
-                          {LEAD_TEAM_SIZE_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                        <span
-                          className={`material-symbols-rounded ${styles.selectIcon}`}
-                          aria-hidden
-                        >
-                          expand_more
-                        </span>
-                      </div>
+                      <LeadFormSelect
+                        name="teamSize"
+                        value={form.teamSize}
+                        placeholder={LEAD_TEAM_SIZE_PLACEHOLDER}
+                        options={LEAD_TEAM_SIZE_OPTIONS}
+                        required
+                        onChange={(teamSize) =>
+                          setForm((prev) => ({
+                            ...prev,
+                            teamSize: teamSize as LeadFormState["teamSize"],
+                          }))
+                        }
+                      />
                     </label>
                   </div>
 

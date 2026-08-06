@@ -23,6 +23,11 @@ type UsePinnedHorizontalScrollOptions = {
   edgePadding?: number;
   /** Last card end position: `end` = trailing edgePadding; `mirror` = same inset as leading (startInset) */
   endAlign?: "mirror" | "end";
+  /**
+   * Pin copy + cards together, but wait until `[data-pin-align]` (or the pin
+   * node) is vertically centered before scrubbing horizontally.
+   */
+  compactPin?: boolean;
 };
 
 function readEdgePadding(
@@ -54,9 +59,11 @@ export function usePinnedHorizontalScroll({
   cardSelector = "[data-pin-scroll-card]",
   edgePadding: edgePaddingOption,
   endAlign = "end",
+  compactPin = false,
 }: UsePinnedHorizontalScrollOptions) {
   const [translateX, setTranslateX] = useState(0);
   const [spacerHeight, setSpacerHeight] = useState<number | null>(null);
+  const [ready, setReady] = useState(false);
   const maxShiftRef = useRef(0);
 
   const measure = useCallback(() => {
@@ -93,12 +100,30 @@ export function usePinnedHorizontalScroll({
     const maxShift = Math.max(0, lastCardLeft - lastCardLeftAtEnd);
 
     maxShiftRef.current = maxShift;
-    setSpacerHeight(window.innerHeight + maxShift);
-  }, [cardCount, cardSelector, edgePaddingOption, endAlign, enabled, trackRef]);
+
+    if (compactPin) {
+      // Content-sized wrapper; GSAP pinSpacing adds the horizontal-scroll room
+      // so the next section doesn't jump up on unpin.
+      setSpacerHeight(null);
+    } else {
+      setSpacerHeight(window.innerHeight + maxShift);
+    }
+    setReady(true);
+    ScrollTrigger.refresh();
+  }, [
+    cardCount,
+    cardSelector,
+    compactPin,
+    edgePaddingOption,
+    endAlign,
+    enabled,
+    trackRef,
+  ]);
 
   useLayoutEffect(() => {
     if (!enabled) {
       setSpacerHeight(null);
+      setReady(false);
       setTranslateX(0);
       const track = trackRef.current;
       if (track) {
@@ -130,10 +155,15 @@ export function usePinnedHorizontalScroll({
       resizeObserver?.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [enabled, measure, trackRef]);
+  }, [cardSelector, enabled, measure, trackRef]);
 
   useEffect(() => {
-    if (!enabled || spacerHeight == null) {
+    if (!enabled || !ready) {
+      return;
+    }
+
+    // Non-compact needs the tall spacer applied before creating the trigger.
+    if (!compactPin && spacerHeight == null) {
       return;
     }
 
@@ -155,25 +185,52 @@ export function usePinnedHorizontalScroll({
         ),
       ) || 64;
 
-    const trigger = ScrollTrigger.create({
-      trigger: spacer,
-      start: `top top+=${headerH}`,
-      end: () =>
-        `+=${Math.max(0, spacer.offsetHeight - window.innerHeight)}`,
-      pin: pinEl,
-      pinSpacing: false,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        setTranslateX(-self.progress * maxShiftRef.current);
-      },
-    });
+    const onUpdate = (self: ScrollTrigger) => {
+      setTranslateX(-self.progress * maxShiftRef.current);
+    };
+
+    const compactStart = () => {
+      // Pin once the cards sit on the viewport center; copy can stay above.
+      const alignEl =
+        pinEl.querySelector<HTMLElement>("[data-pin-align]") ?? pinEl;
+      const pinTop = pinEl.getBoundingClientRect().top;
+      const alignRect = alignEl.getBoundingClientRect();
+      const alignCenterFromPinTop =
+        alignRect.top - pinTop + alignRect.height / 2;
+      const centerY = headerH + (window.innerHeight - headerH) / 2;
+      return `top top+=${centerY - alignCenterFromPinTop}`;
+    };
+
+    // Compact: trigger === pin target + pinSpacing so unpin is normal scroll
+    // into the next section (no collapse / jump).
+    const trigger = compactPin
+      ? ScrollTrigger.create({
+          trigger: pinEl,
+          start: compactStart,
+          end: () => `+=${maxShiftRef.current}`,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate,
+        })
+      : ScrollTrigger.create({
+          trigger: spacer,
+          start: `top top+=${headerH}`,
+          end: () =>
+            `+=${Math.max(0, spacer.offsetHeight - window.innerHeight)}`,
+          pin: pinEl,
+          pinSpacing: false,
+          invalidateOnRefresh: true,
+          onUpdate,
+        });
 
     ScrollTrigger.refresh();
 
     return () => {
       trigger.kill();
     };
-  }, [enabled, spacerHeight, spacerRef, trackRef]);
+  }, [compactPin, enabled, ready, spacerHeight, spacerRef, trackRef]);
 
   return { translateX, spacerHeight, remeasure: measure };
 }

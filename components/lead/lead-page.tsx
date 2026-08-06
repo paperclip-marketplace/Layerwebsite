@@ -8,7 +8,6 @@ import { LeadCaptureSection } from "./lead-capture-section";
 import { LeadHowLayerWorksSection } from "./lead-how-layer-works-section";
 import { PersonalAgentBottomCtaSection } from "@/components/products/personal-agent/personal-agent-bottom-cta-section";
 import { LeadClientTestimonialsSection } from "./lead-client-testimonials-section";
-import { LeadWhyNowSection } from "./lead-why-now-section";
 import { LeadWalkthroughFab } from "./lead-walkthrough-fab";
 import styles from "./lead-page.module.css";
 
@@ -23,8 +22,8 @@ export function LeadPage() {
             <div className={styles.clientsSpacing}>
               <OurClientSection />
             </div>
+            {/* How Layer Works + Why Now pin together (Figma 1822:22480 → 1822:22940) */}
             <LeadHowLayerWorksSection />
-            <LeadWhyNowSection />
             <LeadClientTestimonialsSection />
             <PersonalAgentBottomCtaSection />
           </main>

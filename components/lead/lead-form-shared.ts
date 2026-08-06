@@ -26,16 +26,19 @@ export const LEAD_IMPROVEMENT_OPTIONS = [
 
 export type LeadImprovementOption = (typeof LEAD_IMPROVEMENT_OPTIONS)[number];
 
+export const LEAD_ROLE_PLACEHOLDER = "Select your role";
+export const LEAD_TEAM_SIZE_PLACEHOLDER = "Select team size";
+
 export type LeadFormState = {
   workEmail: string;
-  role: (typeof LEAD_ROLE_OPTIONS)[number];
-  teamSize: (typeof LEAD_TEAM_SIZE_OPTIONS)[number];
+  role: (typeof LEAD_ROLE_OPTIONS)[number] | "";
+  teamSize: (typeof LEAD_TEAM_SIZE_OPTIONS)[number] | "";
   improvements: LeadImprovementOption[];
 };
 
 export const LEAD_FORM_INITIAL_STATE: LeadFormState = {
   workEmail: "",
-  role: "Sales manager",
-  teamSize: "10-20",
+  role: "",
+  teamSize: "",
   improvements: [],
 };

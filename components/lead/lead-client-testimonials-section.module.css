@@ -1,12 +1,12 @@
 /* Figma 1822:22945 — Client testimonials expandable cards */
 
 .section {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  border-bottom: 1px solid #dedede;
   background: #ffffff;
 }
 
@@ -283,8 +283,62 @@
   opacity: 0.5;
 }
 
+/* Match .landing-clients-section / our-client-section stroke band */
+@media (min-width: 769px) {
+  .section::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+}
+
+@media (width > 1440px) {
+  .section {
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+  }
+
+  .section::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+}
+
 /* Figma 1835:23116 — stacked cards; first tall with quote, others short */
 @media (max-width: 768px) {
+  .section::before,
+  .section::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+
+  .section::before {
+    top: 0;
+  }
+
+  .section::after {
+    bottom: 0;
+  }
+
   /*
    * Already inside .landing-page-gutter (20px). Extra --l-inset-x here
    * doubled the left inset vs How Layer Works / Why Now — keep only text nudge.
@@ -344,10 +398,14 @@
     border-radius: 20px;
   }
 
-  /* First card — featured quote (480px) */
-  .cardRow > .card:first-child,
-  .cardRow > .cardExpanded:first-child {
+  /* Featured expanded card */
+  .cardExpanded {
     height: 480px;
+  }
+
+  .expandedCopyVisible {
+    position: static;
+    display: flex;
   }
 
   .cardContent {
@@ -372,32 +430,6 @@
   .card3Logo .logoImage {
     top: 26%;
     height: 48%;
-  }
-
-  /* Always show first card expanded; others minimized — no hover needed */
-  .cardRow > .card:first-child .expandedCopy,
-  .cardRow > .cardExpanded:first-child .expandedCopy {
-    position: static;
-    display: flex;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .cardRow > .card:first-child .minimizedCopy,
-  .cardRow > .cardExpanded:first-child .minimizedCopy {
-    display: none;
-  }
-
-  .cardRow > .card:not(:first-child) .expandedCopy,
-  .cardRow > .cardExpanded:not(:first-child) .expandedCopy {
-    display: none;
-  }
-
-  .cardRow > .card:not(:first-child) .minimizedCopy,
-  .cardRow > .cardExpanded:not(:first-child) .minimizedCopy {
-    display: block;
-    opacity: 1;
-    pointer-events: auto;
   }
 
   .minimizedCopyHidden {

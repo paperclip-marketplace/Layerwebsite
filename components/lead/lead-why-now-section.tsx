@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import {
   LandingHeadingReveal,
   LandingSubheadingReveal,
@@ -7,8 +10,32 @@ import styles from "./lead-why-now-section.module.css";
 
 /** Figma 1822:22940 — Why Now */
 export function LeadWhyNowSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  // Inside the How Layer Works pin stack this section can cross scroll
+  // thresholds while still off-screen — wait until it's actually in view.
+  const [revealReady, setRevealReady] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || revealReady) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+          setRevealReady(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: [0, 0.2, 0.35, 0.5, 0.65] },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [revealReady]);
+
   return (
     <section
+      ref={sectionRef}
       className={`${styles.section} lead-why-now-section landing-full-bleed-strokes`}
       aria-labelledby="lead-why-now-heading"
       data-name="Why Now"
@@ -38,6 +65,7 @@ export function LeadWhyNowSection() {
             id="lead-why-now-heading"
             className={`${styles.headline} landing-copy-headline`}
             data-node-id="1822:22943"
+            ready={revealReady}
           >
             <span className={styles.headlineLine}>Start in hours,</span>
             <span className={styles.headlineLine}>not days</span>
@@ -45,6 +73,7 @@ export function LeadWhyNowSection() {
           <LandingSubheadingReveal
             className={`${styles.description} landing-copy-aside`}
             data-node-id="1822:22944"
+            ready={revealReady}
           >
             Get started easily with minimal setup and hands-on support to
             explore what AI Agents can unlock for your business.
