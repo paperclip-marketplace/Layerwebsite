@@ -1,29 +1,26 @@
-/** Figma 1822:24241 — Deploy card assets */
+/** Figma 1822:24242 — Deploy card assets */
 const base = "/assets/images/lead/how-layer-works/deploy";
 
 export const DEPLOY_CARD_ASSETS = {
-  /* Stage backdrop — 1822:24243 */
-  backdropBg: `${base}/backdrop-bg.png`,
-
-  /* Center — 1822:24298 */
-  heroCenter: `${base}/hero-center.png`,
-  portraitMaria: `${base}/portrait-maria.png`,
-  assigneeEven: `${base}/assignee-even.png`,
+  /** Stage backdrop */
+  backdropBg: `${base}/backdrop-bg.webp`,
+  /** Center agent (Maria) */
+  heroCenter: `${base}/hero-center.webp`,
+  portraitMaria: `${base}/portrait-maria.webp`,
+  assigneeEven: `${base}/assignee-even.webp`,
   ringsCenter: `${base}/rings-center.svg`,
-
-  /* Left — 1822:24244 */
-  heroLeft: `${base}/hero-left.png`,
-  heroLeftAccent: `${base}/hero-left-accent.png`,
-  portraitMariaLeft: `${base}/portrait-maria-left.png`,
-  avatarLeftOverlay: `${base}/avatar-left-overlay.png`,
-  assigneeJhon: `${base}/assignee-jhon.png`,
+  /** Left agent */
+  heroLeft: `${base}/hero-left.webp`,
+  heroLeftAccent: `${base}/hero-left-accent.webp`,
+  portraitMariaLeft: `${base}/portrait-maria-left.webp`,
+  avatarLeftOverlay: `${base}/avatar-left-overlay.webp`,
+  assigneeJhon: `${base}/assignee-jhon.webp`,
   ringsLeft: `${base}/rings-left.svg`,
-
-  /* Right — 1822:24269 */
-  heroRight: `${base}/hero-right.png`,
-  portraitAlex: `${base}/portrait-alex.png`,
-  assigneeDeepanjan: `${base}/assignee-deepanjan.png`,
+  /** Right agent */
+  heroRight: `${base}/hero-right.webp`,
+  portraitAlex: `${base}/portrait-alex.webp`,
+  assigneeDeepanjan: `${base}/assignee-deepanjan.webp`,
   ringsRight: `${base}/rings-right.svg`,
-
+  /** Meta */
   dot: `${base}/dot.svg`,
 } as const;

@@ -39,6 +39,9 @@
   pointer-events: none;
   container-type: inline-size;
   container-name: deploy-left;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Figma right: x=447.09 y=82.34 w=260 */
@@ -51,6 +54,9 @@
   pointer-events: none;
   container-type: inline-size;
   container-name: deploy-right;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Figma center: x=143.09 y=52.12 w=272 */
@@ -63,6 +69,9 @@
   pointer-events: none;
   container-type: inline-size;
   container-name: deploy-center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Figma 1822:24297 — bottom fade h=187 */

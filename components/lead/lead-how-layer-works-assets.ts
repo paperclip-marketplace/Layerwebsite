@@ -1,7 +1,5 @@
-/** Figma 1822:22480 — How Layer Works section assets. */
+/** Figma 1822:22480 — How Layer Works shared assets */
 export const LEAD_HOW_LAYER_WORKS_ASSETS = {
-  /* Card 1 — Context (1822:23889) */
-  contextBg: "/assets/images/lead/how-layer-works/context-bg.png",
-  contextIcons: "/assets/images/lead/how-layer-works/context-icons.png",
-
+  contextBg: "/assets/images/lead/how-layer-works/context-bg.webp",
+  contextIcons: "/assets/images/lead/how-layer-works/context-icons.webp",
 } as const;

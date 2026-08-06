@@ -1,3 +1,4 @@
+import Image from "next/image";
 import shared from "./card-visuals.module.css";
 import { DEPLOY_CARD_ASSETS } from "./deploy-card-assets";
 import styles from "./deploy-card-visual.module.css";
@@ -12,10 +13,11 @@ export function DeployCardVisual() {
   return (
     <div className={shared.visual} data-node-id="1822:24242">
       <div className={styles.backdrop} data-node-id="1822:24243" aria-hidden>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={DEPLOY_CARD_ASSETS.backdropBg}
           alt=""
+          fill
+          sizes="560px"
           className={styles.backdropImage}
         />
         <div className={styles.backdropGradient} />

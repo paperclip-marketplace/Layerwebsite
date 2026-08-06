@@ -115,13 +115,13 @@ const TestimonialCardItem = memo(function TestimonialCardItem({
           data-name={`${card.id} logo`}
         >
           {card.logoPreCropped ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={card.logo}
               alt=""
               width={card.logoWidth}
               height={card.logoHeight}
               className={styles.logoImage}
+              sizes={`${card.logoWidth}px`}
             />
           ) : (
             <Image

@@ -186,7 +186,8 @@ export function usePinnedHorizontalScroll({
       ) || 64;
 
     const onUpdate = (self: ScrollTrigger) => {
-      setTranslateX(-self.progress * maxShiftRef.current);
+      // Whole pixels — subpixel translate draws hairline seams on nested cards.
+      setTranslateX(-Math.round(self.progress * maxShiftRef.current));
     };
 
     const compactStart = () => {

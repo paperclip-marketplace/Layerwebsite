@@ -9,18 +9,22 @@ export function DeployCenterAgentCard() {
       <div className={styles.hero}>
         <div className={styles.heroBg} aria-hidden>
           <div className={styles.heroBurstClip}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={DEPLOY_CARD_ASSETS.heroCenter}
               alt=""
+              width={512}
+              height={1024}
+              sizes="280px"
               className={styles.heroBurstImg}
             />
           </div>
           <div className={styles.heroPortraitClip}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={DEPLOY_CARD_ASSETS.portraitMaria}
               alt=""
+              width={1200}
+              height={1600}
+              sizes="280px"
               className={styles.heroPortraitImg}
             />
           </div>
@@ -29,15 +33,18 @@ export function DeployCenterAgentCard() {
         <div className={styles.heroWash}>
           <div className={styles.avatar}>
             <div className={styles.avatarInner} aria-hidden>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={DEPLOY_CARD_ASSETS.portraitMaria}
                 alt=""
+                width={1200}
+                height={1600}
+                sizes="100px"
                 className={styles.avatarPortrait}
               />
             </div>
           </div>
           <div className={styles.rings} aria-hidden>
+            {/* SVG rings — keep as img */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={DEPLOY_CARD_ASSETS.ringsCenter}
@@ -71,16 +78,18 @@ export function DeployLeftAgentCard() {
     <article className={`${styles.card} ${styles.cardLeft}`} data-node-id="1822:24244">
       <div className={styles.hero} data-node-id="1822:24245">
         <div className={styles.heroBg} aria-hidden>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={DEPLOY_CARD_ASSETS.heroLeft}
             alt=""
+            fill
+            sizes="260px"
             className={styles.heroCover}
           />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={DEPLOY_CARD_ASSETS.heroLeftAccent}
             alt=""
+            fill
+            sizes="260px"
             className={styles.heroCover}
           />
         </div>
@@ -88,28 +97,33 @@ export function DeployLeftAgentCard() {
         <div className={styles.heroWash} data-node-id="1822:24246">
           <div className={styles.avatar} data-node-id="1822:24247" data-name="image">
             <div className={styles.avatarInner} aria-hidden>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={DEPLOY_CARD_ASSETS.portraitMariaLeft}
                 alt=""
+                width={1200}
+                height={1600}
+                sizes="80px"
                 className={styles.avatarPortrait}
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={DEPLOY_CARD_ASSETS.avatarLeftOverlay}
                 alt=""
+                fill
+                sizes="80px"
                 className={styles.avatarOverlay}
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={DEPLOY_CARD_ASSETS.heroLeft}
                 alt=""
+                fill
+                sizes="80px"
                 className={styles.avatarOverlay}
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={DEPLOY_CARD_ASSETS.heroLeftAccent}
                 alt=""
+                fill
+                sizes="80px"
                 className={styles.avatarOverlay}
               />
             </div>
@@ -156,10 +170,11 @@ export function DeployRightAgentCard() {
       data-name="agent-card"
     >
       <div className={styles.hero} data-node-id="1822:24270">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={DEPLOY_CARD_ASSETS.heroRight}
           alt=""
+          fill
+          sizes="260px"
           className={styles.heroCover}
           aria-hidden
         />
@@ -167,16 +182,19 @@ export function DeployRightAgentCard() {
         <div className={styles.heroWash} data-node-id="1822:24271">
           <div className={styles.avatar} data-node-id="1822:24272" data-name="image">
             <div className={styles.avatarInner} aria-hidden>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={DEPLOY_CARD_ASSETS.portraitAlex}
                 alt=""
+                width={1200}
+                height={1600}
+                sizes="80px"
                 className={styles.avatarPortrait}
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={DEPLOY_CARD_ASSETS.heroRight}
                 alt=""
+                fill
+                sizes="80px"
                 className={styles.avatarOverlay}
               />
             </div>
@@ -233,10 +251,11 @@ function CardBody({
         <div className={styles.metaRow}>
           <span className={styles.meta}>Last Used</span>
           <span className={styles.dot} aria-hidden>
-            <Image
+            {/* SVG dot */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={DEPLOY_CARD_ASSETS.dot}
               alt=""
-              fill
               className={styles.dotImg}
             />
           </span>
@@ -249,8 +268,13 @@ function CardBody({
         <div className={styles.assignee}>
           <span className={styles.assigneeName}>{assigneeName}</span>
           <span className={styles.assigneeThumb}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={assigneeSrc} alt="" className={styles.assigneeImg} />
+            <Image
+              src={assigneeSrc}
+              alt=""
+              fill
+              sizes="28px"
+              className={styles.assigneeImg}
+            />
           </span>
         </div>
       </div>

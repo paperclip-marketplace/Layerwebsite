@@ -63,6 +63,9 @@
   );
   backdrop-filter: blur(23.95px);
   -webkit-backdrop-filter: blur(23.95px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* 1822:23904 — 288×176 rings, centered on 280-wide card */

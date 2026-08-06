@@ -1,6 +1,6 @@
-/** Figma 1822:22350 — Lead capture section assets. */
+/** Lead capture / shared lead-page assets */
 export const LEAD_ASSETS = {
   bottomGlow: "/assets/images/contact/new-frame.svg",
-  testimonialAvatar: "/assets/images/lead/alex-lyma-young.png",
+  testimonialAvatar: "/assets/images/lead/alex-lyma-young.webp",
   riskLedgerLogo: "/assets/images/lead/risk-ledger-logo.webp",
 } as const;

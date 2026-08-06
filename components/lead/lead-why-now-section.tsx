@@ -43,6 +43,8 @@ export function LeadWhyNowSection() {
     >
       <div className={styles.backdrop} aria-hidden>
         <div className={styles.gradient} />
+        {/* SVG texture — keep as img (vector; not a CDN raster) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={LEAD_WHY_NOW_ASSETS.launchKey}
           alt=""

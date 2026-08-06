@@ -119,6 +119,9 @@
 .trackPinned {
   will-change: transform;
   transition: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .card {
@@ -133,6 +136,16 @@
   border-radius: calc(24 * var(--l-vw));
   background: #f9f9f9;
   scroll-snap-align: start;
+  /* Own compositor layer — stops border/seam flicker while the track translates */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Improve: composite hangs from media into copy; keep copy under the image */
+.cardImprove .copy {
+  z-index: 0;
 }
 
 .sectionPinned [data-pin-scroll-card] {
@@ -142,6 +155,8 @@
 }
 
 .copy {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -151,6 +166,7 @@
   width: 100%;
   min-height: 0;
   padding: calc(32 * var(--l-vw));
+  background: #f9f9f9;
 }
 
 .cardTitle {

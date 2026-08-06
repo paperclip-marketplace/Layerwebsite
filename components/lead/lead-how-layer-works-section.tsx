@@ -62,9 +62,10 @@ const HOW_LAYER_WORKS_CARDS: HowLayerWorksCard[] = [
 ];
 
 function HowLayerWorksCard({ card }: { card: HowLayerWorksCard }) {
+  const isImprove = card.id === "improve";
   return (
     <article
-      className={styles.card}
+      className={`${styles.card}${isImprove ? ` ${styles.cardImprove}` : ""}`}
       data-pin-scroll-card
       data-node-id={card.nodeId}
     >

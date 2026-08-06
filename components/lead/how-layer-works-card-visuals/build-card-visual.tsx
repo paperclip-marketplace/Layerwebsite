@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { BUILD_CARD_ASSETS } from "./build-card-assets";
 import styles from "./build-card-visual.module.css";
 import shared from "./card-visuals.module.css";
@@ -10,10 +11,11 @@ export function BuildCardVisual() {
   return (
     <div className={shared.visual} data-node-id="1822:23896">
       <div className={styles.backdrop} data-node-id="1822:23897" aria-hidden>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={BUILD_CARD_ASSETS.backdropBg}
           alt=""
+          fill
+          sizes="560px"
           className={styles.backdropImage}
         />
         <div className={styles.backdropGradient} />

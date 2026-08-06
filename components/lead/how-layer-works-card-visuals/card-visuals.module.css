@@ -2,12 +2,18 @@
 
 .visual {
   position: relative;
+  z-index: 0;
   flex-shrink: 0;
   width: 100%;
   height: calc(400 * var(--l-vw));
+  /* Overlap copy band — kills 1px seam flicker while the carousel translates */
+  margin-bottom: -1px;
   overflow: hidden;
   container-type: size;
   container-name: hlw-visual;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .gridBg {

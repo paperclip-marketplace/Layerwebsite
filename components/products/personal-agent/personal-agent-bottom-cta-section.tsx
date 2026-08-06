@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
@@ -14,9 +15,12 @@ export function PersonalAgentBottomCtaSection() {
     >
       <div className={styles.backdrop} aria-hidden>
         <div className={styles.backdropWhite} />
-        <img
+        <Image
           src={PERSONAL_AGENT_ASSETS.bottomCtaBg}
           alt=""
+          fill
+          sizes="100vw"
+          priority={false}
           className={styles.backdropImage}
         />
       </div>
