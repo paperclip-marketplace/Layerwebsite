@@ -317,16 +317,21 @@
   }
 }
 
-/* Figma 1835:23116 — stacked cards; first tall with quote, others short */
+/* Figma 1835:23116 — mobile: px-20 py-64 gap-40, stacked cards */
 @media (max-width: 768px) {
+  /*
+   * Hairlines without 100vw (100vw + scrollbar overflows and reads as
+   * extra empty space on the right).
+   */
   .section::before,
   .section::after {
     content: "";
     position: absolute;
-    left: 50%;
+    left: 0;
+    right: 0;
     z-index: 1;
-    width: 100vw;
-    margin-left: -50vw;
+    width: auto;
+    margin-left: 0;
     border-top: 1px solid #dedede;
     pointer-events: none;
   }
@@ -340,28 +345,61 @@
   }
 
   /*
-   * Already inside .landing-page-gutter (20px). Extra --l-inset-x here
-   * doubled the left inset vs How Layer Works / Why Now — keep only text nudge.
+   * Beat .landing-band-left { padding-inline: 0 } and keep a true
+   * equal 20px shell (Figma px-[20px] py-[64px] gap-[40px]).
    */
+  .section {
+    box-sizing: border-box;
+    align-items: stretch;
+    gap: 40px;
+    width: calc(100% + 2 * var(--l-page-gutter, 20px));
+    max-width: none;
+    margin-left: calc(-1 * var(--l-page-gutter, 20px));
+    margin-right: calc(-1 * var(--l-page-gutter, 20px));
+    padding: 64px 20px !important;
+  }
+
   .header {
     gap: 32px;
-    padding: 64px var(--l-text-pl-extra, 5px) 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /*
+   * Global rule is 4 classes + [class*="copyRow"] — must match or beat it
+   * or the headline keeps an extra left inset and the column looks
+   * right-heavy.
+   */
+  :global(.landing-main)
+    :global(.landing-page-gutter)
+    .section:global(.landing-clients-section)
+    :global(.landing-copy-row),
+  :global(.landing-main)
+    :global(.landing-page-gutter)
+    .section:global(.landing-clients-section)
+    [class*="copyRow"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   .eyebrow {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: -0.56px;
-    white-space: normal;
+    white-space: nowrap;
   }
 
   .headlineRow {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    width: 100%;
   }
 
   .headline {
+    width: 100%;
     font-size: 40px;
     line-height: 48px;
     letter-spacing: -1.6px;
@@ -381,31 +419,61 @@
   }
 
   .cardsSection {
-    padding: 40px var(--l-text-pl-extra, 5px) 64px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   .cardRow {
     flex-direction: column;
+    align-items: stretch;
     gap: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   .card,
   .cardExpanded {
     flex: none;
+    box-sizing: border-box;
     width: 100%;
+    max-width: 100%;
     min-width: 0;
+    margin: 0;
     height: 240px;
     border-radius: 20px;
   }
 
-  /* Featured expanded card */
+  /* Featured expanded card — Figma 1835:24341 h-[480px] */
   .cardExpanded {
     height: 480px;
+  }
+
+  /* Full-bleed photo on mobile (desktop crop offset not needed) */
+  .card1Background {
+    left: 0;
+    width: 100%;
+  }
+
+  /* In-flow like Figma 1835:24344 — not desktop absolute bottom overlay */
+  .expandedCopy {
+    position: static;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    gap: 20px;
   }
 
   .expandedCopyVisible {
     position: static;
     display: flex;
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .cardContent {

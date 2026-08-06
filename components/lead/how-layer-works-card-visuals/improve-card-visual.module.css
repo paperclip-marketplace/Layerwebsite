@@ -28,3 +28,19 @@
   pointer-events: none;
   user-select: none;
 }
+
+/* Mobile only — match other HLW cards’ 280px media stage (Figma 1835:19222) */
+@media (max-width: 768px) {
+  .root {
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .composite {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: top center;
+  }
+}

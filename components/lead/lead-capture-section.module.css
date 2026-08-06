@@ -800,12 +800,18 @@
   }
 
   /*
-   * Keep original bottom anchor; only grow height upward so the glow’s
-   * top edge meets the quote card top. Clip the top so blur can’t spill above.
+   * Figma 1835:19151 — bg glow on 402×1330 artboard:
+   * bottom 420 / left 50% / 2484×1073 / rotate-180 (scaleY -1).
+   * Peaks behind testimonial + top of form — not pinned under the section.
    */
   .bottomEllipse {
-    height: calc(67.2% + 75px);
-    clip-path: inset(0 -50% -50% -50%);
+    left: 50%;
+    bottom: calc(420 / 1330 * 100%);
+    width: calc(2484 / 402 * 100%);
+    height: calc(1073 / 1330 * 100%);
+    margin-left: 0;
+    transform: translateX(-50%) scaleY(-1);
+    clip-path: none;
   }
 
   .content {
@@ -834,23 +840,48 @@
     gap: 16px;
   }
 
+  /*
+   * Figma 1835:19041 — left-aligned; line 1 alone, then flowing
+   * “knowledge into agents that drive results.” (wraps ~4 lines at 362px).
+   * LandingHeadingReveal adds splitTextLine { display:block } — undo that
+   * on lines 2+ so they flow as one paragraph (desktop unchanged).
+   */
   .headline {
+    width: 100%;
+    max-width: none;
     font-size: 40px;
+    line-height: 48px;
     letter-spacing: -1.6px;
+    text-align: left;
   }
 
-  /* Figma 1835:19041 — two lines: “Turn your GTM” / “knowledge into agents that drive results.” */
   .headlineStack {
     display: block;
+    width: 100%;
+    text-align: left;
   }
 
   .headlineLine {
-    display: inline;
     line-height: 48px;
   }
 
-  .headlineLine:first-child {
+  .headlineStack > :global([class*="splitTextLine"]),
+  .headlineStack > .headlineLine {
+    display: inline;
+  }
+
+  .headlineStack > :global([class*="splitTextLine"]):first-child,
+  .headlineStack > .headlineLine:first-child {
     display: block;
+  }
+
+  .headlineStack
+    > :global([class*="splitTextLine"]):not(:first-child)
+    :global([class*="splitLineMask"]),
+  .headlineStack
+    > :global([class*="splitTextLine"]):not(:first-child)
+    :global([class*="splitLineInner"]) {
+    display: inline;
   }
 
   .description {
