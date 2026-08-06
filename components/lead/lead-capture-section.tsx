@@ -273,7 +273,7 @@ export function LeadCaptureSection() {
                 <span className={styles.headlineStack}>
                   <span className={styles.headlineLine}>Turn your GTM</span>
                   <span className={styles.headlineLine}>
-                    knowledge into agents
+                    knowledge into agents{" "}
                   </span>
                   <span className={styles.headlineLine}>
                     that{" "}
