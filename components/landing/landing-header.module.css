@@ -251,7 +251,8 @@
   .headerInner {
     height: 56px;
     min-height: 56px;
-    padding: 15px 20px;
+    /* Horizontal inset comes from .landing-page-gutter only — no double pad */
+    padding: 15px 0;
     box-sizing: border-box;
   }
 
