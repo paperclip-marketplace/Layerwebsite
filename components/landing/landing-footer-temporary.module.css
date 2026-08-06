@@ -1,28 +1,18 @@
-/* Figma 1494:2744 / 1494:2745 — compact temporary footer */
+/* Figma 1822:22970 shell — 10px pad + rounded gray card; inner content unchanged */
 .section {
   position: relative;
   isolation: isolate;
   box-sizing: border-box;
   width: 100%;
-}
-
-.section::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 100vw;
-  margin-left: -50vw;
-  background: #f9f9f9;
-  pointer-events: none;
+  background: #ffffff;
 }
 
 /* Figma 713:740 — same 1440px column as header (landing-page-gutter) */
 .gutter {
   box-sizing: border-box;
   width: 100%;
+  /* Figma 1031:6390 — p-[10px] around the gray card */
+  padding: 10px;
 }
 
 .card {
@@ -33,7 +23,7 @@
   min-width: 0;
   box-sizing: border-box;
   padding: 40px;
-  border-radius: 24px;
+  border-radius: 40px;
   background: #f9f9f9;
 }
 
@@ -120,19 +110,10 @@
   opacity: 0.8;
 }
 
-@media (width > 1440px) {
-  .card {
-    border-radius: 0;
-    background: transparent;
-    border-left: 1px solid #dedede;
-    border-right: 1px solid #dedede;
-  }
-}
-
 @media (max-width: 1200px) {
   .card {
     padding: 40px;
-    border-radius: calc(24 * var(--l-vw));
+    border-radius: calc(40 * var(--l-vw));
   }
 
   .row {
@@ -179,7 +160,7 @@
   .card {
     padding-block: calc(40 * var(--l-vw));
     padding-inline: 0;
-    border-radius: calc(24 * var(--l-vw));
+    border-radius: calc(40 * var(--l-vw));
   }
 
   .row {

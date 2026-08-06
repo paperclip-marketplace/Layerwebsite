@@ -74,7 +74,7 @@ export function LeadWhyNowSection() {
           </LandingHeadingReveal>
           <LandingSubheadingReveal
             className={`${styles.description} landing-copy-aside`}
-            data-node-id="1822:22944"
+            data-node-id="1835:9786"
             ready={revealReady}
           >
             Get started easily with minimal setup and hands-on support to

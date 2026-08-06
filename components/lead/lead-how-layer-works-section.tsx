@@ -220,7 +220,9 @@ export function LeadHowLayerWorksSection() {
   });
 
   const stack = (
-    <>
+    <div className={styles.gutterShell}>
+      {/* L/R + full-bleed strokes above overflowing cards — matches home clients/integrations */}
+      <div className={styles.gutterFrame} aria-hidden />
       <HowLayerWorksBody
         headerRef={headerRef}
         trackRef={trackRef}
@@ -228,7 +230,7 @@ export function LeadHowLayerWorksSection() {
         pinEnabled={pinEnabled}
       />
       <LeadWhyNowSection />
-    </>
+    </div>
   );
 
   if (!pinEnabled) {

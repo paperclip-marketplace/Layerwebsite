@@ -82,22 +82,37 @@ export function usePinnedHorizontalScroll({
     const lastCard = cards[cards.length - 1];
     const edgePadding = readEdgePadding(track, edgePaddingOption);
     const section = track.closest("section");
-    const sectionLeft = section?.getBoundingClientRect().left ?? 0;
-    const startInset = sectionLeft + edgePadding;
+    const sectionRect = section?.getBoundingClientRect();
+    const sectionLeft = sectionRect?.left ?? 0;
+    const sectionRight = sectionRect?.right ?? window.innerWidth;
 
-    track.style.paddingLeft = `${startInset}px`;
-    track.style.paddingRight = `${endAlign === "mirror" ? startInset : edgePadding}px`;
+    // Padding is relative to the track/section, not the viewport. Reset first
+    // so we can measure the track’s left edge, then inset by edgePadding only
+    // (avoids double-counting the shell gutter after pinSpacer stayed in-column).
+    track.style.paddingLeft = "0";
+    track.style.paddingRight = "0";
     track.style.transform = "translate3d(0, 0, 0)";
 
-    const viewportWidth = window.innerWidth;
+    const trackLeft = track.getBoundingClientRect().left;
+    const desiredFirstCardLeft = sectionLeft + edgePadding;
+    const startInset = Math.max(
+      0,
+      Math.round(desiredFirstCardLeft - trackLeft),
+    );
+    const endInset = endAlign === "mirror" ? startInset : edgePadding;
+
+    track.style.paddingLeft = `${startInset}px`;
+    track.style.paddingRight = `${endInset}px`;
+
     const lastCardLeft = lastCard.getBoundingClientRect().left;
     const lastCardWidth = lastCard.getBoundingClientRect().width;
 
-    // Progress 0: first card at startInset. Progress 1: last card with matching trailing gutter.
-    const trailingInset = endAlign === "mirror" ? startInset : edgePadding;
-    const lastCardLeftAtEnd =
-      viewportWidth - trailingInset - lastCardWidth;
-    const maxShift = Math.max(0, lastCardLeft - lastCardLeftAtEnd);
+    // Progress 0: first card under copy start. Progress 1: last card mirrors that inset.
+    const desiredLastCardLeft =
+      endAlign === "mirror"
+        ? sectionRight - edgePadding - lastCardWidth
+        : window.innerWidth - edgePadding - lastCardWidth;
+    const maxShift = Math.max(0, lastCardLeft - desiredLastCardLeft);
 
     maxShiftRef.current = maxShift;
 

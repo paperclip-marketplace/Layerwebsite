@@ -15,6 +15,7 @@
   background: transparent;
 }
 
+/* Full-viewport orange fill — copy stays shell-inset via section padding */
 .backdrop {
   position: absolute;
   z-index: -1;
@@ -40,14 +41,14 @@
   );
 }
 
+/* Figma 1835:9782 — fill section, contain (same SVG asset) */
 .texture {
   position: absolute;
-  top: 0;
-  left: 36.25%;
-  width: 27.5%;
+  inset: 0;
+  width: 100%;
   height: 100%;
   max-width: none;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   opacity: 0.5;
 }
@@ -76,8 +77,14 @@
   opacity: 0.5;
 }
 
-.heroRow {
+/*
+ * Figma 1822:22942 / 1835:9786 — 840 headline + 520 description in 1360 row,
+ * items-end, no gap (description at x=840).
+ */
+.copyBlock .heroRow {
   justify-content: space-between;
+  align-items: flex-end;
+  gap: 0;
   width: 100%;
 }
 
@@ -100,11 +107,22 @@
   letter-spacing: calc(-2.88 * var(--l-vw));
 }
 
+/* Figma 1835:9786 — 520×56, 20/28, tracking -0.8 */
 .description {
   margin: 0;
   font-size: var(--l-fs-20);
   line-height: calc(28 / 20);
   letter-spacing: var(--l-tracking-caption);
+  word-break: break-word;
+}
+
+@media (min-width: 1201px) {
+  .heroRow :global(.landing-copy-aside),
+  .description {
+    flex: 0 0 calc(520 * var(--l-vw));
+    width: calc(520 * var(--l-vw));
+    max-width: calc(520 * var(--l-vw));
+  }
 }
 
 /* Figma 1835:23107 — Why Now mobile (402×586) */
@@ -163,7 +181,8 @@
   }
 
   .section :global(.landing-copy-headline),
-  .section :global(.landing-copy-aside) {
+  .section :global(.landing-copy-aside),
+  .description {
     flex: none;
     width: 100%;
     max-width: none;

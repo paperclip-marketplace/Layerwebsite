@@ -25,22 +25,23 @@
   background: linear-gradient(180deg, rgba(249, 249, 249, 0) 0%, #f9f9f9 100%);
 }
 
-/* Figma 1822:23960 — Home @ x=-43 y=6, 646×394 */
+/* Figma 1822:23960 — Home @ x=-43 y=6, 646×394
+ * Nudged to top:0 so the gray stage doesn’t show a gap above the wallpaper. */
 .desktopWrap {
   position: absolute;
-  top: 1.5%;
+  top: 0;
   left: -7.68%;
   z-index: 1;
   width: 115.36%;
-  height: 98.5%;
+  height: 100%;
   overflow: hidden;
   pointer-events: none;
 }
 
-/* Figma 1822:24186 — layer-notch @ x=12 y=6, 536×334 */
+/* Figma 1822:24186 — layer-notch @ x=12 y=6, 536×334 — keep aligned with Home */
 .notchWrap {
   position: absolute;
-  top: 1.5%;
+  top: 0;
   left: 2.14%;
   z-index: 3;
   width: 95.71%;

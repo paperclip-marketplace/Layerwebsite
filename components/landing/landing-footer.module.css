@@ -1,28 +1,22 @@
-/* Figma 1031:6391 — Footer Main */
+/* Figma 1822:22970 / 1031:6390 — Footer Content (10px shell) + Footer Main */
 .section {
   position: relative;
   isolation: isolate;
   box-sizing: border-box;
   width: 100%;
-}
-
-.section::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 100vw;
-  margin-left: -50vw;
-  background: #f9f9f9;
-  pointer-events: none;
+  background: #ffffff;
 }
 
 .content {
   box-sizing: border-box;
   width: 100%;
-  padding: var(--l-section-px);
+  /* Figma 1031:6390 — p-[10px] around the gray card */
+  padding: 10px;
+}
+
+.content:global(.landing-shell-x) {
+  /* Keep the 10px shell; don't inherit large landing-shell-x insets */
+  padding: 10px;
 }
 
 .card {
@@ -176,23 +170,10 @@ button.sectionHeader {
   white-space: nowrap;
 }
 
-@media (width > 1440px) {
-  .content:global(.landing-shell-x) {
-    padding-inline: max(
-      var(--l-content-inset-x),
-      calc((100vw - var(--l-shell-w)) / 2 + var(--l-content-inset-x))
-    );
-  }
-
-  .card {
-    border-radius: 0;
-    background: transparent;
-  }
-}
-
 @media (max-width: 1200px) {
-  .content {
-    padding: var(--l-section-px) var(--l-section-px) 0;
+  .content,
+  .content:global(.landing-shell-x) {
+    padding: 10px;
   }
 
   .card {

@@ -7,10 +7,6 @@
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  /*
-   * overflow:clip + isolation keep hero backdrop-filter from painting
-   * square corners over the card radius (common WebKit/Blink bug).
-   */
   overflow: clip;
   isolation: isolate;
   background: #ffffff;
@@ -84,18 +80,36 @@
   border-top-right-radius: 7.69cqw;
 }
 
+/*
+ * Blur the media itself (filter) — not backdrop-filter. backdrop-filter
+ * samples across the transformed track and flashes a hairline at the top
+ * edge during horizontal scrub; filter:blur stays stable.
+ */
 .heroBg {
   position: absolute;
-  /* Extend 1px under the top clip — kills subpixel gap flash on scrub */
-  top: -1px;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
+  /* Scale past blur soft-edge so the hero stays fully covered */
+  transform: scale(1.08);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.cardCenter .heroBg {
+  filter: blur(9.96cqw);
+}
+
+.cardLeft .heroBg {
+  filter: blur(8.32cqw);
+}
+
+.cardRight .heroBg {
+  filter: blur(8.38cqw);
 }
 
 .cardCenter .heroBg,
@@ -165,50 +179,27 @@
   width: 100%;
   min-width: 0;
   overflow: hidden;
+  /* Gradient only — blur lives on .heroBg via filter (no backdrop-filter) */
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
   box-sizing: border-box;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .cardCenter .heroWash {
-  /* Keep blur 1px below the top edge so it can't flash above the card */
-  margin-top: 1px;
-  height: calc(54.88cqw - 1px);
+  height: 54.88cqw;
   padding-top: 6.65cqw;
-  backdrop-filter: blur(9.96cqw);
-  -webkit-backdrop-filter: blur(9.96cqw);
-  /* backdrop-filter + parent translate otherwise flashes hairlines */
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  /* Force blur to mask to this box (incl. radius) during compositor updates */
-  -webkit-mask-image: linear-gradient(#000 0 100%);
-  mask-image: linear-gradient(#000 0 100%);
 }
 
 .cardLeft .heroWash {
-  margin-top: 1px;
-  height: calc(45.83cqw - 1px);
+  height: 45.83cqw;
   padding-top: 5.56cqw;
-  backdrop-filter: blur(8.32cqw);
-  -webkit-backdrop-filter: blur(8.32cqw);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-mask-image: linear-gradient(#000 0 100%);
-  mask-image: linear-gradient(#000 0 100%);
 }
 
 .cardRight .heroWash {
-  margin-top: 1px;
-  height: calc(46.19cqw - 1px);
+  height: 46.19cqw;
   padding-top: 5.6cqw;
-  backdrop-filter: blur(8.38cqw);
-  -webkit-backdrop-filter: blur(8.38cqw);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-mask-image: linear-gradient(#000 0 100%);
-  mask-image: linear-gradient(#000 0 100%);
 }
 
 .avatar {

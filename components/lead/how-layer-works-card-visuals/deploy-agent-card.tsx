@@ -170,14 +170,15 @@ export function DeployRightAgentCard() {
       data-name="agent-card"
     >
       <div className={styles.hero} data-node-id="1822:24270">
-        <Image
-          src={DEPLOY_CARD_ASSETS.heroRight}
-          alt=""
-          fill
-          sizes="260px"
-          className={styles.heroCover}
-          aria-hidden
-        />
+        <div className={styles.heroBg} aria-hidden>
+          <Image
+            src={DEPLOY_CARD_ASSETS.heroRight}
+            alt=""
+            fill
+            sizes="260px"
+            className={styles.heroCover}
+          />
+        </div>
 
         <div className={styles.heroWash} data-node-id="1822:24271">
           <div className={styles.avatar} data-node-id="1822:24272" data-name="image">
