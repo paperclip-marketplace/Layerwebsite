@@ -95,6 +95,19 @@ export function LeadWalkthroughFab() {
     isOpenRef.current = isOpen;
   }, [isOpen]);
 
+  /* Slide the fixed landing header up while the walkthrough panel is open */
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isOpen) {
+      root.setAttribute("data-lead-fab-open", "");
+    } else {
+      root.removeAttribute("data-lead-fab-open");
+    }
+    return () => {
+      root.removeAttribute("data-lead-fab-open");
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     visibleRef.current = visible;
   }, [visible]);
@@ -1022,7 +1035,7 @@ export function LeadWalkthroughFab() {
                   className={styles.submit}
                   data-node-id="1822:25714"
                 >
-                  <span>Get a Personalized Walkthrough</span>
+                  <span className={styles.submitLabel}>Get a Personalized Walkthrough</span>
                   <span
                     className={`material-symbols-rounded ${styles.submitIcon}`}
                     aria-hidden
