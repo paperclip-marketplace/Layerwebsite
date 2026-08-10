@@ -36,3 +36,32 @@
   object-fit: cover;
   object-position: center;
 }
+
+/*
+ * Mobile — wallpaper fills the Home frame height (Figma 1835:21009).
+ * Home is 394px tall in a 280px stage; bg spans full frame, clipped by card.
+ */
+@media (max-width: 768px) {
+  .home {
+    height: 100%;
+  }
+
+  .wallpaper {
+    top: calc(-1 / 394 * 100%);
+    left: calc(-457 / 646 * 100%);
+    width: calc(1512 / 646 * 100%);
+    height: calc(984 / 394 * 100%);
+  }
+
+  .wallpaperMainLayer {
+    inset: -3.9% -2.99% -11.88% -2.52%;
+  }
+
+  .wallpaperTopRightLayer {
+    inset: -5.07% -5.91% 24.2% 18.88%;
+  }
+
+  .wallpaperImg {
+    object-position: center center;
+  }
+}

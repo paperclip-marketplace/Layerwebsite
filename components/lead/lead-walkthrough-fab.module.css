@@ -356,11 +356,13 @@
   gap: 8px;
   width: 100%;
   box-sizing: border-box;
+  appearance: none;
   padding: 14px 40px;
-  border: 1px solid #ffffff;
+  border: 1px solid #020100;
   border-radius: 40px;
   background: linear-gradient(180deg, #292120 0%, #1f1714 100%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
   font-family: var(--layer-font-geist-sans);
   font-size: 16px;
   font-weight: 500;
@@ -369,6 +371,7 @@
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
   cursor: pointer;
+  transition: opacity 0.15s ease;
 }
 
 .submit:hover {
@@ -381,8 +384,9 @@
 }
 
 .submitIcon {
-  font-size: 20px;
+  font-size: 24px;
   line-height: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
 }
 
 /* Desktop success — compact left stack (mobile overrides in 768 media) */

@@ -76,6 +76,8 @@ export function LeadWalkthroughFab() {
   const scrollHiddenRef = useRef(false);
   const prefersReducedMotionRef = useRef(false);
   const lastScrollYRef = useRef(0);
+  const showClosedFabRef = useRef<() => void>(() => {});
+  const closeAndHideRef = useRef<() => Promise<void>>(async () => {});
   const pillSizeRef = useRef<PillSize>({
     width: 0,
     height: 56,
@@ -563,6 +565,9 @@ export function LeadWalkthroughFab() {
     setVisible(true);
   }, [resetToggleToPill]);
 
+  showClosedFabRef.current = showClosedFab;
+  closeAndHideRef.current = closeAndHide;
+
   useLayoutEffect(() => {
     if (!isOpen) return;
     animateOpen();
@@ -668,30 +673,51 @@ export function LeadWalkthroughFab() {
     return () => mediaQuery.removeEventListener("change", handleMotionChange);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const sentinel = document.getElementById(SENTINEL_ID);
     if (!sentinel) return;
 
-    const trigger = ScrollTrigger.create({
-      trigger: sentinel,
-      start: "bottom top",
-      end: "max",
-      onEnter: () => {
-        showClosedFab();
-      },
-      onLeaveBack: () => {
-        void closeAndHide();
-      },
+    let trigger: ScrollTrigger | null = null;
+    let cancelled = false;
+    let raf1 = 0;
+    let raf2 = 0;
+
+    const setup = () => {
+      if (cancelled) return;
+
+      trigger?.kill();
+      trigger = null;
+
+      // Wait until layout + any in-flight ScrollTrigger refreshes settle.
+      ScrollTrigger.refresh();
+
+      trigger = ScrollTrigger.create({
+        trigger: sentinel,
+        start: "bottom top",
+        onEnter: () => {
+          showClosedFabRef.current();
+        },
+        onLeaveBack: () => {
+          void closeAndHideRef.current();
+        },
+      });
+
+      if (trigger.isActive) {
+        showClosedFabRef.current();
+      }
+    };
+
+    raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(setup);
     });
 
-    if (trigger.isActive) {
-      showClosedFab();
-    }
-
     return () => {
-      trigger.kill();
+      cancelled = true;
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+      trigger?.kill();
     };
-  }, [closeAndHide, showClosedFab]);
+  }, []);
 
   /*
    * Keep FAB above the footer on the way down (not only after scroll-up).

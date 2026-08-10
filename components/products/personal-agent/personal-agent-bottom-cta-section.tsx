@@ -23,6 +23,12 @@ export function PersonalAgentBottomCtaSection() {
           priority={false}
           className={styles.backdropImage}
         />
+        {/* Figma 1835:25112 — mobile grid + radial fade (CSS; desktop keeps image) */}
+        <div className={styles.backdropGrid}>
+          <div className={styles.backdropGridV} />
+          <div className={styles.backdropGridH} />
+        </div>
+        <div className={styles.backdropRadialFade} />
       </div>
 
       <div className={styles.content}>

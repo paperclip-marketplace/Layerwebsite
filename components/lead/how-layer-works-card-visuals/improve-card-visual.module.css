@@ -29,6 +29,10 @@
   user-select: none;
 }
 
+.bottomFade {
+  display: none;
+}
+
 /* Mobile only — match other HLW cards’ 280px media stage (Figma 1835:19222) */
 @media (max-width: 768px) {
   .root {
@@ -42,5 +46,13 @@
     aspect-ratio: auto;
     object-fit: cover;
     object-position: top center;
+  }
+
+  /* Figma 1835:23102 — Rectangle 12278 @ x=-99 y=198 w=560 h=82 */
+  .bottomFade {
+    display: block;
+    left: calc(-99 / 362 * 100%);
+    width: calc(560 / 362 * 100%);
+    height: calc(82 / 280 * 100%);
   }
 }

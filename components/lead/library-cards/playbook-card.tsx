@@ -14,6 +14,8 @@ export type PlaybookCardProps = {
   description: string;
   chipLabel?: string;
   createdByName: string;
+  /** Optional photo avatar — falls back to initials when omitted */
+  createdByAvatarSrc?: string;
   updatedAtLabel: string;
   /** Force hover thumb colors visible (Build card visual) */
   alwaysActive?: boolean;
@@ -25,6 +27,7 @@ export function PlaybookCard({
   description,
   chipLabel = "Roleplay",
   createdByName,
+  createdByAvatarSrc,
   updatedAtLabel,
   alwaysActive = false,
 }: PlaybookCardProps) {
@@ -102,7 +105,16 @@ export function PlaybookCard({
               aria-label={createdByName}
               title={createdByName}
             >
-              {creatorInitials(createdByName)}
+              {createdByAvatarSrc ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={createdByAvatarSrc}
+                  alt=""
+                  className={styles.playbookCardCreatorAvatarImage}
+                />
+              ) : (
+                creatorInitials(createdByName)
+              )}
             </span>
           </div>
           <div className={styles.playbookCardMetaRow}>

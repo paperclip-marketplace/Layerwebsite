@@ -35,6 +35,19 @@
   background: #ffffff;
 }
 
+.backdropGlowClip {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Mobile-only — masks any glow bleed below the Your Role crop line */
+.backdropMobileCap {
+  display: none;
+}
+
 .bottomEllipse {
   position: absolute;
   z-index: 1;
@@ -202,6 +215,11 @@
     transparent var(--contact-grid-y)
   );
   background-size: 100% var(--contact-grid-y);
+}
+
+/* Figma 1835:19185 — white overlay; enabled on mobile only (see @768) */
+.backdropFade {
+  display: none;
 }
 
 .content {
@@ -652,19 +670,21 @@
   gap: calc(8 * var(--l-vw));
   box-sizing: border-box;
   width: 100%;
-  height: calc(52 * var(--l-vw));
+  min-height: calc(52 * var(--l-vw));
   margin: 0;
-  padding: calc(12 * var(--l-vw)) calc(36 * var(--l-vw)) calc(12 * var(--l-vw))
-    calc(40 * var(--l-vw));
-  border: 1px solid #ffffff;
+  appearance: none;
+  /* Figma 1835:19135 — py 14, px 40 */
+  padding: calc(14 * var(--l-vw)) calc(40 * var(--l-vw));
+  border: 1px solid #020100;
   border-radius: 40px;
   background: linear-gradient(180deg, #292120 0%, #1f1714 100%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
   font-family: var(--layer-font-geist-sans);
   font-size: var(--l-fs-16);
   font-weight: 500;
-  line-height: var(--l-lh-16);
-  letter-spacing: var(--l-tracking);
+  line-height: calc(24 / 16);
+  letter-spacing: calc(-0.64 * var(--l-vw));
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
   white-space: nowrap;
@@ -681,9 +701,15 @@
   outline-offset: 2px;
 }
 
+.submitLabel {
+  flex-shrink: 0;
+}
+
 .submitIcon {
-  font-size: calc(20 * var(--l-vw));
+  flex-shrink: 0;
+  font-size: calc(24 * var(--l-vw));
   line-height: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
 }
 
 .successBody {
@@ -800,18 +826,109 @@
   }
 
   /*
-   * Figma 1835:19151 — bg glow on 402×1330 artboard:
-   * bottom 420 / left 50% / 2484×1073 / rotate-180 (scaleY -1).
-   * Peaks behind testimonial + top of form — not pinned under the section.
+   * Mobile hero bg — hard bottom at Your Role input top (--lead-mobile-bg-crop-y).
+   */
+  .backdrop {
+    top: 0;
+    bottom: auto;
+    height: var(--lead-mobile-bg-crop-y, calc(872 * var(--l-vw)));
+    /* Figma 1835:19157 / 1835:19174 — ~169×149px cells in bg coords */
+    --contact-grid-x: calc(169.25 * var(--l-vw));
+    --contact-grid-y: calc(149.07 * var(--l-vw));
+    overflow: hidden;
+    clip-path: inset(0 0 0 0);
+    contain: paint;
+  }
+
+  .backdropGlowClip {
+    overflow: hidden;
+  }
+
+  /*
+   * Solid white from crop line down — hard edge, no gradient bleed (z-index above backdrop).
+   */
+  .backdropMobileCap {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    top: var(--lead-mobile-bg-crop-y, calc(872 * var(--l-vw)));
+    bottom: 0;
+    background: #ffffff;
+    pointer-events: none;
+  }
+
+  .backdropGrid {
+    /*
+     * Visible at crop line (bottom), fading toward the top — inverse of desktop mask.
+     */
+    -webkit-mask-image: linear-gradient(
+      0deg,
+      #000 0%,
+      rgba(0, 0, 0, 0.926) 11.79%,
+      rgba(0, 0, 0, 0.846) 21.384%,
+      rgba(0, 0, 0, 0.762) 29.12%,
+      rgba(0, 0, 0, 0.674) 35.336%,
+      rgba(0, 0, 0, 0.585) 40.37%,
+      rgba(0, 0, 0, 0.497) 44.56%,
+      rgba(0, 0, 0, 0.411) 48.243%,
+      rgba(0, 0, 0, 0.328) 51.757%,
+      rgba(0, 0, 0, 0.251) 55.44%,
+      rgba(0, 0, 0, 0.181) 59.63%,
+      rgba(0, 0, 0, 0.121) 64.664%,
+      rgba(0, 0, 0, 0.07) 70.88%,
+      rgba(0, 0, 0, 0.032) 78.616%,
+      rgba(0, 0, 0, 0.008) 88.21%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      0deg,
+      #000 0%,
+      rgba(0, 0, 0, 0.926) 11.79%,
+      rgba(0, 0, 0, 0.846) 21.384%,
+      rgba(0, 0, 0, 0.762) 29.12%,
+      rgba(0, 0, 0, 0.674) 35.336%,
+      rgba(0, 0, 0, 0.585) 40.37%,
+      rgba(0, 0, 0, 0.497) 44.56%,
+      rgba(0, 0, 0, 0.411) 48.243%,
+      rgba(0, 0, 0, 0.328) 51.757%,
+      rgba(0, 0, 0, 0.251) 55.44%,
+      rgba(0, 0, 0, 0.181) 59.63%,
+      rgba(0, 0, 0, 0.121) 64.664%,
+      rgba(0, 0, 0, 0.07) 70.88%,
+      rgba(0, 0, 0, 0.032) 78.616%,
+      rgba(0, 0, 0, 0.008) 88.21%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .backdropGridV,
+  .backdropGridH {
+    background-position: center bottom;
+  }
+
+  /*
+   * Glow fills the clipped backdrop (top-anchored, scaleY(-1) blooms downward).
+   * Do not anchor to bottom:0 + scaleY(-1) — that flips the glow below the clip.
    */
   .bottomEllipse {
     left: 50%;
-    bottom: calc(420 / 1330 * 100%);
+    top: 0;
+    bottom: auto;
     width: calc(2484 / 402 * 100%);
-    height: calc(1073 / 1330 * 100%);
+    height: 100%;
     margin-left: 0;
     transform: translateX(-50%) scaleY(-1);
-    clip-path: none;
+    filter: blur(72px);
+  }
+
+  /*
+   * Hard crop — no soft fade overlay (backdropMobileCap handles the bottom edge).
+   */
+  .backdropFade {
+    display: none;
   }
 
   .content {
@@ -1072,9 +1189,16 @@
   }
 
   .submit {
-    height: 52px;
+    gap: 8px;
+    min-height: 52px;
+    padding: 14px 40px;
     font-size: 16px;
     line-height: 24px;
     letter-spacing: -0.64px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  }
+
+  .submitIcon {
+    font-size: 24px;
   }
 }

@@ -63,9 +63,10 @@ const HOW_LAYER_WORKS_CARDS: HowLayerWorksCard[] = [
 
 function HowLayerWorksCard({ card }: { card: HowLayerWorksCard }) {
   const isImprove = card.id === "improve";
+  const isBuild = card.id === "build";
   return (
     <article
-      className={`${styles.card}${isImprove ? ` ${styles.cardImprove}` : ""}`}
+      className={`${styles.card}${isImprove ? ` ${styles.cardImprove}` : ""}${isBuild ? ` ${styles.cardBuild}` : ""}`}
       data-pin-scroll-card
       data-node-id={card.nodeId}
     >
@@ -220,7 +221,7 @@ export function LeadHowLayerWorksSection() {
   });
 
   const stack = (
-    <div className={styles.gutterShell}>
+    <div className={`${styles.gutterShell} lead-how-layer-works-shell`}>
       {/* L/R + full-bleed strokes above overflowing cards — matches home clients/integrations */}
       <div className={styles.gutterFrame} aria-hidden />
       <HowLayerWorksBody

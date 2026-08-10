@@ -55,6 +55,16 @@
   transform: translate(-50%, -50%);
 }
 
+.bottomFade {
+  composes: hlwBottomFade from "./card-visuals.module.css";
+  left: 50%;
+  width: 100%;
+  /* Desktop: softer / shorter than shared 47% fade — mobile restores full strength */
+  height: 28%;
+  opacity: 0.55;
+  transform: translateX(-50%);
+}
+
 /*
  * Figma 1835:19614 — mobile Build stage 362×280
  * Place at Figma top-left, keep desktop design widths, scale once into frame.
@@ -94,37 +104,11 @@
   }
 
   .bottomFade {
+    /* Stronger than desktop soft fade, softer than original Figma 93px / full opacity */
+    left: calc(-29 / 362 * 100%);
     width: calc(441 / 362 * 100%);
-    height: calc(93 / 280 * 100%);
+    height: calc(72 / 280 * 100%);
+    opacity: 0.78;
+    transform: none;
   }
-}
-
-.bottomFade {
-  position: absolute;
-  z-index: 4;
-  bottom: 0;
-  left: 50%;
-  width: 100%;
-  height: 47%;
-  background: linear-gradient(
-    180deg,
-    rgba(249, 249, 249, 0) 0%,
-    rgba(249, 249, 249, 0.008) 11.79%,
-    rgba(249, 249, 249, 0.032) 21.384%,
-    rgba(249, 249, 249, 0.07) 29.12%,
-    rgba(249, 249, 249, 0.121) 35.336%,
-    rgba(249, 249, 249, 0.181) 40.37%,
-    rgba(249, 249, 249, 0.251) 44.56%,
-    rgba(249, 249, 249, 0.328) 48.243%,
-    rgba(249, 249, 249, 0.411) 51.757%,
-    rgba(249, 249, 249, 0.497) 55.44%,
-    rgba(249, 249, 249, 0.585) 59.63%,
-    rgba(249, 249, 249, 0.674) 64.664%,
-    rgba(249, 249, 249, 0.762) 70.88%,
-    rgba(249, 249, 249, 0.846) 78.616%,
-    rgba(249, 249, 249, 0.926) 88.21%,
-    #f9f9f9 100%
-  );
-  transform: translateX(-50%);
-  pointer-events: none;
 }

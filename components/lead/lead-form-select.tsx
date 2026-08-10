@@ -19,6 +19,8 @@ type LeadFormSelectProps = {
   options: readonly string[];
   required?: boolean;
   fluid?: boolean;
+  /** Marks the trigger for mobile hero backdrop crop alignment */
+  mobileBgAnchor?: boolean;
   onChange: (value: string) => void;
 };
 
@@ -35,6 +37,7 @@ export function LeadFormSelect({
   options,
   required = false,
   fluid = false,
+  mobileBgAnchor = false,
   onChange,
 }: LeadFormSelectProps) {
   const listboxId = useId();
@@ -163,6 +166,7 @@ export function LeadFormSelect({
       <button
         ref={triggerRef}
         type="button"
+        data-lead-mobile-bg-anchor={mobileBgAnchor ? "" : undefined}
         className={`${styles.trigger} ${open ? styles.triggerOpen : ""}`}
         aria-haspopup="listbox"
         aria-expanded={open}

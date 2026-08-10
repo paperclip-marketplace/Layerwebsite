@@ -1,4 +1,5 @@
 import { IMPROVE_CARD_ASSETS } from "./improve-card-assets";
+import shared from "./card-visuals.module.css";
 import styles from "./improve-card-visual.module.css";
 
 /** Improve card visual — flat composite (call UI + coaching card) */
@@ -13,6 +14,11 @@ export function ImproveCardVisual() {
         width={724}
         height={560}
         decoding="async"
+      />
+      <div
+        className={`${shared.hlwBottomFade} ${styles.bottomFade}`}
+        aria-hidden
+        data-node-id="1835:23102"
       />
     </div>
   );

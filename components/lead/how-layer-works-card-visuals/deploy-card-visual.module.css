@@ -26,7 +26,13 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(249, 249, 249, 0) 0%, #f9f9f9 100%);
+  /* Let Rectangle 12278 own the bottom blend — avoid double-washing to flat #f9f9f9 */
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 0%,
+    rgba(249, 249, 249, 0.35) 72%,
+    rgba(249, 249, 249, 0.65) 100%
+  );
 }
 
 /* Figma left: x=-147 y=80.85 w=258.09 */
@@ -74,15 +80,14 @@
   transform: translateZ(0);
 }
 
-/* Figma 1822:24297 — bottom fade h=187 */
+/* Figma 1822:24297 — Rectangle 12278 @ x=-188 y=213 w=936 h=187 */
 .bottomFade {
   position: absolute;
-  z-index: 4;
+  z-index: 5;
   bottom: 0;
-  left: 50%;
-  width: 100%;
-  height: 46.75%;
-  transform: translateX(-50%);
+  left: calc(-188 / 560 * 100%);
+  width: calc(936 / 560 * 100%);
+  height: calc(187 / 400 * 100%);
   pointer-events: none;
   background: linear-gradient(
     180deg,
@@ -103,4 +108,35 @@
     rgba(249, 249, 249, 0.926) 88.21%,
     #f9f9f9 100%
   );
+}
+
+/*
+ * Figma 1835:22929 — mobile Deploy stage 362×280
+ * Rectangle 12278 @ y=93 h=187 w=363
+ */
+@media (max-width: 768px) {
+  .leftWrap {
+    top: calc(50.51 / 280 * 100%);
+    left: calc(-139.82 / 362 * 100%);
+    width: calc(193.92 / 362 * 100%);
+  }
+
+  .rightWrap {
+    top: calc(51.63 / 280 * 100%);
+    left: calc(306.56 / 362 * 100%);
+    width: calc(195.35 / 362 * 100%);
+  }
+
+  .centerWrap {
+    top: calc(28.93 / 280 * 100%);
+    left: calc(78.15 / 362 * 100%);
+    width: calc(204.37 / 362 * 100%);
+  }
+
+  .bottomFade {
+    /* Figma 1835:22984 — y=93 h=187 w=363 on 362×280 stage */
+    left: 0;
+    width: 100%;
+    height: calc(187 / 280 * 100%);
+  }
 }

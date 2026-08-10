@@ -240,9 +240,9 @@
 /* Figma 1835:19222 — stacked vertical cards (not horizontal scroll) */
 @media (max-width: 768px) {
   .copySection {
-    /* Figma 1835:19262 — pt 64, px 20, 32px eyebrow → copy */
+    /* Figma 1835:19262 — pt 64, px 20, pb 20, 32px eyebrow → copy */
     gap: 32px;
-    padding: 64px var(--l-inset-x, 20px) 40px;
+    padding: 64px var(--l-inset-x, 20px) 20px;
   }
 
   .eyebrow {
@@ -277,7 +277,7 @@
   }
 
   .carouselSection {
-    padding: 40px var(--l-inset-x, 20px) 80px;
+    padding: 20px var(--l-inset-x, 20px) 80px;
     overflow: visible;
     scroll-snap-type: none;
   }
@@ -299,6 +299,7 @@
     flex: none;
     flex-basis: auto;
     width: 100%;
+    /* Figma 1835:19269 — 280px media + 152px copy (128px for Build) */
     height: auto;
     min-height: 0;
     border-radius: 20px;
@@ -307,23 +308,44 @@
   .copy {
     gap: 12px;
     flex: none;
-    min-height: 0;
+    box-sizing: border-box;
+    height: 152px;
+    min-height: 152px;
     padding: 20px;
     justify-content: flex-start;
+  }
+
+  /* Figma 1835:19263 — Build copy block is 128px (2-line description) */
+  .cardBuild .copy {
+    height: 128px;
+    min-height: 128px;
   }
 
   .cardTitle {
     font-size: 20px;
     line-height: 28px;
     letter-spacing: -0.8px;
-    font-weight: 400;
-    color: #8d8d8d;
-    opacity: 1;
+    font-weight: 600;
+    color: #606060;
+    opacity: 0.5;
+    white-space: nowrap;
+    flex-shrink: 0;
+    height: 28px;
   }
 
   .cardDescription {
     font-size: 16px;
     line-height: 24px;
     letter-spacing: -0.64px;
+    font-weight: 400;
+    color: #020100;
+    /* Figma 1835:19259 — 3 lines × 24px */
+    height: 72px;
+    margin: 0;
+  }
+
+  .cardBuild .cardDescription {
+    /* Figma 1835:19268 — 2 lines × 24px */
+    height: 48px;
   }
 }

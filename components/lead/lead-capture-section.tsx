@@ -2,7 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useEffect, useState, type ChangeEvent } from "react";
+import {
+  FormEvent,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type RefObject,
+} from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -26,6 +34,68 @@ import { LeadFormSelect } from "./lead-form-select";
 import styles from "./lead-capture-section.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
+
+/** Mobile-only: clip hero grid/glow to the top edge of the Your Role field. */
+function useMobileBackdropCrop(sectionRef: RefObject<HTMLElement | null>) {
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const mq = window.matchMedia("(max-width: 768px)");
+
+    const update = () => {
+      if (!mq.matches) {
+        section.style.removeProperty("--lead-mobile-bg-crop-y");
+        return;
+      }
+
+      const anchor = section.querySelector<HTMLElement>(
+        "[data-lead-mobile-bg-anchor]",
+      );
+      if (!anchor) {
+        section.style.removeProperty("--lead-mobile-bg-crop-y");
+        return;
+      }
+
+      const cropY = Math.max(
+        0,
+        anchor.getBoundingClientRect().top -
+          section.getBoundingClientRect().top,
+      );
+      section.style.setProperty("--lead-mobile-bg-crop-y", `${cropY}px`);
+    };
+
+    const scheduleUpdate = () => {
+      update();
+      window.requestAnimationFrame(update);
+    };
+
+    scheduleUpdate();
+
+    const ro = new ResizeObserver(scheduleUpdate);
+    ro.observe(section);
+
+    const observeAnchor = () => {
+      const anchor = section.querySelector<HTMLElement>(
+        "[data-lead-mobile-bg-anchor]",
+      );
+      if (anchor) ro.observe(anchor);
+    };
+    observeAnchor();
+
+    mq.addEventListener("change", scheduleUpdate);
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("load", scheduleUpdate);
+    void document.fonts?.ready.then(scheduleUpdate);
+
+    return () => {
+      ro.disconnect();
+      mq.removeEventListener("change", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("load", scheduleUpdate);
+    };
+  }, [sectionRef]);
+}
 
 function LeadFormCard() {
   const [form, setForm] = useState<LeadFormState>(LEAD_FORM_INITIAL_STATE);
@@ -136,6 +206,7 @@ function LeadFormCard() {
               options={LEAD_ROLE_OPTIONS}
               required
               fluid
+              mobileBgAnchor
               onChange={(role) =>
                 setForm((prev) => ({
                   ...prev,
@@ -208,8 +279,12 @@ function LeadFormCard() {
         </fieldset>
       </div>
 
-      <button type="submit" className={styles.submit}>
-        <span>Get a Personalized Walkthrough</span>
+      <button
+        type="submit"
+        className={styles.submit}
+        data-node-id="1835:19135"
+      >
+        <span className={styles.submitLabel}>Get a Personalized Walkthrough</span>
         <span
           className={`material-symbols-rounded ${styles.submitIcon}`}
           aria-hidden
@@ -223,8 +298,12 @@ function LeadFormCard() {
 
 /** Figma 1822:22350 — Lead capture hero (copy + testimonial + form). */
 export function LeadCaptureSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  useMobileBackdropCrop(sectionRef);
+
   return (
     <section
+      ref={sectionRef}
       id="lead-capture"
       className={styles.section}
       aria-labelledby="lead-capture-heading"
@@ -233,20 +312,22 @@ export function LeadCaptureSection() {
     >
       <div className={styles.backdrop} aria-hidden data-node-id="1822:22351">
         <div className={styles.backdropWhite} />
-        <div className={styles.bottomEllipse}>
-          <div className={styles.bottomEllipsePulse}>
-            <div className={styles.bottomEllipseFlow}>
-              <img
-                src={LEAD_ASSETS.bottomGlow}
-                alt=""
-                className={styles.bottomEllipseSvg}
-              />
-              <img
-                src={LEAD_ASSETS.bottomGlow}
-                alt=""
-                className={styles.bottomEllipseSvg}
-                aria-hidden
-              />
+        <div className={styles.backdropGlowClip}>
+          <div className={styles.bottomEllipse}>
+            <div className={styles.bottomEllipsePulse}>
+              <div className={styles.bottomEllipseFlow}>
+                <img
+                  src={LEAD_ASSETS.bottomGlow}
+                  alt=""
+                  className={styles.bottomEllipseSvg}
+                />
+                <img
+                  src={LEAD_ASSETS.bottomGlow}
+                  alt=""
+                  className={styles.bottomEllipseSvg}
+                  aria-hidden
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -254,7 +335,9 @@ export function LeadCaptureSection() {
           <div className={styles.backdropGridV} />
           <div className={styles.backdropGridH} />
         </div>
+        <div className={styles.backdropFade} aria-hidden data-node-id="1835:19185" />
       </div>
+      <div className={styles.backdropMobileCap} aria-hidden />
 
       <div className={styles.content}>
         <p className={styles.badge} data-node-id="1822:22387">

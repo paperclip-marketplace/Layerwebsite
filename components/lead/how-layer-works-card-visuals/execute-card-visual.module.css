@@ -51,30 +51,37 @@
 
 /* Figma 1822:24237 — bottom fade 160px @ 400px stage */
 .bottomFade {
-  position: absolute;
-  z-index: 2;
+  composes: hlwBottomFade from "./card-visuals.module.css";
   right: 0;
-  bottom: 0;
   left: 0;
   height: 40%;
-  background: linear-gradient(
-    180deg,
-    rgba(249, 249, 249, 0) 0%,
-    rgba(249, 249, 249, 0.008) 11.79%,
-    rgba(249, 249, 249, 0.032) 21.384%,
-    rgba(249, 249, 249, 0.07) 29.12%,
-    rgba(249, 249, 249, 0.121) 35.336%,
-    rgba(249, 249, 249, 0.181) 40.37%,
-    rgba(249, 249, 249, 0.251) 44.56%,
-    rgba(249, 249, 249, 0.328) 48.243%,
-    rgba(249, 249, 249, 0.411) 51.757%,
-    rgba(249, 249, 249, 0.497) 55.44%,
-    rgba(249, 249, 249, 0.585) 59.63%,
-    rgba(249, 249, 249, 0.674) 64.664%,
-    rgba(249, 249, 249, 0.762) 70.88%,
-    rgba(249, 249, 249, 0.846) 78.616%,
-    rgba(249, 249, 249, 0.926) 88.21%,
-    #f9f9f9 100%
-  );
-  pointer-events: none;
+}
+
+/*
+ * Figma 1835:21009 — mobile Execute stage 362×280
+ * Home @ x=-142 y=6 w=646 h=394; layer-notch @ x=-6 y=6 w=374 h=233.14
+ * Rectangle 12278 @ x=-79.75 y=131 w=521.5 h=149
+ */
+@media (max-width: 768px) {
+  .desktopWrap {
+    /* Figma y=6, nudged up 8px for wallpaper alignment */
+    top: calc(-2 / 280 * 100%);
+    left: calc(-142 / 362 * 100%);
+    width: calc(646 / 362 * 100%);
+    height: calc(394 / 280 * 100%);
+  }
+
+  .notchWrap {
+    top: calc(6 / 280 * 100%);
+    left: calc(-6 / 362 * 100%);
+    width: calc(374 / 362 * 100%);
+    height: calc(233.14 / 280 * 100%);
+  }
+
+  .bottomFade {
+    left: calc(-79.75 / 362 * 100%);
+    right: auto;
+    width: calc(521.5 / 362 * 100%);
+    height: calc(149 / 280 * 100%);
+  }
 }

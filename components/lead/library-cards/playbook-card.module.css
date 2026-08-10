@@ -495,6 +495,7 @@
   justify-content: center;
   width: 20px;
   height: 20px;
+  overflow: hidden;
   border-radius: 999px;
   background: #ececec;
   font-size: 8px;
@@ -503,6 +504,14 @@
   letter-spacing: -0.32px;
   color: #020100;
   flex-shrink: 0;
+}
+
+.playbookCardCreatorAvatarImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .playbookCardMetaValue {

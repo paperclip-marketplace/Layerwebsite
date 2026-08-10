@@ -168,9 +168,68 @@
   object-position: center top;
 }
 
+/* Shared Rectangle 12278 — bottom media fade into copy band */
+.hlwBottomFade {
+  position: absolute;
+  z-index: 4;
+  bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 0%,
+    rgba(249, 249, 249, 0.008) 11.79%,
+    rgba(249, 249, 249, 0.032) 21.384%,
+    rgba(249, 249, 249, 0.07) 29.12%,
+    rgba(249, 249, 249, 0.121) 35.336%,
+    rgba(249, 249, 249, 0.181) 40.37%,
+    rgba(249, 249, 249, 0.251) 44.56%,
+    rgba(249, 249, 249, 0.328) 48.243%,
+    rgba(249, 249, 249, 0.411) 51.757%,
+    rgba(249, 249, 249, 0.497) 55.44%,
+    rgba(249, 249, 249, 0.585) 59.63%,
+    rgba(249, 249, 249, 0.674) 64.664%,
+    rgba(249, 249, 249, 0.762) 70.88%,
+    rgba(249, 249, 249, 0.846) 78.616%,
+    rgba(249, 249, 249, 0.926) 88.21%,
+    #f9f9f9 100%
+  );
+}
+
+/* Same stops as hlwBottomFade — white variant for in-card hero washes */
+.hlwWhiteMidFade {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.008) 11.79%,
+    rgba(255, 255, 255, 0.032) 21.384%,
+    rgba(255, 255, 255, 0.07) 29.12%,
+    rgba(255, 255, 255, 0.121) 35.336%,
+    rgba(255, 255, 255, 0.181) 40.37%,
+    rgba(255, 255, 255, 0.251) 44.56%,
+    rgba(255, 255, 255, 0.328) 48.243%,
+    rgba(255, 255, 255, 0.411) 51.757%,
+    rgba(255, 255, 255, 0.497) 55.44%,
+    rgba(255, 255, 255, 0.585) 59.63%,
+    rgba(255, 255, 255, 0.674) 64.664%,
+    rgba(255, 255, 255, 0.762) 70.88%,
+    rgba(255, 255, 255, 0.846) 78.616%,
+    rgba(255, 255, 255, 0.926) 88.21%,
+    #ffffff 100%
+  );
+}
+
 /* Figma 1835:19222 — mobile card media stage is 280px */
 @media (max-width: 768px) {
   .visual {
     height: 280px;
+  }
+
+  .contextBgGradient {
+    /* Context stage has no Rectangle 12278 — softer bottom blend on 280px */
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      #f9f9f9 42%
+    );
   }
 }

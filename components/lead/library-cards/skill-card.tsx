@@ -16,6 +16,10 @@ export type SkillCardProps = {
   alwaysActive?: boolean;
   /** Optional layer between hero bg and illustration (Figma 1822:23903) */
   heroOverlay?: ReactNode;
+  /** Optional icon inside the doc frame — defaults to SkillTypeIcon */
+  heroIcon?: ReactNode;
+  /** Optional layer above the illustration (e.g. mid-card white wash) */
+  heroForeground?: ReactNode;
   /** Hide body→hero seam fade (Build Discount Governance keeps rings visible) */
   hideBodyTopFade?: boolean;
   className?: string;
@@ -33,6 +37,8 @@ export function SkillCard({
   elevated = false,
   alwaysActive = false,
   heroOverlay,
+  heroIcon,
+  heroForeground,
   hideBodyTopFade = false,
   className,
   heroClassName,
@@ -67,14 +73,18 @@ export function SkillCard({
         >
           <div className={styles.docFrame}>
             <div className={styles.docIcon}>
-              <SkillTypeIcon
-                type={skillType}
-                size={44}
-                className={styles.docIconGlyph}
-              />
+              {heroIcon ?? (
+                <SkillTypeIcon
+                  type={skillType}
+                  size={44}
+                  className={styles.docIconGlyph}
+                />
+              )}
             </div>
           </div>
         </div>
+
+        {heroForeground}
 
         <div className={styles.heroControls}>
           {showChip ? (

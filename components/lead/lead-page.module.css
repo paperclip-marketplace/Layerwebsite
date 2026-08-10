@@ -32,4 +32,14 @@
     padding-top: 40px;
     padding-bottom: 40px;
   }
+
+  /*
+   * Clients bottom hairline comes from our-client-section::after — drop the
+   * duplicate top border on How Layer Works (.landing-band-left).
+   */
+  .clientsSpacing
+    + :global(.lead-how-layer-works-shell)
+    :global(.landing-what-we-do-split.landing-band-left) {
+    border-top: none;
+  }
 }
