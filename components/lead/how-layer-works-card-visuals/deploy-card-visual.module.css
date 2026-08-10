@@ -40,7 +40,7 @@
   position: absolute;
   top: 20.21%;
   left: -26.25%;
-  z-index: 1;
+  z-index: 2;
   width: 46.07%;
   pointer-events: none;
   container-type: inline-size;
@@ -55,7 +55,7 @@
   position: absolute;
   top: 20.59%;
   left: 79.84%;
-  z-index: 1;
+  z-index: 2;
   width: 46.43%;
   pointer-events: none;
   container-type: inline-size;
@@ -65,7 +65,7 @@
   transform: translateZ(0);
 }
 
-/* Figma center: x=143.09 y=52.12 w=272 */
+/* Figma center: x=143.09 y=52.12 w=272 — slightly shorter visual footprint */
 .centerWrap {
   position: absolute;
   top: 13.03%;
@@ -77,13 +77,15 @@
   container-name: deploy-center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  transform: translateZ(0);
+  transform: translateZ(0) scale(0.9);
+  transform-origin: top center;
 }
 
-/* Figma 1822:24297 — Rectangle 12278 @ x=-188 y=213 w=936 h=187 */
+/* Figma 1822:24297 — Rectangle 12278 @ x=-188 y=213 w=936 h=187
+ * Above backdrop, behind the three agent cards */
 .bottomFade {
   position: absolute;
-  z-index: 5;
+  z-index: 1;
   bottom: 0;
   left: calc(-188 / 560 * 100%);
   width: calc(936 / 560 * 100%);
@@ -131,6 +133,8 @@
     top: calc(28.93 / 280 * 100%);
     left: calc(78.15 / 362 * 100%);
     width: calc(204.37 / 362 * 100%);
+    transform: translateZ(0) scale(0.9);
+    transform-origin: top center;
   }
 
   .bottomFade {
