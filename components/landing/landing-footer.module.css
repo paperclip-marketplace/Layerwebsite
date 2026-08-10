@@ -3,19 +3,20 @@
   position: relative;
   isolation: isolate;
   box-sizing: border-box;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   background: #ffffff;
 }
 
+/* Full viewport width — 10px inset + rounded gray card (not capped at 1440px) */
 .content {
   box-sizing: border-box;
   width: 100%;
+  max-width: none;
+  margin-inline: 0;
   /* Figma 1031:6390 — p-[10px] around the gray card */
-  padding: 10px;
-}
-
-.content:global(.landing-shell-x) {
-  /* Keep the 10px shell; don't inherit large landing-shell-x insets */
   padding: 10px;
 }
 
@@ -23,13 +24,23 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 40px;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding: 40px;
   border-radius: 40px;
   background: #f9f9f9;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding-block: 40px;
+  padding-inline: var(--l-section-px);
 }
 
 .topRow {
@@ -171,15 +182,17 @@ button.sectionHeader {
 }
 
 @media (max-width: 1200px) {
-  .content,
-  .content:global(.landing-shell-x) {
+  .content {
     padding: 10px;
   }
 
   .card {
-    gap: calc(40 * var(--l-vw));
-    padding: calc(40 * var(--l-vw));
     border-radius: calc(40 * var(--l-vw));
+  }
+
+  .inner {
+    gap: calc(40 * var(--l-vw));
+    padding-block: calc(40 * var(--l-vw));
   }
 
   .topRow {
@@ -238,9 +251,13 @@ button.sectionHeader {
   }
 
   .card {
-    gap: 40px;
-    padding: 20px;
     border-radius: 24px;
+  }
+
+  .inner {
+    gap: 40px;
+    padding-block: 20px;
+    padding-inline: var(--l-page-gutter);
   }
 
   .topRow {
