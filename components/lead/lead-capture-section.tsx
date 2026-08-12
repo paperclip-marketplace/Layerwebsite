@@ -279,12 +279,10 @@ function LeadFormCard() {
         </fieldset>
       </div>
 
-      <button
-        type="submit"
-        className={styles.submit}
-        data-node-id="1835:19135"
-      >
-        <span className={styles.submitLabel}>Get a Personalized Walkthrough</span>
+      <button type="submit" className={styles.submit} data-node-id="1835:19135">
+        <span className={styles.submitLabel}>
+          Get a Personalized Walkthrough
+        </span>
         <span
           className={`material-symbols-rounded ${styles.submitIcon}`}
           aria-hidden
@@ -314,19 +312,24 @@ export function LeadCaptureSection() {
         <div className={styles.backdropWhite} />
         <div className={styles.backdropGlowClip}>
           <div className={styles.bottomEllipse}>
-            <div className={styles.bottomEllipsePulse}>
-              <div className={styles.bottomEllipseFlow}>
-                <img
-                  src={LEAD_ASSETS.bottomGlow}
-                  alt=""
-                  className={styles.bottomEllipseSvg}
-                />
-                <img
-                  src={LEAD_ASSETS.bottomGlow}
-                  alt=""
-                  className={styles.bottomEllipseSvg}
-                  aria-hidden
-                />
+            {/* Debug markers — outside blur/flip so edges stay readable */}
+            <span className={styles.glowBoundTop} aria-hidden />
+            <span className={styles.glowBoundBottom} aria-hidden />
+            <div className={styles.bottomEllipseBlur}>
+              <div className={styles.bottomEllipsePulse}>
+                <div className={styles.bottomEllipseFlow}>
+                  <img
+                    src={LEAD_ASSETS.bottomGlow}
+                    alt=""
+                    className={styles.bottomEllipseSvg}
+                  />
+                  <img
+                    src={LEAD_ASSETS.bottomGlow}
+                    alt=""
+                    className={styles.bottomEllipseSvg}
+                    aria-hidden
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -335,7 +338,11 @@ export function LeadCaptureSection() {
           <div className={styles.backdropGridV} />
           <div className={styles.backdropGridH} />
         </div>
-        <div className={styles.backdropFade} aria-hidden data-node-id="1835:19185" />
+        <div
+          className={styles.backdropFade}
+          aria-hidden
+          data-node-id="1835:19185"
+        />
       </div>
       <div className={styles.backdropMobileCap} aria-hidden />
 

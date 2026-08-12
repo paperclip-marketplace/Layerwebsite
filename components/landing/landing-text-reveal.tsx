@@ -167,16 +167,13 @@ export const LandingHeadingReveal = memo(
       gsap.set(firstLineWords, { yPercent: 110 });
       gsap.set(lineSlides, { yPercent: 100 });
 
-      const timeline = gsap.timeline({
-        delay,
-        scrollTrigger: {
-          trigger: el,
-          start: "top 88%",
-          toggleActions: "play none none none",
-          once: true,
-          invalidateOnRefresh: true,
-        },
-      });
+      /*
+       * Build tweens on a paused timeline FIRST, then attach ScrollTrigger.
+       * If ST is wired at timeline creation while the hero is already in view,
+       * it can play an empty timeline once and leave text stuck off-screen —
+       * common on mobile (no ScrollSmoother delay) for above-the-fold headings.
+       */
+      const timeline = gsap.timeline({ paused: true, delay });
 
       timeline.to(firstLineWords, {
         yPercent: 0,
@@ -197,8 +194,28 @@ export const LandingHeadingReveal = memo(
         );
       });
 
+      const st = ScrollTrigger.create({
+        animation: timeline,
+        trigger: el,
+        start: "top 88%",
+        toggleActions: "play none none none",
+        once: true,
+        invalidateOnRefresh: true,
+      });
+
+      // Hero / above-fold: ensure play if already past start (esp. mobile native scroll)
+      const playIfInView = () => {
+        if (timeline.progress() > 0 || timeline.isActive()) return;
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.88) {
+          timeline.play();
+        }
+      };
+      playIfInView();
+      requestAnimationFrame(playIfInView);
+
       return () => {
-        timeline.scrollTrigger?.kill();
+        st.kill();
         timeline.kill();
         if (originalHtmlRef.current && el.isConnected) {
           el.innerHTML = originalHtmlRef.current;

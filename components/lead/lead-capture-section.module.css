@@ -56,9 +56,49 @@
   width: 1800px;
   height: 250px;
   overflow: hidden;
-  filter: blur(90px);
   pointer-events: none;
+}
+
+/* Blur + flip only the glow art — not the debug markers */
+.bottomEllipseBlur {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  filter: blur(90px);
   transform: scaleY(-1);
+  pointer-events: none;
+}
+
+/* Debug: top edge of gradient bg (cyan) — hidden */
+.glowBoundTop {
+  display: none;
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: #00e5ff;
+  box-shadow: 0 0 0 2px #020100;
+  pointer-events: none;
+}
+
+/* Debug: bottom edge of gradient bg (magenta) — hidden */
+.glowBoundBottom {
+  display: none;
+  position: absolute;
+  z-index: 5;
+  bottom: 0;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: #ff2d55;
+  box-shadow: 0 0 0 2px #020100;
+  pointer-events: none;
 }
 
 .bottomEllipsePulse {
@@ -915,17 +955,21 @@
 
   /*
    * Glow fills the clipped backdrop (top-anchored, scaleY(-1) blooms downward).
-   * Do not anchor to bottom:0 + scaleY(-1) — that flips the glow below the clip.
+   * Nudged down so top (cyan marker) + glow sit below the section top.
    */
   .bottomEllipse {
     left: 50%;
-    top: 0;
+    top: 200px;
     bottom: auto;
     width: calc(2484 / 402 * 100%);
-    height: 100%;
+    height: calc(100% - 200px);
     margin-left: 0;
-    transform: translateX(-50%) scaleY(-1);
+    transform: translateX(-50%);
+  }
+
+  .bottomEllipseBlur {
     filter: blur(72px);
+    transform: scaleY(-1);
   }
 
   /* Static glow on mobile — skip pulse/flow to avoid lag (desktop keeps animations) */
