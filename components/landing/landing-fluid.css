@@ -431,6 +431,19 @@
   }
 }
 
+/*
+ * Desktop only — 40px under How Layer Works / What We Do split.
+ * Global CSS (not a CSS module) so the class names actually match the DOM.
+ * Mobile ≤768 is unchanged.
+ */
+@media (min-width: 769px) {
+  .landing-main .landing-what-we-do-split.landing-band-left {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+  }
+}
+
 /* Section copy — +3px left padding only (strokes and right inset unchanged) */
 .landing-main .landing-page-gutter .landing-top-section {
   padding-left: calc(var(--l-hero-top-px) + var(--l-text-pl-extra));
