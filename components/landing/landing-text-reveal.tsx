@@ -34,7 +34,15 @@ function isBlockLineElement(node: HTMLElement): boolean {
 }
 
 function extractLineElements(container: HTMLElement): HTMLElement[] {
-  const stack = container.querySelector('[class*="headlineStack"]');
+  const stacks = Array.from(
+    container.querySelectorAll<HTMLElement>('[class*="headlineStack"]'),
+  );
+  // Prefer the visible stack when desktop/mobile variants both exist
+  const stack =
+    stacks.find((el) => getComputedStyle(el).display !== "none") ??
+    stacks[0] ??
+    null;
+
   if (stack && stack.children.length > 1) {
     return Array.from(stack.children) as HTMLElement[];
   }

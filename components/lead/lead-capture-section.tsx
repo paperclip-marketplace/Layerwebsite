@@ -353,13 +353,26 @@ export function LeadCaptureSection() {
                 className={styles.headline}
                 data-node-id="1822:22391"
               >
-                <span className={styles.headlineStack}>
+                {/* Desktop: 3 reveal lines */}
+                <span
+                  className={`${styles.headlineStack} ${styles.headlineStackDesktop}`}
+                >
                   <span className={styles.headlineLine}>Turn your GTM</span>
                   <span className={styles.headlineLine}>
                     knowledge into agents{" "}
                   </span>
                   <span className={styles.headlineLine}>
                     that{" "}
+                    <span className={styles.highlight}>drive results.</span>
+                  </span>
+                </span>
+                {/* Mobile: 2 block lines so slide masks work + Figma wrap */}
+                <span
+                  className={`${styles.headlineStack} ${styles.headlineStackMobile}`}
+                >
+                  <span className={styles.headlineLine}>Turn your GTM</span>
+                  <span className={styles.headlineLine}>
+                    knowledge into agents that{" "}
                     <span className={styles.highlight}>drive results.</span>
                   </span>
                 </span>
