@@ -56,16 +56,20 @@
   width: 1800px;
   height: 250px;
   overflow: hidden;
+  /* Desktop (pre-39f7ab1): blur + flip on the ellipse itself */
+  filter: blur(90px);
+  transform: scaleY(-1);
   pointer-events: none;
 }
 
-/* Blur + flip only the glow art — not the debug markers */
+/*
+ * Mobile uses this wrapper for blur/flip (markers stay outside).
+ * Desktop: passthrough only — parent .bottomEllipse owns blur/flip.
+ */
 .bottomEllipseBlur {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  filter: blur(90px);
-  transform: scaleY(-1);
   pointer-events: none;
 }
 
@@ -956,6 +960,7 @@
   /*
    * Glow fills the clipped backdrop (top-anchored, scaleY(-1) blooms downward).
    * Nudged down so top (cyan marker) + glow sit below the section top.
+   * Mobile owns blur/flip on .bottomEllipseBlur (desktop keeps them on .bottomEllipse).
    */
   .bottomEllipse {
     left: 50%;
@@ -964,6 +969,7 @@
     width: calc(2484 / 402 * 100%);
     height: calc(100% - 200px);
     margin-left: 0;
+    filter: none;
     transform: translateX(-50%);
   }
 
