@@ -54,8 +54,8 @@
   position: absolute;
   z-index: 1;
   right: 40px;
-  /* --fab-footer-lift raises the stack above the footer when it enters view */
-  bottom: max(var(--fab-footer-lift, 0px), 24px);
+  /* Fixed resting spot — never animate bottom on scroll */
+  bottom: 24px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -65,6 +65,13 @@
 
 .stack > * {
   pointer-events: auto;
+}
+
+/* Footer in view: hide closed pill (no bottom lift / no slide) */
+.rootFooterHidden .stack {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* 1822:25650 — form panel */
@@ -536,25 +543,31 @@
  * Panel 1835:28126 @ x=20 w=362, p=24, gap=24; close 56 below with gap=16.
  */
 @media (max-width: 768px) {
+  /*
+   * No translateZ on the fixed root — iOS can scroll that layer with the page
+   * then snap it back when momentum ends.
+   */
+  .root {
+    transform: none;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+  }
+
   .stack {
     left: 20px;
     right: 20px;
-    bottom: max(
-      var(--fab-footer-lift, 0px),
-      24px,
-      env(safe-area-inset-bottom, 0px)
-    );
+    bottom: max(24px, env(safe-area-inset-bottom, 0px));
     gap: 16px;
     /* Pill + close circle sit on the horizontal center; panel still full-width */
     align-items: center;
-    transition:
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: none;
   }
 
-  .rootScrollHidden .stack {
-    transform: translate3d(0, calc(100% + 40px), 0);
+  .rootFooterHidden .stack {
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: none;
   }
 
   .panel {

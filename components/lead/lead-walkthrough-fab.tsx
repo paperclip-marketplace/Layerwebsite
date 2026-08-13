@@ -33,12 +33,9 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const SENTINEL_ID = "lead-capture";
 const FOOTER_SELECTOR = 'footer[data-name="Footer"]';
-/** Space between FAB stack bottom and footer top */
-const FOOTER_CLEARANCE = 16;
 const MORPH_DURATION = 0.52;
 const PANEL_DURATION = 0.55;
 const CLOSE_DURATION = 0.48;
-const MOBILE_SCROLL_HIDE_DELTA = 10;
 
 type PillSize = {
   width: number;
@@ -53,8 +50,8 @@ type PillSize = {
 export function LeadWalkthroughFab() {
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
-  /** Mobile: hide pill while scrolling up; show again on scroll down */
-  const [scrollHidden, setScrollHidden] = useState(false);
+  /** Hide closed pill when footer is on-screen so we never slide/lift over it */
+  const [footerHidden, setFooterHidden] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isCircle, setIsCircle] = useState(false);
   const [form, setForm] = useState<LeadFormState>(LEAD_FORM_INITIAL_STATE);
@@ -73,9 +70,7 @@ export function LeadWalkthroughFab() {
   const isAnimatingRef = useRef(false);
   const isOpenRef = useRef(false);
   const visibleRef = useRef(false);
-  const scrollHiddenRef = useRef(false);
   const prefersReducedMotionRef = useRef(false);
-  const lastScrollYRef = useRef(0);
   const showClosedFabRef = useRef<() => void>(() => {});
   const closeAndHideRef = useRef<() => Promise<void>>(async () => {});
   const pillSizeRef = useRef<PillSize>({
@@ -112,10 +107,6 @@ export function LeadWalkthroughFab() {
     visibleRef.current = visible;
   }, [visible]);
 
-  useEffect(() => {
-    scrollHiddenRef.current = scrollHidden;
-  }, [scrollHidden]);
-
   const measurePillSize = useCallback(() => {
     const button = toggleRef.current;
     if (!button) return;
@@ -134,28 +125,6 @@ export function LeadWalkthroughFab() {
       paddingBottom: parseFloat(computed.paddingBottom),
       paddingLeft: parseFloat(computed.paddingLeft),
     };
-  }, []);
-
-  /**
-   * Lift FAB so it never covers the footer (privacy / policy links).
-   * Returns the lift in px (0 when footer is below the viewport).
-   */
-  const syncStackAboveFooter = useCallback(() => {
-    const stack = stackRef.current;
-    if (!stack) return 0;
-
-    const footer = document.querySelector(FOOTER_SELECTOR);
-    if (!footer) {
-      stack.style.setProperty("--fab-footer-lift", "0px");
-      return 0;
-    }
-
-    const footerTop = footer.getBoundingClientRect().top;
-    // visualViewport tracks mobile browser chrome; fall back to innerHeight
-    const viewportH = window.visualViewport?.height ?? window.innerHeight;
-    const lift = Math.max(0, viewportH - footerTop + FOOTER_CLEARANCE);
-    stack.style.setProperty("--fab-footer-lift", `${lift}px`);
-    return lift;
   }, []);
 
   /** Size scrim to just above the panel top so the card feels elevated. */
@@ -567,14 +536,14 @@ export function LeadWalkthroughFab() {
     }
 
     resetToggleToPill();
-    setScrollHidden(false);
+    setFooterHidden(false);
     setVisible(false);
   }, [animateClose, resetToggleToPill]);
 
   const showClosedFab = useCallback(() => {
     setIsOpen(false);
     resetToggleToPill();
-    setScrollHidden(false);
+    setFooterHidden(false);
     setVisible(true);
   }, [resetToggleToPill]);
 
@@ -733,64 +702,54 @@ export function LeadWalkthroughFab() {
   }, []);
 
   /*
-   * Keep FAB above the footer on the way down (not only after scroll-up).
-   * gsap.ticker covers native scroll + ScrollSmoother transform frames.
-   * Near the footer, disable scroll-hide so the pill stays parked above links.
+   * Keep the FAB at a fixed bottom. Do NOT raise bottom every scroll frame
+   * (that looked like the pill “readjusting”). When the footer enters view,
+   * hide the closed pill so privacy links stay tappable.
    */
   useEffect(() => {
     if (!visible) {
-      stackRef.current?.style.setProperty("--fab-footer-lift", "0px");
-      setScrollHidden(false);
+      setFooterHidden(false);
       return;
     }
 
-    const mobile = window.matchMedia("(max-width: 768px)");
-    lastScrollYRef.current =
-      ScrollSmoother.get()?.scrollTop() ?? window.scrollY;
+    const footer = document.querySelector(FOOTER_SELECTOR);
+    if (!footer) {
+      setFooterHidden(false);
+      return;
+    }
 
-    const tick = () => {
-      const lift = syncStackAboveFooter();
-      if (isOpenRef.current) syncBackdropScrim();
-
-      if (!mobile.matches || isOpenRef.current || isAnimatingRef.current) {
-        return;
-      }
-
-      // Footer in view — keep FAB visible and lifted; don't tuck it away
-      if (lift > 0) {
-        if (scrollHiddenRef.current) setScrollHidden(false);
-        lastScrollYRef.current =
-          ScrollSmoother.get()?.scrollTop() ?? window.scrollY;
-        return;
-      }
-
-      const y = ScrollSmoother.get()?.scrollTop() ?? window.scrollY;
-      const delta = y - lastScrollYRef.current;
-      if (Math.abs(delta) < MOBILE_SCROLL_HIDE_DELTA) return;
-
-      if (delta < 0) {
-        setScrollHidden(true);
-      } else {
-        setScrollHidden(false);
-      }
-      lastScrollYRef.current = y;
+    const apply = (intersecting: boolean) => {
+      // Keep the open form usable even if the footer is under it
+      setFooterHidden(intersecting && !isOpenRef.current);
     };
 
-    // Immediate first paint so the first scroll-to-bottom is already correct
-    tick();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        apply(Boolean(entry?.isIntersecting));
+      },
+      { root: null, threshold: 0 },
+    );
+    observer.observe(footer);
+
+    // Scrim sizing only while the panel is open — no footer lift math
+    const tick = () => {
+      if (isOpenRef.current) syncBackdropScrim();
+    };
     gsap.ticker.add(tick);
     window.addEventListener("resize", tick);
-    window.visualViewport?.addEventListener("resize", tick);
-    window.visualViewport?.addEventListener("scroll", tick);
 
     return () => {
+      observer.disconnect();
       gsap.ticker.remove(tick);
       window.removeEventListener("resize", tick);
-      window.visualViewport?.removeEventListener("resize", tick);
-      window.visualViewport?.removeEventListener("scroll", tick);
-      stackRef.current?.style.setProperty("--fab-footer-lift", "0px");
+      setFooterHidden(false);
     };
-  }, [visible, syncStackAboveFooter, syncBackdropScrim]);
+  }, [visible, syncBackdropScrim]);
+
+  // If the panel opens while footer is visible, show the stack again
+  useEffect(() => {
+    if (isOpen) setFooterHidden(false);
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -849,7 +808,7 @@ export function LeadWalkthroughFab() {
     <div
       ref={containerRef}
       className={`${styles.root} ${visible ? styles.rootVisible : ""} ${
-        scrollHidden && !isOpen ? styles.rootScrollHidden : ""
+        footerHidden && !isOpen ? styles.rootFooterHidden : ""
       }`}
       data-node-id={isOpen ? "1822:25649" : "1822:25389"}
     >
@@ -1060,7 +1019,7 @@ export function LeadWalkthroughFab() {
               : "Get a Personalized Walkthrough"
           }
           aria-expanded={isOpen ? "true" : "false"}
-          tabIndex={visible && !scrollHidden ? 0 : -1}
+          tabIndex={visible && !footerHidden ? 0 : -1}
           onClick={isOpen ? () => void close() : open}
         >
           <span ref={labelRef} className={styles.pillLabel}>
