@@ -127,24 +127,14 @@ export function LeadWalkthroughFab() {
     };
   }, []);
 
-  /** Size scrim to just above the panel top so the card feels elevated. */
+  /** Lock fade stops to the sheet lip so blur + tint ease off toward the top. */
   const syncBackdropScrim = useCallback(() => {
     const panel = panelRef.current;
     const scrim = backdropScrimRef.current;
-    const stack = stackRef.current ?? panel?.parentElement;
-    if (!panel || !scrim || !stack) return;
+    if (!panel || !scrim) return;
 
-    const stackStyles = window.getComputedStyle(stack);
-    const gap = parseFloat(stackStyles.gap) || 16;
-    const bottom = parseFloat(stackStyles.bottom) || 24;
-    const closeH = toggleRef.current?.offsetHeight || 56;
-    const panelH = panel.offsetHeight;
-    const lift = 40; /* a little above the FAB container */
-    const height = Math.min(
-      window.innerHeight,
-      Math.ceil(bottom + closeH + gap + panelH + lift),
-    );
-    scrim.style.setProperty("--fab-scrim-h", `${height}px`);
+    const sheetTop = Math.max(0, Math.round(panel.getBoundingClientRect().top));
+    scrim.style.setProperty("--fab-sheet-top", `${sheetTop}px`);
   }, []);
 
   const resetToggleToPill = useCallback(() => {
@@ -808,8 +798,8 @@ export function LeadWalkthroughFab() {
     <div
       ref={containerRef}
       className={`${styles.root} ${visible ? styles.rootVisible : ""} ${
-        footerHidden && !isOpen ? styles.rootFooterHidden : ""
-      }`}
+        isOpen ? styles.rootOpen : ""
+      } ${footerHidden && !isOpen ? styles.rootFooterHidden : ""}`}
       data-node-id={isOpen ? "1822:25649" : "1822:25389"}
     >
       {isOpen ? (
@@ -820,7 +810,12 @@ export function LeadWalkthroughFab() {
           aria-hidden
           onClick={() => void close()}
         >
-          <div ref={backdropScrimRef} className={styles.backdropScrim} />
+          <div
+            ref={backdropScrimRef}
+            className={`${styles.backdropScrim} ${
+              submitted ? styles.backdropScrimSuccess : ""
+            }`}
+          />
         </div>
       ) : null}
 
@@ -876,18 +871,48 @@ export function LeadWalkthroughFab() {
             ) : (
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.panelHeader} data-node-id="1822:25651">
-                  <h2 className={styles.panelTitle} data-node-id="1822:25652">
-                    See what{" "}
-                    <span className={styles.panelTitleHighlight}>Layer</span>{" "}
-                    can{" "}
-                    <span className={styles.panelTitleDesktopRest}>
-                      do for
-                      <br />
-                      your team.
-                    </span>
-                    {/* Figma 1835:28128 — mobile open panel */}
-                    <span className={styles.panelTitleMobileRest}>do!</span>
-                  </h2>
+                  <div className={styles.panelTitleRow} data-node-id="2034:10926">
+                    <h2 className={styles.panelTitle} data-node-id="1822:25652">
+                      See what{" "}
+                      <span className={styles.panelTitleHighlight}>Layer</span>{" "}
+                      can{" "}
+                      <span className={styles.panelTitleDesktopRest}>
+                        do for
+                        <br />
+                        your team.
+                      </span>
+                      {/* Figma 1835:28128 — mobile open panel */}
+                      <span className={styles.panelTitleMobileRest}>do!</span>
+                    </h2>
+                    <button
+                      type="button"
+                      className={styles.panelClose}
+                      data-node-id="2034:10924"
+                      aria-label="Close walkthrough form"
+                      onClick={() => void close()}
+                    >
+                      <svg
+                        className={styles.panelCloseIcon}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden
+                      >
+                        <path
+                          d="M7 7L17 17"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M17 7L7 17"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                   <p className={styles.panelSubtitle} data-node-id="1822:25653">
                     Tell us about your team and we&apos;ll show you where Layer
                     can make the biggest impact.
