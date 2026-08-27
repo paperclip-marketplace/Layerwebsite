@@ -193,6 +193,17 @@
 
 /* Figma 513:1194 — Forward Thinking Logos Container (mobile only) */
 @media (max-width: 768px) {
+  /*
+   * Beat base .section { width: 100% } so .landing-band-left breakout wins;
+   * hairlines span the full viewport (left/right: 0), not clipped 100vw.
+   */
+  .section:global(.landing-band-left) {
+    box-sizing: border-box;
+    width: calc(100% + 2 * var(--l-page-gutter, 20px));
+    max-width: none;
+    margin-inline: calc(-1 * var(--l-page-gutter, 20px));
+  }
+
   .section {
     position: relative;
     gap: 32px;
@@ -205,10 +216,11 @@
   .section::after {
     content: "";
     position: absolute;
-    left: 50%;
+    left: 0;
+    right: 0;
     z-index: 1;
-    width: 100vw;
-    margin-left: -50vw;
+    width: auto;
+    margin-left: 0;
     border-top: 1px solid #dedede;
     pointer-events: none;
   }

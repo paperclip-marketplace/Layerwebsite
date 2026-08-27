@@ -1,0 +1,87 @@
+/* Figma 1822:23958 — 560×400 Execute stage */
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #f9f9f9;
+}
+
+.backdropGrid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(to right, rgba(2, 1, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(2, 1, 0, 0.06) 1px, transparent 1px);
+  background-size: calc(48 * var(--l-vw)) calc(48 * var(--l-vw));
+  background-position: center top;
+}
+
+.backdropGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(249, 249, 249, 0) 0%, #f9f9f9 100%);
+}
+
+/* Figma 1822:23960 — Home @ x=-43 y=6, 646×394
+ * Nudged to top:0 so the gray stage doesn’t show a gap above the wallpaper. */
+.desktopWrap {
+  position: absolute;
+  top: 0;
+  left: -7.68%;
+  z-index: 1;
+  width: 115.36%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Figma 1822:24186 — layer-notch @ x=12 y=6, 536×334 — keep aligned with Home */
+.notchWrap {
+  position: absolute;
+  top: 0;
+  left: 2.14%;
+  z-index: 3;
+  width: 95.71%;
+  height: 83.5%;
+  pointer-events: none;
+}
+
+/* Figma 1822:24237 — bottom fade 160px @ 400px stage */
+.bottomFade {
+  composes: hlwBottomFade from "./card-visuals.module.css";
+  right: 0;
+  left: 0;
+  height: 40%;
+}
+
+/*
+ * Figma 1835:21009 — mobile Execute stage 362×280
+ * Home @ x=-142 y=6 w=646 h=394; layer-notch @ x=-6 y=6 w=374 h=233.14
+ * Rectangle 12278 @ x=-79.75 y=131 w=521.5 h=149
+ */
+@media (max-width: 768px) {
+  .desktopWrap {
+    /* Figma y=6, nudged up 8px for wallpaper alignment */
+    top: calc(-2 / 280 * 100%);
+    left: calc(-142 / 362 * 100%);
+    width: calc(646 / 362 * 100%);
+    height: calc(394 / 280 * 100%);
+  }
+
+  .notchWrap {
+    top: calc(6 / 280 * 100%);
+    left: calc(-6 / 362 * 100%);
+    width: calc(374 / 362 * 100%);
+    height: calc(233.14 / 280 * 100%);
+  }
+
+  .bottomFade {
+    left: calc(-79.75 / 362 * 100%);
+    right: auto;
+    width: calc(521.5 / 362 * 100%);
+    height: calc(149 / 280 * 100%);
+  }
+}

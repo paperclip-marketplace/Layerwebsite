@@ -1,0 +1,45 @@
+.page {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #ffffff;
+}
+
+.main {
+  width: 100%;
+  max-width: none;
+  --landing-header-h: 64px;
+  padding-top: var(--landing-header-h);
+}
+
+.clientsSpacing {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .main {
+    --landing-header-h: 56px;
+    padding-top: var(--landing-header-h);
+  }
+
+  .landing-page-gutter .main.landing-main__inner {
+    padding-inline: 0;
+  }
+
+  .clientsSpacing :global(.landing-clients-section) {
+    gap: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  /*
+   * Clients bottom hairline comes from our-client-section::after — drop the
+   * duplicate top border on How Layer Works (.landing-band-left).
+   */
+  .clientsSpacing
+    + :global(.lead-how-layer-works-shell)
+    :global(.landing-what-we-do-split.landing-band-left) {
+    border-top: none;
+  }
+}

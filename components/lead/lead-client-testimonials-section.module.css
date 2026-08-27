@@ -1,0 +1,539 @@
+/* Figma 1822:22945 — Client testimonials expandable cards */
+
+.section {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  background: #ffffff;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(40 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(80 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
+}
+
+.eyebrow {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headlineRow {
+  width: 100%;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: calc(84 / 72);
+  letter-spacing: calc(-2.88 * var(--l-vw));
+  color: #020100;
+  white-space: nowrap;
+}
+
+.headlineHighlight {
+  color: #f45523;
+}
+
+/* Shown only on mobile — Figma 1835:23121 */
+.mobileDescription {
+  display: none;
+}
+
+.cardsSection {
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
+}
+
+.cardRow {
+  display: flex;
+  gap: calc(20 * var(--l-vw));
+  align-items: stretch;
+  width: 100%;
+}
+
+.card {
+  position: relative;
+  flex: 0 0 calc(325 * var(--l-vw));
+  width: calc(325 * var(--l-vw));
+  height: calc(550 * var(--l-vw));
+  overflow: hidden;
+  border: 1px solid #eeeeee;
+  border-radius: calc(24 * var(--l-vw));
+  cursor: pointer;
+  transition:
+    flex 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:focus-visible {
+  outline: 2px solid #f45523;
+  outline-offset: 2px;
+}
+
+.cardExpanded {
+  flex: 1 1 0;
+  width: auto;
+  min-width: calc(325 * var(--l-vw));
+}
+
+.cardBackdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.cardBackgroundFrame {
+  position: absolute;
+  inset: 0;
+}
+
+.cardBackgroundImage {
+  object-fit: cover;
+}
+
+.card1Background {
+  left: -7.6%;
+  width: 123.33%;
+}
+
+.cardGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, var(--card-gradient-opacity, 0.45)) 100%
+  );
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: calc(32 * var(--l-vw));
+}
+
+.logoWrap {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.logoImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card1Logo {
+  width: calc(62 * var(--l-vw));
+  height: calc(56 * var(--l-vw));
+}
+
+.card1Logo .logoImage {
+  position: absolute;
+  width: 220.2%;
+  height: 244.26%;
+  max-width: none;
+  left: -60.1%;
+  top: -72.13%;
+}
+
+.card2Logo {
+  width: calc(80 * var(--l-vw));
+  height: calc(56 * var(--l-vw));
+}
+
+.card2Logo .logoImage {
+  position: absolute;
+  width: 139.29%;
+  height: 200%;
+  max-width: none;
+  left: -19.64%;
+  top: -50%;
+}
+
+/*
+ * Figma 1822:22966 — 43×56 Payhawk “P”.
+ * Pre-cropped mark fills its artboard; inset so the glyph lines up with
+ * RiskLedger / Salesforce marks (those assets have built-in padding).
+ */
+.card3Logo {
+  width: calc(43 * var(--l-vw));
+  height: calc(56 * var(--l-vw));
+}
+
+.card3Logo .logoImage {
+  position: absolute;
+  left: 0;
+  top: 26%;
+  width: 100%;
+  height: 48%;
+  max-width: none;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.minimizedCopy,
+.expandedCopy {
+  width: 100%;
+}
+
+.minimizedCopy {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.minimizedCopyHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.minimizedText {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #ffffff;
+  word-break: break-word;
+}
+
+.expandedCopy {
+  position: absolute;
+  right: calc(32 * var(--l-vw));
+  bottom: calc(32 * var(--l-vw));
+  left: calc(32 * var(--l-vw));
+  display: flex;
+  flex-direction: column;
+  gap: calc(22 * var(--l-vw));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease 0.08s;
+}
+
+.expandedCopyVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.expandedQuote {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-32);
+  font-weight: 600;
+  line-height: calc(40 / 32);
+  letter-spacing: calc(-1.28 * var(--l-vw));
+  color: #ffffff;
+}
+
+.expandedMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.expandedName {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #ffffff;
+}
+
+.expandedRole {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: calc(24 / 16);
+  letter-spacing: calc(-0.64 * var(--l-vw));
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+/* Match .landing-clients-section / our-client-section stroke band */
+@media (min-width: 769px) {
+  .section::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+}
+
+@media (width > 1440px) {
+  .section {
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+  }
+
+  .section::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+}
+
+/* Figma 1835:23116 — mobile: px-20 py-64 gap-40, stacked cards */
+@media (max-width: 768px) {
+  /*
+   * Hairlines without 100vw (100vw + scrollbar overflows and reads as
+   * extra empty space on the right).
+   */
+  .section::before,
+  .section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    width: auto;
+    margin-left: 0;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+
+  .section::before {
+    top: 0;
+  }
+
+  .section::after {
+    bottom: 0;
+  }
+
+  /*
+   * Beat .landing-band-left { padding-inline: 0 } and keep a true
+   * equal 20px shell (Figma px-[20px] py-[64px] gap-[40px]).
+   */
+  .section {
+    box-sizing: border-box;
+    align-items: stretch;
+    gap: 40px;
+    width: calc(100% + 2 * var(--l-page-gutter, 20px));
+    max-width: none;
+    margin-left: calc(-1 * var(--l-page-gutter, 20px));
+    margin-right: calc(-1 * var(--l-page-gutter, 20px));
+    padding: 64px 20px !important;
+  }
+
+  .header {
+    gap: 32px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /*
+   * Global rule is 4 classes + [class*="copyRow"] — must match or beat it
+   * or the headline keeps an extra left inset and the column looks
+   * right-heavy.
+   */
+  :global(.landing-main)
+    :global(.landing-page-gutter)
+    .section:global(.landing-clients-section)
+    :global(.landing-copy-row),
+  :global(.landing-main)
+    :global(.landing-page-gutter)
+    .section:global(.landing-clients-section)
+    [class*="copyRow"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: nowrap;
+  }
+
+  .headlineRow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .headline {
+    width: 100%;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+    white-space: normal;
+  }
+
+  .mobileDescription {
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-family: var(--layer-font-geist-sans);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+    color: #606060;
+  }
+
+  .cardsSection {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cardRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .card,
+  .cardExpanded {
+    flex: none;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    height: 240px;
+    border-radius: 20px;
+  }
+
+  /* Featured expanded card — Figma 1835:24341 h-[480px] */
+  .cardExpanded {
+    height: 480px;
+  }
+
+  /* Full-bleed photo on mobile (desktop crop offset not needed) */
+  .card1Background {
+    left: 0;
+    width: 100%;
+  }
+
+  /* In-flow like Figma 1835:24344 — not desktop absolute bottom overlay */
+  .expandedCopy {
+    position: static;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    gap: 20px;
+  }
+
+  .expandedCopyVisible {
+    position: static;
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .cardContent {
+    padding: 24px;
+  }
+
+  .card1Logo {
+    width: 53px;
+    height: 48px;
+  }
+
+  .card2Logo {
+    width: 69px;
+    height: 48px;
+  }
+
+  .card3Logo {
+    width: 37px;
+    height: 48px;
+  }
+
+  .card3Logo .logoImage {
+    top: 26%;
+    height: 48%;
+  }
+
+  .minimizedCopyHidden {
+    display: none !important;
+  }
+
+  .expandedQuote {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.28px;
+    font-weight: 600;
+  }
+
+  .expandedName {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.8px;
+  }
+
+  .expandedRole {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .minimizedText {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .minimizedCopy,
+  .expandedCopy {
+    transition: none;
+  }
+}

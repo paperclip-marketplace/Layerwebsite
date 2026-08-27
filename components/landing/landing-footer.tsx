@@ -47,11 +47,12 @@ export function LandingFooter() {
       data-name="Footer"
     >
       <div
-        className={`${styles.content} landing-shell-x`}
+        className={styles.content}
         data-node-id="1031:6390"
         data-name="Footer Content"
       >
         <div className={styles.card} data-node-id="1031:6391" data-name="Footer Main">
+          <div className={`${styles.inner} landing-shell-x`}>
           <div className={styles.topRow} data-node-id="1310:2151" data-name="Info Sections">
             <div
               className={styles.logoColumn}
@@ -96,6 +97,7 @@ export function LandingFooter() {
                 </Link>
               ))}
             </div>
+          </div>
           </div>
         </div>
       </div>

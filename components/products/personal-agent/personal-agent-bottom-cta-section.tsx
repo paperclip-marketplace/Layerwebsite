@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
@@ -14,11 +15,20 @@ export function PersonalAgentBottomCtaSection() {
     >
       <div className={styles.backdrop} aria-hidden>
         <div className={styles.backdropWhite} />
-        <img
+        <Image
           src={PERSONAL_AGENT_ASSETS.bottomCtaBg}
           alt=""
+          fill
+          sizes="100vw"
+          priority={false}
           className={styles.backdropImage}
         />
+        {/* Figma 1835:25112 — mobile grid + radial fade (CSS; desktop keeps image) */}
+        <div className={styles.backdropGrid}>
+          <div className={styles.backdropGridV} />
+          <div className={styles.backdropGridH} />
+        </div>
+        <div className={styles.backdropRadialFade} />
       </div>
 
       <div className={styles.content}>

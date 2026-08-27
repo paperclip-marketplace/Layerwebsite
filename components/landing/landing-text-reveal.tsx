@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion } from "motion/react";
 import {
+  memo,
   useLayoutEffect,
   useRef,
   type ComponentPropsWithoutRef,
@@ -13,11 +14,18 @@ import styles from "./landing-text-reveal.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type HeadingTag = "h1" | "h2" | "h3";
+type RevealTag = "h1" | "h2" | "h3" | "p";
 
 type HeadingRevealProps = Omit<ComponentPropsWithoutRef<"h2">, "children"> & {
   children: ReactNode;
-  as?: HeadingTag;
+  as?: RevealTag;
+  /** GSAP timeline delay before the reveal starts (seconds). */
+  delay?: number;
+  /**
+   * When false, split/reveal setup is deferred. Use for sections that sit
+   * inside a pin stack so the animation doesn't play off-screen.
+   */
+  ready?: boolean;
 };
 
 function isBlockLineElement(node: HTMLElement): boolean {
@@ -26,7 +34,15 @@ function isBlockLineElement(node: HTMLElement): boolean {
 }
 
 function extractLineElements(container: HTMLElement): HTMLElement[] {
-  const stack = container.querySelector('[class*="headlineStack"]');
+  const stacks = Array.from(
+    container.querySelectorAll<HTMLElement>('[class*="headlineStack"]'),
+  );
+  // Prefer the visible stack when desktop/mobile variants both exist
+  const stack =
+    stacks.find((el) => getComputedStyle(el).display !== "none") ??
+    stacks[0] ??
+    null;
+
   if (stack && stack.children.length > 1) {
     return Array.from(stack.children) as HTMLElement[];
   }
@@ -124,84 +140,121 @@ function setupSplitTextReveal(container: HTMLElement) {
 }
 
 /** GSAP scroll reveal — first line words, then following lines slide up from below. */
-export function LandingHeadingReveal({
-  children,
-  className,
-  id,
-  as: Tag = "h2",
-  ...rest
-}: HeadingRevealProps) {
-  const reduceMotion = useReducedMotion();
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const originalHtmlRef = useRef<string | null>(null);
+export const LandingHeadingReveal = memo(
+  function LandingHeadingReveal({
+    children,
+    className,
+    id,
+    as: Tag = "h2",
+    delay = 0,
+    ready = true,
+    ...rest
+  }: HeadingRevealProps) {
+    const reduceMotion = useReducedMotion();
+    const headingRef = useRef<HTMLElement | null>(null);
+    const originalHtmlRef = useRef<string | null>(null);
 
-  useLayoutEffect(() => {
-    const el = headingRef.current;
-    if (!el || reduceMotion) return;
+    useLayoutEffect(() => {
+      const el = headingRef.current;
+      if (!el || reduceMotion || !ready) return;
 
-    if (originalHtmlRef.current === null) {
+      // Setup once — parent re-renders must not reset/re-play the reveal
+      if (originalHtmlRef.current !== null) return;
       originalHtmlRef.current = el.innerHTML;
-    } else {
-      el.innerHTML = originalHtmlRef.current;
-    }
 
-    const { firstLineWords, lineSlides } = setupSplitTextReveal(el);
+      const { firstLineWords, lineSlides } = setupSplitTextReveal(el);
 
-    gsap.set(firstLineWords, { yPercent: 110 });
-    gsap.set(lineSlides, { yPercent: 100 });
+      gsap.set(firstLineWords, { yPercent: 110 });
+      gsap.set(lineSlides, { yPercent: 100 });
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
+      /*
+       * Build tweens on a paused timeline FIRST, then attach ScrollTrigger.
+       * If ST is wired at timeline creation while the hero is already in view,
+       * it can play an empty timeline once and leave text stuck off-screen —
+       * common on mobile (no ScrollSmoother delay) for above-the-fold headings.
+       */
+      const timeline = gsap.timeline({ paused: true, delay });
+
+      timeline.to(firstLineWords, {
+        yPercent: 0,
+        duration: 0.65,
+        stagger: 0.055,
+        ease: "power4.out",
+      });
+
+      lineSlides.forEach((lineInner, index) => {
+        timeline.to(
+          lineInner,
+          {
+            yPercent: 0,
+            duration: 0.75,
+            ease: "power3.out",
+          },
+          index === 0 ? "-=0.2" : "<0.12",
+        );
+      });
+
+      const st = ScrollTrigger.create({
+        animation: timeline,
         trigger: el,
         start: "top 88%",
         toggleActions: "play none none none",
         once: true,
-      },
-    });
+        invalidateOnRefresh: true,
+      });
 
-    timeline.to(firstLineWords, {
-      yPercent: 0,
-      duration: 0.65,
-      stagger: 0.055,
-      ease: "power4.out",
-    });
+      // Hero / above-fold: ensure play if already past start (esp. mobile native scroll)
+      const playIfInView = () => {
+        if (timeline.progress() > 0 || timeline.isActive()) return;
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.88) {
+          timeline.play();
+        }
+      };
+      playIfInView();
+      requestAnimationFrame(playIfInView);
 
-    lineSlides.forEach((lineInner, index) => {
-      timeline.to(
-        lineInner,
-        {
-          yPercent: 0,
-          duration: 0.75,
-          ease: "power3.out",
-        },
-        index === 0 ? "-=0.2" : "<0.12",
+      return () => {
+        st.kill();
+        timeline.kill();
+        if (originalHtmlRef.current && el.isConnected) {
+          el.innerHTML = originalHtmlRef.current;
+        }
+        originalHtmlRef.current = null;
+      };
+    }, [delay, ready, reduceMotion]);
+
+    if (reduceMotion) {
+      return (
+        <Tag id={id} className={className} {...rest}>
+          {children}
+        </Tag>
       );
-    });
+    }
 
-    return () => {
-      timeline.scrollTrigger?.kill();
-      timeline.kill();
-    };
-  }, [children, reduceMotion]);
-
-  if (reduceMotion) {
     return (
-      <Tag id={id} className={className} {...rest}>
+      <Tag id={id} ref={headingRef} className={className} {...rest}>
         {children}
       </Tag>
     );
-  }
-
-  return (
-    <Tag id={id} ref={headingRef} className={className} {...rest}>
-      {children}
-    </Tag>
-  );
-}
+  },
+  // Ignore `children` identity — split DOM must not be reconciled away on parent re-renders
+  (prev, next) =>
+    prev.as === next.as &&
+    prev.id === next.id &&
+    prev.className === next.className &&
+    prev.delay === next.delay &&
+    prev.ready === next.ready,
+);
 
 type SubheadingRevealProps = ComponentPropsWithoutRef<"p"> & {
   /** Stagger after heading (seconds). */
   delay?: number;
+  /**
+   * When false, stay hidden until ready. Use with pinned parents so the fade
+   * doesn't run while the section is still off-screen.
+   */
+  ready?: boolean;
 };
 
 /** Subheading: fade in only — no vertical shift, layout unchanged. */
@@ -209,6 +262,7 @@ export function LandingSubheadingReveal({
   children,
   className,
   delay = 0.15,
+  ready = true,
   id,
   ...rest
 }: SubheadingRevealProps) {
@@ -222,13 +276,21 @@ export function LandingSubheadingReveal({
     );
   }
 
+  if (!ready) {
+    return (
+      <p id={id} className={className} style={{ opacity: 0 }} {...rest}>
+        {children}
+      </p>
+    );
+  }
+
   return (
     <motion.p
       id={id}
       className={className}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.35 }}
       transition={{
         duration: 0.5,
         delay,

@@ -15,11 +15,12 @@ export function LandingFooterTemporary() {
       data-name="Footer"
     >
       <div
-        className={`${styles.gutter} landing-page-gutter`}
+        className={styles.gutter}
         data-node-id="1494:2744"
         data-name="Footer Content"
       >
         <div className={styles.card} data-node-id="1494:2745" data-name="Footer Main">
+          <div className={`${styles.inner} landing-shell-x`}>
           <div className={styles.row} data-node-id="1494:2826">
             <Link href="/" className={styles.logoLink} aria-label="Layer home">
               <span className={styles.logo} data-node-id="1494:2827" data-name="logo">
@@ -58,6 +59,7 @@ export function LandingFooterTemporary() {
                 ))}
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

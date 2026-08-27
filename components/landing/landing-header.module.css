@@ -9,6 +9,21 @@
   padding: 0;
   background: #ffffff;
   border-bottom: 1px solid #dedede;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Lead walkthrough FAB open — slide navbar up off-screen */
+:global(html[data-lead-fab-open]) .header {
+  transform: translate3d(0, -100%, 0);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    transition: transform 0.15s ease;
+  }
 }
 
 /* Figma 788:358 / 713:740 — same 1440px column as section containers (landing-page-gutter) */
@@ -251,7 +266,8 @@
   .headerInner {
     height: 56px;
     min-height: 56px;
-    padding: 15px 20px;
+    /* Horizontal inset comes from .landing-page-gutter only — no double pad */
+    padding: 15px 0;
     box-sizing: border-box;
   }
 

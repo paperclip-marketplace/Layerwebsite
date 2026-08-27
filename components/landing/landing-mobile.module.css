@@ -64,6 +64,14 @@
     scrollbar-width: none;
   }
 
+  /* Lead How Layer Works — Figma 1835:19222 vertical stack (not horizontal scroll) */
+  .landing-what-we-do-split .landing-lead-how-layer-works-carousel {
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
   .landing-what-we-do-split .landing-split-section::-webkit-scrollbar {
     display: none;
   }
@@ -74,7 +82,8 @@
   }
 
   /* The Solution copy block → split cards */
-  .landing-what-we-do-split .landing-what-we-do-section {
+  .landing-what-we-do-split .landing-what-we-do-section,
+  .landing-what-we-do-split .landing-how-layer-works-section {
     gap: 32px;
     margin-bottom: 0;
   }

@@ -1,0 +1,114 @@
+/* Figma 1822:23896 — 560×400 stage */
+
+/* 1822:23897 — Figma textured fill + fade */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #f9f9f9;
+}
+
+.backdropImage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.backdropGradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(249, 249, 249, 0) 0%, #f9f9f9 100%);
+}
+
+.meddicWrap {
+  position: absolute;
+  z-index: 1;
+  top: -4.5%;
+  left: 62.321%;
+  width: 40.571%;
+}
+
+.objectionWrap {
+  position: absolute;
+  z-index: 2;
+  top: calc(50% + 23.39cqh);
+  left: calc(50% - 33.036cqw);
+  width: 43.571%;
+  transform: translate(-50%, -50%);
+}
+
+.directiveWrap {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottomFade {
+  composes: hlwBottomFade from "./card-visuals.module.css";
+  left: 50%;
+  width: 100%;
+  /* Desktop: softer / shorter than shared 47% fade — mobile restores full strength */
+  height: 28%;
+  opacity: 0.55;
+  transform: translateX(-50%);
+}
+
+/*
+ * Figma 1835:19614 — mobile Build stage 362×280
+ * Place at Figma top-left, keep desktop design widths, scale once into frame.
+ * 1835:19616 Objection:  -50.51, 124.47, 192.43×193.71  (ref 244)
+ * 1835:19617 MEDDIC:      236, -20, 179.18×183.04       (ref 227)
+ * 1835:19619 Discount:    81.20, 41.54, 220.83×212.20   (ref 280)
+ */
+@media (max-width: 768px) {
+  .meddicWrap {
+    top: calc(-20 / 280 * 100%);
+    left: calc(236 / 362 * 100%);
+    width: 227px;
+    height: calc(183.04 * 227 / 179.18);
+    overflow: hidden;
+    transform: scale(calc(179.18 / 227));
+    transform-origin: top left;
+  }
+
+  .objectionWrap {
+    top: calc(124.47 / 280 * 100%);
+    left: calc(-50.51 / 362 * 100%);
+    width: 244px;
+    height: calc(193.71 * 244 / 192.43);
+    overflow: hidden;
+    transform: scale(calc(192.43 / 244));
+    transform-origin: top left;
+  }
+
+  .directiveWrap {
+    top: calc(41.54 / 280 * 100%);
+    left: calc(81.2 / 362 * 100%);
+    width: 280px;
+    height: calc(212.2 * 280 / 220.83);
+    overflow: hidden;
+    transform: scale(calc(220.83 / 280));
+    transform-origin: top left;
+  }
+
+  .bottomFade {
+    /* Stronger than desktop soft fade, softer than original Figma 93px / full opacity */
+    left: calc(-29 / 362 * 100%);
+    width: calc(441 / 362 * 100%);
+    height: calc(72 / 280 * 100%);
+    opacity: 0.78;
+    transform: none;
+  }
+}

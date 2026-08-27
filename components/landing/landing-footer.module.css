@@ -1,41 +1,46 @@
-/* Figma 1031:6391 — Footer Main */
+/* Figma 1822:22970 / 1031:6390 — Footer Content (10px shell) + Footer Main */
 .section {
   position: relative;
   isolation: isolate;
   box-sizing: border-box;
-  width: 100%;
-}
-
-.section::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 50%;
   width: 100vw;
-  margin-left: -50vw;
-  background: #f9f9f9;
-  pointer-events: none;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: #ffffff;
 }
 
+/* Full viewport width — 10px inset + rounded gray card (not capped at 1440px) */
 .content {
   box-sizing: border-box;
   width: 100%;
-  padding: var(--l-section-px);
+  max-width: none;
+  margin-inline: 0;
+  /* Figma 1031:6390 — p-[10px] around the gray card */
+  padding: 10px;
 }
 
 .card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 40px;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding: 40px;
   border-radius: 40px;
   background: #f9f9f9;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding-block: 40px;
+  padding-inline: var(--l-section-px);
 }
 
 .topRow {
@@ -176,29 +181,18 @@ button.sectionHeader {
   white-space: nowrap;
 }
 
-@media (width > 1440px) {
-  .content:global(.landing-shell-x) {
-    padding-inline: max(
-      var(--l-content-inset-x),
-      calc((100vw - var(--l-shell-w)) / 2 + var(--l-content-inset-x))
-    );
-  }
-
-  .card {
-    border-radius: 0;
-    background: transparent;
-  }
-}
-
 @media (max-width: 1200px) {
   .content {
-    padding: var(--l-section-px) var(--l-section-px) 0;
+    padding: 10px;
   }
 
   .card {
-    gap: calc(40 * var(--l-vw));
-    padding: calc(40 * var(--l-vw));
     border-radius: calc(40 * var(--l-vw));
+  }
+
+  .inner {
+    gap: calc(40 * var(--l-vw));
+    padding-block: calc(40 * var(--l-vw));
   }
 
   .topRow {
@@ -250,18 +244,25 @@ button.sectionHeader {
   }
 }
 
+/* Figma 1835:16666 / 1310:9105 — Footer-Mobile (2-col link grid) */
 @media (max-width: 768px) {
   .content {
-    padding: var(--l-page-gutter, 20px) 0;
+    padding: 10px;
   }
 
   .card {
-    padding: calc(20 * var(--l-vw));
-    border-radius: calc(24 * var(--l-vw));
+    border-radius: 24px;
+  }
+
+  .inner {
+    gap: 40px;
+    padding-block: 20px;
+    padding-inline: var(--l-page-gutter);
   }
 
   .topRow {
     flex-direction: column;
+    gap: 40px;
   }
 
   .logoColumn {
@@ -269,9 +270,11 @@ button.sectionHeader {
   }
 
   .navColumns {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 40px;
     width: 100%;
-    gap: calc(24 * var(--l-vw));
   }
 
   .navColumn {
@@ -279,18 +282,36 @@ button.sectionHeader {
     width: 100%;
   }
 
+  .sectionHeader,
+  .navLink {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+  }
+
   .bottomRow {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
-    gap: calc(16 * var(--l-vw));
+    gap: 20px;
   }
 
   .copyright {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.48px;
     white-space: normal;
   }
 
   .legalLinks {
-    flex-wrap: wrap;
-    row-gap: calc(8 * var(--l-vw));
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+
+  .legalLink {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.48px;
   }
 }

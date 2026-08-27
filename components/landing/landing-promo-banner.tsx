@@ -17,7 +17,8 @@ export function LandingPromoBanner() {
           terminal
         </span>
         <span className={`${styles.promoMedium} ${styles.buttonText}`} data-node-id="1089:5861">
-          Try Interactive Demo
+          <span className={styles.buttonTextDesktop}>Try Interactive Demo</span>
+          <span className={styles.buttonTextMobile}>Try Now</span>
         </span>
       </Link>
     </section>
