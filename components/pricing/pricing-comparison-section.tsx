@@ -290,7 +290,7 @@ export function PricingComparisonSection() {
               </span>
             </Link>
             <div className={styles.ctaHighlight}>
-              Need credits more than 20K? this plan is for you
+              Need credits more than 200K? this plan is for you
             </div>
           </div>
 
