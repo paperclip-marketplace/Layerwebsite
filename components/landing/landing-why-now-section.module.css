@@ -10,7 +10,7 @@
   width: 100%;
   padding-block: 120px;
   padding-inline: var(--l-section-px);
-  border-bottom: 1px solid #dedede;
+  border-bottom: 1px solid var(--layer-gray-200);
   background: transparent;
 }
 

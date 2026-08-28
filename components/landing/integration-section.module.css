@@ -18,8 +18,8 @@
 @media (width > 1440px) {
   .section {
     position: relative;
-    border-left: 1px solid #dedede;
-    border-right: 1px solid #dedede;
+    border-left: 1px solid var(--layer-gray-200);
+    border-right: 1px solid var(--layer-gray-200);
   }
 
   .section::before,
@@ -35,12 +35,12 @@
 
   .section::before {
     top: 0;
-    border-top: 1px solid #dedede;
+    border-top: 1px solid var(--layer-gray-200);
   }
 
   .section::after {
     bottom: 0;
-    border-top: 1px solid #dedede;
+    border-top: 1px solid var(--layer-gray-200);
   }
 }
 

@@ -27,7 +27,7 @@
   width: 100%;
   padding: calc(8 * var(--l-vw));
   background: #ffffff;
-  border: 1px solid #dedede;
+  border: 1px solid var(--layer-gray-200);
   border-radius: calc(40 * var(--l-vw));
   box-shadow: 0 calc(8 * var(--l-vw)) calc(11 * var(--l-vw)) 0 rgba(0, 0, 0, 0.12);
 }
@@ -38,7 +38,7 @@
   width: 100%;
   max-width: calc(1359 * var(--l-vw));
   overflow: hidden;
-  border: calc(1.088 * var(--l-vw)) solid #dedede;
+  border: calc(1.088 * var(--l-vw)) solid var(--layer-gray-200);
   border-radius: calc(40 * var(--l-vw));
   background: #000;
   line-height: 0;

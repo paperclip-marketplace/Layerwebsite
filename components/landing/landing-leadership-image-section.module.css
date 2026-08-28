@@ -29,7 +29,7 @@
   width: var(--l-leadership-image-w);
   height: var(--l-leadership-image-h);
   overflow: hidden;
-  border: calc(1.313 * var(--l-vw)) solid #dedede;
+  border: calc(1.313 * var(--l-vw)) solid var(--layer-gray-200);
   border-radius: calc(15.75 * var(--l-vw));
   box-shadow: 0 calc(7.875 * var(--l-vw)) calc(52.5 * var(--l-vw)) 0
     rgba(0, 0, 0, 0.1);

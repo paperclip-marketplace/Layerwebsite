@@ -106,13 +106,6 @@
   white-space: nowrap;
 }
 
-.priceCustom {
-  font-size: var(--l-fs-32);
-  font-weight: 600;
-  line-height: var(--l-lh-32);
-  white-space: normal;
-}
-
 .priceSuffix {
   padding-bottom: calc(8 * var(--l-vw));
   font-family: var(--layer-font-geist-sans);

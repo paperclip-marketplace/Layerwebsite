@@ -687,7 +687,7 @@
   width: 100%;
   max-width: 854px;
   padding: 10.8px;
-  border-top: 0.675px solid #dedede;
+  border-top: 0.675px solid var(--layer-gray-200);
   border-radius: 9px;
   background: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
@@ -716,7 +716,7 @@
   justify-content: center;
   gap: 2.7px;
   padding: 5.4px 10.8px;
-  border: 0.675px solid #dedede;
+  border: 0.675px solid var(--layer-gray-200);
   border-radius: 8px;
   font-family: var(--layer-font-geist-sans);
   font-size: 10.8px;
