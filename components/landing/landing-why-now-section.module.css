@@ -104,8 +104,8 @@
 @media (max-width: 768px) {
   .section {
     box-sizing: border-box;
-    width: calc(100% + 2 * var(--l-page-gutter, 20px));
-    margin-inline: calc(-1 * var(--l-page-gutter, 20px));
+    width: 100%;
+    margin-inline: 0;
     gap: 40px;
     padding: 40px 20px;
     overflow-wrap: break-word;
@@ -135,7 +135,7 @@
   .heroRow {
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 16px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(249, 249, 249, 0.5);
   }
@@ -143,7 +143,7 @@
   .section :global(.landing-copy-row) {
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 16px;
     width: 100%;
   }
 

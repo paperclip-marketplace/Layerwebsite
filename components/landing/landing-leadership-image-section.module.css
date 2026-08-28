@@ -82,16 +82,32 @@
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding-bottom: 0;
+  }
+
+  .clipArea {
+    height: 248px;
+  }
+
   .imageCenter {
-    top: 0;
+    top: 19px;
   }
 
   .imageCard {
-    border-radius: 12px;
+    width: 362px;
+    height: 229px;
+    border: 1px solid var(--layer-gray-200);
+    border-radius: 16px;
+    box-shadow: 0 6.531px 43.538px rgba(0, 0, 0, 0.1);
   }
 
   .imageBackdrop,
   .imageClip {
-    border-radius: 12px;
+    border-radius: 13.061px;
+  }
+
+  .fadeBottom {
+    height: 70px;
   }
 }

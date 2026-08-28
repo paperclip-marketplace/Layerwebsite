@@ -194,7 +194,7 @@
 
   .main {
     align-items: flex-start;
-    padding: 40px 0 280px;
+    padding: 40px var(--l-inset-x, 20px) 280px;
     gap: 40px;
   }
 

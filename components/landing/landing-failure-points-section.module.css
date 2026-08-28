@@ -186,19 +186,34 @@
   .row {
     flex-direction: column;
     gap: 16px;
-    padding: 31px 0;
+    padding: 31px var(--l-inset-x, 20px);
+    border-bottom: none;
+  }
+
+  .row:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    margin-left: 0;
+    border-bottom: 1px solid var(--layer-gray-200);
+    pointer-events: none;
   }
 
   .index {
     width: auto;
-    font-size: var(--l-fs-28);
-    line-height: var(--l-lh-28);
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.8px;
     text-align: left;
   }
 
   .statement {
-    font-size: var(--l-fs-40);
-    line-height: var(--l-lh-40);
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.28px;
   }
 }
 

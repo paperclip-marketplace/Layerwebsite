@@ -372,11 +372,11 @@
   .section {
     position: relative;
     box-sizing: border-box;
-    width: calc(100% + 2 * var(--l-page-gutter));
-    margin-inline: calc(-1 * var(--l-page-gutter));
+    width: 100%;
+    margin-inline: 0;
     margin-top: calc(56 * var(--l-vw));
     gap: calc(24 * var(--l-vw));
-    padding: calc(40 * var(--l-vw)) 0 0;
+    padding: calc(40 * var(--l-vw)) 0 calc(24 * var(--l-vw));
     border-top: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
     background: #ffffff;

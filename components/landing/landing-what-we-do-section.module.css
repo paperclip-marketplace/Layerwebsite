@@ -53,7 +53,7 @@
 @media (max-width: 768px) {
   .section {
     gap: 32px;
-    padding: calc(40 * var(--l-vw)) var(--l-inset-x, 20px);
+    padding: 40px var(--l-inset-x, 20px);
   }
 
   .eyebrow {

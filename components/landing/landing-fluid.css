@@ -310,6 +310,7 @@
   .landing-main {
     --l-canvas-w: 402;
     --l-vw: calc(100vw / var(--l-canvas-w));
+    --l-text-pl-extra: 0;
 
     /* Typography — Figma 513:1100 */
     --l-fs-14: calc(14 * var(--l-vw));
@@ -390,11 +391,11 @@
     --l-pricing-faq-col-w: 100%;
   }
 
-  /* Inset sections (hero copy) share one horizontal gutter */
+  /* Full-width shell — section copy uses --l-inset-x for 20px inset */
   .landing-page-gutter {
     box-sizing: border-box;
     width: 100%;
-    padding-inline: var(--l-page-gutter);
+    padding-inline: 0;
   }
 
   .landing-page-gutter .landing-main__inner {
@@ -405,8 +406,8 @@
   /* White band: flush left + top/bottom border, open on the right (513:1372, 513:1771, …) */
   .landing-band-left {
     box-sizing: border-box;
-    width: calc(100% + 2 * var(--l-page-gutter));
-    margin-inline: calc(-1 * var(--l-page-gutter));
+    width: 100%;
+    margin-inline: 0;
     padding-inline: 0;
     background: #ffffff;
     border-top: 1px solid var(--layer-gray-200);
@@ -421,14 +422,45 @@
     border-bottom: none;
   }
 
-  /* Integrations → Why Now: bottom rule from section ::after on desktop; no band bottom on mobile */
+  /* Integrations — match clients band strokes */
   .landing-integration-section.landing-band-left {
+    border-top: none;
     border-bottom: none;
   }
 
   /* Metrics copy — full-bleed top rule via .landing-leadership-metrics-section::before */
   .landing-metrics-block.landing-band-left {
     border-top: none;
+  }
+
+  /*
+   * Full-bleed horizontal strokes — anchor from viewport left.
+   * left:50% -50vw on inset band sections stops ~20px short on the right.
+   */
+  .landing-page-gutter
+    :is(
+      .landing-full-bleed-strokes-top,
+      .landing-clients-section,
+      .landing-integration-section,
+      .landing-leadership-metrics-section,
+      .landing-team-experience-section
+    )::before,
+  .landing-page-gutter
+    :is(
+      .landing-full-bleed-strokes,
+      .landing-clients-section,
+      .landing-integration-section,
+      .landing-team-experience-section
+    )::after {
+    left: 0;
+    width: 100vw;
+    margin-left: 0;
+    transform: none;
+  }
+
+  .landing-team-experience-section.landing-band-left {
+    border-top: none;
+    border-bottom: none;
   }
 }
 
@@ -473,7 +505,7 @@
     box-sizing: border-box;
     padding-top: 5px;
     padding-bottom: 24px;
-    padding-left: calc(var(--l-inset-x, 20px) + var(--l-text-pl-extra));
+    padding-left: var(--l-inset-x, 20px);
     padding-right: var(--l-inset-x, 20px);
   }
 
@@ -485,11 +517,13 @@
   .landing-main .landing-page-gutter .landing-leadership-metrics-section,
   .landing-main .landing-page-gutter .landing-clients-section [class*="copyRow"],
   .landing-main .landing-page-gutter .landing-integration-section [class*="copyRow"],
-  .landing-main .landing-page-gutter .landing-team-experience-section [class*="copyRow"] {
-    padding-left: calc(var(--l-inset-x, 20px) + var(--l-text-pl-extra));
+  .landing-main .landing-page-gutter .landing-team-experience-section [class*="copyRow"],
+  .landing-main .landing-page-gutter .landing-operator-section [data-node-id="2135:20308"] {
+    padding-left: var(--l-inset-x, 20px);
+    padding-right: var(--l-inset-x, 20px);
   }
 
-  .landing-main .landing-page-gutter .landing-failure-points-section [class*="row"] {
-    padding-left: var(--l-text-pl-extra);
+  .landing-main .landing-page-gutter .landing-hero-section [class*="caption"] {
+    padding-left: 0;
   }
 }
