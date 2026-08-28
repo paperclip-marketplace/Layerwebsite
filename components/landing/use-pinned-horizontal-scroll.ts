@@ -65,6 +65,15 @@ export function usePinnedHorizontalScroll({
   const [spacerHeight, setSpacerHeight] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
   const maxShiftRef = useRef(0);
+  const triggerRef = useRef<ScrollTrigger | null>(null);
+
+  const syncTranslateFromScroll = useCallback(() => {
+    const trigger = triggerRef.current;
+    if (!trigger) {
+      return;
+    }
+    setTranslateX(-Math.round(trigger.progress * maxShiftRef.current));
+  }, []);
 
   const measure = useCallback(() => {
     const track = trackRef.current;
@@ -139,6 +148,7 @@ export function usePinnedHorizontalScroll({
 
     setReady(true);
     ScrollTrigger.refresh();
+    syncTranslateFromScroll();
   }, [
     cardCount,
     cardSelector,
@@ -146,6 +156,7 @@ export function usePinnedHorizontalScroll({
     edgePaddingOption,
     endAlign,
     enabled,
+    syncTranslateFromScroll,
     trackRef,
   ]);
 
@@ -257,10 +268,14 @@ export function usePinnedHorizontalScroll({
 
     ScrollTrigger.refresh();
 
+    triggerRef.current = trigger;
+    syncTranslateFromScroll();
+
     return () => {
       trigger.kill();
+      triggerRef.current = null;
     };
-  }, [compactPin, enabled, ready, spacerHeight, spacerRef, trackRef]);
+  }, [compactPin, enabled, ready, spacerHeight, spacerRef, syncTranslateFromScroll, trackRef]);
 
   return { translateX, spacerHeight, remeasure: measure };
 }
@@ -268,7 +283,7 @@ export function usePinnedHorizontalScroll({
 export function usePinnedHorizontalScrollEnabled() {
   const [enabled, setEnabled] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const desktop = window.matchMedia("(min-width: 1201px)");
 
