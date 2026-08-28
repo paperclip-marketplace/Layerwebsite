@@ -1,8 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./landing-split-section.module.css";
+import { LandingWhatWeDoSection } from "./landing-what-we-do-section";
 import { PerformWidgetExpanded } from "./perform-widget-expanded";
 import {
   LandingOptimizedImage,
@@ -415,6 +416,7 @@ function SplitCardTrack({
     <div
       ref={trackRef}
       className={`${styles.track} landing-split-section__track ${pinEnabled ? styles.trackPinned : ""}`}
+      data-pin-align
       role="list"
       style={
         pinEnabled
@@ -431,16 +433,42 @@ function SplitCardTrack({
   );
 }
 
-export function LandingSplitSection() {
+export function LandingSplitSection({
+  children,
+}: {
+  children?: ReactNode;
+}) {
   const pinEnabled = usePinnedHorizontalScrollEnabled();
+  const headerRef = useRef<HTMLElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [edgePadding, setEdgePadding] = useState(40);
+
+  useLayoutEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const measure = () => {
+      const pad = Number.parseFloat(getComputedStyle(header).paddingLeft);
+      if (Number.isFinite(pad) && pad >= 0) {
+        setEdgePadding(pad);
+      }
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
   const { translateX, spacerHeight } = usePinnedHorizontalScroll({
     cardCount: SPLIT_CARDS.length,
     enabled: pinEnabled,
     spacerRef,
     trackRef,
+    edgePadding,
+    endAlign: "mirror",
+    compactPin: true,
   });
 
   useEffect(() => {
@@ -463,36 +491,39 @@ export function LandingSplitSection() {
     setActiveIndex(idx);
   }, [translateX, pinEnabled]);
 
-  return (
-    <section
-      className={`${styles.section} landing-split-section ${pinEnabled ? styles.sectionPinned : ""}`}
-      aria-label="How Layer supports your team"
-      data-name="Split Section"
-      data-node-id="513:1653"
-    >
-      {pinEnabled ? (
-        <div
-          ref={spacerRef}
-          className={styles.pinSpacer}
-          style={spacerHeight != null ? { height: spacerHeight } : undefined}
-        >
-          <div className={styles.pinSticky} data-pin-sticky>
-            <SplitCardTrack
-              trackRef={trackRef}
-              translateX={translateX}
-              pinEnabled
-              activeIndex={activeIndex}
-            />
-          </div>
-        </div>
-      ) : (
+  const stack = (
+    <>
+      <LandingWhatWeDoSection sectionRef={headerRef} />
+      <section
+        className={`${styles.section} landing-split-section ${pinEnabled ? styles.sectionPinned : ""}`}
+        aria-label="How Layer supports your team"
+        data-name="Split Section"
+        data-node-id="513:1653"
+      >
         <SplitCardTrack
           trackRef={trackRef}
-          translateX={0}
-          pinEnabled={false}
-          activeIndex={0}
+          translateX={pinEnabled ? translateX : 0}
+          pinEnabled={pinEnabled}
+          activeIndex={pinEnabled ? activeIndex : 0}
         />
-      )}
-    </section>
+      </section>
+      {children}
+    </>
+  );
+
+  if (!pinEnabled) {
+    return stack;
+  }
+
+  return (
+    <div
+      ref={spacerRef}
+      className={styles.pinSpacer}
+      style={spacerHeight != null ? { height: spacerHeight } : undefined}
+    >
+      <div className={styles.pinSticky} data-pin-sticky>
+        {stack}
+      </div>
+    </div>
   );
 }

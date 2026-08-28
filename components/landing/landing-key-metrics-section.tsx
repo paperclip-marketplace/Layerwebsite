@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, type RefObject } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import styles from "./landing-key-metrics-section.module.css";
+import { LandingLeadershipMetricsSection } from "./landing-leadership-metrics-section";
 import { LandingOptimizedImage } from "./landing-optimized-image";
 import {
   usePinnedHorizontalScroll,
@@ -122,6 +123,7 @@ function MetricCardTrack({
     <div
       ref={trackRef as RefObject<HTMLDivElement>}
       className={`${styles.track} landing-key-metrics-section__track ${pinEnabled ? styles.trackPinned : ""}`}
+      data-pin-align
       role="list"
       style={
         pinEnabled
@@ -138,44 +140,74 @@ function MetricCardTrack({
   );
 }
 
-export function LandingKeyMetricsSection() {
+export function LandingKeyMetricsSection({
+  children,
+}: {
+  children?: ReactNode;
+}) {
   const pinEnabled = usePinnedHorizontalScrollEnabled();
+  const headerRef = useRef<HTMLElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [edgePadding, setEdgePadding] = useState(40);
+
+  useLayoutEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const measure = () => {
+      const pad = Number.parseFloat(getComputedStyle(header).paddingLeft);
+      if (Number.isFinite(pad) && pad >= 0) {
+        setEdgePadding(pad);
+      }
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
   const { translateX, spacerHeight } = usePinnedHorizontalScroll({
     cardCount: KEY_METRIC_CARDS.length,
     enabled: pinEnabled,
     spacerRef,
     trackRef,
+    edgePadding,
+    endAlign: "mirror",
+    compactPin: true,
   });
 
-  return (
-    <section
-      className={`${styles.section} landing-key-metrics-section ${pinEnabled ? styles.sectionPinned : ""}`}
-      aria-label="Key revenue metrics"
-      data-name="Key Metrics"
-    >
-      {pinEnabled ? (
-        <div
-          ref={spacerRef}
-          className={styles.pinSpacer}
-          style={spacerHeight != null ? { height: spacerHeight } : undefined}
-        >
-          <div className={styles.pinSticky} data-pin-sticky>
-            <MetricCardTrack
-              trackRef={trackRef}
-              translateX={translateX}
-              pinEnabled
-            />
-          </div>
-        </div>
-      ) : (
+  const stack = (
+    <>
+      <LandingLeadershipMetricsSection sectionRef={headerRef} />
+      <section
+        className={`${styles.section} landing-key-metrics-section ${pinEnabled ? styles.sectionPinned : ""}`}
+        aria-label="Key revenue metrics"
+        data-name="Key Metrics"
+      >
         <MetricCardTrack
           trackRef={trackRef}
-          translateX={0}
-          pinEnabled={false}
+          translateX={pinEnabled ? translateX : 0}
+          pinEnabled={pinEnabled}
         />
-      )}
-    </section>
+      </section>
+      {children}
+    </>
+  );
+
+  if (!pinEnabled) {
+    return stack;
+  }
+
+  return (
+    <div
+      ref={spacerRef}
+      className={styles.pinSpacer}
+      style={spacerHeight != null ? { height: spacerHeight } : undefined}
+    >
+      <div className={styles.pinSticky} data-pin-sticky>
+        {stack}
+      </div>
+    </div>
   );
 }

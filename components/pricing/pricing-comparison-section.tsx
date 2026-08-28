@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ROUTES } from "@/lib/config/constants";
+import { PricingSecurityCompliance } from "./pricing-security-compliance";
 import styles from "./pricing-comparison-section.module.css";
 
 type CreditTier = {
@@ -304,6 +305,7 @@ export function PricingComparisonSection() {
           </div>
         </article>
       </div>
+      <PricingSecurityCompliance />
     </section>
   );
 }
