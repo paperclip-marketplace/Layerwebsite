@@ -21,7 +21,7 @@
   width: 100vw;
   margin-left: -50vw;
   pointer-events: none;
-  border-top: 1px solid #dedede;
+  border-top: 1px solid var(--layer-gray-200);
 }
 
 .eyebrow {
@@ -61,6 +61,11 @@
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 40px var(--l-inset-x, 20px) 40px;
+    gap: 32px;
+  }
+
   .eyebrow {
     font-size: var(--l-fs-14);
     line-height: var(--l-lh-14);

@@ -12,17 +12,38 @@
   overflow: visible;
   scroll-snap-type: none;
   padding-inline: 0;
-  /* Figma 2135:20101 — lock 1120×748. Vertical space around cards is
-     section padding, not leftover viewport height. */
-  --split-pin-x-pad: 40px;
-  --split-card-h: 748px;
-  --split-card-w: 1120px;
 }
 
-/*
- * Keep pin geometry inside .landing-page-gutter (no 100vw breakout).
- * Compact pin: content-sized wrapper; GSAP pinSpacing adds scroll room.
- */
+@media (max-width: 1439.98px) and (min-width: 1201px) {
+  .sectionPinned {
+    --split-design-w: 1120;
+    --split-design-h: 748;
+    --split-pin-y-pad: 20px;
+    --split-pin-x-pad: 32px;
+    --split-available-h: calc(
+      100svh - var(--landing-header-h, 64px) - var(--split-pin-y-pad) * 2
+    );
+    --split-available-w: calc(100vw - var(--split-pin-x-pad) * 2);
+    --split-card-w: min(
+      var(--split-available-w),
+      calc(var(--split-available-h) * var(--split-design-w) / var(--split-design-h))
+    );
+    --split-card-h: calc(
+      var(--split-card-w) * var(--split-design-h) / var(--split-design-w)
+    );
+  }
+}
+
+@media (min-width: 1440px) {
+  .sectionPinned {
+    /* Figma 2135:20101 — lock 1120×748 at ≥1440px */
+    --split-pin-x-pad: 40px;
+    --split-card-h: 748px;
+    --split-card-w: 1120px;
+  }
+}
+
+/* Compact pin: content-sized wrapper; GSAP pinSpacing adds scroll room. */
 .pinSpacer {
   position: relative;
   width: 100%;
@@ -666,7 +687,7 @@
   width: 100%;
   max-width: 854px;
   padding: 10.8px;
-  border-top: 0.675px solid #dedede;
+  border-top: 0.675px solid var(--layer-gray-200);
   border-radius: 9px;
   background: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
@@ -695,7 +716,7 @@
   justify-content: center;
   gap: 2.7px;
   padding: 5.4px 10.8px;
-  border: 0.675px solid #dedede;
+  border: 0.675px solid var(--layer-gray-200);
   border-radius: 8px;
   font-family: var(--layer-font-geist-sans);
   font-size: 10.8px;

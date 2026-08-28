@@ -1,16 +1,17 @@
 /*
- * Figma Home / Mobile — 513:1100 (402×8060)
+ * Figma 2206:13403 — Home / Mobile (402×8060)
+ * Layout + spacing only — no content changes. Desktop untouched (rules scoped ≤768px).
  */
 
 @media (max-width: 768px) {
-  /* Figma 513:1152 — Section Container (gap 40px between copy block and hero image) */
+  /* Hero intro — 2206:13408: pt 64 px 20; hero section handles pb 40 below caption */
   .landing-hero-intro {
     display: flex;
     flex-direction: column;
     gap: 0;
     box-sizing: border-box;
     width: 100%;
-    padding: 64px 0 40px;
+    padding: 64px var(--l-inset-x, 20px) 0;
   }
 
   .landing-hero-intro .landing-top-section {
@@ -19,7 +20,6 @@
     margin: 0;
   }
 
-  /* 513:1178 — 16px between headline and description */
   .landing-hero-intro .landing-copy-row {
     flex-direction: column;
     align-items: flex-start;
@@ -36,17 +36,18 @@
     width: 100%;
     height: auto;
     margin: 0;
-    padding: 40px 0 0;
+    padding: 40px 0 40px;
     border: none;
     overflow: visible;
   }
 
-  /* 32px below forward-thinking copy before logo scroll (513:1194) */
-  .landing-clients-section {
-    gap: 32px;
+  /* Integrations — section styles match clients in module CSS */
+  .landing-clients-section,
+  .landing-what-we-do-split .landing-integration-section {
+    gap: 40px;
   }
 
-  /* Figma 513:1372 — What We Do + split cards (513:1653) */
+  /* Solution band — 2206:13429: py 40 px 20, copy gap 32, cards gap 10 */
   .landing-what-we-do-split {
     display: flex;
     flex-direction: column;
@@ -73,24 +74,26 @@
     padding-right: 0;
   }
 
-  /* The Solution copy block → split cards */
   .landing-what-we-do-split .landing-what-we-do-section {
     gap: 32px;
     margin-bottom: 0;
   }
 
-  /* 513:1771 — problem + stats */
+  /* Problem band — 2206:13477: py 40 px 20, copy→stats gap 40 */
   .landing-problem-stats {
-    /* .landing-band-left handles full-bleed + borders */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
   }
 
   .landing-problem-stats .landing-problem-section {
     gap: 32px;
+    padding-bottom: 0;
   }
 
   .landing-problem-stats .landing-problem-section .landing-copy-row {
     flex-direction: column;
-    gap: calc(16 * var(--l-vw));
+    gap: 16px;
   }
 
   .landing-problem-stats .landing-problem-section .eyebrow {
@@ -106,15 +109,15 @@
 
   .landing-problem-stats .landing-stats-section {
     flex-direction: column;
-    gap: var(--l-stats-card-gap);
-    padding: 10px;
+    gap: 10px;
+    padding: 0 10px 10px;
   }
 
   .landing-problem-stats .landing-stats-card {
-    gap: calc(24 * var(--l-vw));
+    gap: 20px;
     min-height: var(--l-stats-card-min-h);
-    padding: calc(32 * var(--l-vw));
-    border-radius: calc(24 * var(--l-vw));
+    padding: 32px;
+    border-radius: 40px;
   }
 
   .landing-problem-citation p {
@@ -126,13 +129,14 @@
     letter-spacing: -0.64px;
   }
 
-  /* 513:1968 — leadership */
+  /* Leadership band — 2206:13528: copy py 40 px 20, gap 32 */
   .landing-leadership-block {
-    /* .landing-band-left handles full-bleed + borders */
+    display: flex;
+    flex-direction: column;
   }
 
   .landing-leadership-block .landing-leadership-control-section {
-    padding: 40px 20px;
+    padding: 40px var(--l-inset-x, 20px);
     gap: 32px;
   }
 
@@ -148,9 +152,9 @@
   }
 
   .landing-leadership-block .landing-leadership-control-section .headline {
-    font-size: 40px;
-    line-height: 48px;
-    letter-spacing: -1.6px;
+    font-size: 48px;
+    line-height: 52px;
+    letter-spacing: -1.92px;
   }
 
   .landing-leadership-block .landing-leadership-control-section .description {
@@ -163,14 +167,16 @@
     border-bottom: none;
   }
 
-  /* 513:1936 — metrics */
+  /* Metrics band — 2206:13539: copy py 40 px 20, cards px 20 pb 40 */
   .landing-metrics-block {
+    display: flex;
+    flex-direction: column;
     padding-bottom: 40px;
   }
 
   .landing-metrics-block .landing-leadership-metrics-section {
-    padding-top: calc(40 * var(--l-vw));
-    gap: calc(32 * var(--l-vw));
+    padding: 40px var(--l-inset-x, 20px) 40px;
+    gap: 32px;
   }
 
   .landing-metrics-block .landing-leadership-metrics-section .eyebrow {
@@ -179,12 +185,13 @@
   }
 
   .landing-metrics-block .landing-leadership-metrics-section .headline {
-    font-size: var(--l-fs-56);
-    line-height: var(--l-lh-56);
+    font-size: 48px;
+    line-height: 52px;
+    letter-spacing: -1.92px;
   }
 
   .landing-metrics-block .landing-key-metrics-section {
-    padding: calc(32 * var(--l-vw)) 0 0;
+    padding: 0;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -199,7 +206,7 @@
     width: max-content;
   }
 
-  /* Global gutter on .landing-page-gutter — no extra horizontal section padding */
+  /* Global gutter — sections rely on band/inset, not double padding */
   .landing-page-gutter .landing-main__inner > section:not(.landing-clients-section) {
     padding-inline: 0;
   }

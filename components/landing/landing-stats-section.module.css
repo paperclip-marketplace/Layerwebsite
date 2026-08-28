@@ -106,10 +106,10 @@
   }
 
   .card {
-    gap: calc(24 * var(--l-vw));
+    gap: 20px;
     min-height: var(--l-stats-card-min-h);
-    padding: calc(32 * var(--l-vw));
-    border-radius: calc(24 * var(--l-vw));
+    padding: 32px;
+    border-radius: 40px;
   }
 
   .label {

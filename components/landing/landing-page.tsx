@@ -15,6 +15,7 @@ import { LandingLeadershipImageSection } from "./landing-leadership-image-sectio
 import { LandingKeyMetricsSection } from "./landing-key-metrics-section";
 import { LandingOperatorSection } from "./landing-operator-section";
 import { TeamExperienceSection } from "./team-experience";
+import { PersonalAgentBottomCtaSection } from "@/components/products/personal-agent/personal-agent-bottom-cta-section";
 import { LandingHashScroll } from "./landing-hash-scroll";
 import "./landing-fluid.css";
 import "./landing-mobile.module.css";
@@ -93,6 +94,7 @@ export function LandingPage() {
           </LandingKeyMetricsSection>
         </div>
         {SHOW_TEAM_EXPERIENCE_SECTION ? <TeamExperienceSection /> : null}
+        <PersonalAgentBottomCtaSection />
         </main>
       </div>
     </LandingPageShell>

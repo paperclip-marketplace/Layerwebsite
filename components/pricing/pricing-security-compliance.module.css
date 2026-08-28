@@ -160,11 +160,13 @@
 
 @media (max-width: 768px) {
   .card {
-    gap: calc(20 * var(--l-vw));
-    padding: calc(20 * var(--l-vw)) var(--l-page-gutter);
-    border: none;
-    border-top: 1px solid #dedede;
-    border-radius: 0;
+    box-sizing: border-box;
+    width: calc(100% - 2 * var(--l-page-gutter, 20px));
+    margin-inline: var(--l-page-gutter, 20px);
+    gap: calc(16 * var(--l-vw));
+    padding: calc(20 * var(--l-vw));
+    border: 1px solid #dedede;
+    border-radius: calc(16 * var(--l-vw));
   }
 
   .title {

@@ -14,17 +14,36 @@
   overflow: visible;
   scroll-snap-type: none;
   padding: 0 0 80px;
-  /* Figma 2135:20279 — lock 456×648. Vertical space is section padding,
-     not leftover viewport height. */
-  --split-pin-x-pad: 40px;
-  --metrics-card-w: 456px;
-  --metrics-card-h: 648px;
 }
 
-/*
- * Keep pin geometry inside .landing-page-gutter (no 100vw breakout).
- * Compact pin: content-sized wrapper; GSAP pinSpacing adds scroll room.
- */
+@media (max-width: 1439.98px) and (min-width: 1201px) {
+  .sectionPinned {
+    --split-pin-x-pad: 32px;
+    --metrics-pin-y-pad: 20px;
+    --metrics-available-h: calc(
+      100svh - var(--landing-header-h, 64px) - var(--metrics-pin-y-pad) * 2
+    );
+    --metrics-available-w: calc(100vw - var(--split-pin-x-pad) * 2);
+    --metrics-card-w: min(
+      var(--metrics-available-w),
+      calc(
+        var(--metrics-available-h) * var(--l-metrics-design-w) /
+          var(--l-metrics-design-h)
+      )
+    );
+  }
+}
+
+@media (min-width: 1440px) {
+  .sectionPinned {
+    /* Figma 2135:20279 — lock 456×648 at ≥1440px */
+    --split-pin-x-pad: 40px;
+    --metrics-card-w: 456px;
+    --metrics-card-h: 648px;
+  }
+}
+
+/* Compact pin: content-sized wrapper; GSAP pinSpacing adds scroll room. */
 .pinSpacer {
   position: relative;
   width: 100%;
@@ -77,8 +96,21 @@
   container-type: size;
   container-name: metrics-card;
   width: var(--metrics-card-w);
-  height: var(--metrics-card-h);
   border-radius: calc(40 / 648 * 100cqh);
+}
+
+@media (max-width: 1439.98px) and (min-width: 1201px) {
+  .sectionPinned [data-pin-scroll-card] {
+    height: calc(
+      var(--metrics-card-w) * var(--l-metrics-design-h) / var(--l-metrics-design-w)
+    );
+  }
+}
+
+@media (min-width: 1440px) {
+  .sectionPinned [data-pin-scroll-card] {
+    height: var(--metrics-card-h);
+  }
 }
 
 .cardGray {
@@ -197,7 +229,7 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 0 0 80px;
+    padding: 0;
   }
 
   .card {

@@ -193,8 +193,8 @@
   .section {
     position: relative;
     padding-block: calc(80 * var(--l-vw));
-    border-left: 1px solid #dedede;
-    border-right: 1px solid #dedede;
+    border-left: 1px solid var(--layer-gray-200);
+    border-right: 1px solid var(--layer-gray-200);
   }
 
   .section::before,
@@ -210,20 +210,41 @@
 
   .section::before {
     top: 0;
-    border-top: 1px solid #dedede;
+    border-top: 1px solid var(--layer-gray-200);
   }
 
   .section::after {
     bottom: 0;
-    border-top: 1px solid #dedede;
+    border-top: 1px solid var(--layer-gray-200);
   }
 }
 
 @media (max-width: 768px) {
   .section {
+    position: relative;
     gap: 32px;
     padding-block: 40px;
     padding-inline: 0;
+  }
+
+  .section::before,
+  .section::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid var(--layer-gray-200);
+    pointer-events: none;
+  }
+
+  .section::before {
+    top: 0;
+  }
+
+  .section::after {
+    bottom: 0;
   }
 
   .copyRow {
