@@ -3,7 +3,6 @@ import { LandingPromoBanner } from "./landing-promo-banner";
 import { LandingHeroSection } from "./landing-hero-section";
 import { LandingTopSection } from "./landing-top-section";
 import { OurClientSection } from "./our-client-section";
-import { LandingWhatWeDoSection } from "./landing-what-we-do-section";
 import { LandingSplitSection } from "./landing-split-section";
 import { IntegrationSection } from "./integration-section";
 import { LandingProblemSection } from "./landing-problem-section";
@@ -13,7 +12,6 @@ import { LandingFailurePointsSection } from "./landing-failure-points-section";
 import { LandingWhyNowSection } from "./landing-why-now-section";
 import { LandingLeadershipControlSection } from "./landing-leadership-control-section";
 import { LandingLeadershipImageSection } from "./landing-leadership-image-section";
-import { LandingLeadershipMetricsSection } from "./landing-leadership-metrics-section";
 import { LandingKeyMetricsSection } from "./landing-key-metrics-section";
 import { LandingOperatorSection } from "./landing-operator-section";
 import { TeamExperienceSection } from "./team-experience";
@@ -73,11 +71,10 @@ export function LandingPage() {
           data-name="The Solution Container"
           data-node-id="713:895"
         >
-          <LandingWhatWeDoSection />
-          <LandingSplitSection />
+          <LandingSplitSection>
+            <IntegrationSection />
+          </LandingSplitSection>
         </div>
-
-        <IntegrationSection />
 
         <LandingWhyNowSection />
 
@@ -91,11 +88,10 @@ export function LandingPage() {
         </div>
 
         <div className="landing-metrics-block landing-band-left">
-          <LandingLeadershipMetricsSection />
-          <LandingKeyMetricsSection />
+          <LandingKeyMetricsSection>
+            <LandingOperatorSection />
+          </LandingKeyMetricsSection>
         </div>
-
-        <LandingOperatorSection />
         {SHOW_TEAM_EXPERIENCE_SECTION ? <TeamExperienceSection /> : null}
         </main>
       </div>

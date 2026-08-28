@@ -1,47 +1,50 @@
-/* Figma 1494:2744 / 1494:2745 — compact temporary footer */
+/* Figma 2135:20367 / 2135:20368 — compact footer */
 .section {
   position: relative;
   isolation: isolate;
   box-sizing: border-box;
   width: 100%;
-}
-
-.section::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 100vw;
-  margin-left: -50vw;
-  background: #f9f9f9;
-  pointer-events: none;
-}
-
-/* Figma 713:740 — same 1440px column as header (landing-page-gutter) */
-.gutter {
-  box-sizing: border-box;
-  width: 100%;
+  padding: 0;
 }
 
 .card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 28px;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
   padding: 40px;
-  border-radius: 24px;
+  border-radius: 40px;
   background: #f9f9f9;
+  overflow: visible;
 }
 
-.row {
+.info {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #eee;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 16px;
   width: 100%;
+  min-width: 0;
+}
+
+.brand {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
   min-width: 0;
 }
 
@@ -58,6 +61,7 @@
   width: 105px;
   height: 26px;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .logoMark {
@@ -72,29 +76,142 @@
   flex-shrink: 0;
 }
 
-.divider {
-  width: 1px;
-  height: 20px;
-  flex-shrink: 0;
-  background: #eeeeee;
+.tagline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.48px;
+  color: #8d8d8d;
+  white-space: nowrap;
 }
 
-.meta {
+.badges {
   display: flex;
-  flex: 1 1 0;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.badgeWrap {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  overflow: visible;
+  outline: none;
+}
+
+/* Figma 2135:20635 — 4px below the hovered badge, horizontally centered */
+.tooltip {
+  position: absolute;
+  top: 100%;
+  left: calc((54px - 75px) / 2);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75px;
+  padding-top: 4px;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.badgeWrap:hover .tooltip,
+.badgeWrap:focus-visible .tooltip,
+.badgeWrap:focus-within .tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
+}
+
+.tooltipCaret {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 6px;
+  overflow: visible;
+}
+
+.tooltipCaretIcon {
+  display: block;
+  width: 6px;
+  height: 8px;
+  transform: rotate(90deg);
+}
+
+.tooltipLabel {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: #020100;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: -0.48px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.badge {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.badgeImage {
+  display: block;
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+}
+
+.badgeCrop {
+  overflow: hidden;
+}
+
+.badgeImageCrop {
+  position: absolute;
+  left: -5.69%;
+  top: -5.18%;
+  width: 110.38%;
+  height: 110.38%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.bottomRow {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  min-width: 0;
+  width: 100%;
 }
 
 .copyright,
 .legalLink {
   font-family: var(--layer-font-geist-sans);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 20px;
-  letter-spacing: -0.56px;
+  line-height: 16px;
+  letter-spacing: -0.48px;
   color: #8d8d8d;
 }
 
@@ -120,23 +237,34 @@
   opacity: 0.8;
 }
 
+/* Figma 1920: 10px inset, 270px card padding, 1360px content column */
 @media (width > 1440px) {
+  .section {
+    padding: 10px;
+  }
+
   .card {
-    border-radius: 0;
-    background: transparent;
-    border-left: 1px solid #dedede;
-    border-right: 1px solid #dedede;
+    padding: 40px calc((100% - 1360px) / 2);
   }
 }
 
 @media (max-width: 1200px) {
   .card {
-    padding: 40px;
-    border-radius: calc(24 * var(--l-vw));
+    gap: calc(28 * var(--l-vw));
+    padding: calc(40 * var(--l-vw));
+    border-radius: calc(40 * var(--l-vw));
   }
 
-  .row {
+  .info {
+    padding-bottom: calc(28 * var(--l-vw));
+  }
+
+  .topRow {
     gap: calc(16 * var(--l-vw));
+  }
+
+  .brand {
+    gap: calc(12 * var(--l-vw));
   }
 
   .logo {
@@ -155,46 +283,93 @@
     height: calc(22 * var(--l-vw));
   }
 
-  .divider {
-    height: calc(20 * var(--l-vw));
-  }
-
+  .tagline,
   .copyright,
   .legalLink {
-    font-size: calc(14 * var(--l-vw));
-    line-height: calc(20 * var(--l-vw));
-    letter-spacing: calc(-0.56 * var(--l-vw));
+    font-size: calc(12 * var(--l-vw));
+    line-height: calc(16 * var(--l-vw));
+    letter-spacing: calc(-0.48 * var(--l-vw));
+  }
+
+  .badges {
+    gap: calc(16 * var(--l-vw));
+  }
+
+  .badgeWrap {
+    width: calc(54 * var(--l-vw));
+    height: calc(54 * var(--l-vw));
+  }
+
+  .tooltip {
+    left: calc((54 * var(--l-vw) - 75 * var(--l-vw)) / 2);
+    width: calc(75 * var(--l-vw));
+    padding-top: calc(4 * var(--l-vw));
+  }
+
+  .tooltipCaret {
+    width: calc(8 * var(--l-vw));
+    height: calc(6 * var(--l-vw));
+  }
+
+  .tooltipCaretIcon {
+    width: calc(6 * var(--l-vw));
+    height: calc(8 * var(--l-vw));
+  }
+
+  .tooltipLabel {
+    padding: calc(5 * var(--l-vw)) calc(8 * var(--l-vw));
+    border-radius: calc(8 * var(--l-vw));
+    font-size: calc(12 * var(--l-vw));
+    line-height: calc(14 * var(--l-vw));
+    letter-spacing: calc(-0.48 * var(--l-vw));
+  }
+
+  .badge {
+    width: calc(54 * var(--l-vw));
+    height: calc(54 * var(--l-vw));
+  }
+
+  .badgeImage {
+    width: calc(54 * var(--l-vw));
+    height: calc(54 * var(--l-vw));
   }
 
   .legalLinks {
     gap: calc(20 * var(--l-vw));
   }
 
-  .meta {
+  .bottomRow {
     gap: calc(20 * var(--l-vw));
   }
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: var(--l-page-gutter, 20px);
+  }
+
   .card {
-    padding-block: calc(40 * var(--l-vw));
-    padding-inline: 0;
+    gap: calc(28 * var(--l-vw));
+    padding: calc(40 * var(--l-vw)) calc(20 * var(--l-vw));
     border-radius: calc(24 * var(--l-vw));
   }
 
-  .row {
+  .topRow {
     flex-direction: column;
-    align-items: flex-start;
   }
 
-  .divider {
-    display: none;
-  }
-
-  .meta {
-    flex-direction: column;
-    align-items: flex-start;
+  .brand {
     width: 100%;
+  }
+
+  .tagline {
+    white-space: normal;
+  }
+
+  .bottomRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(16 * var(--l-vw));
   }
 
   .copyright {

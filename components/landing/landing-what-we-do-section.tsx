@@ -1,3 +1,6 @@
+"use client";
+
+import type { Ref } from "react";
 import {
   LandingHeadingReveal,
   LandingSubheadingReveal,
@@ -5,9 +8,14 @@ import {
 import styles from "./landing-what-we-do-section.module.css";
 
 /** Figma 713:895 — The Solution */
-export function LandingWhatWeDoSection() {
+export function LandingWhatWeDoSection({
+  sectionRef,
+}: {
+  sectionRef?: Ref<HTMLElement>;
+} = {}) {
   return (
     <section
+      ref={sectionRef}
       className={`${styles.section} landing-what-we-do-section`}
       aria-labelledby="landing-solution-heading"
       data-name="What We Do Container"

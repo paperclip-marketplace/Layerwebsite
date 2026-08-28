@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   useLayoutEffect,
   useRef,
+  useState,
   type ComponentPropsWithoutRef,
   type ReactNode,
 } from "react";
@@ -123,6 +124,9 @@ function setupSplitTextReveal(container: HTMLElement) {
   return { firstLineWords, lineSlides };
 }
 
+/** Survives pin remounts so a heading that already entered never replays. */
+const playedHeadingIds = new Set<string>();
+
 /** GSAP scroll reveal — first line words, then following lines slide up from below. */
 export function LandingHeadingReveal({
   children,
@@ -133,22 +137,20 @@ export function LandingHeadingReveal({
 }: HeadingRevealProps) {
   const reduceMotion = useReducedMotion();
   const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const originalHtmlRef = useRef<string | null>(null);
+  const alreadyPlayed = id != null && playedHeadingIds.has(id);
 
   useLayoutEffect(() => {
     const el = headingRef.current;
-    if (!el || reduceMotion) return;
-
-    if (originalHtmlRef.current === null) {
-      originalHtmlRef.current = el.innerHTML;
-    } else {
-      el.innerHTML = originalHtmlRef.current;
-    }
+    if (!el || reduceMotion || alreadyPlayed) return;
 
     const { firstLineWords, lineSlides } = setupSplitTextReveal(el);
 
     gsap.set(firstLineWords, { yPercent: 110 });
     gsap.set(lineSlides, { yPercent: 100 });
+
+    const markPlayed = () => {
+      if (id) playedHeadingIds.add(id);
+    };
 
     const timeline = gsap.timeline({
       scrollTrigger: {
@@ -156,6 +158,8 @@ export function LandingHeadingReveal({
         start: "top 88%",
         toggleActions: "play none none none",
         once: true,
+        invalidateOnRefresh: false,
+        onEnter: markPlayed,
       },
     });
 
@@ -179,12 +183,14 @@ export function LandingHeadingReveal({
     });
 
     return () => {
+      gsap.set(firstLineWords, { yPercent: 0 });
+      gsap.set(lineSlides, { yPercent: 0 });
       timeline.scrollTrigger?.kill();
       timeline.kill();
     };
-  }, [children, reduceMotion]);
+  }, [alreadyPlayed, id, reduceMotion]);
 
-  if (reduceMotion) {
+  if (reduceMotion || alreadyPlayed) {
     return (
       <Tag id={id} className={className} {...rest}>
         {children}
@@ -213,8 +219,10 @@ export function LandingSubheadingReveal({
   ...rest
 }: SubheadingRevealProps) {
   const reduceMotion = useReducedMotion();
+  const revealedRef = useRef(id != null && playedHeadingIds.has(`sub:${id}`));
+  const [revealed, setRevealed] = useState(revealedRef.current);
 
-  if (reduceMotion) {
+  if (reduceMotion || revealed) {
     return (
       <p id={id} className={className} {...rest}>
         {children}
@@ -233,6 +241,12 @@ export function LandingSubheadingReveal({
         duration: 0.5,
         delay,
         ease: "easeOut",
+      }}
+      onAnimationComplete={() => {
+        if (revealedRef.current) return;
+        revealedRef.current = true;
+        if (id) playedHeadingIds.add(`sub:${id}`);
+        setRevealed(true);
       }}
     >
       {children}
