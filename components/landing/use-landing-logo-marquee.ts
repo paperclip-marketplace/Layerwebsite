@@ -31,6 +31,9 @@ export function useLandingLogoMarquee({
     const tickerWrap =
       viewport.closest<HTMLElement>("[data-logo-marquee]") ?? viewport;
 
+    const cells = cellsRef.current;
+    if (!cells) return;
+
     let rafId = 0;
     let bindRafId = 0;
     let animation: Animation | null = null;
@@ -42,7 +45,7 @@ export function useLandingLogoMarquee({
       let bestIndex = -1;
       let bestDistance = Infinity;
 
-      cellsRef.current.forEach((cell, index) => {
+      cells.forEach((cell, index) => {
         if (!cell || cell.dataset.forceMuted === "true") return;
 
         const rect = cell.getBoundingClientRect();
@@ -69,7 +72,7 @@ export function useLandingLogoMarquee({
         activeIndex = findCenterIndex(centerX);
       }
 
-      for (const [index, cell] of cellsRef.current.entries()) {
+      for (const [index, cell] of cells.entries()) {
         if (!cell) continue;
 
         const isForceMuted = cell.dataset.forceMuted === "true";
@@ -103,7 +106,7 @@ export function useLandingLogoMarquee({
 
     const cellCleanups: Array<() => void> = [];
 
-    for (const [index, cell] of cellsRef.current.entries()) {
+    for (const [index, cell] of cells.entries()) {
       if (!cell) continue;
 
       const onCellEnter = () => {
@@ -144,7 +147,7 @@ export function useLandingLogoMarquee({
     }
 
     if (reducedMotion.matches) {
-      for (const cell of cellsRef.current) {
+      for (const cell of cells) {
         cell?.classList.add(activeClassName);
       }
       return () => {
@@ -175,7 +178,7 @@ export function useLandingLogoMarquee({
     const onReducedMotionChange = (event: MediaQueryListEvent) => {
       if (event.matches) {
         cancelAnimationFrame(rafId);
-        for (const cell of cellsRef.current) {
+        for (const cell of cells) {
           cell?.classList.add(activeClassName);
         }
       } else {

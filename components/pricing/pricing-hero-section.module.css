@@ -56,7 +56,7 @@
 @media (max-width: 768px) {
   .section {
     gap: calc(16 * var(--l-vw));
-    padding-top: calc(64 * var(--l-vw));
+    padding: var(--l-pricing-hero-pt) var(--l-inset-x, 20px) 0;
   }
 
   .badge {

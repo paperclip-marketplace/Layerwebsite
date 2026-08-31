@@ -421,7 +421,7 @@ export function FixedExploreFeaturesButton() {
     measurePillSize();
   }, [pathname, isOpen, measurePillSize]);
 
-  if (!CUSTOMER_FACING_PRODUCT_PAGE_HREFS.includes(pathname)) {
+  if (!(CUSTOMER_FACING_PRODUCT_PAGE_HREFS as readonly string[]).includes(pathname)) {
     return null;
   }
 
