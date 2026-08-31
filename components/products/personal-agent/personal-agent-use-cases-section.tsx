@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, type RefObject } from "react";
 import {
   LandingHeadingReveal,
   LandingSubheadingReveal,
@@ -165,7 +165,7 @@ function UseCaseCardTrack({
   return (
     <div className={styles.carouselInner}>
       <div
-        ref={trackRef}
+        ref={trackRef as RefObject<HTMLDivElement>}
         className={`${styles.track} ${pinEnabled ? styles.trackPinned : ""}`}
         data-node-id="1091:5937"
         role="list"

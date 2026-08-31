@@ -501,6 +501,21 @@
 }
 
 @media (max-width: 768px) {
+  .landing-main .landing-page-gutter .landing-top-section {
+    padding-left: var(--l-inset-x, 20px);
+    padding-right: var(--l-inset-x, 20px);
+  }
+
+  .landing-main .landing-page-gutter .landing-hero-section {
+    padding-left: var(--l-inset-x, 20px);
+    padding-right: var(--l-inset-x, 20px);
+  }
+
+  .landing-main .landing-page-gutter .landing-failure-points-section [class*="row"] {
+    padding-left: var(--l-inset-x, 20px);
+    padding-right: var(--l-inset-x, 20px);
+  }
+
   .landing-main .landing-page-gutter .landing-problem-citation {
     box-sizing: border-box;
     padding-top: 5px;
