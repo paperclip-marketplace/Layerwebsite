@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 import { LandingPageShell } from "@/components/landing/landing-page-shell";
 import { ROUTES } from "@/lib/config/constants";
@@ -39,6 +39,19 @@ export function ContactPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) 
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [errors, setErrors] = useState<ContactLeadErrors>({});
   const [submitError, setSubmitError] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+  const captchaTimestampRef = useRef(Date.now());
+
+  useEffect(() => {
+    const updateCaptchaTimestamp = () => {
+      const response = formRef.current?.querySelector<HTMLTextAreaElement>(
+        '[name="g-recaptcha-response"]',
+      );
+      if (!response?.value.trim()) captchaTimestampRef.current = Date.now();
+    };
+    const interval = window.setInterval(updateCaptchaTimestamp, 500);
+    return () => window.clearInterval(interval);
+  }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,7 +75,11 @@ export function ContactPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) 
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...values, recaptchaToken }),
+        body: JSON.stringify({
+          ...values,
+          recaptchaToken,
+          captchaTimestamp: captchaTimestampRef.current,
+        }),
       });
       const result = (await response.json()) as {
         ok: boolean;
@@ -137,7 +154,12 @@ export function ContactPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) 
               <Link href={ROUTES.home}>Back to Layer</Link>
             </div>
           ) : (
-            <form className={styles.form} onSubmit={handleSubmit} noValidate>
+            <form
+              ref={formRef}
+              className={styles.form}
+              onSubmit={handleSubmit}
+              noValidate
+            >
               <div className={styles.formHeading}>
                 <h2>Talk to Layer</h2>
                 <p>Required fields are marked with an asterisk.</p>

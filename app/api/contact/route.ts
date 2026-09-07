@@ -59,6 +59,10 @@ export async function POST(request: Request) {
     typeof (body as Record<string, unknown>).recaptchaToken === "string"
       ? (body as Record<string, string>).recaptchaToken.trim()
       : "";
+  const captchaTimestamp =
+    typeof (body as Record<string, unknown>).captchaTimestamp === "number"
+      ? (body as Record<string, number>).captchaTimestamp
+      : Date.now();
 
   if (!orgId || !recaptchaKeyName) {
     console.error("Salesforce Web-to-Lead is not configured");
@@ -84,6 +88,7 @@ export async function POST(request: Request) {
     recaptchaKeyName,
     recaptchaToken,
     debugEmail,
+    submittedAt: captchaTimestamp,
   });
 
   try {
@@ -97,7 +102,7 @@ export async function POST(request: Request) {
       cache: "no-store",
     });
 
-    if (![301, 302, 303].includes(response.status)) {
+    if (!response.ok && ![301, 302, 303].includes(response.status)) {
       const responseText = await response.text();
       console.error("Salesforce Web-to-Lead returned an unexpected response", {
         status: response.status,
