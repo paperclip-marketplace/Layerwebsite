@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 import { LandingPageShell } from "@/components/landing/landing-page-shell";
 import { ROUTES } from "@/lib/config/constants";
@@ -10,6 +10,11 @@ import type {
   ContactLeadErrors,
   ContactLeadField,
 } from "@/lib/contact/lead";
+import {
+  renderRecaptchaOnce,
+  type RecaptchaClient,
+  type RecaptchaRenderState,
+} from "@/lib/contact/recaptcha";
 
 import styles from "./contact-page.module.css";
 
@@ -17,7 +22,7 @@ type SubmitState = "idle" | "submitting" | "success" | "error";
 
 declare global {
   interface Window {
-    grecaptcha?: { reset: () => void };
+    grecaptcha?: RecaptchaClient;
   }
 }
 
@@ -40,7 +45,21 @@ export function ContactPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) 
   const [errors, setErrors] = useState<ContactLeadErrors>({});
   const [submitError, setSubmitError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+  const captchaContainerRef = useRef<HTMLDivElement>(null);
+  const captchaRenderStateRef = useRef<RecaptchaRenderState>({
+    status: "idle",
+    widgetId: null,
+  });
   const captchaTimestampRef = useRef(Date.now());
+
+  const renderCaptcha = useCallback(() => {
+    renderRecaptchaOnce(
+      window.grecaptcha,
+      captchaContainerRef.current,
+      recaptchaSiteKey,
+      captchaRenderStateRef.current,
+    );
+  }, [recaptchaSiteKey]);
 
   useEffect(() => {
     const updateCaptchaTimestamp = () => {
@@ -92,7 +111,9 @@ export function ContactPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) 
         setSubmitError(
           result.message ?? "We could not send your message. Please try again.",
         );
-        window.grecaptcha?.reset();
+        window.grecaptcha?.reset(
+          captchaRenderStateRef.current.widgetId ?? undefined,
+        );
         setSubmitState("error");
         return;
       }
@@ -101,7 +122,9 @@ export function ContactPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) 
       setSubmitState("success");
     } catch {
       setSubmitError("We could not send your message. Please try again.");
-      window.grecaptcha?.reset();
+      window.grecaptcha?.reset(
+        captchaRenderStateRef.current.widgetId ?? undefined,
+      );
       setSubmitState("error");
     }
   };
@@ -110,8 +133,9 @@ export function ContactPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) 
     <LandingPageShell pageClassName={styles.page}>
       {recaptchaSiteKey ? (
         <Script
-          src="https://www.google.com/recaptcha/api.js"
+          src="https://www.google.com/recaptcha/api.js?render=explicit"
           strategy="afterInteractive"
+          onReady={renderCaptcha}
         />
       ) : null}
       <main className={styles.main} id="main">
@@ -264,10 +288,7 @@ export function ContactPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) 
 
               {recaptchaSiteKey ? (
                 <div className={styles.recaptcha}>
-                  <div
-                    className="g-recaptcha"
-                    data-sitekey={recaptchaSiteKey}
-                  />
+                  <div ref={captchaContainerRef} />
                 </div>
               ) : (
                 <p className={styles.submitError} role="alert">

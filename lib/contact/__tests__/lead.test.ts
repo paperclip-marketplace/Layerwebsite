@@ -6,6 +6,10 @@ import {
   buildWebToLeadUrl,
   parseContactLead,
 } from "../lead.ts";
+import {
+  renderRecaptchaOnce,
+  type RecaptchaRenderState,
+} from "../recaptcha.ts";
 
 test("normalizes a valid contact submission", () => {
   const result = parseContactLead({
@@ -142,4 +146,28 @@ test("adds Salesforce debug fields only when a debug email is configured", () =>
   });
   assert.equal(debugPayload.get("debug"), "1");
   assert.equal(debugPayload.get("debugEmail"), "debug@example.com");
+});
+
+test("renders reCAPTCHA explicitly once when its script is already loaded", () => {
+  let readyCallback: (() => void) | undefined;
+  const renderCalls: Array<{ sitekey: string }> = [];
+  const client = {
+    ready(callback: () => void) {
+      readyCallback = callback;
+    },
+    render(_container: HTMLElement, parameters: { sitekey: string }) {
+      renderCalls.push(parameters);
+      return 7;
+    },
+    reset() {},
+  };
+  const container = { isConnected: true } as HTMLElement;
+  const state: RecaptchaRenderState = { status: "idle", widgetId: null };
+
+  renderRecaptchaOnce(client, container, "site-key", state);
+  renderRecaptchaOnce(client, container, "site-key", state);
+  readyCallback?.();
+
+  assert.deepEqual(renderCalls, [{ sitekey: "site-key" }]);
+  assert.deepEqual(state, { status: "rendered", widgetId: 7 });
 });
