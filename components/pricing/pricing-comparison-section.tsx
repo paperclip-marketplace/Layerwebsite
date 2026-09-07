@@ -282,7 +282,7 @@ export function PricingComparisonSection() {
           </div>
 
           <div className={styles.ctaGroup}>
-            <Link href={ROUTES.signUp} className={styles.ctaPrimary}>
+            <Link href={ROUTES.contactSales} className={styles.ctaPrimary}>
               <span className={styles.ctaPrimaryLabel}>
                 Talk to a GTM Architect
               </span>
