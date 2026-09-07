@@ -3,11 +3,9 @@ import { NextResponse } from "next/server";
 import { APP_CONFIG } from "@/lib/config/constants";
 import {
   buildWebToLeadPayload,
+  buildWebToLeadUrl,
   parseContactLead,
 } from "@/lib/contact/lead";
-
-const SALESFORCE_WEB_TO_LEAD_URL =
-  "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
 
 function requestIsSameOrigin(request: Request): boolean {
   const origin = request.headers.get("origin");
@@ -87,7 +85,7 @@ export async function POST(request: Request) {
   });
 
   try {
-    const response = await fetch(SALESFORCE_WEB_TO_LEAD_URL, {
+    const response = await fetch(buildWebToLeadUrl(orgId), {
       method: "POST",
       headers: {
         "content-type": "application/x-www-form-urlencoded",

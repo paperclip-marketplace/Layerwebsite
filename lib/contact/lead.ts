@@ -33,6 +33,8 @@ type WebToLeadConfig = {
 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const SALESFORCE_WEB_TO_LEAD_URL =
+  "https://webto.salesforce.com/servlet/servlet.WebToLead";
 
 function readString(value: unknown, maxLength: number): string {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
@@ -79,6 +81,13 @@ export function parseContactLead(input: unknown): ContactLeadParseResult {
   return Object.keys(errors).length > 0
     ? { ok: false, errors }
     : { ok: true, data };
+}
+
+export function buildWebToLeadUrl(orgId: string): string {
+  const url = new URL(SALESFORCE_WEB_TO_LEAD_URL);
+  url.searchParams.set("encoding", "UTF-8");
+  url.searchParams.set("orgId", orgId);
+  return url.toString();
 }
 
 export function buildWebToLeadPayload(

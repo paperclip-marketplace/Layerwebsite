@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   buildWebToLeadPayload,
+  buildWebToLeadUrl,
   parseContactLead,
 } from "../lead.ts";
 
@@ -104,4 +105,11 @@ test("maps the contact form to Salesforce Web-to-Lead fields", () => {
     }),
     "g-recaptcha-response": "captcha-token",
   });
+});
+
+test("includes the org ID in Salesforce's reCAPTCHA submission URL", () => {
+  assert.equal(
+    buildWebToLeadUrl("00D000000000001"),
+    "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D000000000001",
+  );
 });
