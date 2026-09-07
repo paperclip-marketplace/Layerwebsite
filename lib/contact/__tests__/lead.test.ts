@@ -80,7 +80,7 @@ test("maps the contact form to Salesforce Web-to-Lead fields", () => {
   const payload = buildWebToLeadPayload(parsed.data, {
     orgId: "00D000000000001",
     returnUrl: "https://www.withlayer.ai/contact?submitted=1",
-    recaptchaKeyName: "Layer_Website_Production",
+    recaptchaKeyName: "Layer_Website_Production_Rotated",
     recaptchaToken: "captcha-token",
     submittedAt: 1_788_782_400_000,
   });
@@ -97,7 +97,7 @@ test("maps the contact form to Salesforce Web-to-Lead fields", () => {
     description: "Improve discovery consistency.",
     lead_source: "Web",
     captcha_settings: JSON.stringify({
-      keyname: "Layer_Website_Production",
+      keyname: "Layer_Website_Production_Rotated",
       fallback: "true",
       orgId: "00D000000000001",
       ts: "1788782400000",
