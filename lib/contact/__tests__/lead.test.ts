@@ -113,3 +113,33 @@ test("includes the org ID in Salesforce's reCAPTCHA submission URL", () => {
     "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D000000000001",
   );
 });
+
+test("adds Salesforce debug fields only when a debug email is configured", () => {
+  const lead = {
+    firstName: "Ada",
+    lastName: "Lovelace",
+    email: "ada@example.com",
+    company: "Analytical Engines Ltd",
+    jobTitle: "",
+    phone: "",
+    message: "",
+  };
+  const config = {
+    orgId: "00D000000000001",
+    returnUrl: "https://www.withlayer.ai/contact?submitted=1",
+    recaptchaKeyName: "Layer_Website_Production_Rotated",
+    recaptchaToken: "captcha-token",
+    submittedAt: 1_788_782_400_000,
+  };
+
+  const normalPayload = buildWebToLeadPayload(lead, config);
+  assert.equal(normalPayload.has("debug"), false);
+  assert.equal(normalPayload.has("debugEmail"), false);
+
+  const debugPayload = buildWebToLeadPayload(lead, {
+    ...config,
+    debugEmail: "debug@example.com",
+  });
+  assert.equal(debugPayload.get("debug"), "1");
+  assert.equal(debugPayload.get("debugEmail"), "debug@example.com");
+});

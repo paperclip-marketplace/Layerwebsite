@@ -54,6 +54,7 @@ export async function POST(request: Request) {
   const orgId = process.env.SALESFORCE_WEB_TO_LEAD_ORG_ID?.trim();
   const recaptchaKeyName =
     process.env.SALESFORCE_WEB_TO_LEAD_RECAPTCHA_KEY_NAME?.trim();
+  const debugEmail = process.env.SALESFORCE_WEB_TO_LEAD_DEBUG_EMAIL?.trim();
   const recaptchaToken =
     typeof (body as Record<string, unknown>).recaptchaToken === "string"
       ? (body as Record<string, string>).recaptchaToken.trim()
@@ -82,6 +83,7 @@ export async function POST(request: Request) {
     returnUrl: new URL("/contact?submitted=1", APP_CONFIG.url).toString(),
     recaptchaKeyName,
     recaptchaToken,
+    debugEmail,
   });
 
   try {
@@ -96,6 +98,15 @@ export async function POST(request: Request) {
     });
 
     if (![301, 302, 303].includes(response.status)) {
+      const responseText = await response.text();
+      console.error("Salesforce Web-to-Lead returned an unexpected response", {
+        status: response.status,
+        contentType: response.headers.get("content-type"),
+        responseUrl: response.url,
+        responseLength: responseText.length,
+        mentionsCaptcha: /captcha/i.test(responseText),
+        mentionsError: /error|invalid|failed|could not/i.test(responseText),
+      });
       throw new Error(`Salesforce returned ${response.status}`);
     }
   } catch (error) {

@@ -29,6 +29,7 @@ type WebToLeadConfig = {
   returnUrl: string;
   recaptchaKeyName: string;
   recaptchaToken: string;
+  debugEmail?: string;
   submittedAt?: number;
 };
 
@@ -115,6 +116,10 @@ export function buildWebToLeadPayload(
   if (lead.jobTitle) payload.set("title", lead.jobTitle);
   if (lead.phone) payload.set("phone", lead.phone);
   if (lead.message) payload.set("description", lead.message);
+  if (config.debugEmail) {
+    payload.set("debug", "1");
+    payload.set("debugEmail", config.debugEmail);
+  }
 
   return payload;
 }
