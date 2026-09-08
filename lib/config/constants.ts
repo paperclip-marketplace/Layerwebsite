@@ -35,6 +35,7 @@ export const ROUTES = {
   terms: '/terms',
   privacy: '/privacy',
   comingSoon: '/coming-soon',
+  contact: '/contact',
   contactSales: '/contact',
 } as const;
 
