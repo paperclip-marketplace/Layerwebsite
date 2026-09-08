@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "node --test lib/contact/__tests__/*.test.ts",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
   },

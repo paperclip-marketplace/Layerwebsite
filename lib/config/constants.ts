@@ -35,7 +35,8 @@ export const ROUTES = {
   terms: '/terms',
   privacy: '/privacy',
   comingSoon: '/coming-soon',
-  contactSales: 'mailto:hello@withlayer.ai',
+  contact: '/contact',
+  contactSales: '/contact',
 } as const;
 
 /** After auth: org members use home (member v2 shell on `/`); admins and others use personas. */

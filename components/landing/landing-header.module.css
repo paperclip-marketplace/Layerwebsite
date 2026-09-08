@@ -236,7 +236,12 @@
   }
 }
 
+/* Figma 1634:9239 — logo at x=20; don’t stack gutter + header padding */
 @media (max-width: 768px) {
+  .header :global(.landing-page-gutter) {
+    padding-inline: 0;
+  }
+
   .navLinks,
   .actions {
     display: none;
@@ -251,7 +256,7 @@
   .headerInner {
     height: 56px;
     min-height: 56px;
-    padding: 15px 20px;
+    padding: 16px 20px;
     box-sizing: border-box;
   }
 
