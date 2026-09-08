@@ -42,6 +42,19 @@
   background: #ffffff;
 }
 
+.backdropGlowClip {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Mobile-only — masks any glow bleed below the first-field crop line */
+.backdropMobileCap {
+  display: none;
+}
+
 /*
  * PitchBots glow — loads new-frame.svg (not the PNG).
  * Edit stop-color values in public/assets/images/contact/new-frame.svg
@@ -55,10 +68,26 @@
   width: 1800px;
   height: 250px;
   overflow: hidden;
-  /* Blur stays on the wrapper so pulse/flow can animate children safely */
+  /* Desktop: blur + flip on the ellipse itself */
   filter: blur(90px);
-  pointer-events: none;
   transform: scaleY(-1);
+  pointer-events: none;
+}
+
+/*
+ * Mobile uses this wrapper for blur/flip (markers stay outside).
+ * Desktop: passthrough only — parent .bottomEllipse owns blur/flip.
+ */
+.bottomEllipseBlur {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glowBoundTop,
+.glowBoundBottom {
+  display: none;
 }
 
 .bottomEllipsePulse {
@@ -344,6 +373,7 @@
   border-radius: calc(16 * var(--l-vw));
   background: #f9f9f9;
   box-shadow: 0 12px 16px rgba(0, 0, 0, 0.12);
+  overflow: visible;
 }
 
 /* Figma 1634:9657 — Success state (same card footprint as form) */
@@ -559,9 +589,10 @@
 }
 
 .textarea {
-  height: calc(156 * var(--l-vw));
-  resize: vertical;
-  min-height: calc(156 * var(--l-vw));
+  height: auto;
+  min-height: calc(156 * var(--l-vw) * 0.6);
+  overflow: hidden;
+  resize: none;
 }
 
 .input[aria-invalid="true"],
@@ -587,10 +618,25 @@
   overflow: hidden;
 }
 
-.recaptcha {
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--l-vw));
   align-self: stretch;
+  width: 100%;
+  overflow: visible;
+}
+
+.recaptcha {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-start;
+  width: 304px;
+  min-width: 304px;
   min-height: 78px;
-  overflow-x: auto;
+  overflow: visible;
 }
 
 .submitError {
@@ -616,7 +662,7 @@
   justify-content: center;
   gap: calc(8 * var(--l-vw));
   flex-shrink: 0;
-  margin: 0;
+  margin: 0 0 0 auto;
   padding: calc(12 * var(--l-vw)) calc(36 * var(--l-vw)) calc(12 * var(--l-vw))
     calc(40 * var(--l-vw));
   border: 1px solid #ffffff;
@@ -669,10 +715,121 @@
 
 /* Figma 1634:9238 — Contact Us mobile (402 reference) */
 @media (max-width: 768px) {
+  /*
+   * Mobile hero bg — hard bottom at Phone input (~872vw, same band as lead).
+   */
+  .backdrop {
+    top: 0;
+    bottom: auto;
+    height: var(--contact-mobile-bg-crop-y, calc(872 * var(--l-vw)));
+    --contact-grid-x: calc(169.25 * var(--l-vw));
+    --contact-grid-y: calc(149.07 * var(--l-vw));
+    overflow: hidden;
+    clip-path: inset(0 0 0 0);
+    contain: paint;
+  }
+
+  .backdropGlowClip {
+    overflow: hidden;
+  }
+
+  .backdropMobileCap {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    top: var(--contact-mobile-bg-crop-y, calc(872 * var(--l-vw)));
+    bottom: 0;
+    background: #ffffff;
+    pointer-events: none;
+  }
+
+  .backdropGrid {
+    -webkit-mask-image: linear-gradient(
+      0deg,
+      #000 0%,
+      rgba(0, 0, 0, 0.926) 11.79%,
+      rgba(0, 0, 0, 0.846) 21.384%,
+      rgba(0, 0, 0, 0.762) 29.12%,
+      rgba(0, 0, 0, 0.674) 35.336%,
+      rgba(0, 0, 0, 0.585) 40.37%,
+      rgba(0, 0, 0, 0.497) 44.56%,
+      rgba(0, 0, 0, 0.411) 48.243%,
+      rgba(0, 0, 0, 0.328) 51.757%,
+      rgba(0, 0, 0, 0.251) 55.44%,
+      rgba(0, 0, 0, 0.181) 59.63%,
+      rgba(0, 0, 0, 0.121) 64.664%,
+      rgba(0, 0, 0, 0.07) 70.88%,
+      rgba(0, 0, 0, 0.032) 78.616%,
+      rgba(0, 0, 0, 0.008) 88.21%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      0deg,
+      #000 0%,
+      rgba(0, 0, 0, 0.926) 11.79%,
+      rgba(0, 0, 0, 0.846) 21.384%,
+      rgba(0, 0, 0, 0.762) 29.12%,
+      rgba(0, 0, 0, 0.674) 35.336%,
+      rgba(0, 0, 0, 0.585) 40.37%,
+      rgba(0, 0, 0, 0.497) 44.56%,
+      rgba(0, 0, 0, 0.411) 48.243%,
+      rgba(0, 0, 0, 0.328) 51.757%,
+      rgba(0, 0, 0, 0.251) 55.44%,
+      rgba(0, 0, 0, 0.181) 59.63%,
+      rgba(0, 0, 0, 0.121) 64.664%,
+      rgba(0, 0, 0, 0.07) 70.88%,
+      rgba(0, 0, 0, 0.032) 78.616%,
+      rgba(0, 0, 0, 0.008) 88.21%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .backdropGridV,
+  .backdropGridH {
+    background-position: center bottom;
+  }
+
+  .bottomEllipse {
+    left: 50%;
+    top: 200px;
+    bottom: auto;
+    width: calc(2484 / 402 * 100%);
+    height: calc(100% - 200px);
+    margin-left: 0;
+    filter: none;
+    transform: translateX(-50%);
+  }
+
+  .bottomEllipseBlur {
+    filter: blur(72px);
+    transform: scaleY(-1);
+  }
+
+  .bottomEllipsePulse,
+  .bottomEllipseFlow {
+    animation: none;
+  }
+
+  .bottomEllipsePulse {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .bottomEllipseFlow {
+    transform: none;
+  }
+
+  .backdropFade {
+    display: none;
+  }
+
   .content {
     gap: 40px;
-    /* Gutter already provides 20px inset */
-    padding: 40px 0 80px;
+    padding: 40px var(--l-inset-x, 20px) 40px;
   }
 
   .badge {
@@ -812,9 +969,10 @@
   }
 
   .textarea {
-    height: 156px;
-    min-height: 156px;
-    resize: vertical;
+    height: auto;
+    min-height: 94px;
+    overflow: hidden;
+    resize: none;
   }
 
   .fieldError {
@@ -828,6 +986,19 @@
     font-size: 14px;
   }
 
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .recaptcha {
+    width: 100%;
+    min-width: 0;
+    max-width: 304px;
+    overflow-x: auto;
+  }
+
   /* Figma 1634:9566 — full-width 48px pill button */
   .submit {
     display: inline-flex;
@@ -838,6 +1009,7 @@
     box-sizing: border-box;
     width: 100%;
     height: 48px;
+    margin: 0;
     padding: 12px 36px 12px 40px;
     border: 1px solid #ffffff;
     border-radius: 40px;

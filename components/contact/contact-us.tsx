@@ -6,9 +6,11 @@ import {
   FormEvent,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type ChangeEvent,
+  type RefObject,
 } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -31,6 +33,68 @@ import { SuccessCheckIcon } from "./success-check-icon";
 import styles from "./contact-us.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
+
+/** Mobile-only: clip hero grid/glow to the Phone input — matches lead's ~872vw band. */
+function useMobileBackdropCrop(sectionRef: RefObject<HTMLElement | null>) {
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const mq = window.matchMedia("(max-width: 768px)");
+
+    const update = () => {
+      if (!mq.matches) {
+        section.style.removeProperty("--contact-mobile-bg-crop-y");
+        return;
+      }
+
+      const anchor = section.querySelector<HTMLElement>(
+        "[data-contact-mobile-bg-anchor]",
+      );
+      if (!anchor) {
+        section.style.removeProperty("--contact-mobile-bg-crop-y");
+        return;
+      }
+
+      const cropY = Math.max(
+        0,
+        anchor.getBoundingClientRect().top -
+          section.getBoundingClientRect().top,
+      );
+      section.style.setProperty("--contact-mobile-bg-crop-y", `${cropY}px`);
+    };
+
+    const scheduleUpdate = () => {
+      update();
+      window.requestAnimationFrame(update);
+    };
+
+    scheduleUpdate();
+
+    const ro = new ResizeObserver(scheduleUpdate);
+    ro.observe(section);
+
+    const observeAnchor = () => {
+      const anchor = section.querySelector<HTMLElement>(
+        "[data-contact-mobile-bg-anchor]",
+      );
+      if (anchor) ro.observe(anchor);
+    };
+    observeAnchor();
+
+    mq.addEventListener("change", scheduleUpdate);
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("load", scheduleUpdate);
+    void document.fonts?.ready.then(scheduleUpdate);
+
+    return () => {
+      ro.disconnect();
+      mq.removeEventListener("change", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("load", scheduleUpdate);
+    };
+  }, [sectionRef]);
+}
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
@@ -85,6 +149,7 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
   const [errors, setErrors] = useState<ContactLeadErrors>({});
   const [submitError, setSubmitError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
   const captchaContainerRef = useRef<HTMLDivElement>(null);
   const captchaRenderStateRef = useRef<RecaptchaRenderState>({
     status: "idle",
@@ -93,7 +158,7 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
   const captchaTimestampRef = useRef(Date.now());
   const submitted = submitState === "success";
 
-  const renderCaptcha = useCallback(() => {
+  const tryRenderCaptcha = useCallback(() => {
     renderRecaptchaOnce(
       window.grecaptcha,
       captchaContainerRef.current,
@@ -101,6 +166,18 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
       captchaRenderStateRef.current,
     );
   }, [recaptchaSiteKey]);
+
+  const setCaptchaContainer = useCallback(
+    (node: HTMLDivElement | null) => {
+      captchaContainerRef.current = node;
+      if (node) tryRenderCaptcha();
+    },
+    [tryRenderCaptcha],
+  );
+
+  useEffect(() => {
+    tryRenderCaptcha();
+  }, [tryRenderCaptcha]);
 
   useEffect(() => {
     const updateCaptchaTimestamp = () => {
@@ -120,6 +197,17 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
     });
     return () => window.cancelAnimationFrame(id);
   }, [submitted]);
+
+  const resizeMessageField = useCallback(() => {
+    const el = messageRef.current;
+    if (!el) return;
+    el.style.height = "0px";
+    el.style.height = `${el.scrollHeight}px`;
+  }, []);
+
+  useEffect(() => {
+    resizeMessageField();
+  }, [form.message, resizeMessageField]);
 
   const updateField =
     (field: keyof ContactFormState) =>
@@ -232,7 +320,7 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
         <Script
           src="https://www.google.com/recaptcha/api.js?render=explicit"
           strategy="afterInteractive"
-          onReady={renderCaptcha}
+          onReady={tryRenderCaptcha}
         />
       ) : null}
       <form
@@ -372,6 +460,7 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
                 placeholder="+1 555 000 0000"
                 value={form.phone}
                 onChange={updateField("phone")}
+                data-contact-mobile-bg-anchor
               />
             </label>
           </div>
@@ -382,8 +471,10 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
             </span>
             <textarea
               id={FIELD_IDS.message}
+              ref={messageRef}
               className={styles.textarea}
               name="message"
+              rows={3}
               placeholder="Enter your message..."
               value={form.message}
               onChange={updateField("message")}
@@ -405,16 +496,12 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
           <input name="website" tabIndex={-1} autoComplete="off" />
         </label>
 
-        {recaptchaSiteKey ? (
-          <div className={styles.recaptcha}>
-            <div ref={captchaContainerRef} />
-          </div>
-        ) : (
+        {!recaptchaSiteKey ? (
           <p className={styles.submitError} role="alert">
             This form is temporarily unavailable. Please email{" "}
             <a href="mailto:hello@withlayer.ai">hello@withlayer.ai</a>.
           </p>
-        )}
+        ) : null}
 
         {submitError ? (
           <p className={styles.submitError} role="alert">
@@ -422,23 +509,28 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
           </p>
         ) : null}
 
-        <button
-          type="submit"
-          className={styles.submit}
-          data-node-id="1634:8827"
-          data-name="button"
-          disabled={submitState === "submitting" || !recaptchaSiteKey}
-        >
-          <span>
-            {submitState === "submitting" ? "Sending…" : "Send Message"}
-          </span>
-          <span
-            className={`material-symbols-rounded ${styles.submitIcon}`}
-            aria-hidden
+        <div className={styles.actionsRow}>
+          <div className={styles.recaptcha}>
+            <div ref={setCaptchaContainer} />
+          </div>
+          <button
+            type="submit"
+            className={styles.submit}
+            data-node-id="1634:8827"
+            data-name="button"
+            disabled={submitState === "submitting" || !recaptchaSiteKey}
           >
-            arrow_forward
-          </span>
-        </button>
+            <span>
+              {submitState === "submitting" ? "Sending…" : "Send Message"}
+            </span>
+            <span
+              className={`material-symbols-rounded ${styles.submitIcon}`}
+              aria-hidden
+            >
+              arrow_forward
+            </span>
+          </button>
+        </div>
       </form>
     </>
   );
@@ -446,8 +538,12 @@ function ContactFormCard({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
 
 /** Figma 1634:8775 — Contact Us section (copy + form / success card). */
 export function ContactUs({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  useMobileBackdropCrop(sectionRef);
+
   return (
     <section
+      ref={sectionRef}
       className={styles.section}
       aria-labelledby="contact-us-heading"
       data-node-id="1634:8775"
@@ -460,23 +556,26 @@ export function ContactUs({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
         data-name="bg"
       >
         <div className={styles.backdropWhite} />
-        {/*
-          PitchBots glow — under the grid. Edit colors in new-frame.svg
-        */}
-        <div className={styles.bottomEllipse}>
-          <div className={styles.bottomEllipsePulse}>
-            <div className={styles.bottomEllipseFlow}>
-              <img
-                src={CONTACT_ASSETS.bottomGlow}
-                alt=""
-                className={styles.bottomEllipseSvg}
-              />
-              <img
-                src={CONTACT_ASSETS.bottomGlow}
-                alt=""
-                className={styles.bottomEllipseSvg}
-                aria-hidden
-              />
+        <div className={styles.backdropGlowClip}>
+          <div className={styles.bottomEllipse}>
+            <span className={styles.glowBoundTop} aria-hidden />
+            <span className={styles.glowBoundBottom} aria-hidden />
+            <div className={styles.bottomEllipseBlur}>
+              <div className={styles.bottomEllipsePulse}>
+                <div className={styles.bottomEllipseFlow}>
+                  <img
+                    src={CONTACT_ASSETS.bottomGlow}
+                    alt=""
+                    className={styles.bottomEllipseSvg}
+                  />
+                  <img
+                    src={CONTACT_ASSETS.bottomGlow}
+                    alt=""
+                    className={styles.bottomEllipseSvg}
+                    aria-hidden
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -486,6 +585,7 @@ export function ContactUs({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
         </div>
         <div className={styles.backdropFade} data-node-id="1634:8768" />
       </div>
+      <div className={styles.backdropMobileCap} aria-hidden />
 
       <div className={styles.content}>
         <p className={styles.badge} data-node-id="1634:8776">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { ContactPage } from "@/components/contact/contact-page";
+import { getRecaptchaSiteKey } from "@/lib/contact/recaptcha";
 
 export const metadata: Metadata = {
   title: "Contact Us | Layer AI",
@@ -11,9 +12,7 @@ export const metadata: Metadata = {
 export default function ContactRoutePage() {
   return (
     <ContactPage
-      recaptchaSiteKey={
-        process.env.SALESFORCE_WEB_TO_LEAD_RECAPTCHA_SITE_KEY?.trim() ?? ""
-      }
+      recaptchaSiteKey={getRecaptchaSiteKey()}
     />
   );
 }
