@@ -15,7 +15,7 @@ export type TermsSection = {
 };
 
 export const TERMS_EFFECTIVE_DATE = "13 April 2026";
-export const TERMS_LAST_UPDATED = "13 April 2026";
+export const TERMS_LAST_UPDATED = "21 September 2026";
 
 export const TERMS_SECTIONS: TermsSection[] = [
   {
@@ -23,7 +23,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
     number: 1,
     title: "Introduction",
     paragraphs: [
-      'These Terms & Conditions ("Terms") govern your access to and use of the Layer AI platform and related services (the "Service"), provided by Paperclip Marketplace Ltd, a company registered in England and Wales, trading as Layer AI ("we", "us", or "our").',
+      'These Terms & Conditions ("Terms") govern your access to and use of the Layer AI platform and related services (the "Service"), provided by Layer AI Systems Ltd (company number 15632925), a company registered in England and Wales, trading as Layer AI ("we", "us", or "our").',
       "By accessing or using the Service, you agree to be bound by these Terms. If you are using the Service on behalf of an organisation, you represent that you have the authority to bind that organisation to these Terms.",
       "If you do not agree to these Terms, you must not use the Service.",
     ],
@@ -214,7 +214,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "our-ip",
         title: "7.1 Our IP",
         paragraphs: [
-          "The Service, including its software, AI models, design, trademarks, and documentation, is owned by or licensed to Paperclip Marketplace Ltd. Nothing in these Terms transfers intellectual property rights in the Service to you.",
+          "The Service, including its software, AI models, design, trademarks, and documentation, is owned by or licensed to Layer AI Systems Ltd. Nothing in these Terms transfers intellectual property rights in the Service to you.",
         ],
       },
       {
@@ -298,7 +298,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
     number: 11,
     title: "Indemnification",
     paragraphs: [
-      "You agree to indemnify and hold harmless Paperclip Marketplace Ltd, its directors, employees, and agents from claims, damages, losses, or expenses arising from:",
+      "You agree to indemnify and hold harmless Layer AI Systems Ltd, its directors, employees, and agents from claims, damages, losses, or expenses arising from:",
     ],
     bullets: [
       "Your use of the Service in breach of these Terms.",
@@ -379,7 +379,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
     title: "Contact Us",
     paragraphs: [
       "If you have any questions about these Terms, please contact us:",
-      "Paperclip Marketplace Ltd t/a Layer AI",
+      "Layer AI Systems Ltd, trading as Layer AI",
       "Email: hello@withlayer.ai",
       "Website: withlayer.ai",
     ],
