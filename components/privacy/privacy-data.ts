@@ -1,7 +1,7 @@
 import type { LegalSection } from "@/components/legal/types";
 
 export const PRIVACY_EFFECTIVE_DATE = "13 April 2026";
-export const PRIVACY_LAST_UPDATED = "13 April 2026";
+export const PRIVACY_LAST_UPDATED = "21 September 2026";
 
 export const PRIVACY_SECTIONS: LegalSection[] = [
   {
@@ -9,8 +9,8 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     number: 1,
     title: "Who We Are",
     paragraphs: [
-      'Layer AI is a trading name of **Paperclip Marketplace Ltd**, a company registered in England and Wales. We provide an AI-powered platform that helps go-to-market teams work more effectively (the **"Service"**). The Service includes AI assistants, sales practice and simulation tools, live meeting support, deal preparation, post-meeting workflows, coaching, and integrations with your existing business tools.',
-      "For the purposes of the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018, Paperclip Marketplace Ltd is the data controller in respect of the personal data we process through the Service.",
+      'Layer AI is a trading name of **Layer AI Systems Ltd** (company number 15632925), a company registered in England and Wales. We provide an AI-powered platform that helps go-to-market teams work more effectively (the **"Service"**). The Service includes AI assistants, sales practice and simulation tools, live meeting support, deal preparation, post-meeting workflows, coaching, and integrations with your existing business tools.',
+      "For the purposes of the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018, Layer AI Systems Ltd is the data controller in respect of the personal data we process through the Service.",
       "Contact: hello@withlayer.ai",
     ],
   },
@@ -58,15 +58,23 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
         ],
       },
       {
+        id: "google-workspace-api-data",
+        title: "2.5 Google Workspace API Data",
+        paragraphs: [
+          "Layer AI Systems Ltd's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.",
+          "We do not use Google Workspace user data, including raw or derived data, to create, train, or improve generalised, foundational, or frontier artificial intelligence or machine learning models. We use Google Workspace user data only to provide or improve user-facing features that the user has authorised. Where service providers process this data on our behalf, they may do so only as necessary to deliver those features and under contractual restrictions that prohibit model training or use for unrelated purposes.",
+        ],
+      },
+      {
         id: "actions-and-workflow",
-        title: "2.5 Actions and Workflow Data",
+        title: "2.6 Actions and Workflow Data",
         paragraphs: [
           "The Service may perform actions within your connected tools on your behalf, such as drafting CRM updates, preparing email drafts, or creating calendar events. We log records of actions taken or proposed, including any approval requests and outcomes.",
         ],
       },
       {
         id: "usage-analytics-technical",
-        title: "2.6 Usage, Analytics, and Technical Data",
+        title: "2.7 Usage, Analytics, and Technical Data",
         paragraphs: [
           "We automatically collect information about how you interact with the Service (features used, session frequency, interaction patterns) as well as standard technical data (IP address, browser type, device information, operating system).",
         ],
@@ -102,7 +110,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
       "We use AI to provide all core features of the Service, including simulated conversations, live meeting assistance, content generation, scoring, coaching, and workflow automation.",
       "We use third-party AI service providers for capabilities including language processing, speech recognition, and speech synthesis. Data is transmitted to these providers during active use. We require all AI providers to process data under data processing agreements and do not permit them to use your data to train their models.",
       "The Service learns from your feedback (such as accepting, editing, or dismissing suggestions) to improve its relevance to you over time. We do not use your individual data to train foundation AI models.",
-      "significant actions (such as sending communications or making commercial commitments) require your explicit confirmation.",
+      "Significant actions (such as sending communications or making commercial commitments) require your explicit confirmation.",
       "Your organisation's administrators may have access to aggregated performance and usage data.",
     ],
   },
@@ -175,7 +183,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     number: 10,
     title: "Security",
     paragraphs: [
-      "in transit and at rest, strict data isolation between organisations, role-based access controls, and regular security monitoring. Raw data from your connected tools is processed in automated pipelines without human access and is not persistently stored.",
+      "We use technical and organisational measures designed to protect your data, including encryption in transit and at rest, strict data isolation between organisations, role-based access controls, and regular security monitoring. Raw data from your connected tools is processed in automated pipelines without human access and is not persistently stored.",
       "No system is completely secure. If you become aware of a security incident, please notify us immediately at hello@withlayer.ai.",
     ],
   },
@@ -201,7 +209,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     title: "Contact Us",
     paragraphs: [
       "If you have any questions about this Policy, please contact us:",
-      "Paperclip Marketplace Ltd t/a Layer AI",
+      "Layer AI Systems Ltd, trading as Layer AI",
       "Email: hello@withlayer.ai",
       "Website: withlayer.ai",
     ],
