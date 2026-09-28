@@ -33,3 +33,6 @@ next-env.d.ts
 
 # Local image optimization backups (do not commit)
 /_image-backup-pre-optimize/
+
+# Agent / design comparison screenshots (local only)
+.cursor-screenshots/
