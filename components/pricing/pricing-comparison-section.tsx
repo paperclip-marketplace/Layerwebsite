@@ -5,9 +5,9 @@ import { PricingSecurityCompliance } from "./pricing-security-compliance";
 import styles from "./pricing-comparison-section.module.css";
 
 const PLAN_ILLUSTRATIONS = {
-  solo: "/assets/images/pricing/plans/solo.png",
-  team: "/assets/images/pricing/plans/team.png",
-  growth: "/assets/images/pricing/plans/growth.png",
+  solo: "/assets/images/pricing/plans/solo.webp",
+  team: "/assets/images/pricing/plans/team.webp",
+  growth: "/assets/images/pricing/plans/growth.webp",
 } as const;
 
 const SHARED_FEATURES = [
