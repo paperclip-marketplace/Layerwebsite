@@ -141,16 +141,14 @@
   border-radius: inherit;
 }
 
-/*
- * Calibrated vs Figma 2303:22755 @ 1440px (layer opacities 24% / 46% read weaker in
- * browsers on black-matte PNGs once screen removes the matte).
- */
 .planCardArtStandardMask {
   opacity: 1;
 }
 
+/* +40% vs Solo / Team (opacity capped at 1 in CSS) */
 .planCardArtGrowthMask {
   opacity: 1;
+  filter: brightness(1.4);
 }
 
 .planCardArtImageStandard {
@@ -165,17 +163,20 @@
   mix-blend-mode: screen;
 }
 
+/* Figma 2303:22882 — image bottom aligns with growth fade (~9.12% from card top) */
 .planCardArtImageGrowth {
   position: absolute;
-  top: calc(-36 * var(--l-vw));
   left: 50%;
   width: 112%;
   height: auto;
+  aspect-ratio: 2784 / 2020;
   max-width: none;
   border-radius: inherit;
+  top: 9.12%;
+  transform: translate(calc(-50% + 10%), -100%);
   object-fit: cover;
-  object-position: top center;
-  transform: translateX(-50%);
+  object-position: center center;
+  mix-blend-mode: screen;
 }
 
 .planCardArtGradient {
