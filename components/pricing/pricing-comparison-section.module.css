@@ -1,4 +1,4 @@
-/* Figma 336:1761 — Pricing comparison */
+/* Figma 2303:22755 — Pricing plan cards */
 .section {
   display: flex;
   flex-direction: column;
@@ -6,108 +6,301 @@
   gap: calc(56 * var(--l-vw));
   box-sizing: border-box;
   width: 100%;
-  margin-top: calc(64 * var(--l-vw));
+  margin-top: calc(56 * var(--l-vw));
   padding: 0 var(--l-section-px);
 }
 
 .cardsRow {
   display: flex;
   gap: calc(20 * var(--l-vw));
-  align-items: flex-start;
+  align-items: flex-end;
+  justify-content: center;
   width: 100%;
 }
 
-.planCard {
+.planColumn {
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
-  align-items: flex-start;
-  gap: var(--l-section-gap);
+  justify-content: flex-end;
   min-width: 0;
-  box-sizing: border-box;
-  padding: calc(40 * var(--l-vw));
-  border-radius: calc(40 * var(--l-vw));
 }
 
-.planCardTeam {
-  border: calc(2 * var(--l-vw)) solid #eee;
+/* Figma: Solo/Team/Enterprise y=34; Growth badge column starts at y=0 */
+.planColumnOffset {
+  padding-top: calc(34 * var(--l-vw));
 }
 
-.planCardOrg {
-  border: 1px solid #eee;
-}
-
-.planHeader {
+.planCardSurface {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: calc(12 * var(--l-vw));
+  gap: calc(24 * var(--l-vw));
+  align-items: flex-start;
+  box-sizing: border-box;
   width: 100%;
+  height: calc(1037 * var(--l-vw));
+  padding: calc(20 * var(--l-vw));
+  overflow: hidden;
+  border: calc(2 * var(--l-vw)) solid #eee;
+  border-radius: calc(16 * var(--l-vw));
+  background-color: #ffffff;
+  isolation: isolate;
 }
 
-.planTitleRow {
+/* Figma 2303:22942 — Enterprise card wash (no photo layer) */
+.planCardEnterprise {
+  background-color: #ffffff;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.008) 2.03%,
+    rgba(255, 255, 255, 0.032) 3.68%,
+    rgba(255, 255, 255, 0.07) 5.01%,
+    rgba(255, 255, 255, 0.121) 6.08%,
+    rgba(255, 255, 255, 0.181) 6.94%,
+    rgba(255, 255, 255, 0.251) 7.66%,
+    rgba(255, 255, 255, 0.328) 8.3%,
+    rgba(255, 255, 255, 0.411) 8.9%,
+    rgba(255, 255, 255, 0.497) 9.54%,
+    rgba(255, 255, 255, 0.585) 10.26%,
+    rgba(255, 255, 255, 0.674) 11.12%,
+    rgba(255, 255, 255, 0.762) 12.19%,
+    rgba(255, 255, 255, 0.846) 13.52%,
+    rgba(255, 255, 255, 0.926) 15.17%,
+    rgb(255, 255, 255) 17.2%
+  );
+}
+
+.planFeatured {
   display: flex;
-  align-items: center;
-  gap: calc(12 * var(--l-vw));
+  flex-direction: column;
+  align-items: stretch;
   width: 100%;
+  padding: 0 calc(2 * var(--l-vw));
+  border-radius: calc(16 * var(--l-vw));
+  background: linear-gradient(
+    180deg,
+    #db3400 0%,
+    rgba(244, 85, 35, 0.26) 7.38%
+  );
+}
+
+.planFeaturedInner {
+  flex-shrink: 0;
+  border-color: #fcccbd;
+  border-bottom-width: calc(2 * var(--l-vw));
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.featuredBadge {
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(6 * var(--l-vw));
+  align-items: center;
+  justify-content: center;
+  height: calc(32 * var(--l-vw));
+  box-sizing: border-box;
+}
+
+.featuredBadgeIcon {
+  flex-shrink: 0;
+  width: calc(13 * var(--l-vw));
+  height: calc(12 * var(--l-vw));
+}
+
+.featuredBadgeLabel {
+  font-family: var(--layer-font-geist-sans);
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 600;
+  line-height: calc(16 / 12);
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.planCardArt {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/*
+ * Figma 2303:22756 — size-full + object-bottom + opacity-24 (object-fit: fill).
+ * PNGs are mostly black with art on the top edge; screen blend drops the black matte
+ * before Figma’s opacity is applied so the header art matches the file.
+ */
+.planCardArtStandardMask,
+.planCardArtGrowthMask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.planCardArtStandardMask {
+  opacity: 1;
+}
+
+/* +40% vs Solo / Team (opacity capped at 1 in CSS) */
+.planCardArtGrowthMask {
+  opacity: 1;
+  filter: brightness(1.4);
+}
+
+.planCardArtImageStandard {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border-radius: inherit;
+  object-fit: fill;
+  object-position: bottom;
+  mix-blend-mode: screen;
+}
+
+/* Figma 2303:22882 — image bottom aligns with growth fade (~9.12% from card top) */
+.planCardArtImageGrowth {
+  position: absolute;
+  left: 50%;
+  width: 112%;
+  height: auto;
+  aspect-ratio: 2784 / 2020;
+  max-width: none;
+  border-radius: inherit;
+  top: 9.12%;
+  transform: translate(calc(-50% + 10%), -100%);
+  object-fit: cover;
+  object-position: center center;
+  mix-blend-mode: screen;
+}
+
+.planCardArtGradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.planCardArtGradientStandard {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.008) 1.09%,
+    rgba(255, 255, 255, 0.032) 1.98%,
+    rgba(255, 255, 255, 0.07) 2.7%,
+    rgba(255, 255, 255, 0.121) 3.27%,
+    rgba(255, 255, 255, 0.181) 3.74%,
+    rgba(255, 255, 255, 0.251) 4.13%,
+    rgba(255, 255, 255, 0.328) 4.47%,
+    rgba(255, 255, 255, 0.411) 4.79%,
+    rgba(255, 255, 255, 0.497) 5.13%,
+    rgba(255, 255, 255, 0.585) 5.52%,
+    rgba(255, 255, 255, 0.674) 5.99%,
+    rgba(255, 255, 255, 0.762) 6.56%,
+    rgba(255, 255, 255, 0.846) 7.28%,
+    rgba(255, 255, 255, 0.926) 8.17%,
+    rgb(255, 255, 255) 9.26%
+  );
+}
+
+.planCardArtGradientGrowth {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.008) 1.07%,
+    rgba(255, 255, 255, 0.032) 1.95%,
+    rgba(255, 255, 255, 0.07) 2.65%,
+    rgba(255, 255, 255, 0.121) 3.22%,
+    rgba(255, 255, 255, 0.181) 3.68%,
+    rgba(255, 255, 255, 0.251) 4.06%,
+    rgba(255, 255, 255, 0.328) 4.4%,
+    rgba(255, 255, 255, 0.411) 4.72%,
+    rgba(255, 255, 255, 0.497) 5.05%,
+    rgba(255, 255, 255, 0.585) 5.44%,
+    rgba(255, 255, 255, 0.674) 5.9%,
+    rgba(255, 255, 255, 0.762) 6.46%,
+    rgba(255, 255, 255, 0.846) 7.17%,
+    rgba(255, 255, 255, 0.926) 8.04%,
+    rgb(255, 255, 255) 9.12%
+  );
+}
+
+.planCardHeader {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: calc(52 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: calc(32 * var(--l-vw));
+  border-bottom: 1px solid #eee;
+}
+
+.planSummary {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--l-vw));
+  width: 100%;
+  min-height: calc(92 * var(--l-vw));
 }
 
 .planTitle {
   margin: 0;
   font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-28);
+  font-weight: 500;
+  line-height: calc(36 / 28);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.planDescription {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+.planPricing {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  width: 100%;
+}
+
+.priceRow {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: calc(12 * var(--l-vw));
+  width: 100%;
+  min-height: calc(40 * var(--l-vw));
+}
+
+.price {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
   font-size: var(--l-fs-32);
-  font-weight: 600;
+  font-weight: 400;
   line-height: var(--l-lh-32);
   letter-spacing: var(--l-tracking);
   color: #020100;
   white-space: nowrap;
 }
 
-.popularBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: calc(6 * var(--l-vw)) calc(14 * var(--l-vw));
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-16);
-  font-weight: 400;
-  line-height: var(--l-lh-16);
-  letter-spacing: var(--l-tracking);
-  color: #f45523;
-  white-space: nowrap;
-  background: #faede9;
-}
-
-.planDescription {
-  margin: 0;
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-20);
-  font-weight: 400;
-  line-height: var(--l-lh-20);
-  letter-spacing: var(--l-tracking);
-  color: #606060;
-}
-
-.priceRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: calc(12 * var(--l-vw));
-  width: 100%;
-}
-
-.price {
-  margin: 0;
-  font-family: var(--layer-font-geist-sans);
-  font-size: calc(56 * var(--l-vw));
-  font-weight: 500;
-  line-height: calc(64 / 56);
-  letter-spacing: var(--l-tracking);
-  color: #020100;
-  white-space: nowrap;
-}
-
 .priceSuffix {
-  padding-bottom: calc(8 * var(--l-vw));
+  padding-bottom: calc(4 * var(--l-vw));
   font-family: var(--layer-font-geist-sans);
   font-size: var(--l-fs-20);
   font-weight: 400;
@@ -117,26 +310,19 @@
   white-space: nowrap;
 }
 
-.ctaGroup {
-  display: flex;
-  flex-direction: column;
-  gap: calc(20 * var(--l-vw));
-  width: 100%;
-}
-
-.ctaPrimary {
+.ctaButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: calc(15 * var(--l-vw));
   width: 100%;
-  padding: calc(24 * var(--l-vw)) calc(40 * var(--l-vw));
+  min-height: calc(56 * var(--l-vw));
+  padding: calc(12 * var(--l-vw)) calc(40 * var(--l-vw));
   border: 1px solid #ffffff;
-  border-radius: calc(16 * var(--l-vw));
+  border-radius: calc(99 * var(--l-vw));
   font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-24);
-  font-weight: 500;
-  line-height: var(--l-lh-24);
+  font-size: var(--l-fs-16);
+  font-weight: 600;
+  line-height: var(--l-lh-16);
   letter-spacing: var(--l-tracking);
   color: #ffffff;
   text-decoration: none;
@@ -146,169 +332,53 @@
   transition: opacity 0.15s ease;
 }
 
-.ctaPrimary:hover {
+.ctaButton:hover {
   opacity: 0.92;
 }
 
-.ctaPrimary .material-symbols-rounded {
-  font-size: var(--l-fs-24);
-  line-height: 1;
-  flex-shrink: 0;
+.ctaButtonOrange {
+  border-width: calc(2 * var(--l-vw));
+  border-color: transparent;
+  background: linear-gradient(180deg, #f45523 0%, #b94723 100%);
 }
 
-.ctaPrimaryLabel {
-  min-width: 0;
-  text-align: center;
-}
-
-.ctaCreditsWrap {
+.planFeatures {
   position: relative;
-  width: 100%;
-}
-
-.ctaCreditsWrapOpen {
   z-index: 2;
-}
-
-.ctaCredits {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: calc(12 * var(--l-vw));
-  width: 100%;
-  padding: calc(24 * var(--l-vw)) calc(40 * var(--l-vw));
-  border: 1px solid #dedede;
-  border-radius: calc(16 * var(--l-vw));
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-24);
-  font-weight: 400;
-  line-height: var(--l-lh-24);
-  letter-spacing: var(--l-tracking);
-  color: #020100;
-  text-align: left;
-  cursor: pointer;
-  background: #ffffff;
-}
-
-.ctaCredits .material-symbols-rounded {
-  flex-shrink: 0;
-  font-size: var(--l-fs-24);
-  line-height: 1;
-}
-
-.ctaCreditsLabel {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.creditsDropdown {
-  position: absolute;
-  top: calc(100% + calc(8 * var(--l-vw)));
-  left: 0;
-  z-index: 3;
-  overflow: hidden;
-  box-sizing: border-box;
-  width: 100%;
-  border: 1px solid #dedede;
-  border-radius: calc(16 * var(--l-vw));
-  background: #ffffff;
-  box-shadow: 0 calc(8 * var(--l-vw)) calc(24 * var(--l-vw)) rgba(0, 0, 0, 0.12);
-}
-
-.creditsOption {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: calc(24 * var(--l-vw)) calc(40 * var(--l-vw));
-  border: none;
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-24);
-  font-weight: 400;
-  line-height: var(--l-lh-24);
-  letter-spacing: var(--l-tracking);
-  color: #020100;
-  text-align: left;
-  cursor: pointer;
-  background: #ffffff;
-}
-
-.creditsOption + .creditsOption {
-  border-top: 1px solid #dedede;
-}
-
-.creditsOptionSelected {
-  background: #faede9;
-}
-
-.creditsOption:hover {
-  background: #f9f9f9;
-}
-
-.creditsOptionSelected:hover {
-  background: #faede9;
-}
-
-.ctaHighlight {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: calc(24 * var(--l-vw)) calc(40 * var(--l-vw));
-  border: 1px solid #fcccbd;
-  border-radius: calc(16 * var(--l-vw));
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-24);
-  font-weight: 400;
-  line-height: var(--l-lh-24);
-  letter-spacing: var(--l-tracking);
-  color: #020100;
-  text-align: center;
-  background: #faede9;
-}
-
-.featuresBox {
-  display: flex;
-  flex-direction: column;
-  gap: calc(24 * var(--l-vw));
-  box-sizing: border-box;
-  width: 100%;
-  padding: calc(32 * var(--l-vw));
-  border: 1px solid #dedede;
-  border-radius: calc(20 * var(--l-vw));
-}
-
-.featuresBoxOrg {
-  background: #f9f9f9;
-}
-
-.featuresHeading {
-  margin: 0;
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-20);
-  font-weight: 500;
-  line-height: calc(32 / 20);
-  letter-spacing: var(--l-tracking);
-  color: #8d8d8d;
-}
-
-.featuresList {
   display: flex;
   flex-direction: column;
   gap: calc(16 * var(--l-vw));
   width: 100%;
 }
 
+.featuresHeading {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-16);
+  font-weight: 400;
+  line-height: var(--l-lh-16);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--l-vw));
+  width: 100%;
+}
+
 .featureRow {
   display: flex;
+  gap: calc(8 * var(--l-vw));
   align-items: center;
-  gap: calc(12 * var(--l-vw));
-  padding: calc(4 * var(--l-vw)) calc(8 * var(--l-vw));
+  padding: calc(4 * var(--l-vw)) 0;
   width: 100%;
 }
 
 .checkIcon {
   flex-shrink: 0;
-  font-size: var(--l-fs-24);
+  font-size: var(--l-fs-16);
   line-height: 1;
   color: #009360;
 }
@@ -318,212 +388,81 @@
   min-width: 0;
   margin: 0;
   font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-20);
+  font-size: calc(14 * var(--l-vw));
   font-weight: 400;
-  line-height: var(--l-lh-20);
-  letter-spacing: var(--l-tracking);
-  color: #020100;
-}
-
-.orgFeatureRow {
-  display: flex;
-  align-items: flex-start;
-  padding: calc(4 * var(--l-vw)) calc(8 * var(--l-vw));
-  width: 100%;
-}
-
-.orgFeatureInner {
-  display: flex;
-  flex: 1 1 0;
-  flex-direction: column;
-  gap: calc(8 * var(--l-vw));
-  min-width: 0;
-}
-
-.orgFeatureTitleRow {
-  display: flex;
-  align-items: center;
-  gap: calc(12 * var(--l-vw));
-  width: 100%;
-}
-
-.orgFeatureDescription {
-  margin: 0;
-  padding-left: calc(36 * var(--l-vw));
-  font-family: var(--layer-font-geist-sans);
-  font-size: var(--l-fs-20);
-  font-weight: 400;
-  line-height: var(--l-lh-20);
+  line-height: calc(20 / 14);
   letter-spacing: var(--l-tracking);
   color: #606060;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .cardsRow {
-    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: calc(8 * var(--l-vw));
+    scrollbar-width: thin;
   }
 
-  .planCard {
-    width: 100%;
+  .planColumn {
+    flex: 0 0 calc(325 * var(--l-vw));
   }
 }
 
 @media (max-width: 768px) {
   .section {
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
-    margin-inline: 0;
-    margin-top: calc(56 * var(--l-vw));
     gap: calc(24 * var(--l-vw));
-    padding: calc(40 * var(--l-vw)) 0 calc(24 * var(--l-vw));
+    margin-top: calc(40 * var(--l-vw));
+    padding: calc(24 * var(--l-vw)) 0;
     border-top: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
-    background: #ffffff;
   }
 
   .cardsRow {
-    gap: 0;
-  }
-
-  .planCard {
+    flex-direction: column;
+    align-items: stretch;
     gap: calc(24 * var(--l-vw));
-    padding: calc(24 * var(--l-vw)) var(--l-page-gutter);
-    border-radius: 0;
+    overflow-x: visible;
+    padding: 0 var(--l-page-gutter, var(--l-section-px));
   }
 
-  .planCardTeam {
+  .planColumn {
+    flex: none;
+    width: 100%;
+  }
+
+  .planColumnOffset {
     padding-top: 0;
-    border: none;
-    border-bottom: 1px solid #dedede;
   }
 
-  .planCardOrg {
-    border: none;
-    padding-top: calc(24 * var(--l-vw));
-  }
-
-  .planHeader {
-    gap: calc(8 * var(--l-vw));
-  }
-
-  .planTitleRow {
-    flex-wrap: wrap;
-    gap: calc(8 * var(--l-vw));
-  }
-
-  .planTitle {
-    white-space: normal;
-    font-size: var(--l-fs-32);
-    line-height: var(--l-lh-32);
-  }
-
-  .popularBadge {
-    padding: calc(4 * var(--l-vw)) calc(10 * var(--l-vw));
-    font-size: var(--l-fs-14);
-    line-height: var(--l-lh-14);
-    white-space: normal;
-  }
-
-  .planDescription {
-    font-size: var(--l-fs-20);
-    line-height: var(--l-lh-20);
-  }
-
-  .planDescriptionBreak {
-    display: none;
-  }
-
-  .priceRow {
-    flex-wrap: wrap;
-    gap: calc(4 * var(--l-vw)) calc(8 * var(--l-vw));
-  }
-
-  .price {
-    font-size: var(--l-fs-40);
-    line-height: var(--l-lh-40);
-    white-space: normal;
-  }
-
-  .priceCustom {
-    font-size: var(--l-fs-32);
-    font-weight: 600;
-    line-height: var(--l-lh-32);
-  }
-
-  .priceSuffix {
-    padding-bottom: 0;
-    font-size: var(--l-fs-20);
-    line-height: var(--l-lh-20);
-    white-space: normal;
-  }
-
-  .ctaGroup {
-    gap: calc(12 * var(--l-vw));
-  }
-
-  .ctaPrimary,
-  .ctaCredits,
-  .ctaHighlight,
-  .creditsOption {
-    padding: calc(16 * var(--l-vw)) calc(20 * var(--l-vw));
-    border-radius: calc(12 * var(--l-vw));
-    font-size: var(--l-fs-16);
-    line-height: var(--l-lh-16);
-  }
-
-  .ctaPrimary .material-symbols-rounded,
-  .ctaCredits .material-symbols-rounded {
-    font-size: calc(20 * var(--l-vw));
-  }
-
-  .ctaPrimaryLabel,
-  .ctaCreditsLabel {
-    white-space: normal;
-  }
-
-  .ctaHighlight {
-    font-size: var(--l-fs-16);
-    line-height: var(--l-lh-16);
-  }
-
-  .creditsDropdown {
-    border-radius: calc(12 * var(--l-vw));
-  }
-
-  .featuresBox {
-    gap: calc(16 * var(--l-vw));
+  .planCardSurface {
+    height: auto;
+    min-height: 0;
     padding: calc(20 * var(--l-vw));
     border-radius: calc(16 * var(--l-vw));
   }
 
-  .featuresHeading {
-    font-size: var(--l-fs-16);
-    line-height: var(--l-lh-16);
+  .planSummary {
+    min-height: 0;
   }
 
-  .featuresList {
-    gap: calc(12 * var(--l-vw));
+  .planCardHeader {
+    gap: calc(32 * var(--l-vw));
   }
 
-  .featureRow,
-  .orgFeatureRow {
-    align-items: flex-start;
-    padding: calc(2 * var(--l-vw)) 0;
+  .planTitle {
+    white-space: normal;
   }
 
-  .checkIcon {
-    font-size: calc(20 * var(--l-vw));
+  .priceRow {
+    flex-wrap: wrap;
   }
 
-  .featureText {
-    font-size: var(--l-fs-16);
-    line-height: var(--l-lh-16);
+  .price {
+    white-space: normal;
   }
 
-  .orgFeatureDescription {
-    padding-left: calc(32 * var(--l-vw));
-    font-size: var(--l-fs-16);
-    line-height: var(--l-lh-16);
+  .priceSuffix {
+    padding-bottom: 0;
   }
 }

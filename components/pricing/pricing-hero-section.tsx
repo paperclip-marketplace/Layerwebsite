@@ -1,4 +1,4 @@
-import { LandingHeadingReveal, LandingSubheadingReveal } from "@/components/landing/landing-text-reveal";
+import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
 import styles from "./pricing-hero-section.module.css";
 
 export function PricingHeroSection() {
@@ -19,13 +19,6 @@ export function PricingHeroSection() {
           Pricing built around{" "}
           <span className={styles.highlight}>GTM performance</span>, not seats.
         </LandingHeadingReveal>
-        <LandingSubheadingReveal
-          className={`landing-copy-aside ${styles.description}`}
-        >
-          Start with unlimited users, agents, and 10,000 monthly credits.
-          Scale with expert-led context-layer curation, agent configuration, and
-          GTM operating support from Layer&apos;s architects and operators.
-        </LandingSubheadingReveal>
       </div>
     </section>
   );

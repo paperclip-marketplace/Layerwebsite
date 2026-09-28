@@ -1,27 +1,17 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { ROUTES } from "@/lib/config/constants";
 import { PricingSecurityCompliance } from "./pricing-security-compliance";
 import styles from "./pricing-comparison-section.module.css";
 
-type CreditTier = {
-  id: string;
-  credits: number;
-  priceMonthly: number;
-};
+const PLAN_ILLUSTRATIONS = {
+  solo: "/assets/images/pricing/plans/solo.webp",
+  team: "/assets/images/pricing/plans/team.webp",
+  growth: "/assets/images/pricing/plans/growth.webp",
+} as const;
 
-const TEAM_CREDIT_TIERS: CreditTier[] = [
-  { id: "10000", credits: 10_000, priceMonthly: 200 },
-  { id: "15000", credits: 15_000, priceMonthly: 300 },
-  { id: "20000", credits: 20_000, priceMonthly: 400 },
-];
-
-const TEAM_FEATURES = [
-  "Unlimited users",
-  "10,000 monthly credits",
-  "One agent for every rep",
+const SHARED_FEATURES = [
+  "One paired agent for every rep",
   "Agent memory, personality, and seller profile matrix",
   "Voice and video agents",
   "Roleplay, live deal simulation, and scenario practice",
@@ -36,43 +26,109 @@ const TEAM_FEATURES = [
   "Your data is never used for training",
 ] as const;
 
-type OrgFeature = {
-  title: string;
+const ENTERPRISE_FEATURES = [
+  "Context Intelligence",
+  "Expert GTM Services",
+  "AI Agent Configuration",
+  "Rollout & Adoption",
+  "Enterprise Security",
+] as const;
+
+type PlanTier = {
+  id: string;
+  name: string;
   description: string;
+  priceLabel?: string;
+  priceSuffix?: boolean;
+  illustration?: (typeof PLAN_ILLUSTRATIONS)[keyof typeof PLAN_ILLUSTRATIONS];
+  artVariant?: "standard" | "growth";
+  monthlyCredits: number;
+  ctaLabel: string;
+  ctaHref: string;
+  ctaVariant: "dark" | "orange";
+  featured?: boolean;
+  featuresHeading: string;
+  features: readonly string[];
+  enterpriseGradient?: boolean;
 };
 
-const ORG_FEATURES: OrgFeature[] = [
+const PLANS: PlanTier[] = [
   {
-    title: "Context Intelligence",
-    description:
-      "Connect and structure CRM data, calls, transcripts, knowledge, and GTM workflows into one unified context layer.",
+    id: "solo",
+    name: "Solo",
+    description: "For solo founders and one-person businesses",
+    priceLabel: "$30",
+    priceSuffix: true,
+    illustration: PLAN_ILLUSTRATIONS.solo,
+    artVariant: "standard",
+    monthlyCredits: 2_000,
+    ctaLabel: "Choose Solo",
+    ctaHref: ROUTES.signUp,
+    ctaVariant: "dark",
+    featuresHeading: "Key Features:",
+    features: [],
   },
   {
-    title: "Expert GTM Services",
+    id: "team",
+    name: "Team",
     description:
-      "Work with GTM operators and enablement experts using proven frameworks and playbooks.",
+      "For small teams and growing startups looking to collaborate and scale together",
+    priceLabel: "$100",
+    priceSuffix: true,
+    illustration: PLAN_ILLUSTRATIONS.team,
+    artVariant: "standard",
+    monthlyCredits: 5_000,
+    ctaLabel: "Choose Team",
+    ctaHref: ROUTES.signUp,
+    ctaVariant: "dark",
+    featuresHeading: "Key Features:",
+    features: [],
   },
   {
-    title: "AI Agent Configuration",
+    id: "growth",
+    name: "Growth",
     description:
-      "Deploy role-based agents tailored to teams, workflows, customer moments, and approval paths.",
+      "For scaling companies ready to level up their growth and performance",
+    priceLabel: "$200",
+    priceSuffix: true,
+    illustration: PLAN_ILLUSTRATIONS.growth,
+    artVariant: "growth",
+    monthlyCredits: 10_000,
+    ctaLabel: "Choose Growth",
+    ctaHref: ROUTES.signUp,
+    ctaVariant: "orange",
+    featured: true,
+    featuresHeading: "Key Features:",
+    features: [],
   },
   {
-    title: "Rollout & Adoption",
+    id: "enterprise",
+    name: "Enterprise",
     description:
-      "Guided onboarding, workflow mapping, usage optimization, and performance reviews.",
-  },
-  {
-    title: "Enterprise Security",
-    description:
-      "SSO, SCIM, audit logs, permissions, retention controls, and procurement support.",
+      "For large organizations with custom needs and dedicated support",
+    priceLabel: "Custom Billing",
+    enterpriseGradient: true,
+    monthlyCredits: 0,
+    ctaLabel: "Talk to GTM expert",
+    ctaHref: ROUTES.contactSales,
+    ctaVariant: "dark",
+    featuresHeading: "Everything in Growth, Plus:",
+    features: ENTERPRISE_FEATURES,
   },
 ];
+
+function formatCredits(credits: number): string {
+  return `${credits.toLocaleString("en-US")} monthly credits`;
+}
+
+function buildStandardFeatures(monthlyCredits: number): string[] {
+  return [formatCredits(monthlyCredits), ...SHARED_FEATURES];
+}
 
 function CheckIcon() {
   return (
     <span className={`material-symbols-rounded ${styles.checkIcon}`} aria-hidden>
-      check_circle
+      check
     </span>
   );
 }
@@ -86,224 +142,180 @@ function FeatureRow({ text }: { text: string }) {
   );
 }
 
-function formatCreditsCount(credits: number): string {
-  return credits.toLocaleString("en-US");
-}
-
-function formatTierLabel(credits: number): string {
-  return `Includes ${formatCreditsCount(credits)} credits per month`;
-}
-
-function formatMonthlyPrice(price: number): string {
-  return `$${price.toLocaleString("en-US")}`;
-}
-
-function OrgFeatureRow({ feature }: { feature: OrgFeature }) {
+function PlanPricingBlock({
+  plan,
+}: {
+  plan: PlanTier;
+}) {
   return (
-    <div className={styles.orgFeatureRow}>
-      <div className={styles.orgFeatureInner}>
-        <div className={styles.orgFeatureTitleRow}>
-          <CheckIcon />
-          <p className={styles.featureText}>{feature.title}</p>
-        </div>
-        <p className={styles.orgFeatureDescription}>{feature.description}</p>
+    <div className={styles.planPricing}>
+      <div className={styles.priceRow}>
+        <p className={styles.price}>{plan.priceLabel}</p>
+        {plan.priceSuffix ? (
+          <>
+            <span className={styles.priceSuffix}>/ mo</span>
+            <span className={styles.priceSuffix}>/ user</span>
+          </>
+        ) : null}
       </div>
+      <Link
+        href={plan.ctaHref}
+        className={
+          plan.ctaVariant === "orange"
+            ? `${styles.ctaButton} ${styles.ctaButtonOrange}`
+            : styles.ctaButton
+        }
+      >
+        {plan.ctaLabel}
+      </Link>
     </div>
   );
 }
 
-export function PricingComparisonSection() {
-  const [creditsOpen, setCreditsOpen] = useState(false);
-  const [selectedTierId, setSelectedTierId] = useState(TEAM_CREDIT_TIERS[0].id);
-  const creditsWrapRef = useRef<HTMLDivElement>(null);
+function PlanCardBody({ plan }: { plan: PlanTier }) {
+  const features =
+    plan.features.length > 0
+      ? plan.features
+      : buildStandardFeatures(plan.monthlyCredits);
 
-  const selectedTier =
-    TEAM_CREDIT_TIERS.find((tier) => tier.id === selectedTierId) ??
-    TEAM_CREDIT_TIERS[0];
+  return (
+    <>
+      <div className={styles.planCardHeader}>
+        <div className={styles.planSummary}>
+          <h2 className={styles.planTitle}>{plan.name}</h2>
+          <p className={styles.planDescription}>{plan.description}</p>
+        </div>
+        <PlanPricingBlock plan={plan} />
+      </div>
 
-  const teamFeatures = TEAM_FEATURES.map((feature, index) =>
-    index === 1
-      ? `${formatCreditsCount(selectedTier.credits)} monthly credits`
-      : feature,
+      <div className={styles.planFeatures}>
+        <p className={styles.featuresHeading}>{plan.featuresHeading}</p>
+        <div className={styles.featuresList}>
+          {features.map((feature) => (
+            <FeatureRow key={feature} text={feature} />
+          ))}
+        </div>
+      </div>
+    </>
   );
+}
 
-  useEffect(() => {
-    if (!creditsOpen) {
-      return;
-    }
+function PlanIllustration({
+  src,
+  variant = "standard",
+}: {
+  src: string;
+  variant?: "standard" | "growth";
+}) {
+  if (variant === "growth") {
+    return (
+      <div className={styles.planCardArt} aria-hidden>
+        <div className={styles.planCardArtGrowthMask}>
+          <img
+            src={src}
+            alt=""
+            className={styles.planCardArtImageGrowth}
+            decoding="async"
+          />
+        </div>
+        <div
+          className={`${styles.planCardArtGradient} ${styles.planCardArtGradientGrowth}`}
+        />
+      </div>
+    );
+  }
 
-    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
-      if (
-        creditsWrapRef.current &&
-        !creditsWrapRef.current.contains(event.target as Node)
-      ) {
-        setCreditsOpen(false);
-      }
-    };
+  return (
+    <div className={styles.planCardArt} aria-hidden>
+      <div className={styles.planCardArtStandardMask}>
+        <img
+          src={src}
+          alt=""
+          className={styles.planCardArtImageStandard}
+          decoding="async"
+        />
+      </div>
+      <div
+        className={`${styles.planCardArtGradient} ${styles.planCardArtGradientStandard}`}
+      />
+    </div>
+  );
+}
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setCreditsOpen(false);
-      }
-    };
+function PlanCardSurface({
+  plan,
+  className,
+}: {
+  plan: PlanTier;
+  className: string;
+}) {
+  return (
+    <article className={className} data-name="Plan Illustration">
+      {plan.illustration ? (
+        <PlanIllustration
+          src={plan.illustration}
+          variant={plan.artVariant ?? "standard"}
+        />
+      ) : null}
+      <PlanCardBody plan={plan} />
+    </article>
+  );
+}
 
-    document.addEventListener("mousedown", handlePointerDown);
-    document.addEventListener("touchstart", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
+function PricingPlanCard({ plan }: { plan: PlanTier }) {
+  if (plan.featured) {
+    return (
+      <div className={styles.planColumn}>
+        <article
+          className={styles.planFeatured}
+          data-name="Featured Plan"
+          data-node-id="2303:22877"
+        >
+          <div className={styles.featuredBadge}>
+            <Image
+              src="/assets/images/pricing/experts-choice-diamond.svg"
+              alt=""
+              width={13}
+              height={12}
+              className={styles.featuredBadgeIcon}
+              aria-hidden
+            />
+            <span className={styles.featuredBadgeLabel}>
+              Experts&apos; choice
+            </span>
+          </div>
+          <PlanCardSurface
+            plan={plan}
+            className={`${styles.planCardSurface} ${styles.planFeaturedInner}`}
+          />
+        </article>
+      </div>
+    );
+  }
 
-    return () => {
-      document.removeEventListener("mousedown", handlePointerDown);
-      document.removeEventListener("touchstart", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [creditsOpen]);
+  return (
+    <div className={`${styles.planColumn} ${styles.planColumnOffset}`}>
+      <PlanCardSurface
+        plan={plan}
+        className={`${styles.planCardSurface} ${styles.planCard} ${plan.enterpriseGradient ? styles.planCardEnterprise : ""}`}
+      />
+    </div>
+  );
+}
 
-  const handleTierSelect = (tierId: string) => {
-    setSelectedTierId(tierId);
-    setCreditsOpen(false);
-  };
-
+/** Figma 2303:22755 — Pricing plan cards */
+export function PricingComparisonSection() {
   return (
     <section
       className={styles.section}
       aria-label="Pricing plans"
       data-name="Pricing comparison"
-      data-node-id="336:1761"
+      data-node-id="2303:22755"
     >
-      <div className={styles.cardsRow} data-node-id="336:1769">
-        <article
-          className={`${styles.planCard} ${styles.planCardTeam}`}
-          data-name="Metric Container 1"
-        >
-          <div className={styles.planHeader}>
-            <div className={styles.planTitleRow}>
-              <h2 className={styles.planTitle}>Team</h2>
-              <span className={styles.popularBadge}>Most Popular</span>
-            </div>
-            <p className={styles.planDescription}>
-              For teams looking to improve ramp time, quota
-              <br className={styles.planDescriptionBreak} />
-              attainment, win rates and growth
-            </p>
-          </div>
-
-          <div className={styles.priceRow}>
-            <p className={styles.price}>
-              {formatMonthlyPrice(selectedTier.priceMonthly)}
-            </p>
-            <span className={styles.priceSuffix}>/ org</span>
-            <span className={styles.priceSuffix}>/ month</span>
-          </div>
-
-          <div className={styles.ctaGroup}>
-            <Link href={ROUTES.signUp} className={styles.ctaPrimary}>
-              <span className={styles.ctaPrimaryLabel}>Start Winning More</span>
-              <span className="material-symbols-rounded" aria-hidden>
-                arrow_forward
-              </span>
-            </Link>
-            <div
-              className={`${styles.ctaCreditsWrap} ${creditsOpen ? styles.ctaCreditsWrapOpen : ""}`}
-              ref={creditsWrapRef}
-            >
-              <button
-                type="button"
-                className={styles.ctaCredits}
-                onClick={() => setCreditsOpen((open) => !open)}
-                aria-expanded={creditsOpen}
-                aria-controls="team-credits-panel"
-                id="team-credits-trigger"
-              >
-                <span className={styles.ctaCreditsLabel}>
-                  {formatTierLabel(selectedTier.credits)}
-                </span>
-                <span className="material-symbols-rounded" aria-hidden>
-                  {creditsOpen ? "expand_less" : "expand_more"}
-                </span>
-              </button>
-
-              {creditsOpen ? (
-                <div
-                  id="team-credits-panel"
-                  className={styles.creditsDropdown}
-                  role="listbox"
-                  aria-labelledby="team-credits-trigger"
-                  aria-activedescendant={`team-credit-tier-${selectedTier.id}`}
-                >
-                  {TEAM_CREDIT_TIERS.map((tier) => {
-                    const isSelected = tier.id === selectedTier.id;
-
-                    return (
-                      <button
-                        key={tier.id}
-                        id={`team-credit-tier-${tier.id}`}
-                        type="button"
-                        role="option"
-                        aria-selected={isSelected}
-                        className={`${styles.creditsOption} ${isSelected ? styles.creditsOptionSelected : ""}`}
-                        onClick={() => handleTierSelect(tier.id)}
-                      >
-                        {formatTierLabel(tier.credits)}
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          <div className={styles.featuresBox}>
-            <p className={styles.featuresHeading}>
-              The complete GTM Performance System
-            </p>
-            <div className={styles.featuresList}>
-              {teamFeatures.map((feature) => (
-                <FeatureRow key={feature} text={feature} />
-              ))}
-            </div>
-          </div>
-        </article>
-
-        <article
-          className={`${styles.planCard} ${styles.planCardOrg}`}
-          data-name="Metric Container 2"
-        >
-          <div className={styles.planHeader}>
-            <h2 className={styles.planTitle}>Organization</h2>
-            <p className={styles.planDescription}>
-              Expert-led deployment for teams rebuilding GTM
-              <br className={styles.planDescriptionBreak} />
-              around agents.
-            </p>
-          </div>
-
-          <div className={styles.priceRow}>
-            <p className={`${styles.price} ${styles.priceCustom}`}>Custom Plan</p>
-          </div>
-
-          <div className={styles.ctaGroup}>
-            <Link href={ROUTES.signUp} className={styles.ctaPrimary}>
-              <span className={styles.ctaPrimaryLabel}>
-                Talk to a GTM Architect
-              </span>
-              <span className="material-symbols-rounded" aria-hidden>
-                arrow_forward
-              </span>
-            </Link>
-            <div className={styles.ctaHighlight}>
-              Need credits more than 200K? this plan is for you
-            </div>
-          </div>
-
-          <div className={`${styles.featuresBox} ${styles.featuresBoxOrg}`}>
-            <p className={styles.featuresHeading}>Everything in Team, plus:</p>
-            <div className={styles.featuresList}>
-              {ORG_FEATURES.map((feature) => (
-                <OrgFeatureRow key={feature.title} feature={feature} />
-              ))}
-            </div>
-          </div>
-        </article>
+      <div className={styles.cardsRow}>
+        {PLANS.map((plan) => (
+          <PricingPlanCard key={plan.id} plan={plan} />
+        ))}
       </div>
       <PricingSecurityCompliance />
     </section>
