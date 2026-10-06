@@ -1,0 +1,149 @@
+/* Figma 1822:23901 — elevated center card with white ring + 1822:23903/23904 rings
+ * Scoped to Build → Discount Governance only. */
+
+.wrap {
+  width: 100%;
+  pointer-events: none;
+  container-type: inline-size;
+  container-name: build-directive-wrap;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 23px 21.7px rgba(0, 0, 0, 0.1);
+}
+
+/* Figma hero 176px @ 280px card (vs 148px default SkillCard) */
+.hero {
+  height: 62.857cqw;
+  overflow: hidden;
+  /* Inner radius = card 12px − white border 3px */
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+}
+
+/*
+ * Higher specificity than SkillCard hero clip so the 9px inner
+ * curve wins. clip-path stops backdrop-filter / type washes from
+ * painting square corners past the radius.
+ */
+.wrap .hero {
+  clip-path: inset(0 round 9px 9px 0 0);
+}
+
+/*
+ * Figma 1822:23947 — mid-card white wash over icon feet into body.
+ * Painted above illustration, below chip controls.
+ * Taller + denser than the raw 38px stop so the peach doc frame
+ * dissolves into the body the way the comps read.
+ */
+.heroIconFade {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* ~52px @ 280px card — covers lower third of the tilted doc */
+  height: 18.571cqw;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 28%,
+    rgba(255, 255, 255, 0.72) 55%,
+    rgba(255, 255, 255, 0.92) 78%,
+    #ffffff 100%
+  );
+}
+
+/* Soften icon feet so they don't punch through the wash */
+.heroIllustration {
+  top: 15cqw;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #000000 55%,
+    rgba(0, 0, 0, 0.55) 78%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #000000 55%,
+    rgba(0, 0, 0, 0.55) 78%,
+    transparent 100%
+  );
+}
+
+.heroIconImage {
+  display: block;
+  width: calc(78.63 / 280 * 100cqw);
+  height: calc(78 / 280 * 100cqw);
+  max-width: none;
+}
+
+/* 1822:23903 — container for wash + rings */
+.heroOverlay {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  clip-path: inset(0 round 9px 9px 0 0);
+  pointer-events: none;
+}
+
+/* Blur + white fade sit behind the rings so strokes stay sharp */
+.heroWash {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  -webkit-backdrop-filter: blur(23.95px);
+  backdrop-filter: blur(23.95px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 100%
+  );
+}
+
+/* 1822:23904 — 288×176 rings, centered on 280-wide card */
+.heroRingsWrap {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 50%;
+  width: 102.857cqw;
+  height: 62.857cqw;
+  transform: translateX(-50%);
+}
+
+.heroRingsImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* Body copy above mid-card washes */
+.card > div:nth-child(2) {
+  position: relative;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .heroWash {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}

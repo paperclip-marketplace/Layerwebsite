@@ -1,0 +1,367 @@
+/* Figma 2406:3168 — Molten hero */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  background: #ffffff;
+}
+
+.promoBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 12px 10px;
+  background: #faede9;
+  box-sizing: border-box;
+}
+
+.promoText {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 16px;
+  font-weight: 530;
+  font-variation-settings: "wght" 530;
+  line-height: 24px;
+  letter-spacing: -0.64px;
+  color: #020100;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.promoCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 6px 14px 6px 16px;
+  border-radius: 99px;
+  background: #f45523;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.promoCta:hover {
+  background: #e04d1f;
+}
+
+.promoCtaText {
+  font-family: var(--layer-font-geist-sans);
+  font-size: 16px;
+  font-weight: 530;
+  font-variation-settings: "wght" 530;
+  line-height: 24px;
+  letter-spacing: -0.64px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.promoCtaIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.section {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: visible;
+  clip-path: inset(0 -100vw 0 -100vw);
+  background: transparent;
+}
+
+.content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(80 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(80 * var(--l-vw)) var(--l-section-px) 0;
+}
+
+.topBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(80 * var(--l-vw));
+  width: 100%;
+}
+
+.logoRow {
+  display: flex;
+  gap: calc(20 * var(--l-vw));
+  align-items: center;
+  padding: 0 calc(4 * var(--l-vw));
+}
+
+.moltenLogoWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(113 * var(--l-vw));
+  height: calc(28 * var(--l-vw));
+}
+
+.moltenLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logoDivider {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 1px;
+}
+
+.logoDividerImg {
+  width: 1px;
+  height: calc(28 * var(--l-vw));
+}
+
+.layerLogoWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(118 * var(--l-vw));
+  height: calc(28 * var(--l-vw));
+}
+
+.layerWordmark {
+  width: 100%;
+  height: 100%;
+}
+
+.copyRow {
+  display: flex;
+  gap: calc(24 * var(--l-vw));
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: calc(1360 * var(--l-vw));
+  max-width: 100%;
+}
+
+.headline {
+  flex-shrink: 0;
+  width: calc(816 * var(--l-vw));
+  max-width: 100%;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  word-break: break-word;
+}
+
+.headlinePrimary {
+  color: #020100;
+}
+
+.headlineAccent {
+  color: #f45523;
+}
+
+.description {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #606060;
+}
+
+.mediaBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.mediaFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(646 * var(--l-vw));
+  padding: calc(8 * var(--l-vw));
+  overflow: hidden;
+  border-radius: calc(20 * var(--l-vw)) calc(20 * var(--l-vw)) 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 1, 0, 0.08) 0%,
+    rgba(2, 1, 0, 0) 67.492%
+  );
+}
+
+.mediaInner {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  aspect-ratio: 4096 / 2651;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  border-bottom: none;
+  border-radius: calc(16 * var(--l-vw)) calc(16 * var(--l-vw)) 0 0;
+}
+
+.mediaImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  pointer-events: none;
+  border-radius: calc(13 * var(--l-vw)) calc(13 * var(--l-vw)) 0 0;
+}
+
+@media (max-width: 1200px) {
+  .copyRow {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .headline {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Figma 2474:29469 — single-line promo, 14/20, 12px 10px, no arrow */
+  .promoBar {
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 12px 10px;
+  }
+
+  .promoText {
+    font-size: 14px;
+    font-weight: 400;
+    font-variation-settings: "wght" 400;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: nowrap;
+  }
+
+  .promoCtaText {
+    font-size: 14px;
+    font-weight: 500;
+    font-variation-settings: "wght" 500;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: nowrap;
+  }
+
+  .promoCtaIcon {
+    display: none;
+  }
+
+  .section {
+    clip-path: none;
+    border-bottom: 1px solid var(--layer-gray-200);
+  }
+
+  .content {
+    gap: calc(56 * var(--l-vw));
+    box-sizing: border-box;
+    width: 100%;
+    padding: calc(64 * var(--l-vw)) var(--l-inset-x, 20px) calc(40 * var(--l-vw));
+  }
+
+  .topBlock {
+    gap: calc(32 * var(--l-vw));
+  }
+
+  .logoRow {
+    gap: calc(14.91 * var(--l-vw));
+    padding: 0 calc(2.982 * var(--l-vw));
+  }
+
+  .moltenLogoWrap {
+    width: calc(84.112 * var(--l-vw));
+    height: calc(20.875 * var(--l-vw));
+  }
+
+  .logoDividerImg {
+    height: calc(20.875 * var(--l-vw));
+  }
+
+  .layerLogoWrap {
+    width: calc(87.838 * var(--l-vw));
+    height: calc(20.875 * var(--l-vw));
+  }
+
+  .copyRow {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: calc(16 * var(--l-vw));
+    width: 100%;
+  }
+
+  .headline {
+    flex: none;
+    width: 100%;
+    font-size: var(--molten-m-headline-size, calc(40 * var(--l-vw)));
+    line-height: var(--molten-m-headline-lh, calc(48 * var(--l-vw)));
+    letter-spacing: var(--molten-m-headline-tracking, calc(-1.6 * var(--l-vw)));
+  }
+
+  .description {
+    flex: none;
+    width: 100%;
+    font-size: var(--molten-m-body-size, calc(16 * var(--l-vw)));
+    line-height: var(--molten-m-body-lh, calc(24 * var(--l-vw)));
+    letter-spacing: var(--molten-m-body-tracking, calc(-0.64 * var(--l-vw)));
+  }
+
+  .mediaBlock {
+    box-sizing: border-box;
+    width: calc(428 * var(--l-vw));
+    max-width: none;
+    align-self: flex-start;
+  }
+
+  .mediaFrame {
+    width: 100%;
+    height: auto;
+    padding: calc(4 * var(--l-vw));
+    border-radius: calc(16 * var(--l-vw));
+    background: rgba(2, 1, 0, 0.08);
+  }
+
+  .mediaInner {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4096 / 2651;
+    border: none;
+    border-radius: calc(16 * var(--l-vw));
+  }
+
+  .mediaImage {
+    border-radius: calc(16 * var(--l-vw));
+  }
+}

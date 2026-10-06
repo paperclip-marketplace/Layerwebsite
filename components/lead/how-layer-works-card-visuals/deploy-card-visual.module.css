@@ -1,0 +1,146 @@
+/* Figma 1822:24242 — 560×400 Deploy stage */
+
+/* Figma 1822:24243 — textured gradient backdrop behind agent cards */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #f9f9f9;
+}
+
+.backdropImage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.backdropGradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Let Rectangle 12278 own the bottom blend — avoid double-washing to flat #f9f9f9 */
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 0%,
+    rgba(249, 249, 249, 0.35) 72%,
+    rgba(249, 249, 249, 0.65) 100%
+  );
+}
+
+/* Figma left: x=-147 y=80.85 w=258.09 */
+.leftWrap {
+  position: absolute;
+  top: 20.21%;
+  left: -26.25%;
+  z-index: 2;
+  width: 46.07%;
+  pointer-events: none;
+  container-type: inline-size;
+  container-name: deploy-left;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Figma right: x=447.09 y=82.34 w=260 */
+.rightWrap {
+  position: absolute;
+  top: 20.59%;
+  left: 79.84%;
+  z-index: 2;
+  width: 46.43%;
+  pointer-events: none;
+  container-type: inline-size;
+  container-name: deploy-right;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Figma center: x=143.09 y=52.12 w=272 — slightly shorter visual footprint */
+.centerWrap {
+  position: absolute;
+  top: 13.03%;
+  left: 25.55%;
+  z-index: 3;
+  width: 48.57%;
+  pointer-events: none;
+  container-type: inline-size;
+  container-name: deploy-center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(0.9);
+  transform-origin: top center;
+}
+
+/* Figma 1822:24297 — Rectangle 12278 @ x=-188 y=213 w=936 h=187
+ * Above backdrop, behind the three agent cards */
+.bottomFade {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: calc(-188 / 560 * 100%);
+  width: calc(936 / 560 * 100%);
+  height: calc(187 / 400 * 100%);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 0%,
+    rgba(249, 249, 249, 0.008) 11.79%,
+    rgba(249, 249, 249, 0.032) 21.384%,
+    rgba(249, 249, 249, 0.07) 29.12%,
+    rgba(249, 249, 249, 0.121) 35.336%,
+    rgba(249, 249, 249, 0.181) 40.37%,
+    rgba(249, 249, 249, 0.251) 44.56%,
+    rgba(249, 249, 249, 0.328) 48.243%,
+    rgba(249, 249, 249, 0.411) 51.757%,
+    rgba(249, 249, 249, 0.497) 55.44%,
+    rgba(249, 249, 249, 0.585) 59.63%,
+    rgba(249, 249, 249, 0.674) 64.664%,
+    rgba(249, 249, 249, 0.762) 70.88%,
+    rgba(249, 249, 249, 0.846) 78.616%,
+    rgba(249, 249, 249, 0.926) 88.21%,
+    #f9f9f9 100%
+  );
+}
+
+/*
+ * Figma 1835:22929 — mobile Deploy stage 362×280
+ * Rectangle 12278 @ y=93 h=187 w=363
+ */
+@media (max-width: 768px) {
+  .leftWrap {
+    top: calc(50.51 / 280 * 100%);
+    left: calc(-139.82 / 362 * 100%);
+    width: calc(193.92 / 362 * 100%);
+  }
+
+  .rightWrap {
+    top: calc(51.63 / 280 * 100%);
+    left: calc(306.56 / 362 * 100%);
+    width: calc(195.35 / 362 * 100%);
+  }
+
+  .centerWrap {
+    top: calc(28.93 / 280 * 100%);
+    left: calc(78.15 / 362 * 100%);
+    width: calc(204.37 / 362 * 100%);
+    transform: translateZ(0) scale(0.9);
+    transform-origin: top center;
+  }
+
+  .bottomFade {
+    /* Figma 1835:22984 — y=93 h=187 w=363 on 362×280 stage */
+    left: 0;
+    width: 100%;
+    height: calc(187 / 280 * 100%);
+  }
+}

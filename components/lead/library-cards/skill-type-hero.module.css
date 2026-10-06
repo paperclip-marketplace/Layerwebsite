@@ -1,0 +1,73 @@
+/* Skill card type hero — CSS gradients only (Figma 1501:40308 / 40362 / 40416), scaled for 148px */
+
+.previewFade {
+  transition: opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+.heroTypeBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  clip-path: inset(0 round 12px 12px 0 0);
+  pointer-events: none;
+}
+
+/* Procedure — vertical blue wash, stops compressed for 148px hero */
+.heroTypeBg[data-skill-type="procedure"] {
+  background: linear-gradient(
+    180deg,
+    #3074af 0%,
+    #5b96ca 14%,
+    #98bbe0 30%,
+    #cedeef 50%,
+    #f0f4fa 72%,
+    #ffffff 100%
+  );
+}
+
+/* Directive — warm peach top-left + cool gray top-right, fades to white */
+.heroTypeBg[data-skill-type="directive"] {
+  background:
+    radial-gradient(ellipse 95% 75% at 0% 0%, #d4aa88 0%, transparent 58%),
+    radial-gradient(ellipse 85% 70% at 100% 0%, #5a6068 0%, transparent 55%),
+    linear-gradient(180deg, #ebe3dc 0%, #f6f3f0 42%, #ffffff 100%);
+}
+
+/* Evaluator — soft lavender→rose at top, same vertical fade to white as procedure */
+.heroTypeBg[data-skill-type="evaluator"] {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.35) 28%,
+      rgba(255, 255, 255, 0.72) 50%,
+      #f0f4fa 72%,
+      #ffffff 100%
+    ),
+    linear-gradient(
+      90deg,
+      #c4a8c8 0%,
+      #d4b0bc 22%,
+      #dc98a8 42%,
+      #d07088 58%,
+      #b85878 78%,
+      #a05070 100%
+    );
+}
+
+/* Large grid — offset down to match Figma 1473:24468 pattern placement */
+.heroTypeBgGrid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background-image:
+    linear-gradient(to right, #020100 1px, transparent 1px),
+    linear-gradient(to bottom, #020100 1px, transparent 1px);
+  background-size: 96px 96px;
+  background-position: -8px 32px;
+  pointer-events: none;
+}

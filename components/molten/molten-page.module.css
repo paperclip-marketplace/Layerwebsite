@@ -1,0 +1,65 @@
+.page {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #ffffff;
+}
+
+.main {
+  width: 100%;
+  max-width: none;
+  --landing-header-h: 64px;
+  padding-top: var(--landing-header-h);
+}
+
+.clientsSpacing {
+  margin-top: 0;
+}
+
+/* Match molten band sections — top stroke on bottom CTA */
+.page .main :global([data-name="bottom-cta"]) {
+  border-top: 1px solid var(--layer-gray-200);
+}
+
+@media (max-width: 768px) {
+  /* Figma 2474:29474 — hero main type scale for whole /molten page */
+  .page {
+    --molten-m-headline-size: calc(40 * var(--l-vw));
+    --molten-m-headline-lh: calc(48 * var(--l-vw));
+    --molten-m-headline-tracking: calc(-1.6 * var(--l-vw));
+    --molten-m-body-size: calc(16 * var(--l-vw));
+    --molten-m-body-lh: calc(24 * var(--l-vw));
+    --molten-m-body-tracking: calc(-0.64 * var(--l-vw));
+  }
+
+  .main {
+    --landing-header-h: 56px;
+  }
+
+  .landing-page-gutter .main.landing-main__inner {
+    padding-inline: 0;
+  }
+
+  .clientsSpacing :global(.landing-clients-section) {
+    gap: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .clientsSpacing :global(#our-clients-heading) {
+    font-size: var(--molten-m-body-size);
+    line-height: var(--molten-m-body-lh);
+    letter-spacing: var(--molten-m-body-tracking);
+  }
+
+  .main :global([data-name="bottom-cta"]) [class*="headline"] {
+    font-size: var(--molten-m-headline-size);
+    line-height: var(--molten-m-headline-lh);
+    letter-spacing: var(--molten-m-headline-tracking);
+  }
+
+  .whyLayerSpacing :global(.landing-what-we-do-split.landing-band-left) {
+    border-top: none;
+  }
+}

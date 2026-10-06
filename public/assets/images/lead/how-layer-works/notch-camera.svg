@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16.6299" height="16.6299" viewBox="0 0 16.6299 16.6299" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle id="Camera" cx="8.31497" cy="8.31497" r="8.31497" fill="url(#paint0_radial_0_9)"/>
+<defs>
+<radialGradient id="paint0_radial_0_9" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(8.31497 8.31497) rotate(90) scale(8.31497)">
+<stop stop-color="#9797AB"/>
+<stop offset="0.391646" stop-color="#2C2C46"/>
+<stop offset="1" stop-color="#3F3F46"/>
+</radialGradient>
+</defs>
+</svg>

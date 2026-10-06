@@ -1,0 +1,58 @@
+/*
+ * Composite is 724×560 — taller than the 400 media band so the coaching
+ * card hangs into the copy section. Do not use shared .visual (it clips).
+ */
+.root {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 100%;
+  height: calc(400 * var(--l-vw));
+  margin-bottom: -1px;
+  overflow: visible;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.composite {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  aspect-ratio: 724 / 560;
+  object-fit: contain;
+  object-position: top center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.bottomFade {
+  display: none;
+}
+
+/* Mobile only — match other HLW cards’ 280px media stage (Figma 1835:19222) */
+@media (max-width: 768px) {
+  .root {
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .composite {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* Figma 1835:23102 — Rectangle 12278 @ x=-99 y=198 w=560 h=82 */
+  .bottomFade {
+    display: block;
+    left: calc(-99 / 362 * 100%);
+    width: calc(560 / 362 * 100%);
+    height: calc(82 / 280 * 100%);
+  }
+}

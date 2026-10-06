@@ -1,0 +1,184 @@
+/* Figma 2406:3300 — Founder support */
+
+.section {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(40 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(80 * var(--l-vw)) var(--l-section-px);
+  padding-left: calc(var(--l-section-px) + var(--l-text-pl-extra));
+  /* Allow 100vw backdrop to extend past the 1440 content column */
+  overflow: visible;
+  background: transparent;
+}
+
+/*
+ * Full-viewport sky — Figma 2395:37979 @ 1920 (bg layer inset-0 on section).
+ * Image is sized relative to 100vw backdrop so wide screens match dev, not 1440 crop.
+ */
+.backdrop {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdropImage {
+  position: absolute;
+  top: 0.11%;
+  left: -1.78%;
+  width: 127.19%;
+  height: 338.18%;
+  max-width: none;
+  pointer-events: none;
+}
+
+.copyBlock {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(40 * var(--l-vw));
+  width: 100%;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.5;
+}
+
+.heroRow {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+}
+
+.headlineStrike {
+  display: block;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration-line: line-through;
+  text-decoration-thickness: 0.04em;
+  text-decoration-skip-ink: none;
+  text-decoration-color: currentColor;
+}
+
+/* The reveal moves each word. The line has to live on those words, not the parent. */
+.headlineStrike:has(:global([class*="splitWordInner"])) {
+  text-decoration: none;
+}
+
+.headlineStrike :global([class*="splitWordInner"]) {
+  text-decoration-line: line-through;
+  text-decoration-thickness: 0.04em;
+  text-decoration-skip-ink: none;
+  text-decoration-color: currentColor;
+}
+
+.headlinePrimary {
+  display: block;
+  color: #ffffff;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #ffffff;
+}
+
+@media (min-width: 1201px) {
+  .headline {
+    flex: 0 0 calc(840 * var(--l-vw));
+    width: calc(840 * var(--l-vw));
+    max-width: calc(840 * var(--l-vw));
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    gap: 32px;
+    padding: 40px var(--l-inset-x, 20px);
+  }
+
+  .copyBlock {
+    gap: 32px;
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: normal;
+  }
+
+  .heroRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .section :global(.landing-copy-headline),
+  .section :global(.landing-copy-aside) {
+    flex: none;
+    width: 100%;
+    max-width: none;
+  }
+
+  .headline {
+    font-size: var(--molten-m-headline-size, calc(40 * var(--l-vw)));
+    line-height: var(--molten-m-headline-lh, calc(48 * var(--l-vw)));
+    letter-spacing: var(--molten-m-headline-tracking, calc(-1.6 * var(--l-vw)));
+  }
+
+  .description {
+    font-size: var(--molten-m-body-size, calc(16 * var(--l-vw)));
+    line-height: var(--molten-m-body-lh, calc(24 * var(--l-vw)));
+    letter-spacing: var(--molten-m-body-tracking, calc(-0.64 * var(--l-vw)));
+  }
+
+  .backdrop {
+    min-height: 100%;
+  }
+
+  /* Figma 2474:29565 — sky crop. Desktop positioning above is unchanged. */
+  .backdropImage {
+    top: 0.05%;
+    bottom: auto;
+    left: -144.58%;
+    width: 430.85%;
+    height: 194.64%;
+    max-width: none;
+    transform: none;
+    object-fit: fill;
+  }
+}

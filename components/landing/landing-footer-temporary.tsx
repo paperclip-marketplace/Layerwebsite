@@ -9,19 +9,19 @@ const LOGO_WORDMARK = "/assets/images/landing/layer-wordmark.svg";
 const FOOTER_BADGES = [
   {
     id: "soc2",
-    src: "/assets/images/landing/footer/soc2.png",
+    src: "/assets/images/landing/footer/soc2.webp",
     alt: "AICPA SOC 2",
     crop: false,
   },
   {
     id: "gdpr",
-    src: "/assets/images/landing/footer/gdpr.png",
+    src: "/assets/images/landing/footer/gdpr.webp",
     alt: "GDPR",
     crop: true,
   },
   {
     id: "iso",
-    src: "/assets/images/landing/footer/iso.png",
+    src: "/assets/images/landing/footer/iso.webp",
     alt: "ISO 27001 Certified",
     crop: false,
   },

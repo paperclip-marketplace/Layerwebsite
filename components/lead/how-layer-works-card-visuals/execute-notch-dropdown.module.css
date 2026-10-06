@@ -1,0 +1,255 @@
+/* Figma 1822:24189 — Notch dropdown panel
+   cqw relative to .panelWrap (panel width ≈ 489.593) */
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 1.896cqw;
+  border-bottom: 0.237cqw solid rgba(255, 255, 255, 0.4);
+  border-radius: 0 0 4.739cqw 4.739cqw;
+  box-shadow: 0 0 8.294cqw rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(0.474cqw);
+  -webkit-backdrop-filter: blur(0.474cqw);
+  background: linear-gradient(
+    180deg,
+    rgb(2, 1, 0) 39.317%,
+    rgba(2, 1, 0, 0.992) 46.471%,
+    rgba(2, 1, 0, 0.968) 52.293%,
+    rgba(2, 1, 0, 0.93) 56.988%,
+    rgba(2, 1, 0, 0.879) 60.76%,
+    rgba(2, 1, 0, 0.819) 63.815%,
+    rgba(2, 1, 0, 0.749) 66.357%,
+    rgba(2, 1, 0, 0.672) 68.592%,
+    rgba(2, 1, 0, 0.589) 70.725%,
+    rgba(2, 1, 0, 0.503) 72.959%,
+    rgba(2, 1, 0, 0.415) 75.502%,
+    rgba(2, 1, 0, 0.326) 78.557%,
+    rgba(2, 1, 0, 0.238) 82.329%,
+    rgba(2, 1, 0, 0.154) 87.024%,
+    rgba(2, 1, 0, 0.074) 92.846%,
+    rgba(2, 1, 0, 0) 100%
+  );
+}
+
+.header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-inline: 2.843cqw;
+}
+
+.headerSlot {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: 16.114cqw;
+}
+
+.iconWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 4.739cqw;
+  height: 4.739cqw;
+  overflow: hidden;
+  border: 0.118cqw solid transparent;
+  border-radius: 15.64cqw;
+  box-shadow: 0 2.843cqw 7.583cqw rgba(57, 151, 4, 0.32);
+}
+
+.icon {
+  display: block;
+  object-fit: cover;
+  border-radius: 15.64cqw;
+}
+
+.camera {
+  position: relative;
+  flex-shrink: 0;
+  width: 3.397cqw;
+  height: 3.397cqw;
+}
+
+.cameraImg {
+  display: block;
+  object-fit: contain;
+}
+
+.waveform {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.711cqw;
+  align-items: center;
+  justify-content: flex-end;
+  width: 16.114cqw;
+  height: 4.739cqw;
+}
+
+.waveBar {
+  flex-shrink: 0;
+  width: 0.355cqw;
+  border-radius: 23.46cqw;
+  background: linear-gradient(180deg, #ffffff 0%, #6e6e6e 100%);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 4.739cqw;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  padding: 3.317cqw 2.843cqw 2.843cqw;
+}
+
+.prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 2.37cqw;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-inline: 4.739cqw;
+  font-family: var(--layer-font-geist-sans);
+  font-size: 3.317cqw;
+  font-weight: 400;
+  line-height: 4.739cqw;
+  letter-spacing: -0.04em;
+  word-break: break-word;
+}
+
+.promptLabel {
+  margin: 0;
+  width: 100%;
+  color: #8d8d8d;
+}
+
+.promptText {
+  margin: 0;
+  width: 100%;
+  color: #ffffff;
+  white-space: pre-wrap;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  border: 0.237cqw solid transparent;
+  border-radius: 2.843cqw;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0.474cqw 0.948cqw rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(0.948cqw);
+  -webkit-backdrop-filter: blur(0.948cqw);
+}
+
+.optionRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1.896cqw;
+  border-radius: 2.843cqw;
+}
+
+.optionRowInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1.896cqw;
+}
+
+.optionMain {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.896cqw;
+  align-items: center;
+  min-width: 0;
+}
+
+.optionKey {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 4.739cqw;
+  height: 4.739cqw;
+  border-radius: 1.422cqw;
+  background: rgba(249, 249, 249, 0.1);
+  font-family: var(--layer-font-geist-sans);
+  font-size: 2.843cqw;
+  font-weight: 400;
+  line-height: 3.791cqw;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.optionLabel {
+  font-family: var(--layer-font-geist-sans);
+  font-size: 2.843cqw;
+  font-weight: 400;
+  line-height: 3.791cqw;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.shortcut {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.948cqw;
+  align-items: center;
+  padding: 1.185cqw 2.37cqw;
+  border: 0.237cqw solid transparent;
+  border-radius: 9.005cqw;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.23) 0%,
+    rgba(118, 118, 118, 0.23) 100%
+  );
+  box-shadow: 0 0.474cqw 0.948cqw rgba(0, 0, 0, 0.1);
+  font-family: var(--layer-font-geist-sans);
+  font-size: 2.37cqw;
+  font-weight: 400;
+  line-height: 2.37cqw;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.shortcutGroup {
+  display: inline-flex;
+  gap: 0.474cqw;
+  align-items: center;
+}
+
+.shortcutIconWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 1.896cqw;
+  height: 1.896cqw;
+  overflow: hidden;
+}
+
+.shortcutIcon {
+  display: block;
+  object-fit: contain;
+}
+
+.shortcut :global(.material-symbols-rounded) {
+  font-size: 2.37cqw;
+  line-height: 1;
+  font-variation-settings: "FILL" 0, "GRAD" 0;
+}
