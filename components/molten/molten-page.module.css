@@ -17,6 +17,21 @@
   margin-top: 0;
 }
 
+/* /molten only — clients band is 80px above and below its content */
+.clientsSpacing :global(.landing-clients-section) {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* Space from the clients band to “THE MOLTEN OFFER” is 80px in total */
+.page .main :global(.molten-offer-section) {
+  padding-top: 0;
+}
+
+.page .main :global(.molten-offer-copy) {
+  padding-top: 80px;
+}
+
 /* Match molten band sections — top stroke on bottom CTA */
 .page .main :global([data-name="bottom-cta"]) {
   border-top: 1px solid var(--layer-gray-200);
@@ -43,8 +58,6 @@
 
   .clientsSpacing :global(.landing-clients-section) {
     gap: 40px;
-    padding-top: 40px;
-    padding-bottom: 40px;
   }
 
   .clientsSpacing :global(#our-clients-heading) {
