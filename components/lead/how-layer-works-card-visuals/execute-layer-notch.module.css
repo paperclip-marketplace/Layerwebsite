@@ -1,0 +1,53 @@
+/* Figma 1822:24186 — Layer notch shell (536×334 reference) */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cornerRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4.44%;
+  height: 7.12%;
+  z-index: 2;
+}
+
+.cornerLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.44%;
+  height: 7.12%;
+  z-index: 2;
+}
+
+.cornerLeftInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: rotate(180deg) scaleY(-1);
+}
+
+.cornerImg {
+  display: block;
+  object-fit: contain;
+}
+
+/* Figma 1822:24189 — panel @ x=23.2, width 489.59 within 536 */
+.panelWrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  width: 91.34%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  container-type: inline-size;
+  container-name: notch-dropdown;
+}

@@ -1,0 +1,361 @@
+/* Figma node 2522:76341 — Library Frameworks card */
+
+.card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  overflow: clip;
+  isolation: isolate;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  background: #ffffff;
+  box-sizing: border-box;
+  transition:
+    border-color 800ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardClickable {
+  cursor: pointer;
+}
+
+.cardClickable:focus-visible {
+  outline: 2px solid #020100;
+  outline-offset: 2px;
+}
+
+.card:hover,
+.card:focus-within,
+.cardElevated {
+  border-color: #dedede;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 148px;
+  flex-shrink: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 16px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background: #ffffff;
+}
+
+.heroBase {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background: #ffffff;
+  pointer-events: none;
+}
+
+.heroGrid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.1;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, #020100 1px, transparent 1px),
+    linear-gradient(to bottom, #020100 1px, transparent 1px);
+  background-size: 96px 96px;
+  background-position: -8px 32px;
+}
+
+.heroTopFade {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  width: 285px;
+  height: 40px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 89.3%
+  );
+}
+
+.heroBottomFade {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 4;
+  width: 100%;
+  height: 20px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    #ffffff 10.7%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.heroIllustration {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 45px;
+  display: flex;
+  width: 105px;
+  height: 118px;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.docFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15.656px 15.656px 31.311px;
+  border: 1px solid #eeeeee;
+  border-bottom: none;
+  border-radius: 15.656px 15.656px 0 0;
+  background: #f9f9f9;
+  box-shadow: 0 6.262px 7.828px rgba(0, 0, 0, 0.08);
+  transform: rotate(7.81deg);
+  transition:
+    background 800ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover .docFrame,
+.card:focus-within .docFrame,
+.cardElevated .docFrame {
+  background: #fbebe6;
+  border-color: #fcccbd;
+}
+
+.docIcon {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  color: #8d8d8d;
+  transition: color 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover .docIcon,
+.card:focus-within .docIcon,
+.cardElevated .docIcon {
+  color: #f45523;
+}
+
+.docIconSvg {
+  display: block;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.heroControls {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.chips {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  max-width: 120px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #eeeeee;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: -0.48px;
+  color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chipOverflow {
+  flex-shrink: 0;
+}
+
+.menuBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border: 1px solid #eeeeee;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #020100;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 200ms ease,
+    background 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover .menuBtn,
+.card:focus-within .menuBtn,
+.menuBtn[data-state="open"] {
+  opacity: 1;
+}
+
+.menuBtn:hover {
+  background: #f9f9f9;
+}
+
+.menuBtn:focus-visible {
+  opacity: 1;
+  outline: none;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px #020100;
+}
+
+.menuIcon {
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.body {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 16px 16px;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.bodyTopFade {
+  position: absolute;
+  top: -36px;
+  left: 0;
+  width: 100%;
+  height: 36px;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 800ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.card:hover .bodyTopFade,
+.card:focus-within .bodyTopFade,
+.cardElevated .bodyTopFade {
+  opacity: 1;
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.64px;
+  color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  min-height: 32px;
+  max-height: 32px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.48px;
+  color: #8d8d8d;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  word-break: break-word;
+}
+
+.descriptionMuted {
+  color: #9a9a9a;
+}
+
+.activeBadge {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #e7f6ef;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.44px;
+  color: #009360;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Build card visual — always show hover colors when requested */
+.cardAlwaysActive .docFrame {
+  background: #fbebe6;
+  border-color: #fcccbd;
+}
+
+.cardAlwaysActive .docIcon {
+  color: #f45523;
+}
+
+.cardAlwaysActive .bodyTopFade {
+  opacity: 1;
+}

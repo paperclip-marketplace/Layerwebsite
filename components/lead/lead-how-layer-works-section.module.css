@@ -1,0 +1,351 @@
+/* Figma 1822:22480 — How Layer Works */
+
+.copySection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Figma 1835:8515 — 40px eyebrow → copy row */
+  gap: calc(40 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  /* Figma 1835:8515 — pt 80, pb 40 */
+  padding: calc(80 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
+  background: #ffffff;
+}
+
+.eyebrow {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.headline,
+.description {
+  font-family: var(--layer-font-geist-sans);
+  font-weight: 400;
+  letter-spacing: var(--l-tracking);
+}
+
+.headline {
+  margin: 0;
+  font-size: var(--l-fs-72);
+  line-height: var(--l-lh-72);
+  color: #020100;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.description {
+  margin: 0;
+  font-size: var(--l-fs-20);
+  line-height: calc(28 / 20);
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+}
+
+.carouselSection {
+  box-sizing: border-box;
+  width: 100%;
+  /* Figma 1835:8520 — pt 40, pb 40 around 560 cards */
+  padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  background: #ffffff;
+}
+
+.sectionPinned {
+  overflow: visible;
+  scroll-snap-type: none;
+  padding-inline: 0;
+}
+
+.pinSpacer {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+}
+
+/*
+ * Keep pin geometry inside .landing-page-gutter (no 100vw breakout) so the
+ * white/orange fills leave the side gutters visible — same shell as other
+ * sections. Cards can still scrub into the gutters via overflow: visible.
+ */
+
+/* Pins How Layer Works + Why Now together (Figma stack). Cards scrub; both
+   flanking sections stay in place — Why Now is not pushed below the pin gap. */
+.pinSticky {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 0;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+/*
+ * Shell column — fills stay in .landing-page-gutter (white side gutters).
+ * No L/R vertical strokes on How Layer Works / Why Now.
+ * Optional 100vw top/bottom hairlines only.
+ */
+.gutterShell {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: visible;
+  background: transparent;
+}
+
+.gutterFrame {
+  display: none;
+}
+
+@media (width > 1440px) {
+  .gutterFrame {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .gutterFrame::before,
+  .gutterFrame::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    border-top: 1px solid #dedede;
+    pointer-events: none;
+  }
+
+  .gutterFrame::before {
+    top: 0;
+  }
+
+  .gutterFrame::after {
+    bottom: 0;
+  }
+}
+
+.track {
+  display: flex;
+  gap: calc(20 * var(--l-vw));
+  align-items: flex-start;
+  width: max-content;
+  min-width: 100%;
+}
+
+.sectionPinned .track {
+  min-width: 0;
+  align-items: center;
+}
+
+.trackPinned {
+  will-change: transform;
+  transition: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.card {
+  display: flex;
+  flex: 0 0 var(--l-personal-agent-use-case-card);
+  flex-shrink: 0;
+  flex-direction: column;
+  width: var(--l-personal-agent-use-case-card);
+  height: var(--l-personal-agent-use-case-card);
+  overflow: hidden;
+  border: 1px solid #eeeeee;
+  border-radius: calc(24 * var(--l-vw));
+  background: #f9f9f9;
+  scroll-snap-align: start;
+  /* Own compositor layer — stops border/seam flicker while the track translates */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Improve: composite hangs from media into copy; keep copy under the image */
+.cardImprove .copy {
+  z-index: 0;
+}
+
+.sectionPinned [data-pin-scroll-card] {
+  flex: 0 0 auto;
+  width: var(--l-personal-agent-use-case-card);
+  height: var(--l-personal-agent-use-case-card);
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+  justify-content: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 0;
+  padding: calc(32 * var(--l-vw));
+  background: #f9f9f9;
+}
+
+.cardTitle {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 600;
+  line-height: calc(28 * var(--l-vw));
+  letter-spacing: var(--l-tracking-caption);
+  color: #606060;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.cardDescription {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: calc(28 * var(--l-vw));
+  letter-spacing: var(--l-tracking-caption);
+  color: #020100;
+}
+
+/* Figma 1835:19222 — stacked vertical cards (not horizontal scroll) */
+@media (max-width: 768px) {
+  .copySection {
+    /* Figma 1835:19262 — pt 64, px 20, pb 20, 32px eyebrow → copy */
+    gap: 32px;
+    padding: 64px var(--l-inset-x, 20px) 20px;
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+  }
+
+  .headline {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1.6px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .copySection :global(.landing-copy-row) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .copySection :global(.landing-copy-headline),
+  .copySection :global(.landing-copy-aside) {
+    width: 100%;
+    max-width: none;
+  }
+
+  .carouselSection {
+    padding: 20px var(--l-inset-x, 20px) 80px;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .track {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .track > [role="listitem"] {
+    width: 100%;
+  }
+
+  .card {
+    flex: none;
+    flex-basis: auto;
+    width: 100%;
+    /* Figma 1835:19269 — 280px media + 152px copy (128px for Build) */
+    height: auto;
+    min-height: 0;
+    border-radius: 20px;
+  }
+
+  .copy {
+    gap: 12px;
+    flex: none;
+    box-sizing: border-box;
+    height: 152px;
+    min-height: 152px;
+    padding: 20px;
+    justify-content: flex-start;
+  }
+
+  /* Figma 1835:19263 — Build copy block is 128px (2-line description) */
+  .cardBuild .copy {
+    height: 128px;
+    min-height: 128px;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.8px;
+    font-weight: 600;
+    color: #606060;
+    opacity: 0.5;
+    white-space: nowrap;
+    flex-shrink: 0;
+    height: 28px;
+  }
+
+  .cardDescription {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+    font-weight: 400;
+    color: #020100;
+    /* Figma 1835:19259 — 3 lines × 24px */
+    height: 72px;
+    margin: 0;
+  }
+
+  .cardBuild .cardDescription {
+    /* Figma 1835:19268 — 2 lines × 24px */
+    height: 48px;
+  }
+}
