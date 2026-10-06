@@ -220,14 +220,14 @@
 
 /*
  * Molten colors: molten-hero-glow.svg.
- * Desktop keeps the lead bottom anchor, with a taller band.
+ * Desktop keeps the lead bottom anchor, with a 662px band.
  * Mobile keeps the lead crop, but the strip is shifted so purple (left)
  * and molten orange (right) both sit inside the viewport. The band is
  * 80% of that crop and stays anchored to the bottom.
  */
 @media (min-width: 769px) {
   .backdropMolten .bottomEllipse {
-    height: 460px;
+    height: 662px;
     bottom: -48px;
   }
 }
