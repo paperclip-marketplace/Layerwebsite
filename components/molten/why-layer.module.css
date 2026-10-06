@@ -328,7 +328,7 @@
   }
 
   .cardTitle {
-    font-size: 20px;
+    font-size: var(--molten-m-body-size, calc(16 * var(--l-vw)));
     line-height: 28px;
     letter-spacing: -0.8px;
     font-weight: 600;
