@@ -8,8 +8,8 @@
   gap: calc(40 * var(--l-vw));
   box-sizing: border-box;
   width: 100%;
-  /* Figma 1835:8515 — pt 80, pb 40 */
-  padding: calc(80 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
+  /* 120px from the founder band to the eyebrow; 40px below the copy */
+  padding: calc(120 * var(--l-vw)) var(--l-section-px) calc(40 * var(--l-vw));
   background: #ffffff;
 }
 
