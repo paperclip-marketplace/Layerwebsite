@@ -1,10 +1,23 @@
 import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
 import { LandingOptimizedImage } from "@/components/landing/landing-optimized-image";
 import { MOLTEN_OFFER_CARDS } from "./molten-offer-data";
+
+/** Credits card stays in the data set but is not shown (Figma 2507:20788). */
+const VISIBLE_OFFER_CARDS = MOLTEN_OFFER_CARDS.filter(
+  (card) => card.id !== "credits",
+);
+import {
+  MOLTEN_PARTNER,
+  type PartnerPageConfig,
+} from "./partner-pages";
 import styles from "./molten-offer-section.module.css";
 
 /** Figma 2395:32937 — Leadership Progress / Molten offer metrics. */
-export function MoltenOfferSection() {
+export function MoltenOfferSection({
+  partner = MOLTEN_PARTNER,
+}: {
+  partner?: PartnerPageConfig;
+}) {
   return (
     <section
       className={`${styles.section} landing-band-left molten-offer-section`}
@@ -18,7 +31,7 @@ export function MoltenOfferSection() {
         data-name="Leadership Metrics"
       >
         <p className={styles.eyebrow} data-node-id="2395:32939">
-          the molten offer
+          the {partner.offerEyebrowName} offer
         </p>
         <LandingHeadingReveal
           as="h2"
@@ -26,7 +39,9 @@ export function MoltenOfferSection() {
           className={styles.headline}
           data-node-id="2395:32940"
         >
-          <span className={styles.headlineLine}>Molten portfolio companies</span>
+          <span className={styles.headlineLine}>
+            {partner.offerHeadlineName} portfolio companies
+          </span>
           <span className={styles.headlineLine}>
             get <span className={styles.highlight}>6 months on us.</span>
           </span>
@@ -39,7 +54,7 @@ export function MoltenOfferSection() {
         data-name="What We Do Container"
       >
         <div className={styles.cardRow} data-node-id="2395:32942">
-          {MOLTEN_OFFER_CARDS.map((card) => (
+          {VISIBLE_OFFER_CARDS.map((card) => (
             <div key={card.id} className={styles.hover3d}>
             <article
               className={styles.card}
@@ -51,9 +66,9 @@ export function MoltenOfferSection() {
                   src={card.image}
                   alt={card.imageAlt}
                   className={styles.image}
-                  width={325}
-                  height={200}
-                  sizes="(max-width: 768px) 80vw, 25vw"
+                  width={442}
+                  height={272}
+                  sizes="(max-width: 768px) 80vw, 33vw"
                 />
                 <div className={styles.imageFade} aria-hidden />
               </div>

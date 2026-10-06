@@ -21,11 +21,17 @@ export function LandingMarketingHeroBackdrop({
   variant = "default",
 }: LandingMarketingHeroBackdropProps) {
   const glowSrc =
-    variant === "molten"
-      ? MARKETING_HERO_BACKDROP_ASSETS.moltenBottomGlow
-      : MARKETING_HERO_BACKDROP_ASSETS.bottomGlow;
+    variant === "notion"
+      ? MARKETING_HERO_BACKDROP_ASSETS.notionBottomGlow
+      : variant === "inflexion"
+        ? MARKETING_HERO_BACKDROP_ASSETS.inflexionBottomGlow
+        : variant === "molten"
+          ? MARKETING_HERO_BACKDROP_ASSETS.moltenBottomGlow
+          : MARKETING_HERO_BACKDROP_ASSETS.bottomGlow;
   const variantClass =
-    variant === "molten" ? styles.backdropMolten : undefined;
+    variant === "molten" || variant === "notion" || variant === "inflexion"
+      ? styles.backdropMolten
+      : undefined;
 
   return (
     <div

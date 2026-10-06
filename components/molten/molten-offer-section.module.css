@@ -54,6 +54,8 @@
 
 .headline {
   margin: 0;
+  width: 100%;
+  max-width: 100%;
   font-family: var(--layer-font-geist-sans);
   font-size: var(--l-fs-72);
   font-weight: 400;
@@ -258,8 +260,8 @@
 
 @media (min-width: 769px) and (max-width: 1200px) {
   .hover3d {
-    flex: 1 1 calc(50% - calc(10 * var(--l-vw)));
-    min-width: calc(280 * var(--l-vw));
+    flex: 1 1 0;
+    min-width: 0;
   }
 }
 
@@ -280,7 +282,7 @@
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  height: calc(200 * var(--l-vw));
+  height: calc(272 * var(--l-vw));
 }
 
 .image {
@@ -349,13 +351,8 @@
 
 @media (max-width: 1200px) {
   .cardRow {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     max-width: none;
-  }
-
-  .card {
-    flex: 1 1 calc(50% - calc(10 * var(--l-vw)));
-    min-width: calc(280 * var(--l-vw));
   }
 }
 

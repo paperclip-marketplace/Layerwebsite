@@ -123,6 +123,25 @@
   object-fit: cover;
 }
 
+.partnerLogoWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--partner-logo-w) * var(--l-vw));
+  height: calc(28 * var(--l-vw));
+}
+
+.partnerLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.inflexionMark {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
 .logoDivider {
   display: flex;
   align-items: center;
@@ -302,6 +321,11 @@
 
   .moltenLogoWrap {
     width: calc(84.112 * var(--l-vw));
+    height: calc(20.875 * var(--l-vw));
+  }
+
+  .partnerLogoWrap {
+    width: calc(var(--partner-logo-w) * 84.112 / 113 * var(--l-vw));
     height: calc(20.875 * var(--l-vw));
   }
 

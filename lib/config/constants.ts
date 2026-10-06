@@ -36,6 +36,8 @@ export const ROUTES = {
   privacy: '/privacy',
   comingSoon: '/coming-soon',
   molten: '/molten',
+  notionCapital: '/notion-capital',
+  inflexion: '/inflexion',
   contactSales: 'mailto:hello@withlayer.ai',
 } as const;
 
