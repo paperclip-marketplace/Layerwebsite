@@ -53,8 +53,13 @@ function extractLineElements(container: HTMLElement): HTMLElement[] {
   return [container];
 }
 
+function hasLineThrough(el: HTMLElement): boolean {
+  return getComputedStyle(el).textDecorationLine.includes("line-through");
+}
+
 function wrapWordsInElement(root: HTMLElement): HTMLElement[] {
   const wordInners: HTMLElement[] = [];
+  const strike = hasLineThrough(root);
 
   const walk = (node: Node) => {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -68,7 +73,13 @@ function wrapWordsInElement(root: HTMLElement): HTMLElement[] {
         if (!part) continue;
 
         if (/^\s+$/.test(part)) {
-          fragment.appendChild(document.createTextNode(part));
+          const last = wordInners[wordInners.length - 1];
+          if (strike && last) {
+            last.appendChild(document.createTextNode(part));
+            last.style.whiteSpace = "pre";
+          } else {
+            fragment.appendChild(document.createTextNode(part));
+          }
           continue;
         }
 
@@ -110,6 +121,25 @@ function wrapLineForSlide(lineEl: HTMLElement): HTMLElement {
   return inner;
 }
 
+function unwrapSplitText(container: HTMLElement) {
+  container.querySelectorAll(`.${styles.splitLineMask}`).forEach((mask) => {
+    const inner = mask.firstElementChild;
+    if (!inner || !mask.parentNode) return;
+    while (inner.firstChild) {
+      mask.parentNode.insertBefore(inner.firstChild, mask);
+    }
+    mask.remove();
+  });
+
+  container.querySelectorAll(`.${styles.splitWord}`).forEach((mask) => {
+    mask.replaceWith(document.createTextNode(mask.textContent ?? ""));
+  });
+
+  container.querySelectorAll(`.${styles.splitTextLine}`).forEach((line) => {
+    line.classList.remove(styles.splitTextLine);
+  });
+}
+
 function setupSplitTextReveal(container: HTMLElement) {
   const lineElements = extractLineElements(container);
   const multiLine = lineElements.length > 1;
@@ -142,6 +172,10 @@ export function LandingHeadingReveal({
   useLayoutEffect(() => {
     const el = headingRef.current;
     if (!el || reduceMotion || alreadyPlayed) return;
+
+    if (el.querySelector(`.${styles.splitWord}, .${styles.splitLineMask}`)) {
+      unwrapSplitText(el);
+    }
 
     const { firstLineWords, lineSlides } = setupSplitTextReveal(el);
 
@@ -183,10 +217,9 @@ export function LandingHeadingReveal({
     });
 
     return () => {
-      gsap.set(firstLineWords, { yPercent: 0 });
-      gsap.set(lineSlides, { yPercent: 0 });
       timeline.scrollTrigger?.kill();
       timeline.kill();
+      unwrapSplitText(el);
     };
   }, [alreadyPlayed, id, reduceMotion]);
 

@@ -115,7 +115,6 @@
     perspective: 75rem;
     --transform: 0, 0;
     --shine: 100% 100%;
-    --shadow: 0rem 0rem;
     --ease: linear(
       0,
       0.931 13.8%,
@@ -126,11 +125,6 @@
       1.059 78%,
       1
     );
-    filter: drop-shadow(var(--shadow) 0.1rem #00000003)
-      drop-shadow(var(--shadow) 0.2rem #00000003)
-      drop-shadow(var(--shadow) 0.3rem #00000003)
-      drop-shadow(var(--shadow) 0.4rem #00000003);
-    transition: filter ease-out 400ms;
   }
 
   .hover3d > .card {
@@ -224,49 +218,41 @@
   .hover3d:has(> .hoverZone:nth-child(2):hover) {
     --transform: -1, 1;
     --shine: 0% 0%;
-    --shadow: -0.5rem -0.5rem;
   }
 
   .hover3d:has(> .hoverZone:nth-child(3):hover) {
     --transform: -1, 0;
     --shine: 100% 0%;
-    --shadow: 0rem -0.5rem;
   }
 
   .hover3d:has(> .hoverZone:nth-child(4):hover) {
     --transform: -1, -1;
     --shine: 200% 0%;
-    --shadow: 0.5rem -0.5rem;
   }
 
   .hover3d:has(> .hoverZone:nth-child(5):hover) {
     --transform: 0, 1;
     --shine: 0% 100%;
-    --shadow: -0.5rem 0rem;
   }
 
   .hover3d:has(> .hoverZone:nth-child(6):hover) {
     --transform: 0, -1;
     --shine: 200% 100%;
-    --shadow: 0.5rem 0rem;
   }
 
   .hover3d:has(> .hoverZone:nth-child(7):hover) {
     --transform: 1, 1;
     --shine: 0% 200%;
-    --shadow: -0.5rem 0.5rem;
   }
 
   .hover3d:has(> .hoverZone:nth-child(8):hover) {
     --transform: 1, 0;
     --shine: 100% 200%;
-    --shadow: 0rem 0.5rem;
   }
 
   .hover3d:has(> .hoverZone:nth-child(9):hover) {
     --transform: 1, -1;
     --shine: 200% 200%;
-    --shadow: 0.5rem 0.5rem;
   }
 }
 
@@ -397,22 +383,25 @@
 
   .cardsShell {
     padding: 20px var(--l-inset-x, 20px) 40px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
+    overflow: visible;
+    scroll-snap-type: none;
   }
 
   .cardRow {
+    flex-direction: column;
     flex-wrap: nowrap;
-    width: max-content;
-    min-width: 100%;
-    gap: 16px;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    gap: 24px;
   }
 
   .card {
-    flex: 0 0 280px;
-    width: 280px;
-    scroll-snap-align: start;
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    scroll-snap-align: unset;
   }
 
   .imageArea {

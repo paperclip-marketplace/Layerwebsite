@@ -250,16 +250,33 @@
 }
 
 @media (max-width: 768px) {
-  /* Figma 2474:29474 — Molten mobile hero @ 402px */
+  /* Figma 2474:29469 — single-line promo, 14/20, 12px 10px, no arrow */
   .promoBar {
-    flex-wrap: wrap;
-    row-gap: 8px;
-    padding: 12px var(--l-inset-x, 20px);
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 12px 10px;
   }
 
-  .promoText,
+  .promoText {
+    font-size: 14px;
+    font-weight: 400;
+    font-variation-settings: "wght" 400;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: nowrap;
+  }
+
   .promoCtaText {
-    white-space: normal;
+    font-size: 14px;
+    font-weight: 500;
+    font-variation-settings: "wght" 500;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    white-space: nowrap;
+  }
+
+  .promoCtaIcon {
+    display: none;
   }
 
   .section {

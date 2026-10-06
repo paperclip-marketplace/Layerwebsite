@@ -496,7 +496,6 @@
 .landing-main .landing-page-gutter .landing-leadership-control-section,
 .landing-main .landing-page-gutter .landing-leadership-metrics-section,
 .landing-main .landing-page-gutter .molten-offer-copy,
-.landing-main .landing-page-gutter .molten-founder-support-copy,
 .landing-main .landing-page-gutter .landing-problem-citation,
 .landing-main .landing-page-gutter .landing-operator-section [data-node-id="2135:20308"] {
   padding-left: calc(var(--l-section-px) + var(--l-text-pl-extra));
@@ -554,7 +553,6 @@
   .landing-main .landing-page-gutter .landing-leadership-control-section,
   .landing-main .landing-page-gutter .landing-leadership-metrics-section,
   .landing-main .landing-page-gutter .molten-offer-copy,
-  .landing-main .landing-page-gutter .molten-founder-support-copy,
   .landing-main .landing-page-gutter .landing-clients-section [class*="copyRow"],
   .landing-main .landing-page-gutter .landing-integration-section [class*="copyRow"],
   .landing-main .landing-page-gutter .landing-team-experience-section [class*="copyRow"],
