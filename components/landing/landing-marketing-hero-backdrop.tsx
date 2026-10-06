@@ -1,10 +1,14 @@
-import { MARKETING_HERO_BACKDROP_ASSETS } from "./marketing-hero-backdrop-assets";
+import {
+  MARKETING_HERO_BACKDROP_ASSETS,
+  type MarketingHeroBackdropVariant,
+} from "./marketing-hero-backdrop-assets";
 import styles from "./landing-marketing-hero-backdrop.module.css";
 
 type LandingMarketingHeroBackdropProps = {
   className?: string;
   /** Figma node id for the bg layer when known */
   dataNodeId?: string;
+  variant?: MarketingHeroBackdropVariant;
 };
 
 /**
@@ -14,10 +18,18 @@ type LandingMarketingHeroBackdropProps = {
 export function LandingMarketingHeroBackdrop({
   className,
   dataNodeId = "1634:8734",
+  variant = "default",
 }: LandingMarketingHeroBackdropProps) {
+  const glowSrc =
+    variant === "molten"
+      ? MARKETING_HERO_BACKDROP_ASSETS.moltenBottomGlow
+      : MARKETING_HERO_BACKDROP_ASSETS.bottomGlow;
+  const variantClass =
+    variant === "molten" ? styles.backdropMolten : undefined;
+
   return (
     <div
-      className={[styles.backdrop, className].filter(Boolean).join(" ")}
+      className={[styles.backdrop, variantClass, className].filter(Boolean).join(" ")}
       aria-hidden
       data-node-id={dataNodeId}
       data-name="bg"
@@ -27,12 +39,12 @@ export function LandingMarketingHeroBackdrop({
         <div className={styles.bottomEllipsePulse}>
           <div className={styles.bottomEllipseFlow}>
             <img
-              src={MARKETING_HERO_BACKDROP_ASSETS.bottomGlow}
+              src={glowSrc}
               alt=""
               className={styles.bottomEllipseSvg}
             />
             <img
-              src={MARKETING_HERO_BACKDROP_ASSETS.bottomGlow}
+              src={glowSrc}
               alt=""
               className={styles.bottomEllipseSvg}
               aria-hidden
@@ -44,6 +56,8 @@ export function LandingMarketingHeroBackdrop({
         <div className={styles.backdropGridV} />
         <div className={styles.backdropGridH} />
       </div>
+      {/* Figma 2406:3298 / 2467:3262 — white fade over mesh + grid */}
+      <div className={styles.backdropWhiteFade} aria-hidden />
     </div>
   );
 }

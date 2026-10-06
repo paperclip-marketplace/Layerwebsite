@@ -46,65 +46,71 @@ export function MoltenHero() {
         data-node-id="2406:3175"
         data-name="Section Container"
       >
-        <LandingMarketingHeroBackdrop dataNodeId="2406:3264" />
+        <LandingMarketingHeroBackdrop
+          dataNodeId="2467:3228"
+          variant="molten"
+          className="molten-hero-backdrop"
+        />
 
-        <div className={styles.content}>
-          <div className={styles.logoRow} data-node-id="2406:3236">
-            <div className={styles.moltenLogoWrap} data-node-id="2406:3224">
-              <Image
-                src={MOLTEN_ASSETS.moltenLogo}
-                alt="Molten"
-                width={113}
-                height={28}
-                className={styles.moltenLogo}
-                priority
-              />
+        <div className={styles.content} data-node-id="2474:29474">
+          <div className={styles.topBlock} data-node-id="2474:29510">
+            <div className={styles.logoRow} data-node-id="2474:29511">
+              <div className={styles.moltenLogoWrap} data-node-id="2474:29512">
+                <Image
+                  src={MOLTEN_ASSETS.moltenLogo}
+                  alt="Molten"
+                  width={113}
+                  height={28}
+                  className={styles.moltenLogo}
+                  priority
+                />
+              </div>
+              <div className={styles.logoDivider} aria-hidden>
+                <Image
+                  src={MOLTEN_ASSETS.logoDivider}
+                  alt=""
+                  width={1}
+                  height={28}
+                  className={styles.logoDividerImg}
+                />
+              </div>
+              <div className={styles.layerLogoWrap} data-node-id="2474:29514">
+                <Image
+                  src={MOLTEN_ASSETS.layerWordmark}
+                  alt="Layer"
+                  width={118}
+                  height={28}
+                  className={styles.layerWordmark}
+                  priority
+                />
+              </div>
             </div>
-            <div className={styles.logoDivider} aria-hidden>
-              <Image
-                src={MOLTEN_ASSETS.logoDivider}
-                alt=""
-                width={1}
-                height={28}
-                className={styles.logoDividerImg}
-              />
-            </div>
-            <div className={styles.layerLogoWrap} data-node-id="2406:3230">
-              <Image
-                src={MOLTEN_ASSETS.layerWordmark}
-                alt="Layer"
-                width={118}
-                height={28}
-                className={styles.layerWordmark}
-                priority
-              />
+
+            <div className={styles.copyRow} data-node-id="2474:29519">
+              <LandingHeadingReveal
+                as="h1"
+                id="molten-hero-heading"
+                className={styles.headline}
+                data-node-id="2474:29520"
+              >
+                <span className={styles.headlinePrimary}>
+                  Win more. Ramp faster.{" "}
+                </span>
+                <span className={styles.headlineAccent}>Close Better!</span>
+              </LandingHeadingReveal>
+              <LandingSubheadingReveal
+                className={styles.description}
+                data-node-id="2474:29521"
+              >
+                Layer gives every GTM team member an AI agent with your context,
+                playbooks, and tools so they can perform at their best.
+              </LandingSubheadingReveal>
             </div>
           </div>
 
-          <div className={styles.copyRow} data-node-id="2406:3216">
-            <LandingHeadingReveal
-              as="h1"
-              id="molten-hero-heading"
-              className={styles.headline}
-              data-node-id="2406:3217"
-            >
-              <span className={styles.headlinePrimary}>
-                Win more. Ramp faster.{" "}
-              </span>
-              <span className={styles.headlineAccent}>Close Better!</span>
-            </LandingHeadingReveal>
-            <LandingSubheadingReveal
-              className={styles.description}
-              data-node-id="2406:3218"
-            >
-              Layer gives every GTM team member an AI agent with your context,
-              playbooks, and tools so they can perform at their best.
-            </LandingSubheadingReveal>
-          </div>
-
-          <div className={styles.mediaBlock} data-node-id="2406:3219">
-            <div className={styles.mediaFrame} data-node-id="2406:3220">
-              <div className={styles.mediaInner} data-node-id="2406:3221">
+          <div className={styles.mediaBlock} data-node-id="2474:29522">
+            <div className={styles.mediaFrame} data-node-id="2474:29522">
+              <div className={styles.mediaInner} data-node-id="2474:29523">
                 <Image
                   src={MOLTEN_ASSETS.heroDashboard}
                   alt="Layer product dashboard"

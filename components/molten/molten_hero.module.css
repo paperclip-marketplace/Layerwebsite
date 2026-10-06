@@ -95,6 +95,14 @@
   padding: calc(80 * var(--l-vw)) var(--l-section-px) 0;
 }
 
+.topBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(80 * var(--l-vw));
+  width: 100%;
+}
+
 .logoRow {
   display: flex;
   gap: calc(20 * var(--l-vw));
@@ -242,9 +250,11 @@
 }
 
 @media (max-width: 768px) {
+  /* Figma 2474:29474 — Molten mobile hero @ 402px */
   .promoBar {
     flex-wrap: wrap;
-    padding: 12px 16px;
+    row-gap: 8px;
+    padding: 12px var(--l-inset-x, 20px);
   }
 
   .promoText,
@@ -252,29 +262,89 @@
     white-space: normal;
   }
 
+  .section {
+    clip-path: none;
+    border-bottom: 1px solid var(--layer-gray-200);
+  }
+
   .content {
-    gap: 40px;
-    padding-top: 40px;
+    gap: calc(56 * var(--l-vw));
+    box-sizing: border-box;
+    width: 100%;
+    padding: calc(64 * var(--l-vw)) var(--l-inset-x, 20px) calc(40 * var(--l-vw));
+  }
+
+  .topBlock {
+    gap: calc(32 * var(--l-vw));
+  }
+
+  .logoRow {
+    gap: calc(14.91 * var(--l-vw));
+    padding: 0 calc(2.982 * var(--l-vw));
+  }
+
+  .moltenLogoWrap {
+    width: calc(84.112 * var(--l-vw));
+    height: calc(20.875 * var(--l-vw));
+  }
+
+  .logoDividerImg {
+    height: calc(20.875 * var(--l-vw));
+  }
+
+  .layerLogoWrap {
+    width: calc(87.838 * var(--l-vw));
+    height: calc(20.875 * var(--l-vw));
   }
 
   .copyRow {
-    gap: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: calc(16 * var(--l-vw));
+    width: 100%;
   }
 
   .headline {
-    font-size: 40px;
-    line-height: 48px;
-    letter-spacing: -1.6px;
+    flex: none;
+    width: 100%;
+    font-size: var(--molten-m-headline-size, calc(40 * var(--l-vw)));
+    line-height: var(--molten-m-headline-lh, calc(48 * var(--l-vw)));
+    letter-spacing: var(--molten-m-headline-tracking, calc(-1.6 * var(--l-vw)));
   }
 
   .description {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.64px;
+    flex: none;
+    width: 100%;
+    font-size: var(--molten-m-body-size, calc(16 * var(--l-vw)));
+    line-height: var(--molten-m-body-lh, calc(24 * var(--l-vw)));
+    letter-spacing: var(--molten-m-body-tracking, calc(-0.64 * var(--l-vw)));
+  }
+
+  .mediaBlock {
+    box-sizing: border-box;
+    width: calc(428 * var(--l-vw));
+    max-width: none;
+    align-self: flex-start;
   }
 
   .mediaFrame {
+    width: 100%;
     height: auto;
-    min-height: 280px;
+    padding: calc(4 * var(--l-vw));
+    border-radius: calc(16 * var(--l-vw));
+    background: rgba(2, 1, 0, 0.08);
+  }
+
+  .mediaInner {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4096 / 2651;
+    border: none;
+    border-radius: calc(16 * var(--l-vw));
+  }
+
+  .mediaImage {
+    border-radius: calc(16 * var(--l-vw));
   }
 }

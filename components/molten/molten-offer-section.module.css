@@ -197,9 +197,9 @@
   }
 
   .headline {
-    font-size: 48px;
-    line-height: 52px;
-    letter-spacing: -1.92px;
+    font-size: var(--molten-m-headline-size, calc(40 * var(--l-vw)));
+    line-height: var(--molten-m-headline-lh, calc(48 * var(--l-vw)));
+    letter-spacing: var(--molten-m-headline-tracking, calc(-1.6 * var(--l-vw)));
   }
 
   .cardsShell {
@@ -229,9 +229,9 @@
   .textBlock {
     gap: 12px;
     padding: 24px;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.64px;
+    font-size: var(--molten-m-body-size, calc(16 * var(--l-vw)));
+    line-height: var(--molten-m-body-lh, calc(24 * var(--l-vw)));
+    letter-spacing: var(--molten-m-body-tracking, calc(-0.64 * var(--l-vw)));
   }
 
   .cardTitle {

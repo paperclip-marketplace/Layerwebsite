@@ -258,15 +258,15 @@
   }
 
   .headline {
-    font-size: 40px;
-    line-height: 48px;
-    letter-spacing: -1.6px;
+    font-size: var(--molten-m-headline-size, calc(40 * var(--l-vw)));
+    line-height: var(--molten-m-headline-lh, calc(48 * var(--l-vw)));
+    letter-spacing: var(--molten-m-headline-tracking, calc(-1.6 * var(--l-vw)));
   }
 
   .description {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.64px;
+    font-size: var(--molten-m-body-size, calc(16 * var(--l-vw)));
+    line-height: var(--molten-m-body-lh, calc(24 * var(--l-vw)));
+    letter-spacing: var(--molten-m-body-tracking, calc(-0.64 * var(--l-vw)));
   }
 
   .copySection :global(.landing-copy-row) {
@@ -340,9 +340,9 @@
   }
 
   .cardDescription {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.64px;
+    font-size: var(--molten-m-body-size, calc(16 * var(--l-vw)));
+    line-height: var(--molten-m-body-lh, calc(24 * var(--l-vw)));
+    letter-spacing: var(--molten-m-body-tracking, calc(-0.64 * var(--l-vw)));
     font-weight: 400;
     color: #020100;
     /* Figma 1835:19259 — 3 lines × 24px */
@@ -353,5 +353,14 @@
   .cardBuild .cardDescription {
     /* Figma 1835:19268 — 2 lines × 24px */
     height: 48px;
+  }
+
+  /* No band stroke between stacked cards and security (mobile fifth card) */
+  .gutterShell :global(.landing-what-we-do-split.landing-band-left) {
+    border-bottom: none;
+  }
+
+  .securityComplianceWrap {
+    border-top: none;
   }
 }
