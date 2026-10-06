@@ -1,10 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import {
-  LandingHeadingReveal,
-  LandingSubheadingReveal,
-} from "@/components/landing/landing-text-reveal";
+import { LandingHeadingReveal } from "@/components/landing/landing-text-reveal";
 import {
   usePinnedHorizontalScroll,
   usePinnedHorizontalScrollEnabled,
@@ -12,9 +9,9 @@ import {
 import {
   HowLayerWorksCardVisual,
   type HowLayerWorksCardId,
-} from "./how-layer-works-card-visuals";
-import { LeadWhyNowSection } from "./lead-why-now-section";
-import styles from "./lead-how-layer-works-section.module.css";
+} from "@/components/lead/how-layer-works-card-visuals";
+import { PricingSecurityCompliance } from "@/components/pricing/pricing-security-compliance";
+import styles from "./why-layer.module.css";
 
 type HowLayerWorksCard = {
   id: HowLayerWorksCardId;
@@ -23,41 +20,35 @@ type HowLayerWorksCard = {
   description: string;
 };
 
+/** Figma 2395:36799 — card copy (visuals unchanged; order Improve → Execute → Build → Context). */
 const HOW_LAYER_WORKS_CARDS: HowLayerWorksCard[] = [
   {
-    id: "context",
-    nodeId: "1822:23889",
-    title: "Context",
+    id: "improve",
+    nodeId: "2395:36825",
+    title: "Ramp Faster",
     description:
-      "Bring your GTM context together. Connect your data, tools, knowledge, and best practices in one place.",
-  },
-  {
-    id: "build",
-    nodeId: "1822:23895",
-    title: "Build",
-    description:
-      "Your GTM knowledge, operationalized. Turn best practices into skills and playbooks.",
+      "Day-1 discovery practice on your personas, with paths mapped to your funnel.",
   },
   {
     id: "execute",
-    nodeId: "1822:23957",
-    title: "Execute",
+    nodeId: "2395:36840",
+    title: "Launch Confident",
     description:
       "Guide every GTM moment. Get real-time support, insights, and next steps when they matter most.",
   },
   {
-    id: "deploy",
-    nodeId: "1822:24241",
-    title: "Deploy",
+    id: "build",
+    nodeId: "2395:37124",
+    title: "Win More",
     description:
-      "Give every role its own AI agent. Equip every team member with personalized context and capabilities.",
+      "Transform your GTM knowledge into actionable playbooks your entire team can follow.",
   },
   {
-    id: "improve",
-    nodeId: "1822:24326",
-    title: "Improve",
+    id: "context",
+    nodeId: "2395:37186",
+    title: "Plug and Play",
     description:
-      "Make every interaction better. Turn conversations and outcomes into coaching and continuous improvement.",
+      "Plug Layer into your own data & over 500+ integrations. Use pre-built connections for common apps.",
   },
 ];
 
@@ -126,51 +117,38 @@ function HowLayerWorksBody({
     <div
       className="landing-what-we-do-split landing-band-left"
       data-name="Sub-section Container"
-      data-node-id="1822:22480"
+      data-node-id="2395:35506"
     >
       <section
         ref={headerRef}
         className={`${styles.copySection} landing-how-layer-works-section`}
-        aria-labelledby="lead-how-layer-works-heading"
+        aria-labelledby="why-layer-heading"
         data-name="What We Do Container"
-        data-node-id="1822:22481"
+        data-node-id="2395:35507"
       >
-        <p className={styles.eyebrow} data-node-id="1822:22482">
-          How Layer Works
+        <p className={styles.eyebrow} data-node-id="2395:35508">
+          why layer
         </p>
 
-        <div
-          className="landing-copy-row"
-          data-name="What We Do Description"
-          data-node-id="1822:22483"
+        <LandingHeadingReveal
+          as="h2"
+          id="why-layer-heading"
+          className={styles.headline}
+          data-node-id="2395:35509"
         >
-          <LandingHeadingReveal
-            as="h2"
-            id="lead-how-layer-works-heading"
-            className={`${styles.headline} landing-copy-headline`}
-            data-node-id="1822:22484"
-          >
-            <span className={styles.headlineLine}>One platform. Every</span>
-            <span className={`${styles.headlineLine} ${styles.highlight}`}>
-              GTM advantage.
-            </span>
-          </LandingHeadingReveal>
-          <LandingSubheadingReveal
-            className={`${styles.description} landing-copy-aside`}
-            data-node-id="1822:22485"
-          >
-            Bring your GTM knowledge, workflows, and tools together to equip
-            every team member with AI that helps them prepare, perform, and
-            improve.
-          </LandingSubheadingReveal>
-        </div>
+          <span className={styles.headlineLine}>Your best GTM thinking,</span>
+          <span className={styles.headlineLine}>
+            built into{" "}
+            <span className={styles.highlight}>every rep!</span>
+          </span>
+        </LandingHeadingReveal>
       </section>
 
       <section
         className={`${styles.carouselSection} landing-lead-how-layer-works-carousel ${pinEnabled ? styles.sectionPinned : ""}`}
         aria-label="How Layer Works steps"
         data-name="What We Do Container"
-        data-node-id="1822:22486"
+        data-node-id="2395:36823"
       >
         <CardTrack
           trackRef={trackRef}
@@ -182,12 +160,8 @@ function HowLayerWorksBody({
   );
 }
 
-/**
- * Figma 1822:22480 + 1822:22940 — How Layer Works then Why Now immediately below.
- * On desktop pin, Why Now stays with the block (visible under the cards) while
- * the track scrubs horizontally — same as the top copy.
- */
-export function LeadHowLayerWorksSection() {
+/** Figma 1822:22480 — How Layer Works (same as lead capture; exported as WhyLayer). */
+export function WhyLayer() {
   const pinEnabled = usePinnedHorizontalScrollEnabled();
   const headerRef = useRef<HTMLElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
@@ -221,8 +195,7 @@ export function LeadHowLayerWorksSection() {
   });
 
   const stack = (
-    <div className={`${styles.gutterShell} lead-how-layer-works-shell`}>
-      {/* L/R + full-bleed strokes above overflowing cards — matches home clients/integrations */}
+    <div className={`${styles.gutterShell} why-layer-shell lead-how-layer-works-shell`}>
       <div className={styles.gutterFrame} aria-hidden />
       <HowLayerWorksBody
         headerRef={headerRef}
@@ -230,7 +203,9 @@ export function LeadHowLayerWorksSection() {
         translateX={pinEnabled ? translateX : 0}
         pinEnabled={pinEnabled}
       />
-      <LeadWhyNowSection />
+      <div className={styles.securityComplianceWrap}>
+        <PricingSecurityCompliance />
+      </div>
     </div>
   );
 

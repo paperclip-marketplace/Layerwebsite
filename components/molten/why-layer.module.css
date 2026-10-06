@@ -86,8 +86,7 @@
  * sections. Cards can still scrub into the gutters via overflow: visible.
  */
 
-/* Pins How Layer Works + Why Now together (Figma stack). Cards scrub; both
-   flanking sections stay in place — Why Now is not pushed below the pin gap. */
+/* Pins How Layer Works + security band together while cards scrub horizontally. */
 .pinSticky {
   display: flex;
   flex-direction: column;
@@ -103,9 +102,16 @@
 
 /*
  * Shell column — fills stay in .landing-page-gutter (white side gutters).
- * No L/R vertical strokes on How Layer Works / Why Now.
+ * No L/R vertical strokes on How Layer Works / security band.
  * Optional 100vw top/bottom hairlines only.
  */
+.securityComplianceWrap {
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(40 * var(--l-vw)) var(--l-section-px) calc(80 * var(--l-vw));
+  background: #ffffff;
+}
+
 .gutterShell {
   position: relative;
   box-sizing: border-box;

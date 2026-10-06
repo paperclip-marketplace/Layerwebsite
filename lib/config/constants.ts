@@ -35,6 +35,7 @@ export const ROUTES = {
   terms: '/terms',
   privacy: '/privacy',
   comingSoon: '/coming-soon',
+  molten: '/molten',
   contactSales: 'mailto:hello@withlayer.ai',
 } as const;
 

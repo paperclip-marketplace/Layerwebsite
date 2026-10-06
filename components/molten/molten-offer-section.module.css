@@ -1,0 +1,240 @@
+/* Figma 2395:32937 — Molten offer / Leadership Progress */
+
+.section {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding-block: calc(80 * var(--l-vw));
+  background: #ffffff;
+}
+
+.section::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 1;
+  width: 100vw;
+  margin-left: -50vw;
+  pointer-events: none;
+  border-bottom: 1px solid #dedede;
+}
+
+@media (width > 1440px) {
+  .section {
+    border-left: 1px solid var(--layer-gray-200);
+    border-right: 1px solid var(--layer-gray-200);
+  }
+}
+
+.metricsHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(40 * var(--l-vw));
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-px);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  font-weight: 400;
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+  color: #8d8d8d;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-72);
+  font-weight: 400;
+  line-height: var(--l-lh-72);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+  word-break: break-word;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.highlight {
+  color: #f45523;
+}
+
+.cardsShell {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--l-section-px);
+}
+
+.cardRow {
+  display: flex;
+  gap: calc(20 * var(--l-vw));
+  align-items: flex-start;
+  width: 100%;
+  max-width: calc(1360 * var(--l-vw));
+}
+
+.card {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: calc(24 * var(--l-vw));
+  background: #f9f9f9;
+}
+
+.imageArea {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: calc(200 * var(--l-vw));
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Figma 2395:32944 — card image fade into #f9f9f9 */
+.imageFade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 0) 18.125%,
+    rgba(249, 249, 249, 0.008) 27.778%,
+    rgba(249, 249, 249, 0.032) 35.633%,
+    rgba(249, 249, 249, 0.07) 41.967%,
+    rgba(249, 249, 249, 0.121) 47.057%,
+    rgba(249, 249, 249, 0.181) 51.178%,
+    rgba(249, 249, 249, 0.251) 54.609%,
+    rgba(249, 249, 249, 0.328) 57.624%,
+    rgba(249, 249, 249, 0.411) 60.501%,
+    rgba(249, 249, 249, 0.497) 63.517%,
+    rgba(249, 249, 249, 0.585) 66.947%,
+    rgba(249, 249, 249, 0.674) 71.068%,
+    rgba(249, 249, 249, 0.762) 76.158%,
+    rgba(249, 249, 249, 0.846) 82.492%,
+    rgba(249, 249, 249, 0.926) 90.347%,
+    rgb(249, 249, 249) 100%
+  );
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+  align-items: flex-start;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(32 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  font-size: var(--l-fs-20);
+  line-height: var(--l-lh-20);
+  letter-spacing: var(--l-tracking);
+}
+
+.cardTitle {
+  margin: 0;
+  font-weight: 600;
+  color: #606060;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.cardDescription {
+  margin: 0;
+  font-weight: 400;
+  color: #020100;
+}
+
+@media (max-width: 1200px) {
+  .cardRow {
+    flex-wrap: wrap;
+    max-width: none;
+  }
+
+  .card {
+    flex: 1 1 calc(50% - calc(10 * var(--l-vw)));
+    min-width: calc(280 * var(--l-vw));
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-block: 40px;
+  }
+
+  .metricsHeader {
+    gap: 16px;
+    padding: 40px var(--l-inset-x, 20px) 20px;
+  }
+
+  .eyebrow {
+    font-size: var(--l-fs-14);
+    line-height: var(--l-lh-14);
+    white-space: normal;
+  }
+
+  .headline {
+    font-size: 48px;
+    line-height: 52px;
+    letter-spacing: -1.92px;
+  }
+
+  .cardsShell {
+    padding: 20px var(--l-inset-x, 20px) 40px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+
+  .cardRow {
+    flex-wrap: nowrap;
+    width: max-content;
+    min-width: 100%;
+    gap: 16px;
+  }
+
+  .card {
+    flex: 0 0 280px;
+    width: 280px;
+    scroll-snap-align: start;
+  }
+
+  .imageArea {
+    height: 160px;
+  }
+
+  .textBlock {
+    gap: 12px;
+    padding: 24px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .cardTitle {
+    white-space: normal;
+  }
+}
