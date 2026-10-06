@@ -6,7 +6,7 @@ import { INFLEXION_PARTNER } from "@/components/molten/partner-pages";
 const title = "Inflexion | 6 Months Free on Layer";
 const description =
   "Exclusive for Inflexion: 6 months of Layer free, up to 5,000 credits, and hands-on onboarding so GTM teams win more, ramp faster, and close better.";
-const previewImage = "/assets/images/molten/molten-og.png";
+const previewImage = "/assets/images/inflexion/inflexion-og.png";
 
 export const metadata: Metadata = {
   title,
