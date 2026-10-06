@@ -18,8 +18,11 @@ import { ProductsDropdown } from "./products-dropdown";
 import { SolutionsDropdown } from "./solutions-dropdown";
 import gsap from "gsap";
 
-const LOGO_MARK = "/assets/images/landing/layer-mark.svg";
-const LOGO_WORDMARK = "/assets/images/landing/layer-wordmark.svg";
+import {
+  LAYER_BRAND_WORDMARK,
+  LAYER_BRAND_WORDMARK_HEIGHT,
+  LAYER_BRAND_WORDMARK_WIDTH,
+} from "@/lib/landing/layer-brand";
 
 type DropdownName = "products" | "solutions";
 type OpenDropdown = DropdownName | null;
@@ -251,24 +254,14 @@ export function LandingHeader() {
               aria-label="Layer home"
               onClick={() => setMenuOpen(false)}
             >
-              <span className={styles.logo}>
-                <Image
-                  src={LOGO_MARK}
-                  alt=""
-                  width={34}
-                  height={25}
-                  className={styles.logoMark}
-                  priority
-                />
-                <Image
-                  src={LOGO_WORDMARK}
-                  alt=""
-                  width={61}
-                  height={22}
-                  className={styles.logoWordmark}
-                  priority
-                />
-              </span>
+              <Image
+                src={LAYER_BRAND_WORDMARK}
+                alt="Layer"
+                width={LAYER_BRAND_WORDMARK_WIDTH}
+                height={LAYER_BRAND_WORDMARK_HEIGHT}
+                className={styles.logo}
+                priority
+              />
             </Link>
 
             <nav className={styles.navLinks} aria-label="Primary">
