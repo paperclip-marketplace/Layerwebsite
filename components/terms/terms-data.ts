@@ -95,7 +95,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "account-security",
         title: "3.3 Account Security",
         paragraphs: [
-          "You must notify us immediately at hello@withlayer.ai if you become aware of any unauthorised use of your account. We are not liable for loss arising from unauthorised access where you have failed to maintain adequate credential security.",
+          "You must notify us immediately at even@withlayer.ai if you become aware of any unauthorised use of your account. We are not liable for loss arising from unauthorised access where you have failed to maintain adequate credential security.",
         ],
       },
     ],
@@ -380,7 +380,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
     paragraphs: [
       "If you have any questions about these Terms, please contact us:",
       "Layer AI Systems Ltd, trading as Layer AI",
-      "Email: hello@withlayer.ai",
+      "Email: even@withlayer.ai",
       "Website: withlayer.ai",
     ],
   },

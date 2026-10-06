@@ -11,7 +11,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     paragraphs: [
       'Layer AI is a trading name of **Layer AI Systems Ltd** (company number 15632925), a company registered in England and Wales. We provide an AI-powered platform that helps go-to-market teams work more effectively (the **"Service"**). The Service includes AI assistants, sales practice and simulation tools, live meeting support, deal preparation, post-meeting workflows, coaching, and integrations with your existing business tools.',
       "For the purposes of the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018, Layer AI Systems Ltd is the data controller in respect of the personal data we process through the Service.",
-      "Contact: hello@withlayer.ai",
+      "Contact: even@withlayer.ai",
     ],
   },
   {
@@ -166,7 +166,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     title: "Your Rights",
     paragraphs: [
       "Under the UK GDPR, you have the right to access, rectify, erase, restrict processing of, and port your personal data. You may also object to processing based on legitimate interests and request human review of significant automated decisions.",
-      "To exercise any of these rights, contact us at hello@withlayer.ai. We will respond within one month.",
+      "To exercise any of these rights, contact us at even@withlayer.ai. We will respond within one month.",
       "You also have the right to lodge a complaint with the Information Commissioner's Office (ICO) at ico.org.uk.",
     ],
   },
@@ -184,7 +184,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     title: "Security",
     paragraphs: [
       "We use technical and organisational measures designed to protect your data, including encryption in transit and at rest, strict data isolation between organisations, role-based access controls, and regular security monitoring. Raw data from your connected tools is processed in automated pipelines without human access and is not persistently stored.",
-      "No system is completely secure. If you become aware of a security incident, please notify us immediately at hello@withlayer.ai.",
+      "No system is completely secure. If you become aware of a security incident, please notify us immediately at even@withlayer.ai.",
     ],
   },
   {
@@ -210,7 +210,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     paragraphs: [
       "If you have any questions about this Policy, please contact us:",
       "Layer AI Systems Ltd, trading as Layer AI",
-      "Email: hello@withlayer.ai",
+      "Email: even@withlayer.ai",
       "Website: withlayer.ai",
     ],
   },
