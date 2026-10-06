@@ -1,8 +1,8 @@
 /** Figma 2406:3168 — Molten partner hero assets. */
 export const MOLTEN_ASSETS = {
-  moltenLogo: "/assets/images/molten/molten-logo.png",
+  moltenLogo: "/assets/images/molten/molten-logo.webp",
   layerWordmark: "/assets/images/molten/layer-wordmark.svg",
   logoDivider: "/assets/images/molten/logo-divider.svg",
-  heroDashboard: "/assets/images/molten/hero-dashboard.png",
+  heroDashboard: "/assets/images/molten/hero-dashboard.webp",
   arrowRight: "/assets/images/molten/arrow-right.svg",
 } as const;

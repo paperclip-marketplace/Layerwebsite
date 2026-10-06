@@ -14,7 +14,7 @@ export type MoltenOfferCard = {
 export const MOLTEN_OFFER_CARDS: MoltenOfferCard[] = [
   {
     id: "free-access",
-    image: `${OFFER_IMAGE_BASE}/metric-01.png`,
+    image: `${OFFER_IMAGE_BASE}/metric-01.webp`,
     imageAlt: "Six months free access",
     title: "6 months of free access",
     description:
@@ -25,7 +25,7 @@ export const MOLTEN_OFFER_CARDS: MoltenOfferCard[] = [
   },
   {
     id: "credits",
-    image: `${OFFER_IMAGE_BASE}/metric-02.png`,
+    image: `${OFFER_IMAGE_BASE}/metric-02.webp`,
     imageAlt: "Up to 5,000 credits",
     title: "Up to 5,000 credits",
     description:
@@ -36,7 +36,7 @@ export const MOLTEN_OFFER_CARDS: MoltenOfferCard[] = [
   },
   {
     id: "onboarding",
-    image: `${OFFER_IMAGE_BASE}/metric-03.png`,
+    image: `${OFFER_IMAGE_BASE}/metric-03.webp`,
     imageAlt: "Hands-on onboarding",
     title: "Hands-on onboarding",
     description:
@@ -47,7 +47,7 @@ export const MOLTEN_OFFER_CARDS: MoltenOfferCard[] = [
   },
   {
     id: "ready",
-    image: `${OFFER_IMAGE_BASE}/metric-04.png`,
+    image: `${OFFER_IMAGE_BASE}/metric-04.webp`,
     imageAlt: "Ready in minutes",
     title: "Ready in minutes",
     description:
