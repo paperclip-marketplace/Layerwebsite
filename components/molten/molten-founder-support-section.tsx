@@ -3,10 +3,18 @@ import {
   LandingSubheadingReveal,
 } from "@/components/landing/landing-text-reveal";
 import { MOLTEN_FOUNDER_SUPPORT_ASSETS } from "./molten-founder-support-assets";
+import {
+  MOLTEN_PARTNER,
+  type PartnerPageConfig,
+} from "./partner-pages";
 import styles from "./molten-founder-support-section.module.css";
 
 /** Figma 2406:3300 — Founder support / Why Now band. */
-export function MoltenFounderSupportSection() {
+export function MoltenFounderSupportSection({
+  partner = MOLTEN_PARTNER,
+}: {
+  partner?: PartnerPageConfig;
+}) {
   return (
     <section
       className={`${styles.section} landing-band-left molten-founder-support-section landing-full-bleed-strokes`}
@@ -48,8 +56,8 @@ export function MoltenFounderSupportSection() {
             className={`${styles.description} landing-copy-aside`}
             data-node-id="2406:3304"
           >
-            Early-stage Molten Ventures portfolio companies get six months of
-            Layer access, up to 5,000 monthly credits, and hands-on support.
+            Early-stage {partner.companyName} portfolio companies get six months
+            of Layer access, up to 5,000 monthly credits, and hands-on support.
           </LandingSubheadingReveal>
         </div>
       </div>

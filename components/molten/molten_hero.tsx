@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { LandingMarketingHeroBackdrop } from "@/components/landing/landing-marketing-hero-backdrop";
@@ -7,19 +8,28 @@ import {
 } from "@/components/landing/landing-text-reveal";
 import { ROUTES } from "@/lib/config/constants";
 import { MOLTEN_ASSETS } from "./molten-assets";
+import { InflexionWordmark } from "./inflexion-wordmark";
+import {
+  MOLTEN_PARTNER,
+  type PartnerPageConfig,
+} from "./partner-pages";
 import styles from "./molten_hero.module.css";
 
 /** Figma 2406:3168 — Molten Ventures partner hero. */
-export function MoltenHero() {
+export function MoltenHero({
+  partner = MOLTEN_PARTNER,
+}: {
+  partner?: PartnerPageConfig;
+}) {
   return (
     <div className={styles.root} data-node-id="2406:3168">
       <section
         className={styles.promoBar}
-        aria-label="Molten Ventures offer"
+        aria-label={`${partner.companyName} offer`}
         data-node-id="2406:3170"
       >
         <p className={styles.promoText} data-node-id="2406:3171">
-          Exclusive for Molten Ventures
+          Exclusive for {partner.companyName}
         </p>
         <Link
           href={ROUTES.signUp}
@@ -48,22 +58,48 @@ export function MoltenHero() {
       >
         <LandingMarketingHeroBackdrop
           dataNodeId="2467:3228"
-          variant="molten"
+          variant={partner.glow}
           className="molten-hero-backdrop"
         />
 
         <div className={styles.content} data-node-id="2474:29474">
           <div className={styles.topBlock} data-node-id="2474:29510">
             <div className={styles.logoRow} data-node-id="2474:29511">
-              <div className={styles.moltenLogoWrap} data-node-id="2474:29512">
-                <Image
-                  src={MOLTEN_ASSETS.moltenLogo}
-                  alt="Molten"
-                  width={113}
-                  height={28}
-                  className={styles.moltenLogo}
-                  priority
-                />
+              <div
+                className={
+                  partner.glow === "molten"
+                    ? styles.moltenLogoWrap
+                    : styles.partnerLogoWrap
+                }
+                style={
+                  partner.glow === "molten"
+                    ? undefined
+                    : ({
+                        "--partner-logo-w": partner.logoWidth,
+                      } as CSSProperties)
+                }
+                data-node-id="2474:29512"
+                role={partner.logoKind === "inflexion" ? "img" : undefined}
+                aria-label={
+                  partner.logoKind === "inflexion" ? partner.logoAlt : undefined
+                }
+              >
+                {partner.logoKind === "inflexion" ? (
+                  <InflexionWordmark className={styles.inflexionMark} />
+                ) : (
+                  <Image
+                    src={partner.logoSrc ?? MOLTEN_ASSETS.moltenLogo}
+                    alt={partner.logoAlt}
+                    width={partner.logoWidth}
+                    height={28}
+                    className={
+                      partner.glow === "molten"
+                        ? styles.moltenLogo
+                        : styles.partnerLogo
+                    }
+                    priority
+                  />
+                )}
               </div>
               <div className={styles.logoDivider} aria-hidden>
                 <Image

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 409" fill="none" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="inflexionGlowH" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#31BCF2" />
+      <stop offset="12%" stop-color="#31BCF2" />
+      <stop offset="24%" stop-color="#31BCF2" />
+      <stop offset="38%" stop-color="#f9e1d4" />
+      <stop offset="46%" stop-color="#f45523" />
+      <stop offset="50%" stop-color="#f4a423" />
+      <stop offset="54%" stop-color="#f45523" />
+      <stop offset="62%" stop-color="#ebb99c" />
+      <stop offset="72%" stop-color="#f4a423" />
+      <stop offset="82%" stop-color="#dea989" />
+      <stop offset="100%" stop-color="#31BCF2" />
+    </linearGradient>
+    <linearGradient id="inflexionGlowFade" x1="0" y1="0" x2="0" y2="409" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fff" stop-opacity="1" />
+      <stop offset="55%" stop-color="#fff" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <mask id="inflexionGlowMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1440" height="409">
+      <rect width="1440" height="409" fill="url(#inflexionGlowFade)" />
+    </mask>
+  </defs>
+  <ellipse cx="720" cy="120" rx="900" ry="180" fill="url(#inflexionGlowH)" mask="url(#inflexionGlowMask)" />
+</svg>
