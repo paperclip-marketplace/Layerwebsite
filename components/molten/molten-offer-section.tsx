@@ -40,8 +40,8 @@ export function MoltenOfferSection() {
       >
         <div className={styles.cardRow} data-node-id="2395:32942">
           {MOLTEN_OFFER_CARDS.map((card) => (
+            <div key={card.id} className={styles.hover3d}>
             <article
-              key={card.id}
               className={styles.card}
               data-node-id={card.dataNodeId}
               data-name={card.dataName}
@@ -62,6 +62,10 @@ export function MoltenOfferSection() {
                 <p className={styles.cardDescription}>{card.description}</p>
               </div>
             </article>
+            {Array.from({ length: 8 }, (_, zone) => (
+              <div key={zone} className={styles.hoverZone} aria-hidden />
+            ))}
+            </div>
           ))}
         </div>
       </div>
