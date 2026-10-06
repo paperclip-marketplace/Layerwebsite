@@ -3,8 +3,11 @@ import Link from "next/link";
 import { FOOTER_POLICY_LINKS } from "@/lib/landing/footer-nav";
 import styles from "./landing-footer-temporary.module.css";
 
-const LOGO_MARK = "/assets/images/landing/layer-mark.svg";
-const LOGO_WORDMARK = "/assets/images/landing/layer-wordmark.svg";
+import {
+  LAYER_BRAND_WORDMARK,
+  LAYER_BRAND_WORDMARK_HEIGHT,
+  LAYER_BRAND_WORDMARK_WIDTH,
+} from "@/lib/landing/layer-brand";
 
 const FOOTER_BADGES = [
   {
@@ -44,22 +47,13 @@ export function LandingFooterTemporary() {
           <div className={styles.topRow} data-node-id="2135:20370">
             <div className={styles.brand} data-node-id="2135:20371">
               <Link href="/" className={styles.logoLink} aria-label="Layer home">
-                <span className={styles.logo} data-node-id="2135:20372" data-name="logo">
-                  <Image
-                    src={LOGO_MARK}
-                    alt=""
-                    width={34}
-                    height={25}
-                    className={styles.logoMark}
-                  />
-                  <Image
-                    src={LOGO_WORDMARK}
-                    alt=""
-                    width={61}
-                    height={22}
-                    className={styles.logoWordmark}
-                  />
-                </span>
+                <Image
+                  src={LAYER_BRAND_WORDMARK}
+                  alt="Layer"
+                  width={LAYER_BRAND_WORDMARK_WIDTH}
+                  height={LAYER_BRAND_WORDMARK_HEIGHT}
+                  className={styles.logo}
+                />
               </Link>
               <p className={styles.tagline} data-node-id="2135:20374">
                 Agents for revenue teams. Made in London for the whole world.

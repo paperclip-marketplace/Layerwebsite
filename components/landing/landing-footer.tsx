@@ -8,10 +8,12 @@ import {
   type FooterNavColumn,
 } from "@/lib/landing/footer-nav";
 import { requestHeaderDropdown } from "@/lib/landing/header-dropdown";
+import {
+  LAYER_BRAND_WORDMARK,
+  LAYER_BRAND_WORDMARK_HEIGHT,
+  LAYER_BRAND_WORDMARK_WIDTH,
+} from "@/lib/landing/layer-brand";
 import styles from "./landing-footer.module.css";
-
-const LOGO_MARK = "/assets/images/landing/layer-mark.svg";
-const LOGO_WORDMARK = "/assets/images/landing/layer-wordmark.svg";
 
 function FooterNavColumnBlock({ column }: { column: FooterNavColumn }) {
   return (
@@ -59,22 +61,13 @@ export function LandingFooter() {
               data-name="Info Text Container"
             >
               <Link href="/" className={styles.logoLink} aria-label="Layer home">
-                <span className={styles.logo} data-node-id="1310:2153" data-name="logo">
-                  <Image
-                    src={LOGO_MARK}
-                    alt=""
-                    width={34}
-                    height={25}
-                    className={styles.logoMark}
-                  />
-                  <Image
-                    src={LOGO_WORDMARK}
-                    alt=""
-                    width={61}
-                    height={22}
-                    className={styles.logoWordmark}
-                  />
-                </span>
+                <Image
+                  src={LAYER_BRAND_WORDMARK}
+                  alt="Layer"
+                  width={LAYER_BRAND_WORDMARK_WIDTH}
+                  height={LAYER_BRAND_WORDMARK_HEIGHT}
+                  className={styles.logo}
+                />
               </Link>
             </div>
 
