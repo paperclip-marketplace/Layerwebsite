@@ -14,11 +14,11 @@ export type MoltenOfferCard = {
 export const MOLTEN_OFFER_CARDS: MoltenOfferCard[] = [
   {
     id: "free-access",
-    image: `${OFFER_IMAGE_BASE}/metric-01.webp`,
-    imageAlt: "Six months free access",
-    title: "6 months of free access",
+    image: `${OFFER_IMAGE_BASE}/three-months-free.webp`,
+    imageAlt: "Three months free access",
+    title: "3 months of free access",
     description:
-      "Six months free to explore the product and prove value before you pay.",
+      "Three months free to explore the product and prove value before you pay.",
     dataNodeId: "2395:32943",
     dataName: "Metric Container 3",
     imageDataName: "Metric Image 1",

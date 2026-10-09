@@ -43,7 +43,7 @@ export function MoltenOfferSection({
             {partner.offerHeadlineName} portfolio companies
           </span>
           <span className={styles.headlineLine}>
-            get <span className={styles.highlight}>6 months on us.</span>
+            get <span className={styles.highlight}>3 months on us.</span>
           </span>
         </LandingHeadingReveal>
       </div>

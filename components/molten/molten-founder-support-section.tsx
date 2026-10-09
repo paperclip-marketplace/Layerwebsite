@@ -56,7 +56,7 @@ export function MoltenFounderSupportSection({
             className={`${styles.description} landing-copy-aside`}
             data-node-id="2406:3304"
           >
-            Early-stage {partner.companyName} portfolio companies get six months
+            Early-stage {partner.companyName} portfolio companies get three months
             of Layer access, up to 5,000 monthly credits, and hands-on support.
           </LandingSubheadingReveal>
         </div>

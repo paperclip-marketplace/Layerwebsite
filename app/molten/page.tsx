@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 
 import { MoltenPage } from "@/components/molten/molten-page";
 
-const title = "Molten Ventures | 6 Months Free on Layer";
+const title = "Molten Ventures | 3 Months Free on Layer";
 const description =
-  "Exclusive for Molten Ventures: 6 months of Layer free, up to 5,000 credits, and hands-on onboarding so GTM teams win more, ramp faster, and close better.";
+  "Exclusive for Molten Ventures: 3 months of Layer free, up to 5,000 credits, and hands-on onboarding so GTM teams win more, ramp faster, and close better.";
 const previewImage = "/assets/images/molten/molten-og.png";
 
 export const metadata: Metadata = {

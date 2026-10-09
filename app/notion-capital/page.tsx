@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { MoltenPage } from "@/components/molten/molten-page";
 import { NOTION_CAPITAL_PARTNER } from "@/components/molten/partner-pages";
 
-const title = "Notion Capital | 6 Months Free on Layer";
+const title = "Notion Capital | 3 Months Free on Layer";
 const description =
-  "Exclusive for Notion Capital: 6 months of Layer free, up to 5,000 credits, and hands-on onboarding so GTM teams win more, ramp faster, and close better.";
+  "Exclusive for Notion Capital: 3 months of Layer free, up to 5,000 credits, and hands-on onboarding so GTM teams win more, ramp faster, and close better.";
 const previewImage = "/assets/images/notion-capital/notion-capital-og.png";
 
 export const metadata: Metadata = {
