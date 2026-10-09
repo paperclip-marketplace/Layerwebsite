@@ -152,10 +152,7 @@ function PlanPricingBlock({
       <div className={styles.priceRow}>
         <p className={styles.price}>{plan.priceLabel}</p>
         {plan.priceSuffix ? (
-          <>
-            <span className={styles.priceSuffix}>/ mo</span>
-            <span className={styles.priceSuffix}>/ user</span>
-          </>
+          <span className={styles.priceSuffix}>/ org / month</span>
         ) : null}
       </div>
       <Link

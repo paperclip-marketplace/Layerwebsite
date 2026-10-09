@@ -37,7 +37,7 @@ export function MoltenHero({
           data-node-id="2406:3172"
         >
           <span className={styles.promoCtaText} data-node-id="2406:3173">
-            Claim 6 months Free!
+            Claim 3 months Free!
           </span>
           <Image
             src={MOLTEN_ASSETS.arrowRight}
