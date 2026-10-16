@@ -1,6 +1,7 @@
 import { LegalDocumentContent } from "@/components/legal/legal-document-content";
 import {
   TERMS_EFFECTIVE_DATE,
+  TERMS_INTRODUCTION,
   TERMS_LAST_UPDATED,
   TERMS_SECTIONS,
 } from "./terms-data";
@@ -14,6 +15,7 @@ export function TermsContent() {
       lastUpdated={TERMS_LAST_UPDATED}
       titleHighlight="Layer's "
       titleRest="Terms & Conditions"
+      introduction={TERMS_INTRODUCTION}
       sections={TERMS_SECTIONS}
     />
   );

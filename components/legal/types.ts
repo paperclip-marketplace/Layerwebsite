@@ -14,7 +14,7 @@ export type LegalSubsection = {
 
 export type LegalSection = {
   id: string;
-  number: number;
+  number: number | string;
   title: string;
   paragraphs?: string[];
   bullets?: string[];
@@ -30,5 +30,6 @@ export type LegalDocumentContentProps = {
   lastUpdated: string;
   titleHighlight: string;
   titleRest: string;
+  introduction?: string[];
   sections: LegalSection[];
 };
