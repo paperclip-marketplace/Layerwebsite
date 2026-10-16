@@ -126,6 +126,7 @@ export function LegalDocumentContent({
   lastUpdated,
   titleHighlight,
   titleRest,
+  introduction,
   sections,
 }: LegalDocumentContentProps) {
   return (
@@ -143,6 +144,15 @@ export function LegalDocumentContent({
             <span className={styles.titleHighlight}>{titleHighlight}</span>
             {titleRest}
           </LandingHeadingReveal>
+          {introduction?.length ? (
+            <div className={styles.heroIntroduction}>
+              {introduction.map((paragraph) => (
+                <p key={paragraph} className={styles.paragraph}>
+                  <FormattedLegalParagraph text={paragraph} />
+                </p>
+              ))}
+            </div>
+          ) : null}
         </div>
       </header>
 

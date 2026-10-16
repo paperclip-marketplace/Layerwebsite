@@ -168,6 +168,7 @@ type PrivacyDocumentContentProps = {
   lastUpdated: string;
   titleHighlight: string;
   titleRest: string;
+  introduction?: string[];
   sections: LegalSection[];
 };
 
@@ -178,6 +179,7 @@ export function PrivacyDocumentContent({
   lastUpdated,
   titleHighlight,
   titleRest,
+  introduction,
   sections,
 }: PrivacyDocumentContentProps) {
   return (
@@ -195,6 +197,15 @@ export function PrivacyDocumentContent({
             <span className={styles.titleHighlight}>{titleHighlight}</span>
             {titleRest}
           </h1>
+          {introduction?.length ? (
+            <div className={styles.heroIntroduction}>
+              {introduction.map((paragraph) => (
+                <p key={paragraph} className={styles.paragraph}>
+                  <FormattedPrivacyParagraph text={paragraph} />
+                </p>
+              ))}
+            </div>
+          ) : null}
         </div>
       </header>
 

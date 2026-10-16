@@ -41,6 +41,7 @@ export const FOOTER_NAV_COLUMNS: readonly FooterNavColumn[] = [
 
 export const FOOTER_POLICY_LINKS = [
   { label: "Privacy Policy", href: ROUTES.privacy },
-  { label: "Terms of Services", href: ROUTES.terms },
+  { label: "Terms of Service", href: ROUTES.terms },
+  { label: "Data Processing Addendum", href: ROUTES.dpa },
   { label: "Cookie Policy", href: ROUTES.comingSoon },
 ] as const;

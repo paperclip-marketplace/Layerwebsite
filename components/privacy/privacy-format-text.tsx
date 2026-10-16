@@ -3,20 +3,29 @@ import { Fragment } from "react";
 import type { LegalBulletFormat } from "@/components/legal/types";
 
 function FormattedRichText({ text }: { text: string }) {
-  const parts = text.split(/(\*\*.*?\*\*|"[^"]*")/g);
+  const parts = text.split(/(\*\*.*?\*\*|\[[^\]]+\]\([^)]+\)|"[^"]*")/g);
 
   return (
     <>
-      {parts.map((part) => {
+      {parts.map((part, index) => {
         if (part.startsWith("**") && part.endsWith("**")) {
-          return <strong key={part}>{part.slice(2, -2)}</strong>;
+          return <strong key={`${index}-${part}`}>{part.slice(2, -2)}</strong>;
+        }
+
+        const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (link) {
+          return (
+            <a key={`${index}-${part}`} href={link[2]}>
+              {link[1]}
+            </a>
+          );
         }
 
         if (part.startsWith('"') && part.endsWith('"')) {
-          return <strong key={part}>{part}</strong>;
+          return <strong key={`${index}-${part}`}>{part}</strong>;
         }
 
-        return <Fragment key={part}>{part}</Fragment>;
+        return <Fragment key={`${index}-${part}`}>{part}</Fragment>;
       })}
     </>
   );

@@ -1,387 +1,213 @@
-export type TermsSubsection = {
-  id: string;
-  title: string;
-  paragraphs?: string[];
-  bullets?: string[];
-};
+import type { LegalSection } from "@/components/legal/types";
 
-export type TermsSection = {
-  id: string;
-  number: number;
-  title: string;
-  paragraphs?: string[];
-  bullets?: string[];
-  subsections?: TermsSubsection[];
-};
+export const TERMS_EFFECTIVE_DATE = "16 October 2026";
+export const TERMS_LAST_UPDATED = "16 October 2026";
 
-export const TERMS_EFFECTIVE_DATE = "13 April 2026";
-export const TERMS_LAST_UPDATED = "21 September 2026";
+export const TERMS_INTRODUCTION = [
+  'These Terms and Conditions ("Terms") govern access to and use of the Layer AI platform, applications, software, integrations, and related services (the "Service") provided by Layer AI Systems Ltd, company number 15632925, trading as Layer AI ("Layer", "we", "us" or "our").',
+  'If you use the Service for an organisation, you confirm that you have authority to bind that organisation. In these Terms, "Customer" means that organisation or, for an individual subscription, the individual purchasing the Service. "User" means a person authorised by Customer to use the Service.',
+  'An order form, online checkout, statement of work, or other written agreement accepted by Layer and Customer is an "Order". These Terms and each Order form the "Agreement".',
+];
 
-export const TERMS_SECTIONS: TermsSection[] = [
+export const TERMS_SECTIONS: LegalSection[] = [
   {
-    id: "introduction",
+    id: "service",
     number: 1,
-    title: "Introduction",
-    paragraphs: [
-      'These Terms & Conditions ("Terms") govern your access to and use of the Layer AI platform and related services (the "Service"), provided by Layer AI Systems Ltd (company number 15632925), a company registered in England and Wales, trading as Layer AI ("we", "us", or "our").',
-      "By accessing or using the Service, you agree to be bound by these Terms. If you are using the Service on behalf of an organisation, you represent that you have the authority to bind that organisation to these Terms.",
-      "If you do not agree to these Terms, you must not use the Service.",
-    ],
-  },
-  {
-    id: "the-service",
-    number: 2,
     title: "The Service",
-    subsections: [
-      {
-        id: "description",
-        title: "2.1 Description",
-        paragraphs: [
-          "Layer AI is an AI-powered platform that helps go-to-market teams work more effectively. The Service includes:",
-        ],
-        bullets: [
-          "AI assistants that support your daily sales workflow",
-          "Sales practice and simulation through AI-powered roleplay",
-          "Live meeting assistance and real-time intelligence during calls",
-          "Automated deal preparation, post-meeting workflows, and coaching",
-          "Actions within your connected business tools, subject to your organisation's configured permissions",
-          "An administrative control plane for organisational configuration",
-          "Integration with third-party CRM, calendar, email, sales engagement, and communication platforms",
-        ],
-      },
-      {
-        id: "ai-generated-content",
-        title: "2.2 AI-Generated Content and Actions",
-        paragraphs: [
-          "The Service generates content and may perform actions using artificial intelligence. You acknowledge that:",
-        ],
-        bullets: [
-          "AI-generated content is produced to assist your work and does not constitute professional, legal, or financial advice.",
-          "AI models may produce inaccurate, incomplete, or unexpected outputs. You should exercise your own professional judgement.",
-          "Performance scores and coaching feedback are development aids and should not be used as the sole basis for employment or performance management decisions.",
-          "Where the Service creates drafts or proposes actions in your connected tools (such as CRM updates, emails, or calendar events), these are presented for your review. The Service does not send communications on your behalf without your explicit action.",
-        ],
-      },
-      {
-        id: "actions-in-connected-systems",
-        title: "2.3 Actions in Connected Systems",
-        paragraphs: [
-          "The Service may perform actions within your connected third-party tools on your behalf, such as updating records, creating drafts, or scheduling events. These actions are subject to a permission framework configured by your organisation's administrator, which determines what the Service may do autonomously and what requires human approval.",
-          "You are responsible for reviewing actions proposed by the Service before confirming them. While we design the Service to operate within configured permissions, you should maintain appropriate oversight, particularly for actions involving customer-facing communications or commercial commitments.",
-        ],
-      },
+    paragraphs: [
+      "Layer provides AI-assisted tools for revenue teams, which may include assistants, roleplay and simulation, meeting support, coaching, analysis, content generation, workflows, and integrations with third-party systems.",
+      "Layer may improve or change the Service over time. We will not materially reduce the core functionality of a paid Service during an active subscription without reasonable notice, except where a change is required for security, legal compliance, third-party availability, or to prevent harm.",
+      "Features identified as beta, preview, experimental, or evaluation features may change or be withdrawn and are provided without service-level commitments unless an Order says otherwise.",
     ],
   },
   {
-    id: "accounts-and-access",
+    id: "accounts-and-organisation-administration",
+    number: 2,
+    title: "Accounts and Organisation Administration",
+    paragraphs: [
+      "Users must provide accurate account information, protect their credentials, and promptly report suspected unauthorised access.",
+      "Customer controls which Users may access its workspace and may configure roles, permissions, connected services, features, and approval rules. Depending on that configuration, authorised administrators may access or manage organisation content, usage, settings, and reports. Customer is responsible for its Users and for ensuring that its configuration and use of the Service are lawful and appropriate.",
+    ],
+  },
+  {
+    id: "right-to-use",
     number: 3,
-    title: "Accounts and Access",
-    subsections: [
-      {
-        id: "registration",
-        title: "3.1 Registration",
-        paragraphs: [
-          "To use the Service, you must create an account and provide accurate, complete registration information. You are responsible for maintaining the confidentiality of your credentials and for all activity under your account.",
-        ],
-      },
-      {
-        id: "organisation-accounts",
-        title: "3.2 Organisation Accounts",
-        paragraphs: [
-          "If you join an organisation workspace, the administrator controls workspace settings, member access, permissions, and feature configuration. Administrators may have visibility into aggregated usage and performance data. Your use is also subject to any policies your organisation establishes.",
-        ],
-      },
-      {
-        id: "account-security",
-        title: "3.3 Account Security",
-        paragraphs: [
-          "You must notify us immediately at even@withlayer.ai if you become aware of any unauthorised use of your account. We are not liable for loss arising from unauthorised access where you have failed to maintain adequate credential security.",
-        ],
-      },
+    title: "Right to Use the Service",
+    paragraphs: [
+      "Subject to the Agreement and payment of applicable fees, Layer grants Customer a limited, non-exclusive, non-transferable right during the subscription term to permit its Users to access and use the Service for Customer's internal business purposes.",
+      "Customer must not, and must not allow anyone else to:",
+    ],
+    bullets: [
+      "use the Service unlawfully or to infringe another person's rights;",
+      "gain unauthorised access to the Service, another account, or another customer's data;",
+      "upload malicious code or interfere with the security or operation of the Service;",
+      "reverse engineer, decompile, copy, or create derivative works from the Service except where applicable law does not permit that restriction;",
+      "resell, sublicense, or provide the Service as a service bureau without Layer's written agreement;",
+      "use the Service or its outputs to build or train a competing product or model;",
+      "bypass usage limits, permissions, approval controls, or technical safeguards;",
+      "submit content it does not have the right to use; or",
+      "use the Service to harass, discriminate, deceive, or cause unlawful harm.",
     ],
   },
   {
-    id: "subscriptions-and-payment",
+    id: "customer-content",
     number: 4,
-    title: "Subscriptions and Payment",
-    subsections: [
-      {
-        id: "plans-and-pricing",
-        title: "4.1 Plans and Pricing",
-        paragraphs: [
-          "The Service is offered under various subscription plans. Usage may be measured by interactions, features, and connected integrations. Details are available on our website. We reserve the right to modify plans and pricing upon reasonable notice.",
-        ],
-      },
-      {
-        id: "billing",
-        title: "4.2 Billing",
-        paragraphs: [
-          "Fees are billed on a recurring basis (monthly or annually). All fees are exclusive of applicable taxes unless stated otherwise. Payment is processed by our third-party payment processor.",
-        ],
-      },
-      {
-        id: "free-plan",
-        title: "4.3 Free Plan",
-        paragraphs: [
-          "We may offer a free plan with limited features. Free plans are provided as-is and may be modified or discontinued at any time without notice.",
-        ],
-      },
-      {
-        id: "cancellation-and-refunds",
-        title: "4.4 Cancellation and Refunds",
-        paragraphs: [
-          "You may cancel at any time through your account settings. Cancellation takes effect at the end of your current billing period. We do not offer refunds for partial periods unless required by law.",
-        ],
-      },
+    title: "Customer Content",
+    paragraphs: [
+      '"Customer Content" means data, content, instructions, records, and materials submitted to the Service by or for Customer, obtained from Customer\'s connected services, or generated specifically from that material for Customer.',
+      "As between the parties, Customer retains its rights in Customer Content. Customer grants Layer and its subprocessors a limited, non-exclusive right to host, copy, transmit, transform, and otherwise process Customer Content only as needed to provide, secure, support, and maintain the Service, comply with Customer's documented instructions, and meet legal obligations.",
+      "Customer is responsible for ensuring that it has the rights, notices, lawful bases, permissions, and consents needed for Layer to process Customer Content as contemplated by the Agreement. This includes responsibility for its use of call, meeting, recording, monitoring, coaching, employment, communication, and connected-system features.",
+      "Layer does not acquire ownership of Customer Content. Unless Customer expressly agrees in writing, Layer will not use Customer Content to train or fine-tune general-purpose or foundation AI models and will contractually restrict its AI subprocessors from using Customer Content for their own model training.",
+      '"Service Data" means usage, performance, diagnostic and technical data, and data derived from Customer Content that has been aggregated or de-identified so that it does not reasonably identify Customer, any User or any individual. Layer may use and own Service Data to operate, secure, analyse, and improve its products, services, and models.',
     ],
   },
   {
-    id: "your-data-and-content",
+    id: "ai-generated-content-and-actions",
     number: 5,
-    title: "Your Data and Content",
-    subsections: [
-      {
-        id: "ownership",
-        title: "5.1 Ownership",
-        paragraphs: [
-          'You retain ownership of all data you provide to the Service ("Your Data"), including account information, data accessed through integrations, and content you create within the Service.',
-        ],
-      },
-      {
-        id: "licence-to-us",
-        title: "5.2 Licence to Us",
-        paragraphs: [
-          "You grant us a non-exclusive, worldwide, royalty-free licence to use, process, store, and transmit Your Data solely to provide, maintain, and improve the Service. This licence terminates when you delete Your Data or close your account, subject to our retention policy.",
-        ],
-      },
-      {
-        id: "data-processing",
-        title: "5.3 Data Processing",
-        paragraphs: [
-          "Our processing of personal data is governed by our Privacy Policy. Where we act as a data processor on behalf of your organisation, we will enter into a Data Processing Agreement upon request.",
-        ],
-      },
-      {
-        id: "connected-tool-data",
-        title: "5.4 Connected Tool Data",
-        paragraphs: [
-          "When you connect third-party tools, you authorise us to access and process data from those tools to deliver the Service. You are responsible for ensuring you have the necessary rights to share that data. Raw data from connected tools is not persistently stored on our systems — only derived outputs are retained.",
-        ],
-      },
-      {
-        id: "ai-generated-outputs",
-        title: "5.5 AI-Generated Outputs",
-        paragraphs: [
-          "AI-generated outputs produced by the Service (including recommendations, drafts, scores, and coaching feedback) are created for your use within your organisation for their intended business purposes.",
-        ],
-      },
+    title: "AI-Generated Content and Actions",
+    paragraphs: [
+      "The Service uses artificial intelligence. Outputs may be inaccurate, incomplete, unexpected, or unsuitable for a particular purpose. Customer and its Users remain responsible for reviewing outputs and applying professional judgement.",
+      "Scores, coaching, recommendations, forecasts, and similar outputs are decision-support tools. They must not be used as the sole basis for employment, financial, legal, medical, or similarly consequential decisions.",
+      "The Service may draft, propose, or perform actions in connected systems. An action may require a User's confirmation or may be performed under authority and permissions previously configured by Customer. Customer is responsible for deciding which Users and workflows receive that authority, monitoring its use, and maintaining appropriate human oversight.",
     ],
   },
   {
-    id: "acceptable-use",
+    id: "connected-services",
     number: 6,
-    title: "Acceptable Use",
-    paragraphs: ["You agree not to use the Service to:"],
-    bullets: [
-      "Violate any applicable law, regulation, or third-party rights.",
-      "Upload or transmit malicious code, viruses, or harmful content.",
-      "Attempt to gain unauthorised access to the Service, other accounts, or our systems.",
-      "Reverse engineer, decompile, or disassemble any part of the Service.",
-      "Use the Service to develop a competing product or service.",
-      "Resell, sublicence, or redistribute access without our written consent.",
-      "Use the Service to harass, abuse, or harm any person.",
-      "Misrepresent AI-generated content as human-created content where doing so would be deceptive.",
-      "Submit data you do not have the right to use or that would violate the privacy of any third party.",
-      "Intentionally circumvent your organisation's configured permissions or approval workflows.",
-      "Use the Service for bulk automated actions in connected systems beyond normal business use.",
-    ],
-    subsections: [
-      {
-        id: "acceptable-use-enforcement",
-        title: "",
-        paragraphs: [
-          "We reserve the right to suspend or terminate your access for breach of these terms.",
-        ],
-      },
+    title: "Connected Services",
+    paragraphs: [
+      "Customer may choose to connect third-party services. Customer authorises Layer to access and exchange data with those services as needed to provide the selected functionality.",
+      "Third-party services are governed by their own terms and privacy practices. Layer is not responsible for a third-party service's independent acts, availability, or changes. Customer is responsible for maintaining the necessary third-party accounts and permissions.",
+      "Disconnecting a service normally prevents future access through that connection but may not delete Customer Content already imported, created, or derived through the Service. Deletion and return are governed by the applicable Service controls, DPA, Order, and retention process.",
     ],
   },
   {
-    id: "intellectual-property",
+    id: "data-protection-and-security",
     number: 7,
-    title: "Intellectual Property",
-    subsections: [
-      {
-        id: "our-ip",
-        title: "7.1 Our IP",
-        paragraphs: [
-          "The Service, including its software, AI models, design, trademarks, and documentation, is owned by or licensed to Layer AI Systems Ltd. Nothing in these Terms transfers intellectual property rights in the Service to you.",
-        ],
-      },
-      {
-        id: "feedback",
-        title: "7.2 Feedback",
-        paragraphs: [
-          "If you provide feedback or suggestions about the Service, you grant us a perpetual, irrevocable, royalty-free licence to use that feedback for any purpose.",
-        ],
-      },
-    ],
-  },
-  {
-    id: "third-party-services",
-    number: 8,
-    title: "Third-Party Services",
+    title: "Data Protection and Security",
     paragraphs: [
-      "The Service integrates with and relies upon third-party services for various capabilities. Your use of integrations may be subject to those providers' own terms. When the Service performs actions within your connected tools, those actions are subject to the relevant platform's terms. You are responsible for compliance with the terms of your connected platforms.",
-    ],
-  },
-  {
-    id: "service-availability-and-support",
-    number: 9,
-    title: "Service Availability and Support",
-    subsections: [
-      {
-        id: "availability",
-        title: "9.1 Availability",
-        paragraphs: [
-          "We aim to provide a reliable Service but do not guarantee uninterrupted or error-free operation. The Service may be temporarily unavailable due to maintenance, updates, or circumstances beyond our control.",
-        ],
-      },
-      {
-        id: "modifications",
-        title: "9.2 Modifications",
-        paragraphs: [
-          "We may update or modify features of the Service from time to time. We will provide reasonable advance notice of material changes.",
-        ],
-      },
-      {
-        id: "support",
-        title: "9.3 Support",
-        paragraphs: [
-          "Support is provided in accordance with your subscription plan.",
-        ],
-      },
-    ],
-  },
-  {
-    id: "limitation-of-liability",
-    number: 10,
-    title: "Limitation of Liability",
-    subsections: [
-      {
-        id: "no-exclusion",
-        title: "10.1 No Exclusion of Mandatory Liability",
-        paragraphs: [
-          "Nothing in these Terms excludes or limits our liability for death or personal injury caused by our negligence, fraud or fraudulent misrepresentation, or any other liability that cannot be excluded under applicable law.",
-        ],
-      },
-      {
-        id: "limitation",
-        title: "10.2 Limitation",
-        paragraphs: ["Subject to Section 10.1, to the maximum extent permitted by law:"],
-        bullets: [
-          "We exclude all liability for indirect, incidental, special, consequential, or punitive damages, including loss of profits, revenue, data, business opportunities, or goodwill.",
-          "Our total aggregate liability shall not exceed the greater of (a) the total fees paid by you in the 12 months preceding the claim, or (b) £100.",
-        ],
-      },
-      {
-        id: "ai-disclaimer",
-        title: "10.3 AI Disclaimer",
-        paragraphs: [
-          "The Service uses artificial intelligence that may produce inaccurate or unexpected outputs. We do not warrant that AI-generated content or actions will be accurate, complete, or suitable for any particular purpose.",
-          "You are responsible for reviewing and confirming actions the Service proposes in your connected systems. We are not liable for business consequences arising from actions you approve or confirm based on the Service's recommendations. You should maintain appropriate oversight of the Service's actions, particularly those involving customer communications, financial commitments, or changes to business records. The Service does not provide legal, financial, medical, or other regulated professional advice.",
-        ],
-      },
-    ],
-  },
-  {
-    id: "indemnification",
-    number: 11,
-    title: "Indemnification",
-    paragraphs: [
-      "You agree to indemnify and hold harmless Layer AI Systems Ltd, its directors, employees, and agents from claims, damages, losses, or expenses arising from:",
-    ],
-    bullets: [
-      "Your use of the Service in breach of these Terms.",
-      "Your violation of any applicable law or third-party rights.",
-      "Data you submit that infringes any third party's intellectual property or privacy rights.",
-      "Actions performed by the Service within your connected systems that you approved or that resulted from your organisation's permission configuration.",
+      "Our [Privacy Policy](/privacy) explains how Layer handles personal data as a controller. Where Layer processes Customer Personal Data on Customer's behalf, the [Layer Data Processing Addendum](/dpa) applies and is incorporated into the Agreement.",
+      "Layer will maintain a security programme with technical and organisational measures appropriate to the nature of the Service and the risks of processing. Customer remains responsible for secure configuration, User access, credentials, devices, and connected accounts within its control.",
     ],
   },
   {
     id: "confidentiality",
-    number: 12,
+    number: 8,
     title: "Confidentiality",
     paragraphs: [
-      "Each party agrees to keep confidential any non-public information received from the other party in connection with the Service. This does not apply to information that is publicly available, independently developed, lawfully received from a third party, or required to be disclosed by law.",
+      '"Confidential Information" means non-public information disclosed by one party to the other that is marked confidential or should reasonably be understood to be confidential. Customer Content is Customer\'s Confidential Information. The Service, non-public product information, security materials, and pricing not publicly offered are Layer\'s Confidential Information.',
+      "The receiving party will use Confidential Information only to perform or exercise rights under the Agreement, protect it using reasonable care, and disclose it only to personnel, advisers, and service providers who need it and are subject to confidentiality obligations.",
+      "Confidential Information does not include information that the receiving party can demonstrate was lawfully known without restriction, becomes public without breach, is independently developed, or is lawfully received from another source. A party may disclose information where legally required, provided it gives advance notice where permitted and reasonable assistance at the other party's expense.",
+    ],
+  },
+  {
+    id: "fees-billing-and-taxes",
+    number: 9,
+    title: "Fees, Billing, and Taxes",
+    paragraphs: [
+      "Fees, plan limits, subscription period, and payment terms are stated in the Order or checkout. Unless stated otherwise, fees are exclusive of taxes and are non-cancellable and non-refundable except where the Agreement or law provides otherwise.",
+      "Subscriptions renew for the period shown in the Order or checkout unless cancelled before renewal. Layer may change pricing for a future renewal period by giving reasonable advance notice.",
+      "Late undisputed amounts may result in suspension after reasonable notice. Customer must raise a good-faith billing dispute promptly and continue paying undisputed amounts.",
+    ],
+  },
+  {
+    id: "intellectual-property-and-feedback",
+    number: 10,
+    title: "Intellectual Property and Feedback",
+    paragraphs: [
+      "Layer and its licensors retain all rights in the Service, software, models, designs, documentation, methods, and technology. No rights are granted except those expressly stated in the Agreement.",
+      "As between the parties, and to the extent any intellectual-property rights arise, Customer owns outputs generated specifically for Customer from Customer Content. Customer may use those outputs for its internal business purposes, subject to applicable law, third-party rights, and the characteristics of generative AI. Similar or identical outputs may be generated for other users, and Layer does not warrant that an output is unique or eligible for intellectual-property protection. Layer retains all rights in the Service and any Layer materials incorporated into an output.",
+      "If Customer provides feedback, Layer may use it without restriction or payment, provided Layer does not publicly identify Customer as the source without permission.",
+    ],
+  },
+  {
+    id: "service-availability-and-support",
+    number: 11,
+    title: "Service Availability and Support",
+    paragraphs: [
+      "Layer will use commercially reasonable efforts to provide the Service. Specific support, availability, or service-level commitments apply only where stated in an Order or separate service-level agreement.",
+      "The Service may be interrupted for maintenance, security, third-party failures, emergencies, or circumstances beyond Layer's reasonable control.",
+    ],
+  },
+  {
+    id: "suspension",
+    number: 12,
+    title: "Suspension",
+    paragraphs: [
+      "Layer may suspend access where reasonably necessary to address a security risk, unlawful use, material breach, non-payment, harm to the Service or another party, or a legal requirement. Where practicable, Layer will give notice and limit the suspension to the affected scope.",
     ],
   },
   {
     id: "term-and-termination",
     number: 13,
     title: "Term and Termination",
-    subsections: [
-      {
-        id: "term",
-        title: "13.1 Term",
-        paragraphs: [
-          "These Terms remain in effect for as long as you have an account or use the Service.",
-        ],
-      },
-      {
-        id: "termination-by-you",
-        title: "13.2 Termination by You",
-        paragraphs: [
-          "You may terminate at any time by cancelling your subscription and deleting your account.",
-        ],
-      },
-      {
-        id: "termination-by-us",
-        title: "13.3 Termination by Us",
-        paragraphs: [
-          "We may suspend or terminate your access immediately for material breach, non-payment, or where required by law. We will provide reasonable notice where practicable.",
-        ],
-      },
-      {
-        id: "effect-of-termination",
-        title: "13.4 Effect of Termination",
-        paragraphs: [
-          "Upon termination, your access ceases immediately and the Service will stop operating within your connected systems. We delete your data in accordance with our Privacy Policy. Sections that by their nature should survive (including intellectual property, limitation of liability, indemnification, and governing law) continue to apply.",
-        ],
-      },
+    paragraphs: [
+      "The Agreement begins when Customer accepts an Order, completes checkout, or first uses the Service and continues for the applicable subscription term.",
+      "Either party may terminate for an uncured material breach after giving 30 days' written notice, or immediately if the breach cannot be cured. Layer may terminate a free Service on reasonable notice.",
+      "On termination, Customer's right to use the Service ends. Treatment of Customer Content is governed by the DPA, Order, and applicable retention process. Termination does not remove payment obligations already incurred.",
+      "Provisions that by their nature should survive will survive, including confidentiality, intellectual property, fees due, disclaimers, liability limits, and general terms.",
+    ],
+  },
+  {
+    id: "warranties-and-disclaimers",
+    number: 14,
+    title: "Warranties and Disclaimers",
+    paragraphs: [
+      "Each party warrants that it has authority to enter into the Agreement.",
+      "Layer warrants that it will provide paid Services with reasonable skill and care. Customer's exclusive remedy for a material breach of this warranty is for Layer to re-perform the affected Service or, if Layer cannot do so within a reasonable period, allow Customer to terminate the affected Service and receive a pro-rata refund of prepaid fees for the unused terminated period.",
+      'Except for express commitments in the Agreement and to the maximum extent permitted by law, the Service and outputs are provided "as is" and "as available". Layer disclaims implied warranties of merchantability, satisfactory quality, fitness for a particular purpose, non-infringement, uninterrupted availability, and error-free or fully accurate output.',
+      "Nothing in the Agreement excludes rights or warranties that cannot lawfully be excluded.",
+    ],
+  },
+  {
+    id: "liability",
+    number: 15,
+    title: "Liability",
+    paragraphs: [
+      "Nothing in the Agreement excludes or limits liability for death or personal injury caused by negligence, fraud or fraudulent misrepresentation, breach of confidentiality to the extent it cannot lawfully be limited, or any other liability that cannot lawfully be excluded or limited.",
+      "Subject to the previous paragraph, neither party will be liable for indirect or consequential loss, or for loss of profit, revenue, business opportunity, goodwill, or anticipated savings.",
+      "Subject to the first paragraph of this section, each party's total aggregate liability arising out of or relating to the Agreement will not exceed the fees paid or payable by Customer for the Service in the 12 months before the event giving rise to the claim. For a free Service, Layer's total aggregate liability will not exceed £100.",
+    ],
+  },
+  {
+    id: "indemnities",
+    number: 16,
+    title: "Indemnities",
+    paragraphs: [
+      "Customer will defend Layer against third-party claims arising from Customer Content or Customer's use of the Service in breach of the Agreement or applicable law, and will pay finally awarded damages and reasonable settlement amounts, provided Layer promptly notifies Customer, gives Customer control of the defence and settlement, and provides reasonable cooperation.",
     ],
   },
   {
     id: "governing-law-and-disputes",
-    number: 14,
+    number: 17,
     title: "Governing Law and Disputes",
     paragraphs: [
-      "These Terms are governed by the laws of England and Wales. Disputes shall be subject to the exclusive jurisdiction of the courts of England and Wales.",
-      "Both parties agree to attempt good faith negotiation for at least 30 days before initiating formal proceedings.",
+      "The Agreement is governed by the laws of England and Wales. The courts of England and Wales have exclusive jurisdiction, except that either party may seek urgent injunctive relief in any competent court.",
+      "Before starting formal proceedings, the parties will attempt in good faith for at least 30 days to resolve the dispute through representatives authorised to settle it.",
     ],
   },
   {
-    id: "general-provisions",
-    number: 15,
-    title: "General Provisions",
-    bullets: [
-      "Entire agreement: these Terms, our Privacy Policy, and any applicable Data Processing Agreement constitute the entire agreement between us regarding the Service.",
-      "Amendments: we may amend these Terms from time to time. Material changes will be notified by email or in-Service notice. Continued use constitutes acceptance.",
-      "Assignment: you may not assign rights without our written consent. We may assign to an affiliate or in connection with a merger, acquisition, or asset sale.",
-      "Severability: if any provision is unenforceable, the remainder continues in full force.",
-      "Waiver: failure to enforce a right does not waive it.",
-      "Force majeure: we are not liable for failures beyond our reasonable control.",
-      "Third-party rights: no third party has rights under these Terms pursuant to the Contracts (Rights of Third Parties) Act 1999.",
-    ],
-  },
-  {
-    id: "contact-us",
-    number: 16,
-    title: "Contact Us",
+    id: "general",
+    number: 18,
+    title: "General",
     paragraphs: [
-      "If you have any questions about these Terms, please contact us:",
-      "Layer AI Systems Ltd, trading as Layer AI",
-      "Email: even@withlayer.ai",
-      "Website: withlayer.ai",
+      "The Agreement is the entire agreement about the Service and replaces prior discussions on that subject. If documents conflict, the following order applies unless an Order expressly states otherwise: the Order, the DPA for personal-data processing, these Terms, and referenced policies.",
+      "Neither party may assign the Agreement without the other's consent, not to be unreasonably withheld, except to an affiliate or in connection with a merger, reorganisation, or sale of substantially all relevant assets.",
+      "Neither party is liable for delay caused by circumstances beyond its reasonable control, excluding payment obligations.",
+      "If a provision is unenforceable, it will be adjusted only as necessary and the remainder will continue. Failure to enforce a provision is not a waiver.",
+      "Notices under the Agreement must be sent to the contact in the Order or, for Layer, to hello@withlayer.ai. Electronic notices are permitted. No third party has a right to enforce the Agreement under the Contracts (Rights of Third Parties) Act 1999.",
+    ],
+  },
+  {
+    id: "contact",
+    number: 19,
+    title: "Contact",
+    paragraphs: [
+      "Layer AI Systems Ltd",
+      "Company number 15632925",
+      "1 Dukes Passage, Brighton, East Sussex BN1 1BS, United Kingdom",
+      "Email: [hello@withlayer.ai](mailto:hello@withlayer.ai)",
+      "Website: [withlayer.ai](https://www.withlayer.ai)",
     ],
   },
 ];
