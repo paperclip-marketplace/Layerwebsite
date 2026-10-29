@@ -69,6 +69,11 @@ export function HeroVideoPlayer() {
 
   const syncPlayerState = useCallback(async (player: Player) => {
     try {
+      // setVolume(>0) unmutes Vimeo. Keep the embed silent until a click.
+      if (!soundUnlockedRef.current && !(await player.getMuted())) {
+        await player.setMuted(true);
+      }
+
       const [paused, seconds, videoDuration, nextVolume, muted] = await Promise.all([
         player.getPaused(),
         player.getCurrentTime(),
@@ -82,18 +87,20 @@ export function HeroVideoPlayer() {
       if (videoDuration > 0) setDuration(videoDuration);
 
       const clampedVolume = clampVolume(nextVolume);
+      const stayMuted = !soundUnlockedRef.current || muted;
       setVolume(clampedVolume);
-      setIsMuted(muted);
-      if (clampedVolume > 0 && !muted) lastVolumeRef.current = clampedVolume;
+      setIsMuted(stayMuted);
+      if (clampedVolume > 0 && !stayMuted) lastVolumeRef.current = clampedVolume;
     } catch {
       // Player may be destroyed during async reads.
     }
   }, []);
 
   const ensureMutedAutoplay = useCallback(async (player: Player) => {
+    if (soundUnlockedRef.current) return true;
+
     try {
       await player.setMuted(true);
-      await player.setVolume(DEFAULT_VOLUME);
 
       if (await player.getPaused()) {
         await player.play();
@@ -115,16 +122,18 @@ export function HeroVideoPlayer() {
   const unlockSound = useCallback(async (player: Player) => {
     if (soundUnlockedRef.current) return;
 
+    // Set before the awaits so a mute retry cannot talk over this click.
+    soundUnlockedRef.current = true;
+
     try {
       await player.setVolume(DEFAULT_VOLUME);
       await player.setMuted(false);
 
-      soundUnlockedRef.current = true;
       setVolume(DEFAULT_VOLUME);
       setIsMuted(false);
       lastVolumeRef.current = DEFAULT_VOLUME;
     } catch {
-      // Ignore volume errors.
+      soundUnlockedRef.current = false;
     }
   }, []);
 
@@ -141,6 +150,37 @@ export function HeroVideoPlayer() {
 
       setIsPlaying(true);
       setShowPoster(false);
+    } catch {
+      // Ignore playback errors.
+    }
+  }, [unlockSound]);
+
+  const handleSurfaceClick = useCallback(async () => {
+    const player = playerRef.current;
+    if (!player) return;
+
+    try {
+      const shouldUnlock = !soundUnlockedRef.current;
+      await unlockSound(player);
+
+      if (shouldUnlock) {
+        if (await player.getPaused()) {
+          await player.play();
+        }
+        setIsPlaying(true);
+        setShowPoster(false);
+        return;
+      }
+
+      const paused = await player.getPaused();
+      if (paused) {
+        await player.play();
+        setIsPlaying(true);
+        setShowPoster(false);
+      } else {
+        await player.pause();
+        setIsPlaying(false);
+      }
     } catch {
       // Ignore playback errors.
     }
@@ -417,7 +457,7 @@ export function HeroVideoPlayer() {
         className={styles.videoTapTarget}
         onClick={(event) => {
           event.stopPropagation();
-          void handleTogglePlay();
+          void handleSurfaceClick();
         }}
         aria-label={isPlaying ? "Pause video" : "Play video"}
       />
