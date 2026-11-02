@@ -1,0 +1,321 @@
+/* Layer for Slack — connect → meet your Agent → work together (Agent Card shell, Figma 109:63). */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(16 * var(--l-vw));
+  margin: calc(8 * var(--l-vw)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  padding: calc(4 * var(--l-vw));
+  background: #f2f2f2;
+  border: 1px solid #eeeeee;
+  border-radius: calc(16 * var(--l-vw));
+}
+
+.visual {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+  box-sizing: border-box;
+  height: calc(196 * var(--l-vw));
+  padding: calc(20 * var(--l-vw));
+  background: #ffffff;
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.slackVisual {
+  font-family: var(--slack-font, "Lato"), "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0;
+  color: #1d1c1d;
+}
+
+.crumb {
+  margin: 0;
+  font-size: calc(12 * var(--l-vw));
+  line-height: calc(16 * var(--l-vw));
+  color: #606060;
+}
+
+.integration {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--l-vw));
+  padding: calc(12 * var(--l-vw));
+  border: 1px solid #eeeeee;
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.integrationIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(36 * var(--l-vw));
+  height: calc(36 * var(--l-vw));
+  font-size: calc(20 * var(--l-vw));
+  background: #f2f2f2;
+  border-radius: calc(8 * var(--l-vw));
+}
+
+.integrationText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-size: calc(12 * var(--l-vw));
+  color: #606060;
+}
+
+.integrationText strong {
+  font-size: calc(14 * var(--l-vw));
+  font-weight: 500;
+  color: #020100;
+}
+
+.connect {
+  padding: calc(8 * var(--l-vw)) calc(12 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+  color: #ffffff;
+  background: #020100;
+  border-radius: calc(8 * var(--l-vw));
+}
+
+.install {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--l-vw));
+}
+
+.install span {
+  display: flex;
+  flex-direction: column;
+  font-size: calc(13 * var(--l-vw));
+  color: #616061;
+}
+
+.install strong {
+  font-size: calc(15 * var(--l-vw));
+  font-weight: 900;
+  color: #1d1c1d;
+}
+
+.installFace {
+  width: calc(48 * var(--l-vw));
+  height: calc(48 * var(--l-vw));
+  border-radius: 22%;
+}
+
+.scopes {
+  margin: 0;
+  padding-left: calc(18 * var(--l-vw));
+  font-size: calc(13 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+}
+
+.installButtons {
+  display: flex;
+  gap: calc(8 * var(--l-vw));
+  margin: auto 0 0;
+}
+
+.installButtons span {
+  padding: calc(6 * var(--l-vw)) calc(14 * var(--l-vw));
+  font-size: calc(13 * var(--l-vw));
+  font-weight: 700;
+  border: 1px solid rgba(29, 28, 29, 0.3);
+  border-radius: calc(6 * var(--l-vw));
+}
+
+.installButtons .allow {
+  color: #ffffff;
+  background: #007a5a;
+  border-color: #007a5a;
+}
+
+.dm {
+  display: flex;
+  gap: calc(10 * var(--l-vw));
+}
+
+.dm p {
+  margin: 0;
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(21 * var(--l-vw));
+}
+
+.dm strong {
+  font-size: calc(15 * var(--l-vw));
+  font-weight: 900;
+}
+
+.dm code {
+  padding: 0 calc(3 * var(--l-vw));
+  white-space: nowrap;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: calc(12 * var(--l-vw));
+  color: #e01e5a;
+  background: #f8f8f8;
+  border: 1px solid #dddddd;
+  border-radius: calc(3 * var(--l-vw));
+}
+
+.dmFace {
+  flex-shrink: 0;
+  width: calc(36 * var(--l-vw));
+  height: calc(36 * var(--l-vw));
+  border-radius: 22%;
+}
+
+.app {
+  padding: calc(1 * var(--l-vw)) calc(4 * var(--l-vw));
+  font-size: calc(10 * var(--l-vw));
+  font-weight: 700;
+  color: #616061;
+  background: rgba(29, 28, 29, 0.08);
+  border-radius: calc(3 * var(--l-vw));
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--l-vw));
+  padding: calc(16 * var(--l-vw)) calc(16 * var(--l-vw)) calc(14 * var(--l-vw));
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  color: #606060;
+}
+
+.copy strong {
+  font-size: var(--l-fs-16);
+  font-weight: 500;
+  line-height: calc(24 * var(--l-vw));
+  color: #020100;
+}
+
+.stepNo {
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+}
+
+.manager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(24 * var(--l-vw));
+  padding: calc(16 * var(--l-vw)) calc(20 * var(--l-vw));
+  background: #f9f9f9;
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.manager p {
+  flex: 1 1 calc(420 * var(--l-vw));
+  margin: 0;
+  font-size: calc(13 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  color: #606060;
+}
+
+.manager strong {
+  font-weight: 500;
+  color: #020100;
+}
+
+.managerArt {
+  display: flex;
+  align-items: center;
+  gap: calc(10 * var(--l-vw));
+}
+
+.markTile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(32 * var(--l-vw));
+  height: calc(32 * var(--l-vw));
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: calc(8 * var(--l-vw));
+}
+
+/* landing/layer-mark.svg is authored at 100% × 100%, so both dimensions are set (34:25.5 ratio). */
+.markTile img {
+  display: block;
+  width: calc(18 * var(--l-vw));
+  height: calc(13.5 * var(--l-vw));
+}
+
+.arrow {
+  font-size: calc(18 * var(--l-vw));
+  color: #b4b3b3;
+}
+
+.agentStack {
+  display: flex;
+}
+
+.agentStack img {
+  width: calc(28 * var(--l-vw));
+  height: calc(28 * var(--l-vw));
+  border: 2px solid #f9f9f9;
+  border-radius: 50%;
+}
+
+.agentStack img + img {
+  margin-left: calc(-8 * var(--l-vw));
+}
+
+@media (max-width: 768px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .visual {
+    height: auto;
+    min-height: 150px;
+    padding: 16px;
+  }
+
+  .copy,
+  .dm p,
+  .manager p {
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  .copy strong {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .crumb,
+  .stepNo,
+  .connect,
+  .integrationText {
+    font-size: 12px;
+  }
+
+  .manager {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .manager p {
+    flex: none;
+  }
+
+  .markTile {
+    width: 32px;
+    height: 32px;
+  }
+
+  .markTile img {
+    width: 18px;
+    height: 13.5px;
+  }
+}

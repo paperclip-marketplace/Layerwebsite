@@ -1,0 +1,247 @@
+/* Layer for Slack — hero, identity pairs and proof strip. */
+.section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--l-vw));
+  width: 100%;
+  padding: calc(72 * var(--l-vw)) calc(120 * var(--l-vw)) 0;
+  font-family: var(--layer-font-geist-sans);
+  letter-spacing: var(--l-tracking);
+  color: #020100;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(24 * var(--l-vw));
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+  margin: 0;
+  padding: calc(4 * var(--l-vw)) calc(10 * var(--l-vw)) calc(4 * var(--l-vw)) calc(4 * var(--l-vw));
+  font-size: calc(13 * var(--l-vw));
+  font-weight: 500;
+  line-height: calc(16 * var(--l-vw));
+  color: #9a3412;
+  background: #faede9;
+  border-radius: 9999px;
+}
+
+.badgeNew {
+  padding: calc(2 * var(--l-vw)) calc(8 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  color: #ffffff;
+  background: #f45523;
+  border-radius: 9999px;
+}
+
+.title {
+  max-width: calc(900 * var(--l-vw));
+  margin: 0;
+  font-size: calc(64 * var(--l-vw));
+  font-weight: 400;
+  line-height: calc(68 * var(--l-vw));
+  letter-spacing: var(--l-tracking);
+}
+
+.description {
+  max-width: calc(740 * var(--l-vw));
+  margin: 0;
+  font-size: var(--l-fs-18);
+  line-height: calc(28 * var(--l-vw));
+  color: #606060;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(8 * var(--l-vw));
+}
+
+.pairs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(8 * var(--l-vw));
+  margin: calc(8 * var(--l-vw)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pair {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+  padding: calc(4 * var(--l-vw)) calc(12 * var(--l-vw)) calc(4 * var(--l-vw)) calc(4 * var(--l-vw));
+  font-size: calc(13 * var(--l-vw));
+  line-height: calc(16 * var(--l-vw));
+  color: #606060;
+  border: 1px solid #eeeeee;
+  border-radius: 9999px;
+}
+
+.pair strong {
+  font-weight: 500;
+  color: #020100;
+}
+
+.pairFeatured {
+  background: #faede9;
+  border-color: #f45523;
+}
+
+.faces {
+  display: flex;
+}
+
+.faces img {
+  width: calc(28 * var(--l-vw));
+  height: calc(28 * var(--l-vw));
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+.faces img + img {
+  margin-left: calc(-10 * var(--l-vw));
+}
+
+.pairsNote {
+  margin: calc(-12 * var(--l-vw)) 0 0;
+  font-size: calc(13 * var(--l-vw));
+  color: #606060;
+}
+
+.scene {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+}
+
+.proof {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: calc(16 * var(--l-vw)) 0 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  background: #eeeeee;
+  border: 1px solid #eeeeee;
+  border-radius: calc(16 * var(--l-vw));
+}
+
+.proofItem {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--l-vw));
+  padding: calc(20 * var(--l-vw));
+  background: #ffffff;
+}
+
+.proofIcon {
+  font-size: calc(20 * var(--l-vw));
+  color: #f45523;
+}
+
+.proofTitle {
+  font-size: var(--l-fs-16);
+  font-weight: 500;
+  line-height: calc(24 * var(--l-vw));
+}
+
+.proofBody {
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  color: #606060;
+}
+
+@media (max-width: 768px) {
+  .section {
+    gap: 28px;
+    padding: 40px var(--l-inset-x, 20px) 0;
+  }
+
+  .copy {
+    align-items: flex-start;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .badge,
+  .badgeNew,
+  .pair,
+  .pairsNote {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-self: stretch;
+  }
+
+  .pairs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-self: stretch;
+    gap: 6px;
+  }
+
+  .pair {
+    padding: 4px 10px 4px 4px;
+  }
+
+  .faces img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .faces img + img {
+    margin-left: -8px;
+  }
+
+  .pairsNote {
+    margin: 0;
+  }
+
+  .proof {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 12px;
+  }
+
+  .proofItem {
+    gap: 4px;
+    padding: 14px;
+  }
+
+  .proofIcon {
+    font-size: 18px;
+  }
+
+  .proofTitle {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .proofBody {
+    font-size: 12px;
+    line-height: 17px;
+  }
+}

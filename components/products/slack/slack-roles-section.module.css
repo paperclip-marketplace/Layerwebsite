@@ -1,0 +1,151 @@
+/* Layer for Slack — "Built for every seat" role tabs. */
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: calc(32 * var(--l-vw));
+}
+
+.intro {
+  display: flex;
+  flex: 1 1 calc(340 * var(--l-vw));
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+}
+
+.seat {
+  display: flex;
+  align-items: center;
+  gap: calc(10 * var(--l-vw));
+  margin: 0;
+  font-size: calc(13 * var(--l-vw));
+  line-height: calc(16 * var(--l-vw));
+  color: #606060;
+}
+
+.seat strong {
+  font-weight: 500;
+  color: #020100;
+}
+
+.faces {
+  display: flex;
+}
+
+.faces img {
+  width: calc(32 * var(--l-vw));
+  height: calc(32 * var(--l-vw));
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+.faces img + img {
+  margin-left: calc(-10 * var(--l-vw));
+}
+
+.headline {
+  margin: 0;
+  font-size: var(--l-fs-24);
+  font-weight: 400;
+  line-height: calc(32 * var(--l-vw));
+}
+
+.actions {
+  display: grid;
+  flex: 2 1 calc(520 * var(--l-vw));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(12 * var(--l-vw));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.action {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--l-vw));
+  padding: calc(14 * var(--l-vw));
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  color: #606060;
+  border: 1px solid #eeeeee;
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.action strong {
+  font-weight: 500;
+  color: #020100;
+}
+
+.routines {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(6 * var(--l-vw));
+  margin: 0;
+}
+
+.routinesLabel {
+  margin-right: calc(4 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  color: #606060;
+}
+
+.routine {
+  padding: calc(3 * var(--l-vw)) calc(8 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+  line-height: calc(16 * var(--l-vw));
+  background: #f2f2f2;
+  border-radius: 9999px;
+}
+
+@media (max-width: 768px) {
+  .panel {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .intro {
+    flex: none;
+    gap: 10px;
+  }
+
+  .seat,
+  .routinesLabel,
+  .routine {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .faces img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .faces img + img {
+    margin-left: -8px;
+  }
+
+  .headline {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .actions {
+    flex: none;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .action {
+    padding: 12px;
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  .routine {
+    padding: 3px 8px;
+  }
+}
