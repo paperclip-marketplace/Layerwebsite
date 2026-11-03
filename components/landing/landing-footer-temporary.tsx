@@ -61,7 +61,7 @@ export function LandingFooterTemporary() {
             </div>
 
             <div className={styles.badges} data-node-id="2135:20375">
-              {FOOTER_BADGES.map((badge) => {
+              {FOOTER_BADGES.filter((badge) => badge.id !== "soc2").map((badge) => {
                 const tooltipId = `footer-badge-status-${badge.id}`;
 
                 return (

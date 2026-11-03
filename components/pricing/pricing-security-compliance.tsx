@@ -40,7 +40,7 @@ export function PricingSecurityCompliance() {
       </div>
 
       <div className={styles.badges} data-node-id="2142:21090">
-        {BADGES.map((badge) => {
+        {BADGES.filter((badge) => badge.id !== "soc2").map((badge) => {
           const tooltipId = `pricing-badge-status-${badge.id}`;
 
           return (
