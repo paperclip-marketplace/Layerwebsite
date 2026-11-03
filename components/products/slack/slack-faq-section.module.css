@@ -1,0 +1,116 @@
+/* Layer for Slack — FAQ + AI notice (Marketplace review essentials). */
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(48 * var(--l-vw));
+}
+
+.intro {
+  display: flex;
+  flex: 1 1 calc(300 * var(--l-vw));
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+}
+
+.link {
+  color: #020100;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.notice {
+  display: flex;
+  gap: calc(12 * var(--l-vw));
+  margin: 0;
+  padding: calc(16 * var(--l-vw));
+  font-size: calc(13 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  background: #faede9;
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.notice strong {
+  font-weight: 500;
+}
+
+.noticeIcon {
+  flex-shrink: 0;
+  font-size: calc(20 * var(--l-vw));
+  color: #c2410c;
+}
+
+.list {
+  display: flex;
+  flex: 2 1 calc(560 * var(--l-vw));
+  flex-direction: column;
+  border-top: 1px solid #eeeeee;
+}
+
+.item {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--l-vw));
+  padding: calc(18 * var(--l-vw)) 0;
+  font-size: var(--l-fs-16);
+  font-weight: 500;
+  line-height: calc(24 * var(--l-vw));
+  list-style: none;
+  cursor: pointer;
+}
+
+.question::-webkit-details-marker {
+  display: none;
+}
+
+.chevron {
+  font-size: calc(20 * var(--l-vw));
+  color: #606060;
+  transition: transform 0.2s ease;
+}
+
+.item[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.answer {
+  margin: 0 0 calc(18 * var(--l-vw));
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(22 * var(--l-vw));
+  color: #606060;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .notice {
+    padding: 12px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .noticeIcon,
+  .chevron {
+    font-size: 20px;
+  }
+
+  .question {
+    min-height: 44px;
+    padding: 12px 0;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .answer {
+    margin-bottom: 14px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+}

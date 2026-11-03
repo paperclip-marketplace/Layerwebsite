@@ -1,0 +1,164 @@
+/* Layer for Slack — identity, controls and governance scenes. */
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: calc(48 * var(--l-vw));
+}
+
+.profile {
+  flex: 0 0 calc(440 * var(--l-vw));
+}
+
+.copy {
+  display: flex;
+  flex: 999 1 calc(480 * var(--l-vw));
+  flex-direction: column;
+  gap: calc(28 * var(--l-vw));
+  min-width: 0;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #eeeeee;
+}
+
+.control {
+  display: flex;
+  gap: calc(16 * var(--l-vw));
+  padding: calc(16 * var(--l-vw)) 0;
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  color: #606060;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.control span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--l-vw));
+}
+
+.control strong {
+  font-size: var(--l-fs-16);
+  font-weight: 500;
+  line-height: calc(24 * var(--l-vw));
+  color: #020100;
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: calc(2 * var(--l-vw));
+  font-size: calc(20 * var(--l-vw));
+  color: #020100;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--l-vw));
+  margin-top: calc(16 * var(--l-vw));
+}
+
+.lifecycle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lifecycleStep {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+}
+
+.lifecycleStep > span:last-child {
+  padding: calc(2 * var(--l-vw)) calc(6 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+  line-height: calc(16 * var(--l-vw));
+  border-radius: calc(4 * var(--l-vw));
+}
+
+.arrow {
+  font-size: calc(14 * var(--l-vw));
+  color: #8d8d8d;
+}
+
+.prepared {
+  color: #6b5800;
+  background: #fff8d2;
+}
+
+.approved {
+  color: #0052be;
+  background: #e7f1ff;
+}
+
+.executed {
+  color: #006140;
+  background: #e7f7f0;
+}
+
+.receipt {
+  color: #353433;
+  background: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .profile,
+  .copy {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .copy {
+    gap: 16px;
+  }
+
+  .control {
+    gap: 12px;
+    padding: 12px 0;
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  .control strong {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .lifecycleStep > span:last-child {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .arrow {
+    font-size: 14px;
+  }
+}

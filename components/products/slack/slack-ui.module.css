@@ -1,0 +1,953 @@
+/*
+ * Layer for Slack — Slack-faithful product scenes.
+ * Inside the window we use Slack's own visual language (Lato, aubergine
+ * sidebar, Slack greens/blues); everything outside it is Layer DS.
+ * Sizes are design px × --u so scenes scale with the 1440 canvas (--l-vw).
+ * ≤768px: the desktop chrome collapses into a phone-style single column.
+ */
+
+.window {
+  --u: var(--l-vw, 1px);
+  --slack-aubergine: #350d36;
+  --slack-sidebar: #4a154b;
+  --slack-text: #1d1c1d;
+  --slack-muted: #616061;
+  --slack-border: #dddddd;
+  --slack-blue: #1264a3;
+  --slack-green: #007a5a;
+  --slack-red: #e01e5a;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: calc(1120 * var(--u));
+  height: calc(800 * var(--u));
+  overflow: hidden;
+  font-family: var(--slack-font, "Lato"), "Helvetica Neue", Arial, sans-serif;
+  font-size: calc(15 * var(--u));
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--slack-text);
+  text-align: left;
+  background: var(--slack-aubergine);
+  border-radius: calc(12 * var(--u));
+}
+
+.window p {
+  margin: 0;
+}
+
+/* ---------- chrome ---------- */
+.titleBar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(12 * var(--u));
+  height: calc(40 * var(--u));
+  padding: 0 calc(12 * var(--u));
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.lights {
+  display: flex;
+  gap: calc(7 * var(--u));
+  width: calc(56 * var(--u));
+}
+
+.lights span {
+  width: calc(11 * var(--u));
+  height: calc(11 * var(--u));
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.lights span:nth-child(2) {
+  background: #febc2e;
+}
+
+.lights span:nth-child(3) {
+  background: #28c840;
+}
+
+.history {
+  display: flex;
+  gap: calc(8 * var(--u));
+  margin-left: calc(152 * var(--u));
+}
+
+.navIcon {
+  font-size: calc(17 * var(--u));
+  line-height: 1;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  box-sizing: border-box;
+  width: calc(520 * var(--u));
+  height: calc(26 * var(--u));
+  padding: 0 calc(10 * var(--u));
+  font-size: calc(13 * var(--u));
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: calc(6 * var(--u));
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(14 * var(--u));
+  width: calc(68 * var(--u));
+  padding-top: calc(6 * var(--u));
+  color: #ffffff;
+}
+
+.workspace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(36 * var(--u));
+  height: calc(36 * var(--u));
+  font-size: calc(17 * var(--u));
+  font-weight: 900;
+  color: var(--slack-aubergine);
+  background: #ffffff;
+  border-radius: calc(9 * var(--u));
+}
+
+.railItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(3 * var(--u));
+  font-size: calc(11 * var(--u));
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.railIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(36 * var(--u));
+  height: calc(36 * var(--u));
+  border-radius: calc(9 * var(--u));
+}
+
+.railItemActive {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.railItemActive .railIcon {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.railUser {
+  margin-top: auto;
+  margin-bottom: calc(14 * var(--u));
+}
+
+.panel {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  margin: 0 calc(6 * var(--u)) calc(6 * var(--u)) 0;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: calc(8 * var(--u));
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: calc(1 * var(--u));
+  box-sizing: border-box;
+  width: calc(220 * var(--u));
+  padding: 0 calc(8 * var(--u));
+  color: rgba(255, 255, 255, 0.78);
+  background: var(--slack-sidebar);
+}
+
+.sidebarWorkspace {
+  display: flex;
+  align-items: center;
+  height: calc(49 * var(--u));
+  padding: 0 calc(8 * var(--u));
+  font-size: calc(18 * var(--u));
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.sidebarItem,
+.sidebarSection {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  height: calc(28 * var(--u));
+  padding: 0 calc(10 * var(--u));
+  white-space: nowrap;
+}
+
+.sidebarSection {
+  margin-top: calc(10 * var(--u));
+  font-size: calc(14 * var(--u));
+}
+
+.sidebarActive {
+  color: #ffffff;
+  background: #1164a3;
+  border-radius: calc(6 * var(--u));
+}
+
+.sidebarUnread {
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.hash {
+  opacity: 0.7;
+}
+
+.unreadBadge {
+  margin-left: auto;
+  padding: 0 calc(6 * var(--u));
+  font-size: calc(11 * var(--u));
+  font-weight: 900;
+  line-height: calc(16 * var(--u));
+  color: #ffffff;
+  background: var(--slack-red);
+  border-radius: calc(9 * var(--u));
+}
+
+/* ---------- panes ---------- */
+.pane {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.paneFixed {
+  flex: 0 0 calc(var(--main-w) * var(--u));
+  border-right: 1px solid var(--slack-border);
+}
+
+.threadPane {
+  flex: 1;
+}
+
+.paneHeader {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  height: calc(49 * var(--u));
+  padding: 0 calc(16 * var(--u));
+  border-bottom: 1px solid var(--slack-border);
+}
+
+.paneTitle {
+  font-size: calc(17 * var(--u));
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.paneSub {
+  margin-left: calc(6 * var(--u));
+  font-size: calc(13 * var(--u));
+  color: var(--slack-muted);
+  white-space: nowrap;
+}
+
+.dmHeader {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  min-width: 0;
+}
+
+.tabs {
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(18 * var(--u));
+  height: calc(34 * var(--u));
+  padding: 0 calc(16 * var(--u));
+  font-size: calc(13 * var(--u));
+  color: var(--slack-muted);
+  border-bottom: 1px solid var(--slack-border);
+}
+
+.tabs span {
+  display: flex;
+  align-items: center;
+}
+
+.tabActive {
+  font-weight: 700;
+  color: var(--slack-text);
+  box-shadow: inset 0 calc(-2 * var(--u)) 0 var(--slack-text);
+}
+
+/* Bottom-anchored list: like a scrolled Slack conversation, older lines clip above. */
+.messages {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 0;
+  padding-bottom: calc(6 * var(--u));
+  overflow: hidden;
+}
+
+.composer {
+  flex-shrink: 0;
+  margin: 0 calc(16 * var(--u)) calc(14 * var(--u));
+  padding: calc(10 * var(--u));
+  font-size: calc(15 * var(--u));
+  color: #868686;
+  border: 1px solid #bbbabb;
+  border-radius: calc(8 * var(--u));
+}
+
+/* ---------- messages ---------- */
+.avatar {
+  display: block;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 22%;
+}
+
+.avatar16 {
+  width: calc(16 * var(--u));
+  height: calc(16 * var(--u));
+}
+
+.avatar18 {
+  width: calc(18 * var(--u));
+  height: calc(18 * var(--u));
+}
+
+.avatar20 {
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+}
+
+.avatar24 {
+  width: calc(24 * var(--u));
+  height: calc(24 * var(--u));
+}
+
+.avatar28 {
+  width: calc(28 * var(--u));
+  height: calc(28 * var(--u));
+}
+
+.avatar32 {
+  width: calc(32 * var(--u));
+  height: calc(32 * var(--u));
+}
+
+.avatar36 {
+  width: calc(36 * var(--u));
+  height: calc(36 * var(--u));
+}
+
+.layerMark {
+  width: calc(13 * var(--u));
+  height: calc(10 * var(--u));
+}
+
+.message {
+  display: flex;
+  gap: calc(8 * var(--u));
+  padding: calc(6 * var(--u)) calc(16 * var(--u));
+}
+
+.messageHighlight {
+  background: #fffbe8;
+}
+
+.messageMuted {
+  background: #f8f8f8;
+}
+
+.gutterTime {
+  flex-shrink: 0;
+  width: calc(36 * var(--u));
+  padding-top: calc(4 * var(--u));
+  font-size: calc(11 * var(--u));
+  color: var(--slack-muted);
+  text-align: right;
+}
+
+.messageBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(7 * var(--u));
+  min-width: 0;
+  max-width: calc(740 * var(--u));
+}
+
+.messageMeta {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--u));
+}
+
+.messageName {
+  font-weight: 900;
+}
+
+.messageTime {
+  font-size: calc(12 * var(--u));
+  color: var(--slack-muted);
+}
+
+.appBadge {
+  padding: calc(1 * var(--u)) calc(4 * var(--u));
+  font-size: calc(10 * var(--u));
+  font-weight: 700;
+  color: var(--slack-muted);
+  background: rgba(29, 28, 29, 0.08);
+  border-radius: calc(3 * var(--u));
+}
+
+.speech {
+  font-size: calc(15 * var(--u));
+  line-height: calc(22 * var(--u));
+}
+
+.mention {
+  padding: 0 calc(2 * var(--u));
+  color: var(--slack-blue);
+  background: rgba(29, 155, 209, 0.1);
+  border-radius: calc(3 * var(--u));
+}
+
+.ctx {
+  display: flex;
+  align-items: center;
+  gap: calc(5 * var(--u));
+  font-size: calc(12 * var(--u));
+  color: var(--slack-muted);
+}
+
+.blockHeader {
+  font-size: calc(17 * var(--u));
+  font-weight: 900;
+  line-height: calc(22 * var(--u));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--u));
+  padding: calc(10 * var(--u)) calc(12 * var(--u));
+  font-size: calc(13 * var(--u));
+  line-height: calc(19 * var(--u));
+  border: 1px solid var(--slack-border);
+  border-radius: calc(8 * var(--u));
+}
+
+.cardTitle {
+  font-size: calc(14 * var(--u));
+  font-weight: 900;
+  line-height: calc(20 * var(--u));
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(6 * var(--u));
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: calc(28 * var(--u));
+  padding: 0 calc(10 * var(--u));
+  font-family: inherit;
+  font-size: calc(13 * var(--u));
+  font-weight: 700;
+  color: var(--slack-text);
+  white-space: nowrap;
+  cursor: default;
+  background: #ffffff;
+  border: 1px solid rgba(29, 28, 29, 0.3);
+  border-radius: calc(6 * var(--u));
+}
+
+button.button {
+  cursor: pointer;
+}
+
+.button_primary {
+  color: #ffffff;
+  background: var(--slack-green);
+  border-color: var(--slack-green);
+}
+
+.button_danger {
+  color: #ffffff;
+  background: var(--slack-red);
+  border-color: var(--slack-red);
+}
+
+.button_pressed {
+  color: var(--slack-blue);
+  background: #e8f5fa;
+  border: 2px solid var(--slack-blue);
+}
+
+.table {
+  overflow: hidden;
+  font-size: calc(13 * var(--u));
+  border: 1px solid var(--slack-border);
+  border-radius: calc(8 * var(--u));
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: var(--cols);
+  border-top: 1px solid var(--slack-border);
+}
+
+.tableRow span {
+  padding: calc(6 * var(--u)) calc(10 * var(--u));
+}
+
+.tableHead {
+  font-weight: 700;
+  background: #f8f8f8;
+  border-top: 0;
+}
+
+.tableRowAlert {
+  font-weight: 700;
+  background: #fdf1f4;
+}
+
+.reactions {
+  display: flex;
+  gap: calc(4 * var(--u));
+}
+
+.reaction {
+  display: inline-flex;
+  align-items: center;
+  height: calc(22 * var(--u));
+  padding: 0 calc(7 * var(--u));
+  font-size: calc(12 * var(--u));
+  color: var(--slack-muted);
+  background: #f8f8f8;
+  border: 1px solid #f8f8f8;
+  border-radius: calc(12 * var(--u));
+}
+
+.reactionMine {
+  font-weight: 700;
+  color: var(--slack-blue);
+  background: #e8f5fa;
+  border-color: #1d9bd1;
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--u));
+  padding: calc(2 * var(--u)) 0 calc(2 * var(--u)) calc(10 * var(--u));
+  border-left: calc(4 * var(--u)) solid var(--slack-border);
+}
+
+.quoteAuthor {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--u));
+  font-size: calc(13 * var(--u));
+}
+
+.quoteText {
+  font-size: calc(14 * var(--u));
+  line-height: calc(20 * var(--u));
+}
+
+.quoteMeta {
+  font-size: calc(12 * var(--u));
+  color: var(--slack-muted);
+}
+
+.dateDivider {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  padding: calc(6 * var(--u)) calc(16 * var(--u));
+}
+
+.dateDivider::before,
+.dateDivider::after {
+  flex: 1;
+  height: 1px;
+  content: "";
+  background: var(--slack-border);
+}
+
+.dateDivider span {
+  padding: calc(2 * var(--u)) calc(10 * var(--u));
+  font-size: calc(12 * var(--u));
+  font-weight: 700;
+  border: 1px solid var(--slack-border);
+  border-radius: calc(12 * var(--u));
+}
+
+/* ---------- shared scene helpers ---------- */
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(6 * var(--u)) calc(16 * var(--u));
+  font-size: calc(14 * var(--u));
+  line-height: calc(20 * var(--u));
+}
+
+.fields3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.fields4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: calc(8 * var(--u));
+}
+
+.small {
+  font-size: calc(13 * var(--u));
+  line-height: calc(19 * var(--u));
+}
+
+.muted {
+  color: var(--slack-muted);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(3 * var(--u));
+  margin: 0;
+  padding-left: calc(20 * var(--u));
+  font-size: calc(14 * var(--u));
+  line-height: calc(20 * var(--u));
+  list-style: decimal;
+}
+
+.bullets {
+  list-style: disc;
+}
+
+.personLine {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--u));
+  font-size: calc(13 * var(--u));
+  line-height: calc(19 * var(--u));
+}
+
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(5 * var(--u));
+  font-size: calc(13 * var(--u));
+}
+
+.chain span {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(4 * var(--u));
+}
+
+.chip {
+  padding: calc(1 * var(--u)) calc(6 * var(--u));
+  font-size: calc(12 * var(--u));
+  border: 1px solid var(--slack-border);
+  border-radius: calc(4 * var(--u));
+}
+
+.chipWarn {
+  font-weight: 700;
+  color: #6b5800;
+  background: #fef3c7;
+  border-color: #fef3c7;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  padding: calc(8 * var(--u)) calc(10 * var(--u));
+  font-size: calc(11 * var(--u));
+  color: var(--slack-muted);
+  border: 1px solid var(--slack-border);
+  border-radius: calc(8 * var(--u));
+}
+
+.metric strong {
+  font-size: calc(18 * var(--u));
+  font-weight: 900;
+  color: var(--slack-text);
+}
+
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--u));
+  padding: calc(6 * var(--u)) calc(8 * var(--u));
+  font-size: calc(12 * var(--u));
+  border: 1px solid var(--slack-border);
+  border-radius: calc(6 * var(--u));
+}
+
+.bandCritical {
+  background: #fdf1f4;
+  border-color: var(--slack-red);
+}
+
+.bandWeak {
+  color: #b4231b;
+}
+
+.bandMixed {
+  color: #6b5800;
+}
+
+.link {
+  font-size: calc(13 * var(--u));
+  font-weight: 700;
+  color: var(--slack-blue);
+}
+
+.sparkline {
+  display: block;
+  width: 100%;
+  height: calc(70 * var(--u));
+}
+
+.ephemeral {
+  border-top: 1px solid #eeeeee;
+}
+
+.cardRowEnd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--u));
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(8 * var(--u));
+}
+
+.fieldTable {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr 1.3fr;
+  overflow: hidden;
+  font-size: calc(12 * var(--u));
+  line-height: calc(17 * var(--u));
+  border: 1px solid #eeeeee;
+  border-radius: calc(6 * var(--u));
+}
+
+.fieldTable span {
+  padding: calc(4 * var(--u)) calc(8 * var(--u));
+  border-top: 1px solid #eeeeee;
+}
+
+.fieldTable span:nth-child(-n + 3) {
+  font-weight: 700;
+  background: #f8f8f8;
+  border-top: 0;
+}
+
+/* ---------- modal (approval scene) ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  width: calc(540 * var(--u));
+  max-width: calc(100% - 32px);
+  background: #ffffff;
+  border-radius: calc(10 * var(--u));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+
+.dialogHeader,
+.dialogFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(8 * var(--u));
+  padding: calc(16 * var(--u)) calc(22 * var(--u));
+}
+
+.dialogHeader {
+  border-bottom: 1px solid var(--slack-border);
+}
+
+.dialogFooter {
+  justify-content: flex-end;
+  border-top: 1px solid var(--slack-border);
+}
+
+.dialogTitle {
+  font-size: calc(20 * var(--u));
+  font-weight: 900;
+}
+
+.dialogBody {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--u));
+  padding: calc(16 * var(--u)) calc(22 * var(--u));
+  font-size: calc(14 * var(--u));
+  line-height: calc(21 * var(--u));
+}
+
+.dialogClose {
+  font-size: calc(20 * var(--u));
+  color: var(--slack-muted);
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.draft {
+  padding: calc(10 * var(--u)) calc(12 * var(--u));
+  white-space: pre-line;
+  background: #f8f8f8;
+  border-radius: calc(6 * var(--u));
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--u));
+  font-weight: 700;
+}
+
+.field input,
+.field textarea {
+  padding: calc(8 * var(--u)) calc(10 * var(--u));
+  font-family: inherit;
+  font-size: calc(14 * var(--u));
+  font-weight: 400;
+  line-height: calc(21 * var(--u));
+  resize: none;
+  border: 1px solid #bbbabb;
+  border-radius: calc(6 * var(--u));
+}
+
+/* ---------- mobile: phone-style single column ---------- */
+@media (max-width: 768px) {
+  .window {
+    --u: 1px;
+    width: 100%;
+    height: auto;
+    font-size: 15px;
+    background: var(--slack-sidebar);
+    border-radius: 16px;
+  }
+
+  .titleBar,
+  .rail,
+  .sidebar,
+  .tabs,
+  .composer {
+    display: none;
+  }
+
+  .panel {
+    flex-direction: column;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .paneHeader {
+    color: #ffffff;
+    background: var(--slack-sidebar);
+    border-bottom: 0;
+  }
+
+  .paneHeader .paneSub {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .paneFixed {
+    flex: none;
+    border-right: 0;
+  }
+
+  .threadPane {
+    border-top: 1px solid var(--slack-border);
+  }
+
+  .messages {
+    justify-content: flex-start;
+    padding: 8px 0;
+    overflow: visible;
+  }
+
+  .message {
+    padding: 6px 12px;
+  }
+
+  .messageMeta {
+    flex-wrap: wrap;
+  }
+
+  .fields3,
+  .fields4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .cardRowEnd {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .table {
+    overflow-x: auto;
+  }
+
+  .tableRow {
+    min-width: 520px;
+  }
+
+  .overlay {
+    position: fixed;
+    z-index: 50;
+  }
+}

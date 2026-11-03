@@ -1,0 +1,130 @@
+/* Layer for Slack — "A partner, not a tool": four short Slack moments. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: calc(16 * var(--l-vw));
+  margin: calc(8 * var(--l-vw)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.moment {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--l-vw));
+}
+
+.chat {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(10 * var(--l-vw));
+  padding: calc(14 * var(--l-vw));
+  font-family: var(--slack-font, "Lato"), "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0;
+  color: #1d1c1d;
+  border: 1px solid #eeeeee;
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.line {
+  display: flex;
+  gap: calc(8 * var(--l-vw));
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: calc(28 * var(--l-vw));
+  height: calc(28 * var(--l-vw));
+  border-radius: 22%;
+}
+
+.lineBody {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--l-vw));
+  margin: 0;
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+}
+
+.lineMeta {
+  display: flex;
+  gap: calc(6 * var(--l-vw));
+  font-size: calc(13 * var(--l-vw));
+}
+
+.lineMeta span {
+  font-size: calc(11 * var(--l-vw));
+  color: #616061;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(6 * var(--l-vw));
+  padding-left: calc(36 * var(--l-vw));
+}
+
+.actions span {
+  padding: calc(4 * var(--l-vw)) calc(8 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 700;
+  border: 1px solid rgba(29, 28, 29, 0.3);
+  border-radius: calc(6 * var(--l-vw));
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(40 * var(--l-vw));
+  margin: 0;
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  color: #606060;
+}
+
+.caption strong {
+  font-weight: 500;
+  color: #020100;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .chat {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .line {
+    gap: 8px;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .lineBody,
+  .caption {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .lineMeta {
+    font-size: 13px;
+  }
+
+  .lineMeta span,
+  .actions span {
+    font-size: 12px;
+  }
+
+  .actions {
+    padding-left: 36px;
+  }
+}
