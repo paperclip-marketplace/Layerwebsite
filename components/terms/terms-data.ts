@@ -15,7 +15,7 @@ export type TermsSection = {
 };
 
 export const TERMS_EFFECTIVE_DATE = "13 April 2026";
-export const TERMS_LAST_UPDATED = "21 September 2026";
+export const TERMS_LAST_UPDATED = "4 November 2026";
 
 export const TERMS_SECTIONS: TermsSection[] = [
   {
@@ -26,6 +26,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
       'These Terms & Conditions ("Terms") govern your access to and use of the Layer AI platform and related services (the "Service"), provided by Layer AI Systems Ltd (company number 15632925), a company registered in England and Wales, trading as Layer AI ("we", "us", or "our").',
       "By accessing or using the Service, you agree to be bound by these Terms. If you are using the Service on behalf of an organisation, you represent that you have the authority to bind that organisation to these Terms.",
       "If you do not agree to these Terms, you must not use the Service.",
+      'If your organisation signs an Order Form with us (an "Order"), these Terms, the Order and our [Data Processing Addendum](/dpa) together form the agreement between us (the "Agreement"). In an Order, "Customer" means you, the organisation named in it. If they conflict, the Order controls, then the Data Processing Addendum for personal data, then these Terms.',
     ],
   },
   {
@@ -109,14 +110,14 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "plans-and-pricing",
         title: "4.1 Plans and Pricing",
         paragraphs: [
-          "The Service is offered under various subscription plans. Usage may be measured by interactions, features, and connected integrations. Details are available on our website. We reserve the right to modify plans and pricing upon reasonable notice.",
+          "The Service is offered under various subscription plans. Usage may be measured by interactions, features, and connected integrations. Details are available on our website. We may change plans and pricing by giving at least 30 days' written notice. A change applies from the first billing period that begins after the notice period ends.",
         ],
       },
       {
         id: "billing",
         title: "4.2 Billing",
         paragraphs: [
-          "Fees are billed on a recurring basis (monthly or annually). All fees are exclusive of applicable taxes unless stated otherwise. Payment is processed by our third-party payment processor.",
+          "Fees are billed on a recurring basis, monthly in advance unless your plan or Order says otherwise. All fees are exclusive of applicable taxes unless stated otherwise. Fees are collected automatically by our payment processor, Stripe, using the payment method you provide. You must keep a valid payment method and accurate billing information on file.",
         ],
       },
       {
@@ -130,7 +131,15 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "cancellation-and-refunds",
         title: "4.4 Cancellation and Refunds",
         paragraphs: [
-          "You may cancel at any time through your account settings. Cancellation takes effect at the end of your current billing period. We do not offer refunds for partial periods unless required by law.",
+          "You may cancel at any time through your account settings or by emailing even@withlayer.ai. Cancellation takes effect at the end of the billing period you have already paid for, and no further fees are charged after that. We do not offer refunds for partial periods unless required by law.",
+        ],
+      },
+      {
+        id: "credits",
+        title: "4.5 Credits",
+        paragraphs: [
+          "Usage is measured in credits, which are applied against your use of the Service as your plan or Order describes. Unless your plan or Order says otherwise, credits included in a monthly purchase expire at the end of that month, and top-up credits you buy separately do not expire while your subscription remains active. Credits are not refundable or exchangeable for cash except where required by law.",
+          "If your use would exceed your credits, we will use commercially reasonable efforts to notify you, and we will charge for additional credits only at the rate stated in your plan or Order and only after you approve them. Until you approve additional credits or buy more, we may throttle or suspend chargeable use.",
         ],
       },
     ],
@@ -158,7 +167,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "data-processing",
         title: "5.3 Data Processing",
         paragraphs: [
-          "Our processing of personal data is governed by our Privacy Policy. Where we act as a data processor on behalf of your organisation, we will enter into a Data Processing Agreement upon request.",
+          "Our processing of personal data is governed by our Privacy Policy. Where we process personal data on behalf of your organisation, our [Data Processing Addendum](/dpa) applies automatically and forms part of these Terms.",
         ],
       },
       {
@@ -364,8 +373,11 @@ export const TERMS_SECTIONS: TermsSection[] = [
     number: 15,
     title: "General Provisions",
     bullets: [
-      "Entire agreement: these Terms, our Privacy Policy, and any applicable Data Processing Agreement constitute the entire agreement between us regarding the Service.",
-      "Amendments: we may amend these Terms from time to time. Material changes will be notified by email or in-Service notice. Continued use constitutes acceptance.",
+      "Entire agreement: these Terms, any Order, our [Data Processing Addendum](/dpa), and our [Privacy Policy](/privacy) constitute the entire agreement between us regarding the Service. If they conflict, the Order controls, then the Data Processing Addendum for personal data, then these Terms, then the Privacy Policy.",
+      "Amendments: we may amend these Terms from time to time. Material changes will be notified by email or in-Service notice. Continued use constitutes acceptance. Where you have an Order, a material change that reduces your rights applies from the first monthly billing date after we notify you, and you may cancel before then.",
+      "Purchase orders: a purchase order or vendor-system term you supply is for administrative convenience only and does not amend the Agreement unless we both expressly agree in writing.",
+      "Notices: notices to us go to even@withlayer.ai. Notices to you go to the notices email in your Order or, if none, the email address on your account.",
+      "Electronic signature: an Order may be signed electronically and in counterparts, and each signatory confirms they are authorised to bind the party they sign for.",
       "Assignment: you may not assign rights without our written consent. We may assign to an affiliate or in connection with a merger, acquisition, or asset sale.",
       "Severability: if any provision is unenforceable, the remainder continues in full force.",
       "Waiver: failure to enforce a right does not waive it.",
