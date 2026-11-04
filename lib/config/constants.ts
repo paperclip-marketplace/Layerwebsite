@@ -39,7 +39,7 @@ export const ROUTES = {
   molten: '/molten',
   notionCapital: '/notion-capital',
   inflexion: '/inflexion',
-  contactSales: 'mailto:even@withlayer.ai',
+  contactSales: 'mailto:hello@withlayer.ai',
 } as const;
 
 /** After auth: org members use home (member v2 shell on `/`); admins and others use personas. */

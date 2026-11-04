@@ -322,7 +322,7 @@ export const DPA_SECTIONS: LegalSection[] = [
         id: "parties",
         title: "Parties",
         bullets: [
-          "Processor / data importer: Layer AI Systems Ltd, company number 15632925, 1 Dukes Passage, Brighton, East Sussex BN1 1BS, United Kingdom. Contact: even@withlayer.ai.",
+          "Processor / data importer: Layer AI Systems Ltd, company number 15632925, 1 Dukes Court, Brighton, East Sussex BN1 1BS, United Kingdom. Contact: hello@withlayer.ai.",
           "Customer / data exporter: The Customer identified in the Agreement. Customer's contact details are stated in the Agreement, Order, or account.",
         ],
       },

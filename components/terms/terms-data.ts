@@ -96,7 +96,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "account-security",
         title: "3.3 Account Security",
         paragraphs: [
-          "You must notify us immediately at even@withlayer.ai if you become aware of any unauthorised use of your account. We are not liable for loss arising from unauthorised access where you have failed to maintain adequate credential security.",
+          "You must notify us immediately at hello@withlayer.ai if you become aware of any unauthorised use of your account. We are not liable for loss arising from unauthorised access where you have failed to maintain adequate credential security.",
         ],
       },
     ],
@@ -129,16 +129,16 @@ export const TERMS_SECTIONS: TermsSection[] = [
       },
       {
         id: "cancellation-and-refunds",
-        title: "4.4 Cancellation and Refunds",
+        title: "4.4 Renewal and Refunds",
         paragraphs: [
-          "You may cancel at any time through your account settings or by emailing even@withlayer.ai. Cancellation takes effect at the end of the billing period you have already paid for, and no further fees are charged after that. We do not offer refunds for partial periods unless required by law.",
+          "Subscriptions run month to month and renew automatically at the start of each billing period. To stop a subscription renewing, cancel it through your account settings or email hello@withlayer.ai before your next billing date. You keep access until the end of the billing period you have paid for, and no further fees are charged after that. Fees are not refunded, including for any unused part of a billing period.",
         ],
       },
       {
         id: "credits",
         title: "4.5 Credits",
         paragraphs: [
-          "Usage is measured in credits, which are applied against your use of the Service as your plan or Order describes. Unless your plan or Order says otherwise, credits included in a monthly purchase expire at the end of that month, and top-up credits you buy separately do not expire while your subscription remains active. Credits are not refundable or exchangeable for cash except where required by law.",
+          "Usage is measured in credits, which are applied against your use of the Service as your plan or Order describes. Unless your plan or Order says otherwise, credits included in a monthly purchase expire at the end of that month, and top-up credits you buy separately do not expire while your subscription remains active. Credits are not refundable or exchangeable for cash.",
           "If your use would exceed your credits, we will use commercially reasonable efforts to notify you, and we will charge for additional credits only at the rate stated in your plan or Order and only after you approve them. Until you approve additional credits or buy more, we may throttle or suspend chargeable use.",
         ],
       },
@@ -289,7 +289,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         paragraphs: ["Subject to Section 10.1, to the maximum extent permitted by law:"],
         bullets: [
           "We exclude all liability for indirect, incidental, special, consequential, or punitive damages, including loss of profits, revenue, data, business opportunities, or goodwill.",
-          "Our total aggregate liability shall not exceed the greater of (a) the total fees paid by you in the 12 months preceding the claim, or (b) £100.",
+          "Our total aggregate liability shall not exceed the greater of (a) 150% of the fees you paid for the billing month before the event giving rise to the claim (or, if the event happens in your first billing month, the fees for that month), or (b) £100.",
         ],
       },
       {
@@ -340,14 +340,14 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "termination-by-you",
         title: "13.2 Termination by You",
         paragraphs: [
-          "You may terminate at any time by cancelling your subscription and deleting your account.",
+          "Your subscription ends when you stop it renewing as set out in section 4.4. There is no right to end a billing period early.",
         ],
       },
       {
         id: "termination-by-us",
         title: "13.3 Termination by Us",
         paragraphs: [
-          "We may suspend or terminate your access immediately for material breach, non-payment, or where required by law. We will provide reasonable notice where practicable.",
+          "We may suspend or terminate your access immediately for material breach, non-payment, or where required by law. We will provide reasonable notice where practicable. We may also stop a subscription renewing by giving you written notice before your next billing date.",
         ],
       },
       {
@@ -374,9 +374,9 @@ export const TERMS_SECTIONS: TermsSection[] = [
     title: "General Provisions",
     bullets: [
       "Entire agreement: these Terms, any Order, our [Data Processing Addendum](/dpa), and our [Privacy Policy](/privacy) constitute the entire agreement between us regarding the Service. If they conflict, the Order controls, then the Data Processing Addendum for personal data, then these Terms, then the Privacy Policy.",
-      "Amendments: we may amend these Terms from time to time. Material changes will be notified by email or in-Service notice. Continued use constitutes acceptance. Where you have an Order, a material change that reduces your rights applies from the first monthly billing date after we notify you, and you may cancel before then.",
+      "Amendments: we may amend these Terms from time to time. Material changes will be notified by email or in-Service notice. Continued use constitutes acceptance. Where you have an Order, a material change that reduces your rights applies from the first monthly billing date after we notify you, and you may stop your subscription renewing before then.",
       "Purchase orders: a purchase order or vendor-system term you supply is for administrative convenience only and does not amend the Agreement unless we both expressly agree in writing.",
-      "Notices: notices to us go to even@withlayer.ai. Notices to you go to the notices email in your Order or, if none, the email address on your account.",
+      "Notices: notices to us go to hello@withlayer.ai. Notices to you go to the notices email in your Order or, if none, the email address on your account.",
       "Electronic signature: an Order may be signed electronically and in counterparts, and each signatory confirms they are authorised to bind the party they sign for.",
       "Assignment: you may not assign rights without our written consent. We may assign to an affiliate or in connection with a merger, acquisition, or asset sale.",
       "Severability: if any provision is unenforceable, the remainder continues in full force.",
@@ -392,7 +392,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
     paragraphs: [
       "If you have any questions about these Terms, please contact us:",
       "Layer AI Systems Ltd, trading as Layer AI",
-      "Email: even@withlayer.ai",
+      "Email: hello@withlayer.ai",
       "Website: withlayer.ai",
     ],
   },
