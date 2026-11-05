@@ -249,3 +249,16 @@
     gap: 20px;
   }
 }
+
+.link {
+  color: #020100;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: #f45523;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.link:hover {
+  color: #f45523;
+}

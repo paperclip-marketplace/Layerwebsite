@@ -34,11 +34,12 @@ export const ROUTES = {
   productsPersonalAgent: '/products/personal-agent',
   terms: '/terms',
   privacy: '/privacy',
+  dpa: '/dpa',
   comingSoon: '/coming-soon',
   molten: '/molten',
   notionCapital: '/notion-capital',
   inflexion: '/inflexion',
-  contactSales: 'mailto:even@withlayer.ai',
+  contactSales: 'mailto:hello@withlayer.ai',
 } as const;
 
 /** After auth: org members use home (member v2 shell on `/`); admins and others use personas. */
