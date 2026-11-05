@@ -63,6 +63,14 @@
   color: #f45523;
 }
 
+.heroIntroduction {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 920px;
+  padding-top: 8px;
+}
+
 .sections {
   display: flex;
   flex-direction: column;
@@ -169,6 +177,20 @@
 .paragraph strong,
 .listItem strong {
   font-weight: 500;
+}
+
+.paragraph a,
+.listItem a {
+  color: #d9481d;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(217, 72, 29, 0.45);
+  text-underline-offset: 3px;
+}
+
+.paragraph a:hover,
+.listItem a:hover {
+  text-decoration-color: currentColor;
 }
 
 .subsections {

@@ -1,19 +1,34 @@
 import { Fragment } from "react";
 
 function FormattedInlineText({ text }: { text: string }) {
-  const parts = text.split(/(".*?")/g);
+  const parts = text.split(/(\*\*.*?\*\*|\[[^\]]+\]\([^)]+\)|"[^"]*")/g);
 
   return (
     <>
-      {parts.map((part) => (
-        <Fragment key={part}>
-          {part.startsWith('"') && part.endsWith('"') ? (
-            <strong>{part}</strong>
-          ) : (
-            part
-          )}
-        </Fragment>
-      ))}
+      {parts.map((part, index) => {
+        if (part.startsWith("**") && part.endsWith("**")) {
+          return <strong key={`${index}-${part}`}>{part.slice(2, -2)}</strong>;
+        }
+
+        const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (link) {
+          return (
+            <a key={`${index}-${part}`} href={link[2]}>
+              {link[1]}
+            </a>
+          );
+        }
+
+        return (
+          <Fragment key={`${index}-${part}`}>
+            {part.startsWith('"') && part.endsWith('"') ? (
+              <strong>{part}</strong>
+            ) : (
+              part
+            )}
+          </Fragment>
+        );
+      })}
     </>
   );
 }

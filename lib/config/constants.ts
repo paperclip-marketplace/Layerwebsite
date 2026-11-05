@@ -34,6 +34,7 @@ export const ROUTES = {
   productsPersonalAgent: '/products/personal-agent',
   terms: '/terms',
   privacy: '/privacy',
+  dpa: '/dpa',
   comingSoon: '/coming-soon',
   molten: '/molten',
   notionCapital: '/notion-capital',
