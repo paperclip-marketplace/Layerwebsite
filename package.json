@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test:boldsign": "node --test lib/integrations/__tests__/boldsign-webhook.test.ts",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
