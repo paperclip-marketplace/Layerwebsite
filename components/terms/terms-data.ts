@@ -139,7 +139,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         title: "4.5 Credits",
         paragraphs: [
           "Usage is measured in credits, which are applied against your use of the Service as your plan or Order describes. Unless your plan or Order says otherwise, credits included in a monthly purchase expire at the end of that month, and top-up credits you buy separately do not expire while your subscription remains active. Credits are not refundable or exchangeable for cash.",
-          "If your use would exceed your credits, we will use commercially reasonable efforts to notify you, and we will charge for additional credits only at the rate stated in your plan or Order and only after you approve them. Until you approve additional credits or buy more, we may throttle or suspend chargeable use.",
+          "Extra credits are bought separately at the rate stated in your plan or Order.",
         ],
       },
     ],
