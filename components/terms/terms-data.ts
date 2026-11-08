@@ -15,7 +15,7 @@ export type TermsSection = {
 };
 
 export const TERMS_EFFECTIVE_DATE = "13 April 2026";
-export const TERMS_LAST_UPDATED = "4 November 2026";
+export const TERMS_LAST_UPDATED = "8 November 2026";
 
 export const TERMS_SECTIONS: TermsSection[] = [
   {
@@ -160,7 +160,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "licence-to-us",
         title: "5.2 Licence to Us",
         paragraphs: [
-          "You grant us a non-exclusive, worldwide, royalty-free licence to use, process, store, and transmit Your Data solely to provide, maintain, and improve the Service. This licence terminates when you delete Your Data or close your account, subject to our retention policy.",
+          "You grant us a non-exclusive, worldwide, royalty-free licence to use, process, store, and transmit Your Data solely to provide, maintain, and improve the Service. Your Data, your feedback, and examples of where the Service fell short may be used, through evaluation, to improve agents configured for you and Layer's shared prompts and workflows. We do not use Your Data to train or fine-tune model weights, and confidential facts from Your Data are not placed in shared prompts or workflows. Google Workspace user data is used only as described in our [Privacy Policy](/privacy). This licence terminates when you delete Your Data or close your account, subject to our retention policy.",
         ],
       },
       {
@@ -174,7 +174,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "connected-tool-data",
         title: "5.4 Connected Tool Data",
         paragraphs: [
-          "When you connect third-party tools, you authorise us to access and process data from those tools to deliver the Service. You are responsible for ensuring you have the necessary rights to share that data. Raw data from connected tools is not persistently stored on our systems — only derived outputs are retained.",
+          "When you connect third-party tools, you authorise us to access and process data from those tools to deliver the Service. You are responsible for ensuring you have the necessary rights to share that data. Authorised integrations may retain selected emails, calendar and CRM records, files, and derived context. Export and deletion are available manually on request at hello@withlayer.ai, under our [Data Processing Addendum](/dpa).",
         ],
       },
       {

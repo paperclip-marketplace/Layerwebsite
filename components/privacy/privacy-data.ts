@@ -1,7 +1,7 @@
 import type { LegalSection } from "@/components/legal/types";
 
 export const PRIVACY_EFFECTIVE_DATE = "13 April 2026";
-export const PRIVACY_LAST_UPDATED = "21 September 2026";
+export const PRIVACY_LAST_UPDATED = "8 November 2026";
 
 export const PRIVACY_SECTIONS: LegalSection[] = [
   {
@@ -43,9 +43,9 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
         title: "2.3 Session and Interaction Data",
         paragraphs: ["When you use the Service, we process:"],
         bullets: [
-          "Voice and audio data: real-time audio during practice sessions, simulations, and voice interactions. Audio is processed in real time and is not persistently stored.",
+          "Voice and audio data: real-time audio during practice sessions, simulations, and voice interactions. Call recordings are retained in Google Cloud Storage for playback and agent features.",
           "Transcripts and conversation records: text records of your interactions with the Service, used for review, scoring, and coaching.",
-          "Meeting data: when you use our live meeting features, we process real-time audio and conversation data to provide in-meeting assistance. Real-time data is ephemeral; post-meeting summaries and action items are retained.",
+          "Meeting data: when you use our live meeting features, we process real-time audio and conversation data to provide in-meeting assistance. Post-meeting summaries and action items are retained.",
           "Performance and coaching data: AI-generated scores, feedback, and development recommendations.",
         ],
       },
@@ -54,7 +54,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
         title: "2.4 Connected Tools and Integration Data",
         paragraphs: [
           "If you or your organisation connect third-party tools to the Service (such as CRM, calendar, email, sales engagement, or document platforms), we access data from those tools via authenticated API connections to provide our features.",
-          "**We do not persistently store raw data from your connected tools.** Data from connected tools is either queried in real time (and never stored) or processed temporarily in memory to generate intelligence outputs such as summaries and recommendations. Only these derived outputs are retained — the underlying raw data is not.",
+          "Authorised integrations may retain selected emails, calendar and CRM records, files, and derived context (such as summaries and recommendations) so the Service can provide the features you have enabled. Export and deletion of this data are available manually on request at hello@withlayer.ai, under our Data Processing Addendum.",
         ],
       },
       {
@@ -76,7 +76,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
         id: "usage-analytics-technical",
         title: "2.7 Usage, Analytics, and Technical Data",
         paragraphs: [
-          "We automatically collect information about how you interact with the Service (features used, session frequency, interaction patterns) as well as standard technical data (IP address, browser type, device information, operating system).",
+          "We automatically collect information about how you interact with the Service (features used, session frequency, interaction patterns) as well as standard technical data (IP address, browser type, device information, operating system). We use Microsoft Clarity for product analytics, which includes masked session replays. You can turn this off in your settings.",
         ],
       },
     ],
@@ -109,7 +109,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     bullets: [
       "We use AI to provide all core features of the Service, including simulated conversations, live meeting assistance, content generation, scoring, coaching, and workflow automation.",
       "We use third-party AI service providers for capabilities including language processing, speech recognition, and speech synthesis. Data is transmitted to these providers during active use. We require all AI providers to process data under data processing agreements and do not permit them to use your data to train their models.",
-      "The Service learns from your feedback (such as accepting, editing, or dismissing suggestions) to improve its relevance to you over time. We do not use your individual data to train foundation AI models.",
+      "The Service learns from your feedback (such as accepting, editing, or dismissing suggestions) to improve its relevance to you over time. Your data, feedback, and examples of where the Service fell short may also be used, through evaluation, to improve agents configured for you and Layer's shared prompts and workflows. We do not use your data to train or fine-tune model weights, confidential facts from your data are not placed in shared prompts, and Google Workspace user data is used only as described in Section 2.5.",
       "Significant actions (such as sending communications or making commercial commitments) require your explicit confirmation.",
       "Your organisation's administrators may have access to aggregated performance and usage data.",
     ],
@@ -127,7 +127,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
       "AI service providers: third-party AI capabilities used during active sessions, as described in Section 4.",
       "Authentication and payment providers: specialist services for login management and payment processing.",
       "Integration infrastructure: services that manage authenticated connections to your third-party tools.",
-      "Analytics providers: anonymised and aggregated usage data to help us understand how the Service is used.",
+      "Analytics providers: Microsoft Clarity receives product usage data and masked session replays to help us understand how the Service is used.",
       "Professional advisers: lawyers, accountants, and auditors where necessary.",
       "Law enforcement or regulators: where legally required.",
     ],
@@ -153,8 +153,8 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     bullets: [
       "Account and profile data: retained for the duration of your account and up to 12 months after closure.",
       "Session transcripts, scores, and coaching data: retained for the duration of your subscription. You or your administrator may delete transcripts at any time.",
-      "Voice and audio data: processed in real time and not persistently stored.",
-      "Connected tool data: raw data is never persistently stored. Derived outputs are retained for the duration of your subscription.",
+      "Voice and audio data: call recordings are retained in Google Cloud Storage for playback and agent features.",
+      "Connected tool data: selected emails, calendar and CRM records, files, and derived context retained by authorised integrations. Export and deletion are available manually on request at hello@withlayer.ai.",
       "Action and workflow logs: retained for the duration of your subscription.",
       "Billing data: up to 7 years to comply with tax and accounting obligations.",
       "Analytics data: aggregated and anonymised data may be retained indefinitely.",
@@ -175,7 +175,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     number: 9,
     title: "Cookies",
     paragraphs: [
-      "We use cookies and similar technologies to operate the Service, maintain sessions, remember preferences, and understand usage. These include strictly necessary cookies (required for the Service to function), analytics cookies, and preference cookies. You can manage cookies through your browser settings.",
+      "We use cookies and similar technologies to operate the Service, maintain sessions, remember preferences, and understand usage. These include strictly necessary cookies (required for the Service to function), analytics cookies (from Microsoft Clarity), and preference cookies. You can manage cookies through your browser settings.",
     ],
   },
   {
@@ -183,7 +183,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     number: 10,
     title: "Security",
     paragraphs: [
-      "We use technical and organisational measures designed to protect your data, including encryption in transit and at rest, strict data isolation between organisations, role-based access controls, and regular security monitoring. Raw data from your connected tools is processed in automated pipelines without human access and is not persistently stored.",
+      "We use technical and organisational measures designed to protect your data, including encryption in transit and at rest, strict data isolation between organisations, role-based access controls, and regular security monitoring. Data from your connected tools is processed in automated pipelines, and human review of Google Workspace user data is limited to what the Google API Services User Data Policy permits.",
       "No system is completely secure. If you become aware of a security incident, please notify us immediately at hello@withlayer.ai.",
     ],
   },
