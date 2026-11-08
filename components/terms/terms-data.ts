@@ -167,7 +167,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "data-processing",
         title: "5.3 Data Processing",
         paragraphs: [
-          "Our processing of personal data is governed by our Privacy Policy. Where we process personal data on behalf of your organisation, our [Data Processing Addendum](/dpa) applies automatically and forms part of these Terms.",
+          "Our processing of personal data is governed by our [Privacy Policy](/privacy). Where we process personal data on behalf of your organisation, our [Data Processing Addendum](/dpa) applies automatically and forms part of these Terms.",
         ],
       },
       {
@@ -354,7 +354,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
         id: "effect-of-termination",
         title: "13.4 Effect of Termination",
         paragraphs: [
-          "Upon termination, your access ceases immediately and the Service will stop operating within your connected systems. We delete your data in accordance with our Privacy Policy. Sections that by their nature should survive (including intellectual property, limitation of liability, indemnification, and governing law) continue to apply.",
+          "Upon termination, your access ceases immediately and the Service will stop operating within your connected systems. We delete your data in accordance with our [Privacy Policy](/privacy). Sections that by their nature should survive (including intellectual property, limitation of liability, indemnification, and governing law) continue to apply.",
         ],
       },
     ],

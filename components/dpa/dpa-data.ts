@@ -1,7 +1,7 @@
 import type { LegalSection } from "@/components/legal/types";
 
-export const DPA_EFFECTIVE_DATE = "4 November 2026";
-export const DPA_LAST_UPDATED = "4 November 2026";
+export const DPA_EFFECTIVE_DATE = "8 November 2026";
+export const DPA_LAST_UPDATED = "8 November 2026";
 
 /**
  * Layer Data Processing Addendum. Wording follows the 16 October 2026 DPA; the

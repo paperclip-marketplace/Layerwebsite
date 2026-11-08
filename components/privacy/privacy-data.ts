@@ -54,7 +54,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
         title: "2.4 Connected Tools and Integration Data",
         paragraphs: [
           "If you or your organisation connect third-party tools to the Service (such as CRM, calendar, email, sales engagement, or document platforms), we access data from those tools via authenticated API connections to provide our features.",
-          "Authorised integrations may retain selected emails, calendar and CRM records, files, and derived context (such as summaries and recommendations) so the Service can provide the features you have enabled. Export and deletion of this data are available manually on request at hello@withlayer.ai, under our Data Processing Addendum.",
+          "Authorised integrations may retain selected emails, calendar and CRM records, files, and derived context (such as summaries and recommendations) so the Service can provide the features you have enabled. Export and deletion of this data are available manually on request at hello@withlayer.ai, under our [Data Processing Addendum](/dpa).",
         ],
       },
       {
