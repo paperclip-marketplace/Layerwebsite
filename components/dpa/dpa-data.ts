@@ -175,7 +175,7 @@ export const DPA_SECTIONS: LegalSection[] = [
     number: 10,
     title: "Audits and Compliance Information",
     paragraphs: [
-      "Layer will make available information reasonably necessary to demonstrate compliance with this DPA. Where available, Layer may satisfy an audit request by providing relevant independent reports, certifications, summaries, questionnaires, or other diligence materials under confidentiality restrictions.",
+      "Layer will make available information reasonably necessary to demonstrate compliance with this DPA. Where available, Layer may satisfy an audit request by providing relevant independent reports, summaries, questionnaires, or other diligence materials under confidentiality restrictions.",
       "If that information is insufficient for a requirement imposed by Applicable Data Protection Law, Customer may request an audit no more than once in any 12-month period, or following a material Information Security Incident where legally justified. The parties will agree a reasonable scope, timing, duration, confidentiality arrangement, and method designed to avoid disruption and protect other customers and Layer's security and intellectual property.",
       "Customer will bear its audit costs and reimburse Layer's reasonable costs for material assistance outside the standard diligence process. An auditor must be independent, suitably qualified, not a Layer competitor, and bound by confidentiality.",
       "Nothing requires Layer to disclose another customer's data, privileged information, penetration-test details, source code, credentials, threat-detection logic, or information whose disclosure would create a material security risk. Layer will provide a reasonable alternative form of evidence where possible.",
@@ -316,7 +316,7 @@ export const DPA_SECTIONS: LegalSection[] = [
   {
     id: "annex-1-processing-details",
     number: "A1",
-    title: "Annex 1 - Processing Details",
+    title: "Annex 1: Processing Details",
     subsections: [
       {
         id: "parties",
@@ -387,7 +387,7 @@ export const DPA_SECTIONS: LegalSection[] = [
   {
     id: "annex-2-security-measures",
     number: "A2",
-    title: "Annex 2 - Security Measures",
+    title: "Annex 2: Security Measures",
     paragraphs: [
       "Layer's security programme includes measures appropriate to the Service and risk in the following areas:",
     ],
