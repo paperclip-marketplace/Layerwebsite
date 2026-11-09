@@ -1,7 +1,7 @@
 import type { LegalSection } from "@/components/legal/types";
 
 export const PRIVACY_EFFECTIVE_DATE = "13 April 2026";
-export const PRIVACY_LAST_UPDATED = "8 November 2026";
+export const PRIVACY_LAST_UPDATED = "9 November 2026";
 
 export const PRIVACY_SECTIONS: LegalSection[] = [
   {

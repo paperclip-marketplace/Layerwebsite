@@ -1,7 +1,7 @@
 import type { LegalSection } from "@/components/legal/types";
 
-export const DPA_EFFECTIVE_DATE = "8 November 2026";
-export const DPA_LAST_UPDATED = "8 November 2026";
+export const DPA_EFFECTIVE_DATE = "9 November 2026";
+export const DPA_LAST_UPDATED = "9 November 2026";
 
 /**
  * Layer Data Processing Addendum. Wording follows the 16 October 2026 DPA; the
@@ -92,7 +92,7 @@ export const DPA_SECTIONS: LegalSection[] = [
     number: 6,
     title: "Information Security Incidents",
     paragraphs: [
-      "Layer will notify Customer without undue delay and, in any event, within 72 hours after becoming aware of an Information Security Incident affecting Customer Personal Data.",
+      "Layer will notify Customer without undue delay after becoming aware of an Information Security Incident affecting Customer Personal Data. Initial notice will not await a completed investigation.",
       "As information becomes reasonably available, Layer will provide relevant details about the nature of the incident, likely consequences, affected data, mitigation, and a contact point. Layer may provide information in phases and may withhold information where disclosure would create a security risk, breach law, or compromise another customer.",
       "Layer will take reasonable steps to contain, investigate, and mitigate the incident and will reasonably assist Customer with legally required notifications. Notification does not constitute an admission of fault or liability.",
     ],
@@ -140,8 +140,8 @@ export const DPA_SECTIONS: LegalSection[] = [
         id: "subprocessors-1",
         title: "",
         paragraphs: [
-          "Layer will provide notice of a new material Subprocessor at least 15 days before it begins processing Customer Personal Data, normally by email or another notification method agreed with Customer.",
-          "Customer may object during that period on reasonable data-protection grounds. The parties will work in good faith to resolve the objection. If no reasonable alternative is available, Customer may terminate the affected Service by written notice before the new Subprocessor begins processing and will pay amounts due up to termination. This is Customer's sole remedy for an unresolved Subprocessor objection.",
+          "Layer will provide notice of a new material Subprocessor at least 30 days before it begins processing Customer Personal Data, normally by email or another notification method agreed with Customer.",
+          "Customer may object on reasonable data-protection grounds within 15 days of the notice. The parties will work in good faith to resolve the objection. If no reasonable alternative is available, Customer may terminate the affected Service by written notice before the new Subprocessor begins processing. Fees paid or due up to termination are not refunded. This is Customer's sole remedy for an unresolved Subprocessor objection.",
           "The Subprocessor List identifies material third parties that process Customer Personal Data for Layer. It need not disclose source code, internal architecture, security configurations, ordinary business software that does not process Customer Personal Data, or a connected service with which Customer chooses to interact directly.",
         ],
       },
@@ -152,12 +152,12 @@ export const DPA_SECTIONS: LegalSection[] = [
     number: 9,
     title: "Return and Deletion",
     paragraphs: [
-      "During the term, Customer may use available Service controls to access, export, or delete supported Customer Content. Customer may export Customer Content using available Service controls for 30 days after termination.",
+      "During the term, Customer may ask Layer at hello@withlayer.ai to export or delete supported Customer Content, or use available Service controls where they exist. Deletion instructions given during the term will be completed within 90 days unless a shorter period is legally required. Customer may export Customer Content for 30 days after termination.",
       "Layer will delete Customer Personal Data within 90 days after termination, except where:",
     ],
     bullets: [
       "applicable law requires retention;",
-      "Customer Personal Data is contained in backups that are protected from ordinary use and deleted through Layer's normal secure backup lifecycle; or",
+      "Customer Personal Data is contained in disaster-recovery or provider-infrastructure copies, which are placed beyond ordinary use, protected, and erased within 180 days after the deletion instruction and in any event no later than 210 days after termination; or",
       "limited data must be retained to establish, exercise, or defend legal claims, maintain security, or evidence billing or compliance, in each case only for as long as reasonably necessary and subject to continued protection.",
     ],
     subsections: [
@@ -165,7 +165,7 @@ export const DPA_SECTIONS: LegalSection[] = [
         id: "return-and-deletion-1",
         title: "",
         paragraphs: [
-          "Layer will cease other processing of retained Customer Personal Data and will delete it when the relevant exception ends.",
+          "Layer will cease other processing of retained Customer Personal Data and will delete it when the relevant exception ends. If data is restored from a retained copy, Layer will reapply deletion instructions before normal use.",
         ],
       },
     ],
@@ -337,7 +337,7 @@ export const DPA_SECTIONS: LegalSection[] = [
         id: "duration",
         title: "Duration",
         paragraphs: [
-          "The term of the Agreement plus the return, deletion, backup, and legally required retention periods described in this DPA.",
+          "The term of the Agreement plus the return, deletion, backup, and legally required retention periods described in this DPA. Retained call recordings are kept during the subscription until Customer instructs deletion. The production application database and retained call recordings are stored in London, United Kingdom. Application processing and supporting services operate internationally, and section 13 applies to those transfers.",
         ],
       },
       {
@@ -365,7 +365,7 @@ export const DPA_SECTIONS: LegalSection[] = [
         id: "sensitive-data",
         title: "Sensitive Data",
         paragraphs: [
-          "The Service is not intended to require sensitive or special-category data. Such data may appear incidentally in unstructured Customer Content. Customer must not intentionally submit regulated credentials, full payment-card data, government identifiers, health records subject to sector-specific law, children's data, or other restricted data unless the parties have expressly agreed that the Service supports it.",
+          "The Service is not intended to require sensitive or special-category data. Such data may appear incidentally in unstructured Customer Content. Audio is Personal Data where identifiable; biometric identification is not an agreed purpose. Customer must not intentionally submit regulated credentials, full payment-card data, government identifiers, health records subject to sector-specific law, children's data, or other restricted data unless the parties have expressly agreed that the Service supports it.",
         ],
       },
       {

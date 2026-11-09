@@ -15,7 +15,7 @@ export type TermsSection = {
 };
 
 export const TERMS_EFFECTIVE_DATE = "13 April 2026";
-export const TERMS_LAST_UPDATED = "8 November 2026";
+export const TERMS_LAST_UPDATED = "9 November 2026";
 
 export const TERMS_SECTIONS: TermsSection[] = [
   {
