@@ -1,0 +1,306 @@
+/* Layer for Slack — Routines: modes, multi-step note and the creation card. */
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: calc(48 * var(--l-vw));
+}
+
+.copy {
+  display: flex;
+  flex: 1 1 calc(440 * var(--l-vw));
+  flex-direction: column;
+  gap: calc(24 * var(--l-vw));
+}
+
+.modes {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #eeeeee;
+}
+
+.mode {
+  display: flex;
+  gap: calc(14 * var(--l-vw));
+  padding: calc(14 * var(--l-vw)) 0;
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  color: #606060;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.mode strong {
+  font-weight: 500;
+  color: #020100;
+}
+
+.tag {
+  align-self: flex-start;
+  padding: calc(2 * var(--l-vw)) calc(8 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+  line-height: calc(16 * var(--l-vw));
+  white-space: nowrap;
+  border-radius: calc(4 * var(--l-vw));
+}
+
+.tagNeutral {
+  color: #353433;
+  background: #f2f2f2;
+}
+
+/* text/warning (#b89c00) fails 4.5:1 on bg/warning-subtle; #6b5800 passes. */
+.tagWarn {
+  color: #6b5800;
+  background: #fff8d2;
+}
+
+.tagOk {
+  color: #006140;
+  background: #e7f7f0;
+}
+
+.note {
+  margin: 0;
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+  color: #606060;
+}
+
+.note strong {
+  font-weight: 500;
+  color: #020100;
+}
+
+.aside {
+  display: flex;
+  flex: 1 1 calc(460 * var(--l-vw));
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+}
+
+.cardShell {
+  padding: calc(4 * var(--l-vw));
+  background: #f2f2f2;
+  border-radius: calc(16 * var(--l-vw));
+}
+
+.card {
+  display: flex;
+  gap: calc(10 * var(--l-vw));
+  padding: calc(16 * var(--l-vw));
+  font-family: var(--slack-font, "Lato"), "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0;
+  color: #1d1c1d;
+  background: #ffffff;
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: calc(36 * var(--l-vw));
+  height: calc(36 * var(--l-vw));
+  border-radius: 22%;
+}
+
+.cardBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(8 * var(--l-vw));
+  min-width: 0;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--l-vw));
+  margin: 0;
+  font-size: calc(15 * var(--l-vw));
+}
+
+.meta strong {
+  font-weight: 900;
+}
+
+.app {
+  padding: calc(1 * var(--l-vw)) calc(4 * var(--l-vw));
+  font-size: calc(10 * var(--l-vw));
+  font-weight: 700;
+  color: #616061;
+  background: rgba(29, 28, 29, 0.08);
+  border-radius: calc(3 * var(--l-vw));
+}
+
+.time {
+  font-size: calc(12 * var(--l-vw));
+  color: #616061;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--l-vw));
+  padding: calc(12 * var(--l-vw));
+  border: 1px solid #dddddd;
+  border-radius: calc(8 * var(--l-vw));
+}
+
+.blockTitle {
+  margin: 0;
+  font-size: calc(15 * var(--l-vw));
+  font-weight: 900;
+}
+
+.blockText {
+  margin: 0;
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(20 * var(--l-vw));
+}
+
+.radios {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--l-vw));
+  margin: 0;
+  padding: 0;
+  font-size: calc(14 * var(--l-vw));
+  list-style: none;
+}
+
+.radios li {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+}
+
+.radio {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: calc(14 * var(--l-vw));
+  height: calc(14 * var(--l-vw));
+  border: 1px solid #868686;
+  border-radius: 50%;
+}
+
+.radioOn {
+  border: calc(4 * var(--l-vw)) solid #1264a3;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(6 * var(--l-vw));
+  margin: 0;
+}
+
+.buttons span {
+  padding: calc(5 * var(--l-vw)) calc(12 * var(--l-vw));
+  font-size: calc(14 * var(--l-vw));
+  font-weight: 700;
+  border: 1px solid rgba(29, 28, 29, 0.3);
+  border-radius: calc(6 * var(--l-vw));
+}
+
+.buttons .primary {
+  color: #ffffff;
+  background: #007a5a;
+  border-color: #007a5a;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--l-vw));
+}
+
+.actionsLabel {
+  margin: 0;
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+  color: #606060;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(6 * var(--l-vw));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: calc(3 * var(--l-vw)) calc(8 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  line-height: calc(16 * var(--l-vw));
+  border: 1px solid #eeeeee;
+  border-radius: 9999px;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .copy,
+  .aside {
+    flex-basis: auto;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .mode,
+  .note,
+  .blockText,
+  .radios {
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  .mode {
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 0;
+  }
+
+  .tag,
+  .actionsLabel,
+  .chips li,
+  .time {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .meta,
+  .blockTitle {
+    font-size: 14px;
+  }
+
+  .radio {
+    width: 14px;
+    height: 14px;
+  }
+
+  .radioOn {
+    border-width: 4px;
+  }
+
+  .buttons span {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,193 @@
+/* Layer for Slack — Slack app profile for Maya (Slack visual language). */
+.card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: calc(440 * var(--l-vw));
+  overflow: hidden;
+  font-family: var(--slack-font, "Lato"), "Helvetica Neue", Arial, sans-serif;
+  font-size: calc(14 * var(--l-vw));
+  line-height: calc(21 * var(--l-vw));
+  letter-spacing: 0;
+  color: #1d1c1d;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.card p {
+  margin: 0;
+}
+
+.header {
+  padding: calc(14 * var(--l-vw)) calc(20 * var(--l-vw));
+  font-size: calc(17 * var(--l-vw));
+  font-weight: 900;
+  border-bottom: 1px solid #dddddd;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--l-vw));
+  padding: calc(20 * var(--l-vw));
+}
+
+.portrait {
+  width: calc(176 * var(--l-vw));
+  height: calc(176 * var(--l-vw));
+  border-radius: calc(12 * var(--l-vw));
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--l-vw));
+  font-size: calc(15 * var(--l-vw));
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+  font-size: calc(22 * var(--l-vw));
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.app {
+  padding: calc(1 * var(--l-vw)) calc(4 * var(--l-vw));
+  font-size: calc(10 * var(--l-vw));
+  font-weight: 700;
+  color: #616061;
+  background: rgba(29, 28, 29, 0.08);
+  border-radius: calc(3 * var(--l-vw));
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--l-vw));
+  font-size: calc(13 * var(--l-vw));
+  color: #616061;
+}
+
+.dot {
+  width: calc(8 * var(--l-vw));
+  height: calc(8 * var(--l-vw));
+  background: #2bac76;
+  border-radius: 50%;
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: calc(14 * var(--l-vw));
+  margin: 0;
+  padding-top: calc(16 * var(--l-vw));
+  border-top: 1px solid #dddddd;
+}
+
+.facts dt {
+  font-size: calc(13 * var(--l-vw));
+  font-weight: 900;
+}
+
+.facts dd {
+  margin: calc(4 * var(--l-vw)) 0 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(6 * var(--l-vw));
+  font-size: calc(13 * var(--l-vw));
+}
+
+.chips span {
+  padding: calc(2 * var(--l-vw)) calc(6 * var(--l-vw));
+  background: #f8f8f8;
+  border: 1px solid #eeeeee;
+  border-radius: calc(4 * var(--l-vw));
+}
+
+.owner {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+  color: #616061;
+}
+
+.owner strong {
+  color: #1d1c1d;
+}
+
+.owner img {
+  width: calc(24 * var(--l-vw));
+  height: calc(24 * var(--l-vw));
+  border-radius: 22%;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--l-vw));
+  padding: calc(14 * var(--l-vw)) calc(20 * var(--l-vw));
+  font-size: calc(12 * var(--l-vw));
+  line-height: calc(17 * var(--l-vw));
+  color: #616061;
+  background: #f8f8f8;
+  border-top: 1px solid #dddddd;
+}
+
+.builtOn {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--l-vw));
+}
+
+.mark {
+  width: calc(16 * var(--l-vw));
+  height: calc(12 * var(--l-vw));
+}
+
+.wordmark {
+  width: calc(33 * var(--l-vw));
+  height: calc(12 * var(--l-vw));
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .header {
+    font-size: 16px;
+  }
+
+  .portrait {
+    width: 120px;
+    height: 120px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .identity {
+    font-size: 15px;
+  }
+
+  .status,
+  .facts dt,
+  .chips {
+    font-size: 13px;
+  }
+
+  .footer {
+    font-size: 12px;
+    line-height: 17px;
+  }
+}

@@ -32,6 +32,9 @@ export const ROUTES = {
   ourStory: '/#our-story',
   productsRoleplay: '/products/roleplay',
   productsPersonalAgent: '/products/personal-agent',
+  slack: '/slack',
+  /** Slack connect starts from Layer Settings → Integrations (manager app creates the personal Agent app). */
+  slackConnect: `${LAYER_APP_URL}/u/settings/integrations`,
   terms: '/terms',
   privacy: '/privacy',
   dpa: '/dpa',

@@ -1,0 +1,67 @@
+/* Layer for Slack — approval lifecycle stepper (Layer DS chips, outside the Slack frame). */
+.scene {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--l-vw));
+}
+
+.stepper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(8 * var(--l-vw));
+  font-family: var(--layer-font-geist-sans);
+  letter-spacing: var(--l-tracking);
+}
+
+.stepperLabel,
+.stepperHint {
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+  color: #606060;
+}
+
+.stepperHint {
+  margin-left: auto;
+  font-weight: 400;
+}
+
+.step {
+  height: calc(28 * var(--l-vw));
+  padding: 0 calc(10 * var(--l-vw));
+  font-family: inherit;
+  font-size: calc(12 * var(--l-vw));
+  font-weight: 500;
+  letter-spacing: inherit;
+  color: #020100;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #dedede;
+  border-radius: 9999px;
+}
+
+.stepDone {
+  color: #006140;
+  background: #e7f7f0;
+  border-color: #e7f7f0;
+}
+
+.stepActive {
+  color: #ffffff;
+  background: #020100;
+  border-color: #020100;
+}
+
+@media (max-width: 768px) {
+  .step,
+  .stepperLabel,
+  .stepperHint {
+    height: auto;
+    min-height: 32px;
+    font-size: 12px;
+  }
+
+  .stepperHint {
+    margin-left: 0;
+  }
+}
