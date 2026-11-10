@@ -14,7 +14,8 @@ export type LegalSubsection = {
 
 export type LegalSection = {
   id: string;
-  number: number;
+  /** Shown in the section badge. A string (e.g. "A1") labels an annex. */
+  number: number | string;
   title: string;
   paragraphs?: string[];
   bullets?: string[];

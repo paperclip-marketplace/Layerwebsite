@@ -1,13 +1,23 @@
 import { Fragment } from "react";
 
 import type { LegalBulletFormat } from "@/components/legal/types";
+import styles from "../legal/legal-content.module.css";
 
 function FormattedRichText({ text }: { text: string }) {
-  const parts = text.split(/(\*\*.*?\*\*|"[^"]*")/g);
+  const parts = text.split(/(\*\*.*?\*\*|"[^"]*"|\[[^\]]+\]\([^)\s]+\))/g);
 
   return (
     <>
       {parts.map((part) => {
+        const link = /^\[([^\]]+)\]\(([^)\s]+)\)$/.exec(part);
+        if (link) {
+          return (
+            <a key={part} href={link[2]} className={styles.link}>
+              {link[1]}
+            </a>
+          );
+        }
+
         if (part.startsWith("**") && part.endsWith("**")) {
           return <strong key={part}>{part.slice(2, -2)}</strong>;
         }
